@@ -13,6 +13,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint_fix": "next lint --fix",
     "storybook": "storybook dev -p 6060",
     "clean": "rm -rf dist",
     "deploy": "yarn build && netlify deploy --prod --dir dist --message \"Version 0.2 - Deploy message\"",
