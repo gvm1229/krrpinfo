@@ -1,0 +1,12 @@
+#!/bin/sh
+commit_msg_file=$1
+commit_msg=$(cat $commit_msg_file)
+
+# Enforce commit message format
+if ! echo "$commit_msg" | grep -E "^(feat|fix): "; then
+  echo "Aborting commit. Commit message must start with 'feat: ' or 'fix: '."
+  exit 1
+fi
+
+# Export Git hook params
+export GIT_PARAMS=$*
