@@ -1,6 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
-// eslint-disable-next-line import/extensions
 import connectDB from '@/db/database';
 
 export default async function Home() {
@@ -19,12 +19,18 @@ export default async function Home() {
       />
       <div className="flex flex-col gap-2">
         {result.map((post) => (
-          <h1
+          <Link
+            href={`/post/${post._id}`}
             key={post._id}
-            className="text-xl font-semibold text-blue-500"
+            prefetch={false}
           >
-            {`${post.title}: ${post.content}`}
-          </h1>
+            <h1
+              key={post._id}
+              className="rounded-lg bg-blue-500 px-3 py-1.5 text-xl font-semibold text-white hover:cursor-pointer hover:bg-blue-400"
+            >
+              {`To ${post.title} 리디렉트`}
+            </h1>
+          </Link>
         ))}
       </div>
       <h1 className="text-2xl font-bold">Testing DEV...</h1>
