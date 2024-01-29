@@ -16,7 +16,7 @@
     "refresh": "rm -rf node_modules && yarn cache clean --all && yarn install --immutable",
     "reinit": "rm -rf node_modules && rm yarn.lock && yarn cache clean --all && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
-    "git-refresh": "git rm -r --cached . && git add .",
+    "git-refresh": "git lfs update --force && git rm -r --cached . && git add .",
     "postinstall": "husky install"
   },
   "dependencies": {
