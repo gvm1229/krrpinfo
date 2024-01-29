@@ -15,7 +15,7 @@
     "switch-creds": "netlify unlink && netlify logout && netlify login && netlify link",
     "refresh": "rm -rf node_modules && yarn cache clean --all && yarn install --immutable",
     "reinit": "rm -rf node_modules && rm yarn.lock && yarn cache clean --all && yarn install",
-    "upgrade_reinit": "yarn ncu -u && yarn reinit",
+    "upgrade-deps": "yarn ncu -u && yarn install",
     "git-refresh": "git rm -r --cached . && git add .",
     "postinstall": "husky install"
   },
@@ -28,7 +28,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^10.4.17",
     "daisyui": "^4.6.0",
     "dotenv": "^16.4.1",
     "eslint": "^8",
@@ -58,6 +58,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "packageManager": "yarn@4.0.2"
+  }
 }
