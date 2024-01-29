@@ -2,7 +2,7 @@ import localFont from 'next/font/local';
 import React from 'react';
 import '@/styles/globals.css';
 
-const pretendard = localFont({ src: '../assets/fonts/PretendardVariable.woff2' });
+const pretendard = localFont({ src: '../styles/fonts/PretendardVariable.woff2' });
 
 export const metadata = {
   title: 'KRRP Info',
