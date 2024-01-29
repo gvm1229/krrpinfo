@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@/app": ["./app"]
+      "@/app": ["./app"],
+      "@/components": ["./components"],
+      "@/styles": ["./styles"]
     }
   },
   "exclude": ["node_modules"]

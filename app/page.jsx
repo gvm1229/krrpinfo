@@ -1,18 +1,17 @@
 import Image from 'next/image';
 import React from 'react';
 // eslint-disable-next-line import/extensions
-import connectDB from '@/app/db/database';
+import connectDB from '@/db/database';
 
 export default async function Home() {
-  const client = await connectDB();
-  const db = client.db('blog');
+  const db = (await connectDB()).db('blog');
   const result = await db.collection('post').find().toArray();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Image
         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-        src="/next.svg"
+        src="/icons/next.svg"
         alt="Next.js Logo"
         width={180}
         height={37}
