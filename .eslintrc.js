@@ -29,23 +29,6 @@ module.exports = {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
       version: 'detect',
     },
-    'import/extensions': [
-      '.js',
-      '.jsx',
-      '.ts',
-      '.tsx',
-    ],
-    'import/resolver': {
-      node: {
-        paths: ['src'],
-        extensions: [
-          '.js',
-          '.jsx',
-          '.ts',
-          '.tsx',
-        ],
-      },
-    },
   },
   plugins: [
     'react',
@@ -157,20 +140,11 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': 0,
     'prefer-destructuring': 0,
-    // required to allow file extension abbreviation
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
 
     // dangerous, but only way to shut up eslint when using import aliases
     'import/no-unresolved': 0,
+    // 'import/prefer-default-export': 0,
+    'import/extensions': 0,
 
     // https://itnext.io/7-recommended-eslint-rules-for-react-typescript-project-1a22b011b4b5
     'arrow-body-style': [
