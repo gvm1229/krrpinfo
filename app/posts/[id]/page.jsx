@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 async function getPost(id) {
-  const response = await fetch(`http://localhost:3000/api/posts/${id}`, { cache: 'no-store' });
+  const response = await fetch(`${process.env.API_BASE_URL}/api/posts/${id}`, { cache: 'no-store' });
   return response.json();
 }
 
