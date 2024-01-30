@@ -143,7 +143,7 @@ module.exports = {
 
     // dangerous, but only way to shut up eslint when using import aliases
     'import/no-unresolved': 0,
-    // 'import/prefer-default-export': 0,
+    'import/prefer-default-export': 0,
     'import/extensions': 0,
 
     // https://itnext.io/7-recommended-eslint-rules-for-react-typescript-project-1a22b011b4b5
