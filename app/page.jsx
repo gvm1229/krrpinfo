@@ -4,6 +4,10 @@ import React from 'react';
 
 async function getPosts() {
   const response = await fetch(`${process.env.API_BASE_URL}/api/posts`, { cache: 'no-store' });
+
+  if (!response.ok)
+    throw new Error(`Failed to fetch posts. Status: ${response.status}`);
+
   return response.json();
 }
 
