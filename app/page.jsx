@@ -1,25 +1,11 @@
-import { revalidatePath } from 'next/cache';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { createPost, deletePostByTitle, getAllPosts } from '@/app/actions/blog';
+import Input1 from '@/app/_components/server/Input/Input1';
+import { getAllPosts } from '@/app/actions/blog';
 
 export default async function Home() {
   const posts = await getAllPosts();
-
-  async function handleSubmit(formData) {
-    'use server';
-
-    await createPost(formData);
-    revalidatePath('/');
-  }
-
-  async function handleDelete(formData) {
-    'use server';
-
-    await deletePostByTitle(formData);
-    revalidatePath('/');
-  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -47,54 +33,7 @@ export default async function Home() {
           </Link>
         ))}
       </div>
-      <div className="flex gap-10">
-        <form
-          action={handleSubmit}
-          className="flex flex-col gap-2"
-        >
-          <label>
-            Post Title:
-            <input
-              type="text"
-              name="postTitle"
-              className="ml-4 text-black"
-            />
-          </label>
-          <label>
-            Post Content:
-            <input
-              type="text"
-              name="postContent"
-              className="ml-4 text-black"
-            />
-          </label>
-          <button
-            type="submit"
-            className="rounded-lg bg-green-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-green-400"
-          >
-            Add Post
-          </button>
-        </form>
-        <form
-          action={handleDelete}
-          className="flex flex-col gap-2"
-        >
-          <label>
-            Post Title:
-            <input
-              type="text"
-              name="postTitle"
-              className="ml-4 text-black"
-            />
-          </label>
-          <button
-            type="submit"
-            className="rounded-lg bg-red-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-red-400"
-          >
-            Delete Post
-          </button>
-        </form>
-      </div>
+      <Input1 />
       <h1 className="text-2xl font-bold">Testing DEV...</h1>
     </main>
   );
