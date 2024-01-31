@@ -1,11 +1,9 @@
-import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import React from 'react';
-import connectDB from '@/db/database';
+import { getPost } from '@/app/actions/blog';
 
 export default async function Post(props) {
-  const db = (await connectDB()).db('blog');
-  const result = await db.collection('post').findOne({ _id: new ObjectId(props.params) });
+  const post = await getPost(props.params.id);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -18,7 +16,7 @@ export default async function Post(props) {
         priority
       />
       <h1 className="text-xl font-semibold text-blue-500">
-        {`${result.title}: ${result.content}`}
+        {`${post.title}: ${post.content}`}
       </h1>
       <h1 className="text-2xl font-bold">Posts Directory</h1>
     </main>

@@ -1,11 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import connectDB from '@/db/database';
+import { getAllPosts } from '@/app/actions/blog';
 
 export default async function Home() {
-  const db = (await connectDB()).db('blog');
-  const result = await db.collection('post').find().toArray();
+  const posts = await getAllPosts();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -18,9 +17,9 @@ export default async function Home() {
         priority
       />
       <div className="flex flex-col gap-2">
-        {result.map((post) => (
+        {posts.map((post) => (
           <Link
-            href={`/post/${post._id}`}
+            href={`/posts/${post._id}`}
             key={post._id}
             prefetch={false}
           >

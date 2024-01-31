@@ -54,6 +54,7 @@ module.exports = {
     'react/no-unknown-property': 0,
     'react/no-array-index-key': 1,
     'react/require-default-props': 0,
+    'react-hooks/rules-of-hooks': 0,
     'react/jsx-filename-extension': [ // allow JSX in TSX files
       2,
       {
@@ -143,7 +144,7 @@ module.exports = {
 
     // dangerous, but only way to shut up eslint when using import aliases
     'import/no-unresolved': 0,
-    // 'import/prefer-default-export': 0,
+    'import/prefer-default-export': 0,
     'import/extensions': 0,
 
     // https://itnext.io/7-recommended-eslint-rules-for-react-typescript-project-1a22b011b4b5
