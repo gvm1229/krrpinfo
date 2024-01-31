@@ -1,18 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-
-async function getPosts() {
-  const response = await fetch(`${process.env.API_BASE_URL}/api/posts`, { cache: 'no-store' });
-
-  if (!response.ok)
-    throw new Error(`Failed to fetch posts. Status: ${response.status}`);
-
-  return response.json();
-}
+import { getAllPosts } from '@/app/actions/blog';
 
 export default async function Home() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
