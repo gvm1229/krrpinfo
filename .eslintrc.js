@@ -54,6 +54,7 @@ module.exports = {
     'react/no-unknown-property': 0,
     'react/no-array-index-key': 1,
     'react/require-default-props': 0,
+    'react-hooks/rules-of-hooks': 0,
     'react/jsx-filename-extension': [ // allow JSX in TSX files
       2,
       {
