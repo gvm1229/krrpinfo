@@ -4,6 +4,8 @@ import React from 'react';
 import Input1 from '@/app/_components/server/Input/Input1';
 import { getAllPosts } from '@/app/actions/blog';
 
+export const revalidate = 10;
+
 export default async function Home() {
   const posts = await getAllPosts();
 

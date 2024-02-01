@@ -2,29 +2,26 @@
 
 import { ObjectId } from 'mongodb';
 import { revalidatePath } from 'next/cache';
+import { cache } from 'react';
 import mongoClient from '@/app/util/db';
 
 const db = (await mongoClient()).db('blog');
 
-export async function getAllPosts() {
+export const getAllPosts = cache(async () => {
   try {
-    const posts = await db.collection('posts').find().sort({ title: 1 }).toArray();
-    revalidatePath('/');
-    return posts;
+    return await db.collection('posts').find().sort({ title: 1 }).toArray();
   } catch (error) {
     throw new Error(`Failed to retrieve all posts, error: ${error}`);
   }
-}
+});
 
-export async function getPost(id) {
+export const getPost = cache(async (id) => {
   try {
-    const post = await db.collection('posts').findOne({ _id: new ObjectId(id) });
-    revalidatePath('/');
-    return post;
+    return await db.collection('posts').findOne({ _id: new ObjectId(id) });
   } catch (error) {
     throw new Error(`Failed to retrieve individual post, error: ${error}`);
   }
-}
+});
 
 export async function createPost(formData) {
   try {

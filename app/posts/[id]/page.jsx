@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import { getPost } from '@/app/actions/blog';
 
+export const revalidate = 10;
+
 export default async function Post(props) {
   const post = await getPost(props.params.id);
 
