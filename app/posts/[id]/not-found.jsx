@@ -1,20 +1,8 @@
-'use client';
-
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import Link from 'next/link';
+import React from 'react';
 
-export default function Error({
-  error,
-  reset,
-}) {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
-
+export default function Notfound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Image
@@ -28,15 +16,12 @@ export default function Error({
       <h1 className="text-3xl font-semibold text-red-500">
         404: Not Found
       </h1>
-      <button
+      <Link
         className="rounded-lg bg-green-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-green-400"
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => router.push('/')
-        }
+        href="/"
       >
         Back to home
-      </button>
+      </Link>
       <h1 className="text-2xl font-bold">Posts Directory</h1>
     </main>
   );
