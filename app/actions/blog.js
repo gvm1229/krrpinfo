@@ -8,7 +8,9 @@ const db = (await mongoClient()).db('blog');
 
 export async function getAllPosts() {
   try {
-    return await db.collection('posts').find().sort({ title: 1 }).toArray();
+    const posts = await db.collection('posts').find().sort({ title: 1 }).toArray();
+    revalidatePath('/');
+    return posts;
   } catch (error) {
     throw new Error(`Failed to retrieve all posts, error: ${error}`);
   }
@@ -16,7 +18,9 @@ export async function getAllPosts() {
 
 export async function getPost(id) {
   try {
-    return await db.collection('posts').findOne({ _id: new ObjectId(id) });
+    const post = await db.collection('posts').findOne({ _id: new ObjectId(id) });
+    revalidatePath('/');
+    return post;
   } catch (error) {
     throw new Error(`Failed to retrieve individual post, error: ${error}`);
   }
