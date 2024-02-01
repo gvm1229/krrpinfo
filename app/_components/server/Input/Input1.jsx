@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 import React from 'react';
 import { createPost, deletePostByTitle } from '@/app/actions/blog';
 
@@ -7,14 +6,12 @@ const Input1 = () => {
     'use server';
 
     await createPost(formData);
-    revalidatePath('/');
   }
 
   async function handleDelete(formData) {
     'use server';
 
     await deletePostByTitle(formData);
-    revalidatePath('/');
   }
 
   return (
