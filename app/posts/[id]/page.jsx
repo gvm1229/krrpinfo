@@ -1,9 +1,13 @@
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import React from 'react';
 import { getPost } from '@/app/actions/blog';
 
 export default async function Post(props) {
   const post = await getPost(props.params.id);
+
+  if (!post)
+    notFound();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

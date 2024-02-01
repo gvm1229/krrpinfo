@@ -26,7 +26,7 @@ export default function Error({
         priority
       />
       <h1 className="text-3xl font-semibold text-red-500">
-        Something went wrong!
+        404: Not Found
       </h1>
       <button
         className="rounded-lg bg-green-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-green-400"
