@@ -112,12 +112,12 @@ module.exports = {
       'error',
       {
         multiline: true,
-        minItems: 2,
+        minItems: 4,
       },
     ],
     'array-element-newline': [
       'error',
-      'always',
+      'consistent',
     ],
     'function-paren-newline': [
       'error',
