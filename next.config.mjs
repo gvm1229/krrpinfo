@@ -12,5 +12,3 @@ const millionConfig = {
 };
 
 export default million.next(nextConfig, millionConfig);
-
-module.exports = withContentlayer(nextConfig)
