@@ -21,7 +21,6 @@ module.exports = {
     'next/core-web-vitals',
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
-    'plugin:storybook/recommended',
     'plugin:tailwindcss/recommended',
   ],
   settings: {

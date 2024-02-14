@@ -8,16 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "storybook": "storybook dev -p 6060",
     "clean": "rm -rf dist",
-    "deploy": "yarn build && netlify deploy --prod --dir dist --message \"Version 0.2 - Deploy message\"",
-    "import-env": "netlify env:import .env",
-    "switch-creds": "netlify unlink && netlify logout && netlify login && netlify link",
     "refresh": "rm -rf node_modules && yarn cache clean --all && yarn install --immutable",
     "reinit": "rm -rf node_modules && rm yarn.lock && yarn cache clean --all && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
     "git-refresh": "git lfs update --force && git rm -r --cached . && git add .",
-    "postinstall": "husky install"
+    "postinstall": "husky"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
@@ -38,7 +34,6 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-storybook": "^0.6.15",
     "eslint-plugin-tailwindcss": "^3.14.1",
     "husky": "^9.0.6",
     "lint-staged": "^15.2.0",
