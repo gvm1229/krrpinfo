@@ -1,8 +1,10 @@
 import million from "million/compiler";
+import { withContentlayer } from 'next-contentlayer';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
 };
 
 const millionConfig = {
@@ -10,3 +12,5 @@ const millionConfig = {
 };
 
 export default million.next(nextConfig, millionConfig);
+
+module.exports = withContentlayer(nextConfig)
