@@ -1,10 +1,12 @@
 import localFont from 'next/font/local';
-import React from 'react';
-import { ThemeProvider } from '@/app/_components/ui/theme-provider';
-import './_styles/globals.css';
-import { ModeToggle } from '@/app/_components/ui/theme-toggle';
+import '@/src/styles/globals.css';
+import { SiteFooter } from '@/src/components/Footer/SiteFooter';
+import { SiteHeader } from '@/src/components/Header/SiteHeader';
+import { ThemeProvider } from '@/src/components/ui/theme-provider';
+import { siteConfig } from '@/src/config/site';
+import { cn } from '@/src/lib/utils';
 
-const pretendard = localFont({ src: './_styles/fonts/PretendardVariable.woff2' });
+const pretendard = localFont({ src: '../src/styles/fonts/PretendardVariable.woff2' });
 
 export const metadata = {
   title: {
@@ -37,19 +39,30 @@ export const metadata = {
       },
     ],
   },
+  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${pretendard.className} antialiased`}>
+      <body
+        className={cn(
+          'min-h-screen antialiased',
+          pretendard.className,
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
-          {children}
+          <div className="flex min-h-screen flex-col">
+            <SiteHeader className="border-b" />
+            <main className="flex-1">
+              {children}
+            </main>
+            <SiteFooter className="border-t" />
+          </div>
         </ThemeProvider>
       </body>
     </html>
