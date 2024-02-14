@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Input1 from '@/app/_components/server/Input/Input1';
+import { ModeToggle } from '@/app/_components/ui/theme-toggle';
 import { getAllPosts } from '@/app/actions/blog';
 
 export const revalidate = 10;
@@ -11,6 +12,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <ModeToggle />
       <Image
         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
         src="/icons/next.svg"

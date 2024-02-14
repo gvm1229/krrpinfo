@@ -26,7 +26,7 @@ const Input1 = () => {
             <input
               type="text"
               name="postTitle"
-              className="ml-4 text-black"
+              className="ml-4 bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
             />
           </label>
           <label>
@@ -34,7 +34,7 @@ const Input1 = () => {
             <input
               type="text"
               name="postContent"
-              className="ml-4 text-black"
+              className="ml-4 bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
             />
           </label>
           <button
@@ -53,7 +53,7 @@ const Input1 = () => {
             <input
               type="text"
               name="postTitle"
-              className="ml-4 text-black"
+              className="ml-4 bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
             />
           </label>
           <button
