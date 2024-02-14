@@ -3,7 +3,7 @@
 import { ObjectId } from 'mongodb';
 import { revalidatePath } from 'next/cache';
 import { cache } from 'react';
-import mongoClient from '@/app/util/db';
+import mongoClient from '@/src/util/db';
 
 const db = (await mongoClient()).db('blog');
 
