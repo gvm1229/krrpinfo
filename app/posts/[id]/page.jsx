@@ -12,7 +12,7 @@ export default async function Post(props) {
     notFound();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between gap-20 p-8 md:p-24">
       <Image
         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
         src="/icons/next.svg"

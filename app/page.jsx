@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import Input1 from '@/app/_components/server/Input/Input1';
-import { ModeToggle } from '@/app/_components/ui/theme-toggle';
 import { getAllPosts } from '@/app/actions/blog';
+import Input1 from '@/src/components/Input1';
 
 export const revalidate = 10;
 
@@ -11,8 +9,7 @@ export default async function Home() {
   const posts = await getAllPosts();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <ModeToggle />
+    <main className="container flex h-full flex-col items-center justify-between gap-16 p-8 md:p-24">
       <Image
         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
         src="/icons/next.svg"
@@ -21,7 +18,7 @@ export default async function Home() {
         height={37}
         priority
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid gap-4 md:grid-cols-2">
         {posts.map((post) => (
           <Link
             href={`/posts/${post._id}`}
