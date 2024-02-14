@@ -65,6 +65,8 @@ module.exports = {
         ],
       },
     ],
+    // In React 17 or above, React in scope is not required.
+    'react/react-in-jsx-scope': 0,
 
     // --- JSX --- //
     'jsx-a11y/alt-text': 0,
