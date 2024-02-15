@@ -1,5 +1,3 @@
-/* eslint jsx-a11y/heading-has-content: 0 */
-
 import * as React from 'react';
 
 import { cn } from '@/src/lib/utils';

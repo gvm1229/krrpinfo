@@ -1,5 +1,5 @@
-import million from "million/compiler";
 import { withContentlayer } from 'next-contentlayer';
+// import million from "million/compiler";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,8 +8,8 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 };
 
-const millionConfig = {
-  auto: true,// if you're using RSC: auto: { rsc: true },
-};
+// const millionConfig = {
+//   auto: true,// if you're using RSC: auto: { rsc: true },
+// };
 
-export default million.next(nextConfig, millionConfig);
+export default withContentlayer(nextConfig);
