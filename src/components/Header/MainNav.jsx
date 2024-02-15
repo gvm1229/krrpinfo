@@ -1,15 +1,13 @@
-/* eslint jsx-a11y/anchor-is-valid: 0 */
-
 'use client';
 
-import { Barcode } from 'lucide-react';
+import { Barcode, X } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 
-import { MobileNav } from '@/src/components/Header/MobileNav';
 import { siteConfig } from '@/src/config/site';
 import { cn } from '@/src/lib/utils';
+import { MobileNav } from './MobileNav';
 
 export function MainNav({ items, children }) {
   const segment = useSelectedLayoutSegment();
@@ -46,14 +44,22 @@ export function MainNav({ items, children }) {
         </nav>
       ) : null}
       <button
-        className="flex items-center space-x-2 md:hidden"
+        className={cn(
+          'flex items-center space-x-2 md:hidden',
+          'ring-transparent focus-visible:ring-transparent',
+        )}
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {/* {showMobileMenu ? <Icons.close /> : <Icons.logo />} */}
+        {showMobileMenu ? <X size={20} /> : <Barcode color="red" size={20} />}
         <span className="font-bold">Menu</span>
       </button>
       {showMobileMenu && items && (
-        <MobileNav items={items}>{children}</MobileNav>
+        <MobileNav
+          items={items}
+          setShowMobileMenu={setShowMobileMenu}
+        >
+          {children}
+        </MobileNav>
       )}
     </div>
   );
