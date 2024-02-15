@@ -93,10 +93,10 @@ module.exports = {
         controlComponents: ['input'],
       },
     ],
-    // next.js + contentlayer + mdx some problem
-    // 'jsx-a11y/heading-has-content': 0,
-    // 'jsx-a11y/anchor-has-content': 0,
-    // 'jsx-a11y/anchor-is-valid': 0,
+    // some shadcn components have problems with my eslint config
+    'jsx-a11y/heading-has-content': 0,
+    'jsx-a11y/anchor-has-content': 0,
+    'jsx-a11y/anchor-is-valid': 0,
 
     // --- TAILWINDCSS --- //
     'tailwindcss/no-custom-classname': 'off',
