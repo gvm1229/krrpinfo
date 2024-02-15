@@ -21,7 +21,6 @@ module.exports = {
     'next/core-web-vitals',
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
-    'plugin:storybook/recommended',
     'plugin:tailwindcss/recommended',
   ],
   settings: {
@@ -29,12 +28,20 @@ module.exports = {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
       version: 'detect',
     },
+    tailwindcss: {
+      callees: ['cn'],
+      config: 'tailwind.config.js',
+    },
+    next: {
+      rootDir: true,
+    },
   },
   plugins: [
     'react',
     'jsx-a11y',
     'autofix',
     'import',
+    'tailwindcss',
   ],
   rules: {
     // 0: disabled, 1: warning, 2: error
@@ -66,6 +73,8 @@ module.exports = {
         ],
       },
     ],
+    // In React 17 or above, React in scope is not required.
+    'react/react-in-jsx-scope': 0,
 
     // --- JSX --- //
     'jsx-a11y/alt-text': 0,
@@ -84,9 +93,17 @@ module.exports = {
         controlComponents: ['input'],
       },
     ],
+    // some shadcn components have problems with my eslint config
+    'jsx-a11y/heading-has-content': 0,
+    'jsx-a11y/anchor-has-content': 0,
+    'jsx-a11y/anchor-is-valid': 0,
 
     // --- TAILWINDCSS --- //
     'tailwindcss/no-custom-classname': 'off',
+    'tailwindcss/classnames-order': 'error',
+
+    // --- NEXT --- //
+    '@next/next/no-html-link-for-pages': 'off',
 
     // --- OTHERS --- //
     'global-require': 0,
@@ -112,12 +129,12 @@ module.exports = {
       'error',
       {
         multiline: true,
-        minItems: 2,
+        minItems: 4,
       },
     ],
     'array-element-newline': [
       'error',
-      'always',
+      'consistent',
     ],
     'function-paren-newline': [
       'error',

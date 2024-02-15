@@ -5,16 +5,15 @@ import { MongoClient } from 'mongodb';
 config();
 
 const url = process.env.MONGODB_URL;
-const options = { useNewUrlParser: true };
 
 const mongoClient = async () => {
   if (process.env.NODE_ENV === 'development') {
     if (!global._mongo)
-      global._mongo = await new MongoClient(url, options).connect();
+      global._mongo = await new MongoClient(url).connect();
 
     return global._mongo;
   }
-  return new MongoClient(url, options).connect();
+  return new MongoClient(url).connect();
 };
 
 export default mongoClient;
