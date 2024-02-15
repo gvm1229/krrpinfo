@@ -1,5 +1,4 @@
 module.exports = {
-  $schema: 'https://json.schemastore.org/eslintrc',
   env: {
     // 브라우저의 document와 같은 객체 사용 여부
     browser: true,
