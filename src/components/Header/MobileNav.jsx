@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { siteConfig } from '@/src/config/site';
 import { useLockBody } from '@/src/hooks/use-lock-body';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/util/utils';
 
 export function MobileNav({
   items,
