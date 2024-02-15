@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import React from 'react';
 import { getPost } from '@/app/actions/blog';
 
 export const revalidate = 10;

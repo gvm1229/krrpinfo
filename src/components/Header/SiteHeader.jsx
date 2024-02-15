@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { MainNav } from '@/src/components/Header/MainNav';
 import { buttonVariants } from '@/src/components/ui/button';
 import { navContents } from '@/src/config/navBar';
 import { cn } from '@/src/lib/utils';
+import { MainNav } from './MainNav';
 
 export function SiteHeader({ className }) {
   return (
