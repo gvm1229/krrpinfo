@@ -5,6 +5,13 @@ import { withContentlayer } from 'next-contentlayer';
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  webpack: (config) => {
+    config.infrastructureLogging = {
+      level: "error",
+    };
+
+    return config;
+  },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 };
 
