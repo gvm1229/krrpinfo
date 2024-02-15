@@ -47,5 +47,9 @@ yarn-error.log*
 /.idea
 .idea
 
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
 # contentlayer
 .contentlayer

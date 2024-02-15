@@ -5,6 +5,7 @@ import { withContentlayer } from 'next-contentlayer';
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 };
 
 const millionConfig = {
