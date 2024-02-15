@@ -1,8 +1,8 @@
 import localFont from 'next/font/local';
 import '@/src/styles/globals.css';
+import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
-import { ThemeProvider } from '@/src/components/ui/theme-provider';
 import { siteConfig } from '@/src/config/site';
 import { cn } from '@/src/lib/utils';
 

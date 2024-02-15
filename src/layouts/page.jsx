@@ -1,6 +1,6 @@
-import { allPosts } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
 import { getMDXComponent } from 'next-contentlayer/hooks';
+import { allPosts } from 'contentlayer/generated';
 
 export const generateStaticParams = async () => allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
 
