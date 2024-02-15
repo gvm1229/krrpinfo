@@ -10,7 +10,7 @@
     "preview": "next build && next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist && rm -rf .next",
     "refresh": "rm -rf node_modules && yarn cache clean --all && yarn install --immutable",
     "reinit": "rm -rf node_modules && rm yarn.lock && yarn cache clean --all && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
