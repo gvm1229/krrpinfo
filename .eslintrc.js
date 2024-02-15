@@ -1,4 +1,5 @@
 module.exports = {
+  $schema: 'https://json.schemastore.org/eslintrc',
   env: {
     // 브라우저의 document와 같은 객체 사용 여부
     browser: true,
@@ -14,6 +15,12 @@ module.exports = {
       jsx: true,
     },
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+    },
+  ],
   extends: [
     'airbnb',
     'airbnb/hooks',
@@ -28,12 +35,20 @@ module.exports = {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
       version: 'detect',
     },
+    tailwindcss: {
+      callees: ['cn'],
+      config: 'tailwind.config.js',
+    },
+    next: {
+      rootDir: true,
+    },
   },
   plugins: [
     'react',
     'jsx-a11y',
     'autofix',
     'import',
+    'tailwindcss',
   ],
   rules: {
     // 0: disabled, 1: warning, 2: error
@@ -88,6 +103,10 @@ module.exports = {
 
     // --- TAILWINDCSS --- //
     'tailwindcss/no-custom-classname': 'off',
+    'tailwindcss/classnames-order': 'error',
+
+    // --- NEXT --- //
+    '@next/next/no-html-link-for-pages': 'off',
 
     // --- OTHERS --- //
     'global-require': 0,
