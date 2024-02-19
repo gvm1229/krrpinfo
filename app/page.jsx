@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAllPosts } from '@/app/actions/blog';
+import { getAllBlogs } from '@/app/actions/blog';
 import Input1 from '@/src/components/Input1';
 
 export const revalidate = 10;
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const blogs = await getAllBlogs();
 
   return (
     <main className="container flex h-full flex-col items-center justify-between gap-16 p-8 md:p-24">
@@ -19,17 +19,16 @@ export default async function Home() {
         priority
       />
       <div className="grid gap-4 md:grid-cols-2">
-        {posts.map((post) => (
+        {blogs.map((blog) => (
           <Link
-            href={`/posts/${post._id}`}
-            key={post._id}
-            prefetch={false}
+            href={`/blogs/${blog._id}`}
+            key={blog._id}
           >
             <h1
-              key={post._id}
+              key={blog._id}
               className="rounded-lg bg-blue-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-blue-400"
             >
-              {`To ${post.title} 리디렉트`}
+              {`To ${blog.title} 리디렉트`}
             </h1>
           </Link>
         ))}

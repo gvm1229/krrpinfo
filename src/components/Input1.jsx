@@ -1,16 +1,16 @@
-import { createPost, deletePostByTitle } from '@/app/actions/blog';
+import { createBlog, deleteBlogByTitle } from '@/app/actions/blog';
 
 const Input1 = () => {
   async function handleSubmit(formData) {
     'use server';
 
-    await createPost(formData);
+    await createBlog(formData);
   }
 
   async function handleDelete(formData) {
     'use server';
 
-    await deletePostByTitle(formData);
+    await deleteBlogByTitle(formData);
   }
 
   return (
@@ -21,7 +21,7 @@ const Input1 = () => {
           className="flex flex-col gap-2"
         >
           <label>
-            Post Title:
+            Blog Title:
             <input
               type="text"
               name="postTitle"
@@ -29,7 +29,7 @@ const Input1 = () => {
             />
           </label>
           <label>
-            Post Content:
+            Blog Content:
             <input
               type="text"
               name="postContent"
@@ -40,7 +40,7 @@ const Input1 = () => {
             type="submit"
             className="rounded-lg bg-green-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-green-400"
           >
-            Add Post
+            Add Blog
           </button>
         </form>
         <form
@@ -48,7 +48,7 @@ const Input1 = () => {
           className="flex flex-col gap-2"
         >
           <label>
-            Post Title:
+            Blog Title:
             <input
               type="text"
               name="postTitle"
@@ -59,7 +59,7 @@ const Input1 = () => {
             type="submit"
             className="rounded-lg bg-red-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-red-400"
           >
-            Delete Post
+            Delete Blog
           </button>
         </form>
       </div>

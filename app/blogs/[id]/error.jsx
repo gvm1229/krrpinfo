@@ -37,7 +37,7 @@ export default function Error({
       >
         Back to home
       </button>
-      <h1 className="text-2xl font-bold">Posts Directory</h1>
+      <h1 className="text-2xl font-bold">Blogs Directory</h1>
     </main>
   );
 }
