@@ -2,6 +2,10 @@
   "name": "krrpinfo",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Megi",
+    "email": "hojini1229@gmail.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,6 +14,7 @@
     "preview": "next build && next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
+    "lint-staged": "yarn lint-fix",
     "clean": "rm -rf dist && rm -rf .next",
     "refresh": "rm -rf node_modules && yarn clean && yarn cache clean --all && yarn install --immutable",
     "reinit": "rm -rf node_modules && yarn clean && rm yarn.lock && yarn cache clean --all && yarn install",
@@ -31,7 +36,7 @@
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.331.0",
+    "lucide-react": "^0.335.0",
     "markdown-to-jsx": "^7.4.1",
     "mongodb": "^6.3.0",
     "next": "14.1.0",
@@ -50,7 +55,7 @@
     "autoprefixer": "^10.4.17",
     "concurrently": "^8.2.2",
     "daisyui": "^4.7.2",
-    "dotenv": "^16.4.4",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "14.1.0",
@@ -67,7 +72,7 @@
     "tailwindcss": "^3.4.1"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "next lint --fix"
+    "*.{js,jsx,ts,tsx}": "yarn lint-fix"
   },
   "husky": {
     "hooks": {
