@@ -15,7 +15,6 @@
     "preview": "next build && next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "lint-staged": "yarn lint-fix",
     "clean": "rm -rf dist && rm -rf .next",
     "refresh": "rm -rf node_modules && yarn clean && yarn cache clean --all && yarn install --immutable",
     "reinit": "rm -rf node_modules && yarn clean && rm yarn.lock && yarn cache clean --all && yarn install",
