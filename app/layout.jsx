@@ -57,11 +57,11 @@ export default function RootLayout({ children }) {
           enableSystem
         >
           <div className="flex min-h-screen flex-col">
-            <SiteHeader className="border-b" />
+            <SiteHeader className="border-b bg-background" />
             <main className="flex-1">
               {children}
             </main>
-            <SiteFooter className="border-t" />
+            <SiteFooter className="border-t bg-background" />
           </div>
         </ThemeProvider>
       </body>
