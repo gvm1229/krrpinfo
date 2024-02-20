@@ -6,7 +6,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 
 import { siteConfig } from '@/src/config/site';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/util/utils';
 import { MobileNav } from './MobileNav';
 
 export function MainNav({ items, children }) {

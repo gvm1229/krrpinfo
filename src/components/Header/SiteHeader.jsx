@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { buttonVariants } from '@/src/components/ui/button';
 import { navContents } from '@/src/config/navBar';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/util/utils';
 import { MainNav } from './MainNav';
 
 export function SiteHeader({ className }) {

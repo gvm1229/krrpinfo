@@ -1,5 +1,5 @@
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/util/utils';
 
 export function SiteFooter({ className }) {
   return (

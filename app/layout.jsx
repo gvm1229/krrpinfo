@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
 import { siteConfig } from '@/src/config/site';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/util/utils';
 
 const pretendard = localFont({ src: '../src/styles/fonts/PretendardVariable.woff2' });
 
@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen antialiased',
+          'min-h-screen bg-background antialiased',
           pretendard.className,
         )}
       >
@@ -57,11 +57,11 @@ export default function RootLayout({ children }) {
           enableSystem
         >
           <div className="flex min-h-screen flex-col">
-            <SiteHeader className="border-b" />
-            <main className="flex-1">
+            <SiteHeader className="border-b bg-background" />
+            <main className="container flex-1 p-8 md:py-12">
               {children}
             </main>
-            <SiteFooter className="border-t" />
+            <SiteFooter className="border-t bg-background" />
           </div>
         </ThemeProvider>
       </body>
