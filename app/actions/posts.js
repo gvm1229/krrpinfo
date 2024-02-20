@@ -40,7 +40,7 @@ export async function getPostContent(slug, customPostsFolder) {
  * @param {string} customPostsFolder - The folder containing custom posts
  * @return {Promise<Array>} An array of post contents
  */
-export async function getAllPostContents(customPostsFolder) {
+export async function getAllPosts(customPostsFolder) {
   const postsFolder = path.join(process.cwd(), customPostsFolder || defaultPostsFolder);
   const postFiles = await fs.readdir(postsFolder);
 

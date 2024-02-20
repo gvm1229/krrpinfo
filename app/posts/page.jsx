@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { getAllPostContents } from '@/app/actions/posts';
+import { getAllPosts } from '@/app/actions/posts';
 
 export default async function PostRootPage() {
-  const paths = await getAllPostContents();
+  const paths = await getAllPosts();
 
   return (
     <main className="container flex h-full flex-col items-center p-8 md:py-12">
