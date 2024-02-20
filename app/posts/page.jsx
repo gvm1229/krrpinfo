@@ -1,39 +1,22 @@
-import { access, readFile } from 'fs/promises';
-import path from 'path';
-import { notFound } from 'next/navigation';
-import { compileMDX } from 'next-mdx-remote/rsc';
+import Image from 'next/image';
 
-const POSTS_FOLDER = path.join(process.cwd(), 'content/posts');
-console.log('posts folder: ', POSTS_FOLDER);
-
-async function readPostFile(slug) {
-  const filePath = path.resolve(path.join(POSTS_FOLDER, `${slug}.mdx`));
-  console.log('filePath: ', filePath);
-
-  try {
-    await access(filePath);
-  } catch (err) {
-    return null;
-  }
-
-  // return fileContent;
-  return readFile(filePath, { encoding: 'utf8' });
-}
-
-export default async function Post({
-  params,
-}) {
-  const markdown = await readPostFile(params.slug);
-
-  if (!markdown)
-    notFound();
-
-  const { content, frontmatter } = await compileMDX({
-    source: markdown,
-    options: { parseFrontmatter: true },
-  });
-
-  // do something with frontmatter, like set metadata or whatever
-
-  return <>{content}</>;
+export default async function PostsPage() {
+  return (
+    <main className="container flex h-full flex-col items-center justify-between gap-16 p-8 md:p-24">
+      <Image
+        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+        src="/icons/next.svg"
+        alt="Next.js Logo"
+        width={180}
+        height={37}
+        priority
+      />
+      <div className="grid gap-4 md:grid-cols-2">
+        <h1 className="flex w-full justify-center text-center">
+          Empty posts
+        </h1>
+      </div>
+      <h1 className="text-2xl font-bold">Testing DEV...</h1>
+    </main>
+  );
 }
