@@ -1,22 +1,36 @@
+import matter from 'gray-matter';
+import Markdown from 'markdown-to-jsx';
 import { notFound } from 'next/navigation';
-import { compileMDX } from 'next-mdx-remote/rsc';
-import readPostFile from '@/src/util/posts';
+import { getAllPostSlugs, getPostContent } from '@/app/actions/posts';
 
-export default async function Post({
-  params,
-}) {
-  const markdown = await readPostFile(params.slug);
+export async function generateStaticParams() {
+  const paths = await getAllPostSlugs();
 
-  if (!markdown)
+  return paths.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function PostPage({ params }) {
+  const { slug } = params;
+  const post = await getPostContent(slug);
+
+  if (!post)
     notFound();
 
-  const { content, frontmatter } = await compileMDX({
-    source: markdown,
-    options: { parseFrontmatter: true },
-  });
+  const { content, data } = matter(post);
+  const formattedDate = new Date(data.date).toLocaleDateString();
 
-  // do something with frontmatter, like set metadata or whatever
-  console.log('frontmatter: ', frontmatter);
+  return (
+    <div>
+      <div className="text-left">
+        <h1 className="text-2xl text-slate-600">{data.title}</h1>
+        <p className="mt-2 text-slate-400">{formattedDate}</p>
+      </div>
 
-  return <>{content}</>;
+      <article className="prose dark:prose-invert">
+        <Markdown>{content}</Markdown>
+      </article>
+    </div>
+  );
 }
