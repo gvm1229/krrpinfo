@@ -67,8 +67,11 @@
     "tailwindcss": "^3.4.1"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "yarn lint-fix"
-    ]
+    "*.{js,jsx,ts,tsx}": "next lint --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
