@@ -10,33 +10,27 @@ const Blog = ({
   category = 'Sample Category',
   date = '2024/1/11',
   title = 'Sample Title',
-  transitionAtHover = 'scale',
   toNavigate,
   hyperlink,
 }) => {
   const children = (
     <>
       <div className={`relative aspect-[2/1] rounded-md ${width}`}>
-        {transitionAtHover === 'bgChange' && (
-          <div className="absolute inset-0 rounded-md bg-black opacity-0 transition group-hover:opacity-30" />
-        )}
+        <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition group-hover:opacity-20" />
         {hyperlink && (
-          <div className="absolute rounded-br-md rounded-tl-md bg-white/70 p-2">
-            {/* <HeroIconWrapper */}
-            {/*  icon={LinkIcon} */}
-            {/*  size="size-8" */}
-            {/*  style="text-blue-600" */}
-            {/*  strokeWidth={2} */}
-            {/* /> */}
-            <LinkIcon />
+          <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
+            <LinkIcon
+              className="size-8 text-blue-600"
+            />
           </div>
         )}
-        <Image
-          src={thumbnail}
-          className={`size-full min-h-56 rounded-md shadow-md ${imgStyle}`}
-          fill
-          alt="blog-thumbnail"
-        />
+        <div className={`relative size-full min-h-56 overflow-hidden rounded-md shadow-md ${imgStyle}`}>
+          <Image
+            src={thumbnail}
+            fill
+            alt="blog-thumbnail"
+          />
+        </div>
       </div>
       <div className="group text-left">
         <div className="flex items-center justify-between">
@@ -48,7 +42,7 @@ const Blog = ({
     </>
   );
 
-  const mutualClassName = `p-4 relative flex flex-col rounded-lg focus:outline-none ${transitionAtHover === 'bgChange' && 'group transition hover:bg-neutral-200'} ${transitionAtHover === 'scale' && 'transition hover:bg-gray-200 hover:scale-103'}`;
+  const mutualClassName = 'p-4 relative flex flex-col rounded-lg focus:outline-none group transition hover:bg-neutral-200';
 
   if (toNavigate)
     return (

@@ -15,26 +15,23 @@ const BlogMini = ({
   const children = (
     <>
       <div className="relative flex max-w-32 shrink-0 items-center justify-center">
-        <Image
-          src={thumbnail}
-          className={`w-full ${height} ${imgStyle}`}
-          fill
-          alt="blog-mini-thumbnail"
-        />
+        <div className={`w-full ${height} ${imgStyle}`}>
+          <Image
+            src={thumbnail}
+            fill
+            alt="blog-mini-thumbnail"
+          />
+        </div>
       </div>
       <div className="ml-6 text-left">
         <h2 className="mt-1 w-fit text-xs font-semibold text-blue-600">{category}</h2>
         <h1 className="mt-2 text-lg font-bold text-neutral-900">{title}</h1>
       </div>
       {hyperlink && (
-        <div className="absolute right-0 top-0 rounded-bl-md rounded-tr-md bg-white/50 p-2">
-          {/* <HeroIconWrapper */}
-          {/*  icon={LinkIcon} */}
-          {/*  size="size-6" */}
-          {/*  style="text-blue-600" */}
-          {/*  strokeWidth={2} */}
-          {/* /> */}
-          <LinkIcon />
+        <div className="absolute right-0 top-0 z-20 rounded-bl-md rounded-tr-md bg-white/50 p-2">
+          <LinkIcon
+            className="size-6 text-blue-600"
+          />
         </div>
       )}
     </>

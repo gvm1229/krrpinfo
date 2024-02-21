@@ -9,22 +9,20 @@ const BlogFeatured = ({
   imgStyle = 'object-cover',
   category = 'Sample Category',
   title = 'Sample Title',
-  transitionAtHover = 'scale',
   toNavigate,
   hyperlink,
 }) => {
   const children = (
     <>
       <div className="relative">
-        {transitionAtHover === 'bgChange' && (
-          <div className="absolute inset-0 bg-black opacity-0 transition group-hover:opacity-30" />
-        )}
-        <Image
-          src={thumbnail}
-          className={`${width} ${height} ${imgStyle}`}
-          fill
-          alt="blog-featured-thumbnail"
-        />
+        <div className="absolute inset-0 z-10 bg-black opacity-0 transition group-hover:opacity-30" />
+        <div className={`${width} ${height} ${imgStyle}`}>
+          <Image
+            src={thumbnail}
+            fill
+            alt="blog-featured-thumbnail"
+          />
+        </div>
       </div>
       <div className="px-8 py-6 text-left">
         <h2 className="w-fit text-sm font-semibold text-blue-600">{category}</h2>
@@ -33,7 +31,7 @@ const BlogFeatured = ({
     </>
   );
 
-  const mutualClassName = `relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none ${transitionAtHover === 'scale' && 'transition hover:scale-103'} ${transitionAtHover === 'bgChange' && 'group transition hover:bg-neutral-200'}`;
+  const mutualClassName = 'relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none group transition hover:bg-neutral-200';
 
   if (toNavigate)
     return (
