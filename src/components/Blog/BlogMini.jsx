@@ -18,6 +18,7 @@ const BlogMini = ({
         <Image
           src={thumbnail}
           className={`w-full ${height} ${imgStyle}`}
+          fill
           alt="blog-mini-thumbnail"
         />
       </div>

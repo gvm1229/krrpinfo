@@ -22,6 +22,7 @@ const BlogFeatured = ({
         <Image
           src={thumbnail}
           className={`${width} ${height} ${imgStyle}`}
+          fill
           alt="blog-featured-thumbnail"
         />
       </div>

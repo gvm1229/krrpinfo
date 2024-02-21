@@ -34,6 +34,7 @@ const Blog = ({
         <Image
           src={thumbnail}
           className={`size-full min-h-56 rounded-md shadow-md ${imgStyle}`}
+          fill
           alt="blog-thumbnail"
         />
       </div>
