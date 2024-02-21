@@ -15,4 +15,8 @@ export const navContents = [
     title: 'Posts',
     href: '/posts',
   },
+  {
+    title: 'Test',
+    href: '/test',
+  },
 ];
