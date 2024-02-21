@@ -23,6 +23,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
     'plugin:tailwindcss/recommended',
+    'plugin:storybook/recommended',
   ],
   settings: {
     react: {
