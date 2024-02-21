@@ -7,6 +7,9 @@ export default {
   argTypes: {
     // Define default argTypes here
   },
+  parameters: {
+    layout: 'fullscreen', // or `padded` by default
+  },
 };
 
 const Template = (args) => (
