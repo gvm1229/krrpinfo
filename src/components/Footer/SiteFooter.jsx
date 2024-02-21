@@ -18,7 +18,7 @@ export function SiteFooter({ className }) {
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              Megi
+              Tom Jeong (Megi)
             </a>
             .
             {/* Any inquiries welcome at */}
