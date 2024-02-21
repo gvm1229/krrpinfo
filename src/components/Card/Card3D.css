@@ -20,7 +20,16 @@
  * THE SOFTWARE.
  */
 
+:root {
+  --card-height: 300px;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+* {
+  box-sizing: border-box;
+}
 .card {
+  width: var(--card-width);
+  height: var(--card-height);
   position: relative;
   display: flex;
   justify-content: center;

@@ -69,7 +69,7 @@ const Card3D = ({
           src={popupTitleImage}
           className={`title pointer-events-none ${popupTitleImageClassName}`}
           width={width}
-          height={50}
+          height={100}
           alt="Title"
         />
       )}
@@ -85,7 +85,7 @@ const Card3D = ({
     </>
   );
 
-  const mutualClassName = `card relative group ${width} ${height} ${containerClassName}`;
+  const mutualClassName = `card relative group ${containerClassName}`;
 
   if (toNavigate && !isClickButtonExist)
     return (
