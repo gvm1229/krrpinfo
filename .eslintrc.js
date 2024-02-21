@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     // 브라우저의 document와 같은 객체 사용 여부
     browser: true,
@@ -117,6 +118,7 @@ module.exports = {
     'no-plusplus': 0,
     'no-continue': 0,
     'no-shadow': 0,
+    'no-nested-ternary': 0,
     'arrow-parens': [
       'error',
       'always',
