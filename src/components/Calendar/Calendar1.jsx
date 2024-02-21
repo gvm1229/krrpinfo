@@ -12,6 +12,8 @@ const Calendar1 = () => {
       selected={date}
       onSelect={setDate}
       className="rounded-md border"
+      showOutsideDays
+      fixedWeeks
     />
   );
 };
