@@ -1,5 +1,7 @@
+import { MailOpen } from 'lucide-react';
 import React from 'react';
 import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
+import { Button } from '@/src/components/ui/button';
 
 export default {
   title: 'Components/Button/ButtonNewTab',
@@ -17,5 +19,11 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  // Define default props here
+  children: (
+    <Button className="flex gap-4">
+      <MailOpen />
+      Login with Email
+    </Button>
+  ),
+  href: 'https://gmail.com',
 };

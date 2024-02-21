@@ -17,5 +17,5 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  // Define default props here
+  title: 'PNG',
 };
