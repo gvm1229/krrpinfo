@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import localFont from 'next/font/local';
 import '@/src/styles/globals.css';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
@@ -64,6 +65,7 @@ export default function RootLayout({ children }) {
             <SiteFooter className="border-t bg-background" />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
