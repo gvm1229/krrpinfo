@@ -37,7 +37,7 @@ const BlogMini = ({
     </>
   );
 
-  const mutualClassName = 'p-4 relative bg-neutral-200 rounded-md flex items-center group transition hover:bg-neutral-300 hover:scale-103 focus:outline-none';
+  const mutualClassName = 'p-4 relative bg-neutral-200 rounded-md flex items-center group transition hover:bg-neutral-300 focus:outline-none';
 
   if (toNavigate)
     return (

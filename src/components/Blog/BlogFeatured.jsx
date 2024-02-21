@@ -15,7 +15,7 @@ const BlogFeatured = ({
   const children = (
     <>
       <div className="relative">
-        <div className="absolute inset-0 z-10 bg-black opacity-0 transition group-hover:opacity-30" />
+        <div className="absolute inset-0 z-10 bg-black opacity-0 transition group-hover:opacity-30 dark:bg-white" />
         <div className={`${width} ${height} ${imgStyle}`}>
           <Image
             src={thumbnail}
@@ -26,12 +26,12 @@ const BlogFeatured = ({
       </div>
       <div className="px-8 py-6 text-left">
         <h2 className="w-fit text-sm font-semibold text-blue-600">{category}</h2>
-        <h1 className="mt-2 text-2xl font-bold text-neutral-900">{title}</h1>
+        <h1 className="mt-2 text-2xl font-bold text-primary">{title}</h1>
       </div>
     </>
   );
 
-  const mutualClassName = 'relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none group transition hover:bg-neutral-200';
+  const mutualClassName = 'relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none group transition hover:bg-secondary';
 
   if (toNavigate)
     return (
