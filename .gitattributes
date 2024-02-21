@@ -1,3 +1,0 @@
-*.md text eol=lf
-*.mdx text eol=lf
-yarn.lock text eol=lf
