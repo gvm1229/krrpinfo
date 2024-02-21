@@ -8,7 +8,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"next dev\" \"yarn storybook\"",
+    "dev": "concurrently \"next dev\" \"yarn open-browser\" \"yarn storybook\"",
+    "open-browser": "start http://localhost:3000",
     "build": "next build",
     "turbo": "next dev --turbo",
     "start": "next start",
