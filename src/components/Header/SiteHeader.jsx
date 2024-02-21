@@ -12,17 +12,17 @@ export function SiteHeader({ className }) {
     >
       <div className="container flex h-20 items-center justify-between py-6">
         <MainNav items={navContents} />
-        <nav>
-          <Link
-            href="/login"
-            className={cn(
-              buttonVariants({ variant: 'secondary', size: 'sm' }),
-              'px-4',
-            )}
-          >
-            Login
-          </Link>
-        </nav>
+        {/* <nav> */}
+        {/*  <Link */}
+        {/*    href="/login" */}
+        {/*    className={cn( */}
+        {/*      buttonVariants({ variant: 'secondary', size: 'sm' }), */}
+        {/*      'px-4', */}
+        {/*    )} */}
+        {/*  > */}
+        {/*    Login */}
+        {/*  </Link> */}
+        {/* </nav> */}
       </div>
     </header>
   );
