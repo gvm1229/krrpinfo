@@ -20,7 +20,7 @@ export default async function PostRootPage() {
             >
               <h2 className="mt-4 text-violet-600 hover:underline">{post.title}</h2>
             </Link>
-            <p className="mt-4 text-secondary">{post.subtitle}</p>
+            <p className="mt-4 text-primary">{post.subtitle}</p>
           </div>
         ))}
       </div>

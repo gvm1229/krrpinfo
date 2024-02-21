@@ -23,6 +23,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
     'plugin:tailwindcss/recommended',
+    'plugin:storybook/recommended',
   ],
   settings: {
     react: {
@@ -78,7 +79,7 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
 
     // --- JSX --- //
-    'jsx-a11y/alt-text': 0,
+    // 'jsx-a11y/alt-text': 0,
     'jsx-a11y/iframe-has-title': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'jsx-a11y/no-static-element-interactions': 0,
