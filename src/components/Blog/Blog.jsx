@@ -1,12 +1,11 @@
 import { Link as LinkIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 const Blog = ({
   width = 'min-w-80',
   thumbnail = 'https://dummyimage.com/1280x720',
-  imgStyle = 'object-cover',
   category = 'Sample Category',
   date = '2024/1/11',
   title = 'Sample Title',
@@ -24,10 +23,9 @@ const Blog = ({
             />
           </div>
         )}
-        <div className={`relative size-full min-h-56 overflow-hidden rounded-md shadow-md ${imgStyle}`}>
-          <Image
+        <div className="relative size-full min-h-56 overflow-hidden rounded-md shadow-md">
+          <ResponsiveImage
             src={thumbnail}
-            fill
             alt="blog-thumbnail"
           />
         </div>

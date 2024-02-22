@@ -1,12 +1,11 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 const BlogFeatured = ({
   width = 'w-full',
   height = 'mobile:h-80 tablet:h-96 desktop:h-108',
   thumbnail = 'https://dummyimage.com/1280x720',
-  imgStyle = 'object-cover',
   category = 'Sample Category',
   title = 'Sample Title',
   toNavigate,
@@ -16,10 +15,9 @@ const BlogFeatured = ({
     <>
       <div className="relative">
         <div className="absolute inset-0 z-10 bg-black opacity-0 transition group-hover:opacity-30 dark:bg-white" />
-        <div className={`${width} ${height} ${imgStyle}`}>
-          <Image
+        <div className={`${width} ${height}`}>
+          <ResponsiveImage
             src={thumbnail}
-            fill
             alt="blog-featured-thumbnail"
           />
         </div>

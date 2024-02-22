@@ -1,12 +1,11 @@
 import { Link as LinkIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 const BlogMini = ({
   height = 'h-20',
   thumbnail = 'https://dummyimage.com/1280x720',
-  imgStyle = 'object-cover',
   category = 'Sample Category',
   title = 'Sample Title',
   toNavigate,
@@ -15,10 +14,9 @@ const BlogMini = ({
   const children = (
     <>
       <div className="relative flex max-w-32 shrink-0 items-center justify-center">
-        <div className={`w-full ${height} ${imgStyle}`}>
-          <Image
+        <div className={`w-full ${height}`}>
+          <ResponsiveImage
             src={thumbnail}
-            fill
             alt="blog-mini-thumbnail"
           />
         </div>
