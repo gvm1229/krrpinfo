@@ -23,7 +23,7 @@ const Blog = ({
             />
           </div>
         )}
-        <div className="relative size-full min-h-56 overflow-hidden rounded-md shadow-md">
+        <div className="relative h-auto w-full overflow-hidden rounded-md shadow-md">
           <ResponsiveImage
             src={thumbnail}
             alt="blog-thumbnail"
