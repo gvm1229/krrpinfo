@@ -20,5 +20,9 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  // Define default props here
+  width: 'w-full',
+  height: 'mobile:h-80 tablet:h-96 desktop:h-108',
+  thumbnail: 'https://dummyimage.com/1280x720',
+  category: 'Sample Category',
+  title: 'Sample Title',
 };
