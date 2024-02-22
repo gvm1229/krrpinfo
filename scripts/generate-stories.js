@@ -6,6 +6,8 @@ const directoryToWatch = './src/components'; // Change this to the directory whe
 function parseStoryContent(componentName, componentGroupName) {
   return `import React from 'react';
 import ${componentName} from '@/src/components/${componentGroupName}/${componentName}';
+import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/${componentGroupName}/${componentName}',
@@ -19,9 +21,18 @@ export default {
 };
 
 const Template = (args) => (
-  <div className="container relative flex h-screen w-screen items-center justify-center">
-    <${componentName} {...args} />
-  </div>
+  <ThemeProvider
+    attribute="class"
+    defaultTheme="system"
+    enableSystem
+  >
+    <div className="container relative flex h-screen w-screen items-center justify-center">
+      <div className="absolute right-0 top-10">
+        <ModeToggle />
+      </div>
+      <${componentName} {...args} />
+    </div>
+  </ThemeProvider>
 );
 
 export const Default = Template.bind({});

@@ -2,11 +2,20 @@
   "name": "krrpinfo",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "author": {
     "name": "Megi",
     "email": "hojini1229@gmail.com"
   },
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gvm1229/krrpinfo"
+  },
+  "engines": {
+    "node": ">=18.x",
+    "yarn": ">=4.1.0",
+    "npm": "yarn only"
+  },
   "scripts": {
     "dev": "concurrently \"next dev\" \"yarn open-browser\" \"yarn storybook\" \"yarn watch-stories\"",
     "open-browser": "start http://localhost:3000",
@@ -16,22 +25,20 @@
     "preview": "next build && next start",
     "storybook": "storybook dev --quiet -p 6006",
     "build-storybook": "storybook build --test",
-    "generate-stories": "node generate-stories.js",
-    "watch-stories": "node watch-stories.js",
+    "generate-stories": "node scripts/generate-stories.js",
+    "watch-stories": "node scripts/watch-stories.js",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "clean": "rm -rf dist && rm -rf .next && rm -rf .husky/_",
     "clean-all": "yarn clean && rm -rf node_modules && yarn cache clean --all",
     "refresh": "yarn clean-all && yarn install --immutable",
-    "reinit": "yarn clean-all && yarn install",
+    "reinit": "yarn clean-all && rm yarn.lock && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
-    "git-refresh": "git lfs update --force && git rm -r -f --cached . && git add .",
+    "git-refresh": "git lfs update --force && git rm -rf --cached . && git add .",
     "postinstall": "husky",
     "shadcn": "npx shadcn-ui@latest add"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
-    "@heroicons/react": "^2.1.1",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.1.0",
@@ -43,7 +50,7 @@
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.335.0",
+    "lucide-react": "^0.336.0",
     "markdown-to-jsx": "^7.4.1",
     "mongodb": "^6.3.0",
     "next": "14.1.0",
@@ -79,8 +86,8 @@
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-storybook": "^0.8.0",
-    "eslint-plugin-tailwindcss": "^3.14.2",
-    "husky": "9.0.1",
+    "eslint-plugin-tailwindcss": "^3.14.3",
+    "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "npm-check-updates": "^16.14.15",
     "postcss": "^8.4.35",

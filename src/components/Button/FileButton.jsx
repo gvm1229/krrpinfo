@@ -38,13 +38,6 @@ const FileButton = ({
       {isDownloadDecorationExist && (
         <div className="flex items-center gap-3">
           <h3 className="text-center text-base font-normal text-gray-600">Download</h3>
-          {/* <HeroIcons */}
-          {/*  iconName="ArrowDownTrayIcon" */}
-          {/*  height="h-5" */}
-          {/*  width="w-5" */}
-          {/*  style="text-gray-800" */}
-          {/*  strokeWidth="2" */}
-          {/* /> */}
           <Download />
         </div>
       )}

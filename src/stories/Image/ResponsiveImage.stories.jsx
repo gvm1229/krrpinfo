@@ -1,11 +1,12 @@
 import React from 'react';
-import Blog from '@/src/components/Blog/Blog';
+import s24BannerKr from '@/public/assets/images/한섭/S24_아리아.png';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 export default {
-  title: 'Components/Blog/Blog',
-  component: Blog,
+  title: 'Components/Image/ResponsiveImage',
+  component: ResponsiveImage,
   argTypes: {
     // Define default argTypes here
   },
@@ -24,16 +25,15 @@ const Template = (args) => (
       <div className="absolute right-0 top-10">
         <ModeToggle />
       </div>
-      <Blog {...args} />
+      <ResponsiveImage {...args} />
     </div>
   </ThemeProvider>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  width: 'min-w-80',
-  thumbnail: 'https://dummyimage.com/1280x720',
-  category: 'Sample Category',
-  date: '2024/1/11',
-  title: 'Sample Title',
+  // src: 'https://dummyimage.com/1280x720',
+  src: s24BannerKr,
+  alt: 'responsive dummy',
+  wrapperClassName: 'border-2 border-black dark:border-white',
 };

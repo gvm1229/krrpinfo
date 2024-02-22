@@ -3,17 +3,17 @@ import { cn } from '@/src/util/utils';
 
 const Featured = ({ className }) => (
   <div className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
-    <div className="col-span-2 flex size-full items-center justify-center bg-gray-300 md:h-144">
+    <div className="col-span-2 flex h-28 w-full items-center justify-center bg-gray-300 md:h-144">
       Ongoing event
     </div>
     <div className="col-span-1 grid size-full grid-rows-3 gap-y-4 md:gap-4">
-      <div className="flex size-full items-center justify-center bg-amber-500">
+      <div className="flex h-16 w-full items-center justify-center bg-amber-500 md:h-full">
         Current season: S24
       </div>
-      <div className="flex size-full items-center justify-center bg-blue-300">
+      <div className="flex h-16 w-full items-center justify-center bg-blue-300 md:h-full">
         PLACEHOLDER
       </div>
-      <div className="flex size-full items-center justify-center bg-red-300">
+      <div className="flex h-16 w-full items-center justify-center bg-red-300 md:h-full">
         PLACEHOLDER
       </div>
     </div>
@@ -31,11 +31,11 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/S24/시즌배너.webp',
+      thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
       imgStyle: 'object-cover',
       category: '넥슨 공식 매체',
       title: '진행 중인 & 진행 예정인 이벤트',
-      hyperlink: 'https://kartrush.nexon.com/2023/event_231214-launching',
+      hyperlink: 'https://kartrush.nexon.com/2024/event_240215-launching',
     },
     {
       width: 'w-full',
@@ -80,9 +80,9 @@ const Posts = ({ className }) => {
 
 export default function Home() {
   return (
-    <main className="relative flex h-full flex-col items-center gap-y-8 md:gap-y-16">
+    <main className="relative h-full">
       <Featured className="px-4" />
-      <Posts />
+      <Posts className="mt-8 md:mt-16" />
     </main>
   );
 }

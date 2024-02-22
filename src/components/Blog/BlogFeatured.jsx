@@ -29,7 +29,7 @@ const BlogFeatured = ({
     </>
   );
 
-  const mutualClassName = 'relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none group transition hover:bg-secondary';
+  const mutualClassName = 'relative overflow-hidden flex flex-col rounded-lg shadow-lg group transition focus:outline-none hover:bg-secondary dark:shadow-slate-600';
 
   if (toNavigate)
     return (
