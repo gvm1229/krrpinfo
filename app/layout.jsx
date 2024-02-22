@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={cn(
-          'h-full min-h-lvh bg-background',
+          'h-full bg-background',
           pretendard.className,
         )}
       >
@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
           enableSystem
         >
-          <div className="flex flex-col">
+          <div className="flex min-h-lvh flex-col">
             <SiteHeader className="border-b bg-background" />
             <main className="container relative flex-1 py-8 md:py-12">
               {children}
