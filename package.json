@@ -21,8 +21,9 @@
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "clean": "rm -rf dist && rm -rf .next && rm -rf .husky/_",
-    "refresh": "rm -rf node_modules && yarn clean && yarn cache clean --all && yarn install --immutable",
-    "reinit": "rm -rf node_modules && yarn clean && rm yarn.lock && yarn cache clean --all && yarn install",
+    "clean-all": "yarn clean && rm -rf node_modules && yarn cache clean --all",
+    "refresh": "yarn clean-all && yarn install --immutable",
+    "reinit": "yarn clean-all && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
     "git-refresh": "git lfs update --force && git rm -r -f --cached . && git add .",
     "postinstall": "husky",
@@ -55,6 +56,7 @@
     "remark-gfm": "^4.0.0",
     "remark-toc": "^9.0.0",
     "tailwind-merge": "^2.2.1",
+    "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
@@ -83,10 +85,10 @@
     "npm-check-updates": "^16.14.15",
     "postcss": "^8.4.35",
     "postcss-cli": "^11.0.0",
-    "storybook": "^7.6.17",
-    "tailwindcss": "^3.4.1"
+    "storybook": "^7.6.17"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn lint-fix"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }
