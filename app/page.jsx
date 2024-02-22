@@ -31,11 +31,11 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/S24/시즌배너.webp',
+      thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
       imgStyle: 'object-cover',
       category: '넥슨 공식 매체',
       title: '진행 중인 & 진행 예정인 이벤트',
-      hyperlink: 'https://kartrush.nexon.com/2023/event_231214-launching',
+      hyperlink: 'https://kartrush.nexon.com/2024/event_240215-launching',
     },
     {
       width: 'w-full',
