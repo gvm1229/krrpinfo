@@ -7,6 +7,10 @@
     "name": "Megi",
     "email": "hojini1229@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gvm1229/krrpinfo"
+  },
   "engines": {
     "node": ">=20.11.0",
     "yarn": ">=4.1.0",
