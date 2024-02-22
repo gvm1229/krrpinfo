@@ -27,6 +27,7 @@ const Blog = ({
           <ResponsiveImage
             src={thumbnail}
             alt="blog-thumbnail"
+            aspectRatio="aspect-video"
           />
         </div>
       </div>
