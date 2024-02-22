@@ -24,14 +24,14 @@ const Posts = ({ className }) => {
   const posts = [
     {
       width: 'w-full',
-      // thumbnail: '/assets/images/넥슨API.jpg',
+      thumbnail: '/assets/images/넥슨API.jpg',
       category: '유틸리티 도구',
       title: '계정 정보 조회',
       toNavigate: 'view_account',
     },
     {
       width: 'w-full',
-      // thumbnail: '/assets/images/S24/시즌배너.webp',
+      thumbnail: '/assets/images/S24/시즌배너.webp',
       imgStyle: 'object-cover',
       category: '넥슨 공식 매체',
       title: '진행 중인 & 진행 예정인 이벤트',
@@ -39,7 +39,7 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      // thumbnail: '/assets/images/썸네일공지사항.jpg',
+      thumbnail: '/assets/images/썸네일공지사항.jpg',
       imgStyle: 'object-cover desktop:object-fill',
       category: '넥슨 공식 매체',
       title: '넥슨 공지사항',
@@ -47,21 +47,21 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      // thumbnail: '/assets/images/확짤1.jpg',
+      thumbnail: '/assets/images/확짤1.jpg',
       category: '유용한 링크',
       title: '확률표 1 - 상점 교환 관련',
       hyperlink: 'https://m.nexon.com/probability/2038?language=ko',
     },
     {
       width: 'w-full',
-      // thumbnail: '/assets/images/확짤2.jpg',
+      thumbnail: '/assets/images/확짤2.jpg',
       category: '유용한 링크',
       title: '확률표 2 - 주 과금 컨텐츠 관련',
       hyperlink: 'https://m.nexon.com/probability/705?language=ko',
     },
     {
       width: 'w-full',
-      // thumbnail: '/assets/images/아이템전.webp',
+      thumbnail: '/assets/images/아이템전.webp',
       imgStyle: 'object-fill',
       category: '유용한 링크',
       title: '아이템전용 카트 & 펫 목록 퀵뷰',
