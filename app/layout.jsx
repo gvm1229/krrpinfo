@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
         >
           <div className="flex min-h-screen flex-col">
             <SiteHeader className="border-b bg-background" />
-            <main className="container flex-1 py-8 md:py-12">
+            <main className="container relative flex-1 py-8 md:py-12">
               {children}
             </main>
             <SiteFooter className="border-t bg-background" />

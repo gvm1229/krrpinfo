@@ -2,7 +2,7 @@ import Blog from '@/src/components/Blog/Blog';
 import { cn } from '@/src/util/utils';
 
 const Featured = ({ className }) => (
-  <div className={cn('grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
+  <div className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
     <div className="col-span-2 flex size-full items-center justify-center bg-gray-300 md:h-144">
       Ongoing event
     </div>
@@ -70,7 +70,7 @@ const Posts = ({ className }) => {
   ];
 
   return (
-    <div className={cn('grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
+    <div className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
       {posts.map((post) => (
         <Blog key={post.title} {...post} />
       ))}
@@ -80,7 +80,7 @@ const Posts = ({ className }) => {
 
 export default function Home() {
   return (
-    <main className="flex h-full flex-col items-center gap-y-8 md:gap-y-16">
+    <main className="relative flex h-full flex-col items-center gap-y-8 md:gap-y-16">
       <Featured className="px-4" />
       <Posts />
     </main>
