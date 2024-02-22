@@ -2,3 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 yarn lint-staged
+
+#echo debugging the pre-commit hook 1>&2
+#exit 1

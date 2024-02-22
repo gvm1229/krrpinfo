@@ -5,3 +5,6 @@ if [ "$current_branch" = "release" ]; then
   echo "Aborting push. Direct pushes to the 'release' branch are not allowed."
   exit 1
 fi
+
+#echo debugging the pre-push hook 1>&2
+#exit 1
