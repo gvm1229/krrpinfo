@@ -13,7 +13,7 @@ export default {
 };
 
 const Template = (args) => (
-  <div className="container flex h-screen w-screen items-center justify-center">
+  <div className="container relative flex h-screen w-screen items-center justify-center">
     <Blog {...args} />
   </div>
 );
