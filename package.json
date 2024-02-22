@@ -2,11 +2,16 @@
   "name": "krrpinfo",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "author": {
     "name": "Megi",
     "email": "hojini1229@gmail.com"
   },
-  "license": "MIT",
+  "engines": {
+    "node": ">=20.11.0",
+    "yarn": ">=4.1.0",
+    "npm": "yarn only"
+  },
   "scripts": {
     "dev": "concurrently \"next dev\" \"yarn open-browser\" \"yarn storybook\" \"yarn watch-stories\"",
     "open-browser": "start http://localhost:3000",
@@ -25,13 +30,11 @@
     "refresh": "yarn clean-all && yarn install --immutable",
     "reinit": "yarn clean-all && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
-    "git-refresh": "git lfs update --force && git rm -r -f --cached . && git add .",
+    "git-refresh": "git lfs update --force && git rm -r -f --cached . && git add . && git reset",
     "postinstall": "husky",
     "shadcn": "npx shadcn-ui@latest add"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
-    "@heroicons/react": "^2.1.1",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.1.0",
