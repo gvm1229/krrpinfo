@@ -18,7 +18,6 @@ const nextConfig = {
     'js', 'jsx', 'mdx', 'ts', 'tsx',
   ],
   images: {
-    // domains: ["dummyimage.com"],
     remotePatterns: [
       {
         protocol: 'https',
