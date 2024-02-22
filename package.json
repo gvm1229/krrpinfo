@@ -12,7 +12,7 @@
     "url": "https://github.com/gvm1229/krrpinfo"
   },
   "engines": {
-    "node": ">=20.11.0",
+    "node": ">=18.x",
     "yarn": ">=4.1.0",
     "npm": "yarn only"
   },
