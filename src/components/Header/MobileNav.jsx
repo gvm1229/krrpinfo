@@ -21,7 +21,7 @@ export function MobileNav({
       <div
         className={cn(
           'relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md',
-          'dark:shadow-white',
+          'dark:shadow-slate-500',
         )}
       >
         <Link href="/" className="flex items-center space-x-2">
