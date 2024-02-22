@@ -35,5 +35,5 @@ Default.args = {
   // src: 'https://dummyimage.com/1280x720',
   src: s24BannerKr,
   alt: 'responsive dummy',
-  wrapperClassName: 'border-1 border-black',
+  wrapperClassName: 'border-2 border-black dark:border-white',
 };
