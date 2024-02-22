@@ -15,7 +15,7 @@ const Blog = ({
 }) => {
   const children = (
     <>
-      <div className={`relative aspect-[2/1] rounded-md ${width}`}>
+      <div className={`relative aspect-video rounded-md ${width}`}>
         <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition group-hover:opacity-20 dark:bg-white" />
         {hyperlink && (
           <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
