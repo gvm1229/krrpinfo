@@ -15,7 +15,7 @@ export default {
 };
 
 const Template = (args) => (
-  <div className="container size-full">
+  <div className="container flex h-screen w-screen items-center justify-center">
     <ButtonNewTab {...args} />
   </div>
 );
