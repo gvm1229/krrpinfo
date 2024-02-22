@@ -36,7 +36,8 @@
     "upgrade-deps": "yarn ncu -u && yarn install",
     "git-refresh": "git lfs update --force && git rm -rf --cached . && git add .",
     "postinstall": "husky",
-    "shadcn": "npx shadcn-ui@latest add"
+    "shadcn": "npx shadcn-ui@latest add",
+    "commit": "git cz"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
@@ -76,7 +77,9 @@
     "@storybook/react": "^7.6.17",
     "@storybook/test": "^7.6.17",
     "autoprefixer": "^10.4.17",
+    "commitizen": "^4.3.0",
     "concurrently": "^8.2.2",
+    "cz-emoji-conventional": "^1.0.2",
     "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
@@ -93,6 +96,11 @@
     "postcss": "^8.4.35",
     "postcss-cli": "^11.0.0",
     "storybook": "^7.6.17"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji-conventional"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn lint-fix"
