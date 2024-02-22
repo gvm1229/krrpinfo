@@ -80,9 +80,9 @@ const Posts = ({ className }) => {
 
 export default function Home() {
   return (
-    <main className="relative flex h-full flex-col items-center gap-y-8 md:gap-y-16">
+    <main className="relative h-full">
       <Featured className="px-4" />
-      <Posts />
+      <Posts className="mt-8 md:mt-16" />
     </main>
   );
 }
