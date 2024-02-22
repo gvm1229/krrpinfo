@@ -32,9 +32,9 @@
     "clean": "rm -rf dist && rm -rf .next && rm -rf .husky/_",
     "clean-all": "yarn clean && rm -rf node_modules && yarn cache clean --all",
     "refresh": "yarn clean-all && yarn install --immutable",
-    "reinit": "yarn clean-all && yarn install",
+    "reinit": "yarn clean-all && rm yarn.lock && yarn install",
     "upgrade-deps": "yarn ncu -u && yarn install",
-    "git-refresh": "git lfs update --force && git rm -r -f --cached . && git add . && git reset",
+    "git-refresh": "git lfs update --force && git rm -rf --cached . && git add .",
     "postinstall": "husky",
     "shadcn": "npx shadcn-ui@latest add"
   },
