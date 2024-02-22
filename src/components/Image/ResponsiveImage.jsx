@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { cn } from '@/src/util/utils';
 
 const ResponsiveImage = ({
   src,
@@ -7,8 +8,10 @@ const ResponsiveImage = ({
   aspectRatio = 'aspect-auto',
   isPriority = true,
   objectFit = 'object-cover',
+  wrapperClassName,
+  imageClassName,
 }) => (
-  <div className={`relative ${aspectRatio}`}>
+  <div className={cn(`relative ${aspectRatio}`, wrapperClassName)}>
     <Image
       src={src}
       alt={alt}
@@ -18,7 +21,7 @@ const ResponsiveImage = ({
       style={{ width: '100%', height: 'auto' }}
       sizes="100vw"
       priority={isPriority}
-      className={`relative ${objectFit}`}
+      className={cn(`relative ${objectFit}`, imageClassName)}
     />
   </div>
 );
