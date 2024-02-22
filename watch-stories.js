@@ -19,7 +19,7 @@ export default {
 };
 
 const Template = (args) => (
-  <div className="container size-full">
+  <div className="container relative flex h-screen w-screen items-center justify-center">
     <${componentName} {...args} />
   </div>
 );

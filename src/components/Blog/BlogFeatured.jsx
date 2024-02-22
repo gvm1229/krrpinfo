@@ -1,39 +1,35 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 const BlogFeatured = ({
   width = 'w-full',
   height = 'mobile:h-80 tablet:h-96 desktop:h-108',
   thumbnail = 'https://dummyimage.com/1280x720',
-  imgStyle = 'object-cover',
   category = 'Sample Category',
   title = 'Sample Title',
-  transitionAtHover = 'scale',
   toNavigate,
   hyperlink,
 }) => {
   const children = (
     <>
       <div className="relative">
-        {transitionAtHover === 'bgChange' && (
-          <div className="absolute inset-0 bg-black opacity-0 transition group-hover:opacity-30" />
-        )}
-        <Image
-          src={thumbnail}
-          className={`${width} ${height} ${imgStyle}`}
-          fill
-          alt="blog-featured-thumbnail"
-        />
+        <div className="absolute inset-0 z-10 bg-black opacity-0 transition group-hover:opacity-30 dark:bg-white" />
+        <div className={`${width} ${height}`}>
+          <ResponsiveImage
+            src={thumbnail}
+            alt="blog-featured-thumbnail"
+          />
+        </div>
       </div>
       <div className="px-8 py-6 text-left">
         <h2 className="w-fit text-sm font-semibold text-blue-600">{category}</h2>
-        <h1 className="mt-2 text-2xl font-bold text-neutral-900">{title}</h1>
+        <h1 className="mt-2 text-2xl font-bold text-primary">{title}</h1>
       </div>
     </>
   );
 
-  const mutualClassName = `relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none ${transitionAtHover === 'scale' && 'transition hover:scale-103'} ${transitionAtHover === 'bgChange' && 'group transition hover:bg-neutral-200'}`;
+  const mutualClassName = 'relative overflow-hidden flex flex-col rounded-lg shadow-lg focus:outline-none group transition hover:bg-secondary';
 
   if (toNavigate)
     return (
