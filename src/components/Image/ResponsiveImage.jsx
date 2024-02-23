@@ -7,7 +7,7 @@ const ResponsiveImage = ({
   quality,
   aspectRatio = 'aspect-auto',
   gridNums = [1, 1, 1],
-  isPriority = false,
+  isPriority = true,
   objectFit = 'object-cover',
   wrapperClassName,
   imageClassName,
