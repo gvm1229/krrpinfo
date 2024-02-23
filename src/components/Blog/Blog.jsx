@@ -11,6 +11,7 @@ const Blog = ({
   title = 'Sample Title',
   toNavigate,
   hyperlink,
+  isImagePriority = false,
 }) => {
   const children = (
     <>
@@ -31,6 +32,7 @@ const Blog = ({
           aspectRatio="aspect-video"
           wrapperClassName="rounded-md shadow-md dark:shadow-slate-600"
           gridNums={[1, 2, 3]}
+          isPriority={isImagePriority}
         />
       </div>
       <div className="group text-left">

@@ -9,6 +9,7 @@ const BlogFeatured = ({
   title = 'Sample Title',
   toNavigate,
   hyperlink,
+  isImagePriority = false,
 }) => {
   const children = (
     <>
@@ -19,6 +20,7 @@ const BlogFeatured = ({
           alt="blog-featured-thumbnail"
           aspectRatio="aspect-video"
           wrapperClassName={maxHeight}
+          isPriority={isImagePriority}
         />
       </div>
       <div className="p-6 text-left tablet:px-8">
