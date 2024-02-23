@@ -20,6 +20,7 @@
     "dev": "concurrently \"next dev --turbo\" \"yarn open-browser\" \"yarn storybook\"",
     "open-browser": "start http://localhost:3000",
     "build": "next build",
+    "analyze": "ANALYZE=true next build",
     "turbo": "next dev --turbo",
     "start": "next start",
     "preview": "next build && next start",
@@ -39,10 +40,12 @@
     "commit": "git cz"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^14.1.0",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
     "@tailwindcss/typography": "^0.5.10",
     "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^1.0.10",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",

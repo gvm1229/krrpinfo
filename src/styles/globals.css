@@ -1,6 +1,12 @@
+@import url("./fonts/pretendardvariable.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+}
 
 @layer base {
   :root {
@@ -70,6 +76,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

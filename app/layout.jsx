@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import localFont from 'next/font/local';
 import '@/src/styles/globals.css';
 import { siteConfig } from '@/config/site';
@@ -48,7 +49,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={cn(
-          'relative min-h-lvh bg-background',
+          'relative min-h-lvh bg-background antialiased',
           pretendard.className,
         )}
       >
@@ -66,6 +67,7 @@ export default function RootLayout({ children }) {
           </div>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

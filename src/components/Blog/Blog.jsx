@@ -11,6 +11,7 @@ const Blog = ({
   title = 'Sample Title',
   toNavigate,
   hyperlink,
+  isImagePriority = false,
 }) => {
   const children = (
     <>
@@ -25,13 +26,14 @@ const Blog = ({
             />
           </div>
         )}
-        <div className="relative h-auto w-full overflow-hidden rounded-md shadow-md dark:shadow-slate-600">
-          <ResponsiveImage
-            src={thumbnail}
-            alt="blog-thumbnail"
-            aspectRatio="aspect-video"
-          />
-        </div>
+        <ResponsiveImage
+          src={thumbnail}
+          alt="blog-thumbnail"
+          aspectRatio="aspect-video"
+          wrapperClassName="rounded-md shadow-md dark:shadow-slate-600"
+          gridNums={[1, 2, 3]}
+          isPriority={isImagePriority}
+        />
       </div>
       <div className="group text-left">
         <div className="flex items-center justify-between">
