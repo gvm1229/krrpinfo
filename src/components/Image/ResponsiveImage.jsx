@@ -6,7 +6,7 @@ const ResponsiveImage = ({
   alt,
   quality,
   aspectRatio = 'aspect-auto',
-  isPriority = true,
+  isPriority = false,
   objectFit = 'object-cover',
   wrapperClassName,
   imageClassName,
