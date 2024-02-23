@@ -1,4 +1,5 @@
 import React from 'react';
+import hdDummy from '@/public/assets/storybook/720p.png';
 import BlogMini from '@/src/components/Blog/BlogMini';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
@@ -32,7 +33,7 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   height: 'h-20',
-  thumbnail: 'https://dummyimage.com/1280x720',
+  thumbnail: hdDummy,
   category: 'Sample Category',
   title: 'Sample Title',
 };
