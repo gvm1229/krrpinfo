@@ -12,7 +12,7 @@ const BlogMini = ({
 }) => {
   const children = (
     <>
-      <div className="relative flex max-w-32 shrink-0 items-center justify-center tablet:max-w-40 desktop:max-w-40">
+      <div className="relative flex max-w-32 shrink-0 items-center justify-center tablet:max-w-40">
         <ResponsiveImage
           src={thumbnail}
           alt="blog-mini-thumbnail"

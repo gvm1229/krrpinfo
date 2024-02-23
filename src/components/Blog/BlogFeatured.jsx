@@ -21,7 +21,7 @@ const BlogFeatured = ({
           wrapperClassName={maxHeight}
         />
       </div>
-      <div className="p-6 text-left tablet:px-8 desktop:px-8">
+      <div className="p-6 text-left tablet:px-8">
         <h2 className="w-fit text-sm font-semibold text-blue-600">{category}</h2>
         <h1 className="mt-2 text-2xl font-bold text-primary">{title}</h1>
       </div>
