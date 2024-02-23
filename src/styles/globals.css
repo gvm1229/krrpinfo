@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -70,6 +74,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
