@@ -22,13 +22,13 @@ const Featured = ({ className }) => (
 
 const Posts = ({ className }) => {
   const posts = [
-    {
-      width: 'w-full',
-      thumbnail: '/assets/images/넥슨API.jpg',
-      category: '유틸리티 도구',
-      title: '계정 정보 조회',
-      toNavigate: 'view_account',
-    },
+    // {
+    //   width: 'w-full',
+    //   thumbnail: '/assets/images/넥슨API.jpg',
+    //   category: '유틸리티 도구',
+    //   title: '계정 정보 조회',
+    //   toNavigate: 'view_account',
+    // },
     {
       width: 'w-full',
       thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
@@ -61,6 +61,13 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
+      thumbnail: '/assets/images/sukimi.jpg',
+      category: '유용한 링크',
+      title: '스피드 카트 성능 비교',
+      hyperlink: 'https://krp-kart-compare.netlify.app/',
+    },
+    {
+      width: 'w-full',
       thumbnail: '/assets/images/아이템전.webp',
       imgStyle: 'object-fill',
       category: '유용한 링크',
@@ -70,7 +77,9 @@ const Posts = ({ className }) => {
   ];
 
   return (
-    <div className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
+    <div
+      className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}
+    >
       {posts.map((post) => (
         <Blog key={post.title} {...post} />
       ))}
