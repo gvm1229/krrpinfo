@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={cn(
-          'relative min-h-lvh bg-background',
+          'relative min-h-lvh bg-background antialiased',
           pretendard.className,
         )}
       >
