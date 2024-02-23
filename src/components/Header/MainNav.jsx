@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 
-import { siteConfig } from '@/src/config/site';
+import { siteConfig } from '@/config/site';
 import { cn } from '@/src/util/utils';
 import { MobileNav } from './MobileNav';
 
