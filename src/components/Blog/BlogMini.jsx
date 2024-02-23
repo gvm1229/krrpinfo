@@ -9,6 +9,7 @@ const BlogMini = ({
   title = 'Sample Title',
   toNavigate,
   hyperlink,
+  isImagePriority = false,
 }) => {
   const children = (
     <>
@@ -16,6 +17,7 @@ const BlogMini = ({
         <ResponsiveImage
           src={thumbnail}
           alt="blog-mini-thumbnail"
+          isPriority={isImagePriority}
         />
       </div>
       <div className="ml-6 text-left">
