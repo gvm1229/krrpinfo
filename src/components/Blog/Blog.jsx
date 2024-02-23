@@ -30,6 +30,7 @@ const Blog = ({
           alt="blog-thumbnail"
           aspectRatio="aspect-video"
           wrapperClassName="rounded-md shadow-md dark:shadow-slate-600"
+          gridNums={[1, 2, 3]}
         />
       </div>
       <div className="group text-left">
