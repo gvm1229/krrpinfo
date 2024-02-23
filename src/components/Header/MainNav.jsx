@@ -56,7 +56,7 @@ export function MainNav({ items, children }) {
       {showMobileMenu && items && (
         <MobileNav
           items={items}
-          setShowMobileMenu={setShowMobileMenu}
+          // setShowMobileMenu={setShowMobileMenu}
         >
           {children}
         </MobileNav>
