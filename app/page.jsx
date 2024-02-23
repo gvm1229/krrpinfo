@@ -85,7 +85,7 @@ const Posts = ({ className }) => {
       {posts.map((post, index) => (
         <Blog
           key={post.title}
-          isImagePriority={index < 3}
+          isImagePriority
           {...post}
         />
       ))}
