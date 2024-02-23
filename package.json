@@ -17,7 +17,7 @@
     "npm": "yarn only"
   },
   "scripts": {
-    "dev": "concurrently \"next dev --turbo\" \"yarn open-browser\" \"yarn storybook\" \"yarn watch-stories\"",
+    "dev": "concurrently \"next dev --turbo\" \"yarn open-browser\" \"yarn storybook\"",
     "open-browser": "start http://localhost:3000",
     "build": "next build",
     "turbo": "next dev --turbo",
@@ -26,7 +26,6 @@
     "storybook": "storybook dev --quiet -p 6006",
     "build-storybook": "storybook build --test",
     "generate-stories": "node scripts/generate-stories.js",
-    "watch-stories": "node scripts/watch-stories.js",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "clean": "rm -rf dist && rm -rf .husky/_",
