@@ -9,7 +9,7 @@ const BlogFeatured = ({
   title = 'Sample Title',
   toNavigate,
   hyperlink,
-  isImagePriority = false,
+  isImagePriority = true,
 }) => {
   const children = (
     <>
