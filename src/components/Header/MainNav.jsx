@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 
-import { siteConfig } from '@/src/config/site';
+import { siteConfig } from '@/config/site';
 import { cn } from '@/src/util/utils';
 import { MobileNav } from './MobileNav';
 
@@ -16,16 +16,16 @@ export function MainNav({ items, children }) {
   return (
     <div
       id="main-nav"
-      className="flex items-center gap-6 md:gap-10"
+      className="flex items-center gap-6 tablet:gap-10"
     >
-      <Link href="/" className="hidden items-center space-x-2 md:flex">
+      <Link href="/" className="hidden items-center space-x-2 tablet:flex">
         <Barcode color="red" size={32} />
-        <span className="hidden text-2xl font-bold md:inline-block">
+        <span className="hidden text-2xl font-bold tablet:inline-block">
           {siteConfig.name}
         </span>
       </Link>
       {items?.length ? (
-        <nav className="hidden gap-6 md:flex">
+        <nav className="hidden gap-6 tablet:flex">
           {items?.map((item) => (
             <Link
               key={item.href}
@@ -45,7 +45,7 @@ export function MainNav({ items, children }) {
       ) : null}
       <button
         className={cn(
-          'flex items-center space-x-2 md:hidden',
+          'flex items-center space-x-2 tablet:hidden',
           'ring-transparent focus-visible:ring-transparent',
         )}
         onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -56,7 +56,7 @@ export function MainNav({ items, children }) {
       {showMobileMenu && items && (
         <MobileNav
           items={items}
-          setShowMobileMenu={setShowMobileMenu}
+          // setShowMobileMenu={setShowMobileMenu}
         >
           {children}
         </MobileNav>

@@ -1,12 +1,11 @@
 import React from 'react';
-import hdDummy from '@/public/assets/storybook/720p.png';
-import Blog from '@/src/components/Blog/Blog';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 
 export default {
-  title: 'Components/Blog/Blog',
-  component: Blog,
+  title: 'Components/Footer/SiteFooter',
+  component: SiteFooter,
   argTypes: {
     // Define default argTypes here
   },
@@ -25,16 +24,12 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <Blog {...args} />
+      <SiteFooter {...args} />
     </div>
   </ThemeProvider>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  width: 'min-w-80',
-  thumbnail: hdDummy,
-  category: 'Sample Category',
-  date: '2024/1/11',
-  title: 'Sample Title',
+  className: 'border-t bg-background',
 };

@@ -21,7 +21,7 @@ const Template = (args) => (
     enableSystem
   >
     <div className="container relative flex h-screen w-screen items-center justify-center">
-      <div className="absolute right-0 top-10">
+      <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
       <Card3D {...args} />

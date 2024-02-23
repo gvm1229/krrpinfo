@@ -27,8 +27,7 @@ export async function getPostContent(slug, customPostsFolder) {
   const postsFolder = path.join(process.cwd(), customPostsFolder || defaultPostsFolder);
   const filePath = path.resolve(path.join(postsFolder, `${slug}.mdx`));
   try {
-    const fileContent = await fs.readFile(filePath, { encoding: 'utf8' });
-    return fileContent;
+    return await fs.readFile(filePath, { encoding: 'utf8' });
   } catch (err) {
     return null;
   }
@@ -45,7 +44,7 @@ export async function getAllPosts(customPostsFolder) {
   const postFiles = await fs.readdir(postsFolder);
 
   // Use Promise.all to asynchronously fetch and process all post contents
-  const postContents = await Promise.all(postFiles.map(async (fileName) => {
+  return Promise.all(postFiles.map(async (fileName) => {
     const slug = fileName.replace(/\.mdx$/, '');
     const content = await getPostContent(slug, customPostsFolder);
     const matterResult = matter(content);
@@ -57,6 +56,4 @@ export async function getAllPosts(customPostsFolder) {
       subtitle: matterResult.data?.subtitle,
     };
   }));
-
-  return postContents;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import hdDummy from '@/public/assets/storybook/720p.png';
 import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
@@ -21,7 +22,7 @@ const Template = (args) => (
     enableSystem
   >
     <div className="container relative flex h-screen w-screen items-center justify-center">
-      <div className="absolute right-0 top-10">
+      <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
       <BlogFeatured {...args} />
@@ -33,7 +34,7 @@ export const Default = Template.bind({});
 Default.args = {
   width: 'w-full',
   height: 'mobile:h-80 tablet:h-96 desktop:h-108',
-  thumbnail: 'https://dummyimage.com/1280x720',
+  thumbnail: hdDummy,
   category: 'Sample Category',
   title: 'Sample Title',
 };

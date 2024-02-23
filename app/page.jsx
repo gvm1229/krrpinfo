@@ -2,18 +2,20 @@ import Blog from '@/src/components/Blog/Blog';
 import { cn } from '@/src/util/utils';
 
 const Featured = ({ className }) => (
-  <div className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
-    <div className="col-span-2 flex h-28 w-full items-center justify-center bg-gray-300 md:h-144">
+  <div
+    className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-3 tablet:gap-4', className)}
+  >
+    <div className="col-span-2 flex h-28 w-full items-center justify-center bg-gray-300 tablet:h-144">
       Ongoing event
     </div>
-    <div className="col-span-1 grid size-full grid-rows-3 gap-y-4 md:gap-4">
-      <div className="flex h-16 w-full items-center justify-center bg-amber-500 md:h-full">
+    <div className="col-span-1 grid size-full grid-rows-3 gap-y-4 tablet:gap-4">
+      <div className="flex h-16 w-full items-center justify-center bg-amber-500 tablet:h-full">
         Current season: S24
       </div>
-      <div className="flex h-16 w-full items-center justify-center bg-blue-300 md:h-full">
+      <div className="flex h-16 w-full items-center justify-center bg-blue-300 tablet:h-full">
         PLACEHOLDER
       </div>
-      <div className="flex h-16 w-full items-center justify-center bg-red-300 md:h-full">
+      <div className="flex h-16 w-full items-center justify-center bg-red-300 tablet:h-full">
         PLACEHOLDER
       </div>
     </div>
@@ -22,13 +24,13 @@ const Featured = ({ className }) => (
 
 const Posts = ({ className }) => {
   const posts = [
-    {
-      width: 'w-full',
-      thumbnail: '/assets/images/넥슨API.jpg',
-      category: '유틸리티 도구',
-      title: '계정 정보 조회',
-      toNavigate: 'view_account',
-    },
+    // {
+    //   width: 'w-full',
+    //   thumbnail: '/assets/images/넥슨API.jpg',
+    //   category: '유틸리티 도구',
+    //   title: '계정 정보 조회',
+    //   toNavigate: 'view_account',
+    // },
     {
       width: 'w-full',
       thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
@@ -61,6 +63,13 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
+      thumbnail: '/assets/images/sukimi.jpg',
+      category: '유용한 링크',
+      title: '스피드 카트 성능 비교',
+      hyperlink: 'https://krp-kart-compare.netlify.app/',
+    },
+    {
+      width: 'w-full',
       thumbnail: '/assets/images/아이템전.webp',
       imgStyle: 'object-fill',
       category: '유용한 링크',
@@ -70,7 +79,9 @@ const Posts = ({ className }) => {
   ];
 
   return (
-    <div className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 md:grid-cols-3 md:gap-4', className)}>
+    <div
+      className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-2 tablet:gap-4 desktop:grid-cols-3', className)}
+    >
       {posts.map((post) => (
         <Blog key={post.title} {...post} />
       ))}
@@ -80,9 +91,9 @@ const Posts = ({ className }) => {
 
 export default function Home() {
   return (
-    <main className="relative h-full">
+    <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
       <Featured className="px-4" />
-      <Posts className="mt-8 md:mt-16" />
+      <Posts />
     </main>
   );
 }

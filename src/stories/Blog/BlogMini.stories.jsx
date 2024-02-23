@@ -1,4 +1,5 @@
 import React from 'react';
+import hdDummy from '@/public/assets/storybook/720p.png';
 import BlogMini from '@/src/components/Blog/BlogMini';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
@@ -21,7 +22,7 @@ const Template = (args) => (
     enableSystem
   >
     <div className="container relative flex h-screen w-screen items-center justify-center">
-      <div className="absolute right-0 top-10">
+      <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
       <BlogMini {...args} />
@@ -32,7 +33,7 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   height: 'h-20',
-  thumbnail: 'https://dummyimage.com/1280x720',
+  thumbnail: hdDummy,
   category: 'Sample Category',
   title: 'Sample Title',
 };

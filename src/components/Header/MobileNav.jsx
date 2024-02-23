@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { siteConfig } from '@/src/config/site';
+import { siteConfig } from '@/config/site';
 import { useLockBody } from '@/src/hooks/use-lock-body';
 import { cn } from '@/src/util/utils';
 
@@ -15,7 +15,7 @@ export function MobileNav({
     <div
       id="mobile-nav"
       className={cn(
-        'fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 md:hidden',
+        'fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 tablet:hidden',
       )}
     >
       <div

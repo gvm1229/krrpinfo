@@ -27,7 +27,7 @@ const Template = (args) => (
     enableSystem
   >
     <div className="container relative flex h-screen w-screen items-center justify-center">
-      <div className="absolute right-0 top-10">
+      <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
       <${componentName} {...args} />
@@ -49,31 +49,63 @@ function findJSXFiles(directory, filelist = []) {
     const filepath = path.join(directory, file);
     if (fs.statSync(filepath).isDirectory())
       filelist = findJSXFiles(filepath, filelist);
-    else
-      if (file.endsWith('.jsx'))
-        filelist.push(filepath);
+    else if (file.endsWith('.jsx'))
+      filelist.push(filepath);
   });
   return filelist;
 }
 
-// Find all JSX files in the directory and generate corresponding storybook files
-const jsxFiles = findJSXFiles(directoryToWatch);
-jsxFiles.forEach((jsxFile) => {
-  const componentName = path.basename(jsxFile, '.jsx');
-  const componentGroupName = path.relative(directoryToWatch, path.dirname(jsxFile)).replace(/\\/g, '/');
-  const storyDirectoryPath = path.join('./src/stories', componentGroupName);
-  const storyFilePath = path.join(storyDirectoryPath, `${componentName}.stories.jsx`);
+// Generate stories for specified directory or all components
+function generateStories(componentDirectory) {
+  const jsxFiles = findJSXFiles(componentDirectory);
+  jsxFiles.forEach((jsxFile) => {
+    const componentName = path.basename(jsxFile, '.jsx');
+    const componentGroupName = path.relative(directoryToWatch, path.dirname(jsxFile)).replace(/\\/g, '/');
+    const storyDirectoryPath = path.join('./src/stories', componentGroupName);
+    const storyFilePath = path.join(storyDirectoryPath, `${componentName}.stories.jsx`);
 
-  // Check if the story directory exists, if not, create it
-  if (!fs.existsSync(storyDirectoryPath))
-    fs.mkdirSync(storyDirectoryPath, { recursive: true });
+    // Check if the story directory exists, if not, create it
+    if (!fs.existsSync(storyDirectoryPath))
+      fs.mkdirSync(storyDirectoryPath, { recursive: true });
 
-  // Check if the story file already exists
-  if (!fs.existsSync(storyFilePath)) {
-    // If the story file doesn't exist, create it
-    fs.writeFileSync(storyFilePath, parseStoryContent(componentName, componentGroupName), 'utf-8');
-    console.log(`Created ${storyFilePath}`);
-  }
+    // Check if the story file already exists
+    if (!fs.existsSync(storyFilePath)) {
+      // If the story file doesn't exist, create it
+      fs.writeFileSync(storyFilePath, parseStoryContent(componentName, componentGroupName), 'utf-8');
+      console.log(`Created ${storyFilePath}`);
+    }
+  });
+}
+
+// Prompt user for input
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
 
-console.log('Generated storybook files for existing components in', directoryToWatch);
+readline.question(`Would you like to generate stories for all components or specify a directory name?
+1. Press "a" for all components.
+2. Enter the directory name for a specific directory.
+> `, (answer) => {
+  if (answer === 'a') {
+    generateStories(directoryToWatch);
+    readline.close();
+  } else {
+    const componentDirectory = path.join(directoryToWatch, answer);
+    if (!fs.existsSync(componentDirectory)) {
+      console.log(`Invalid directory: ${componentDirectory}`);
+      readline.question('Would you like to try again (enter "y" for yes or "n" for no)? ', (retryAnswer) => {
+        if (retryAnswer.toLowerCase() === 'y') {
+          readline.close();
+          process.exit(1);
+        } else {
+          readline.close();
+          process.exit(0);
+        }
+      });
+    } else {
+      generateStories(componentDirectory);
+      readline.close();
+    }
+  }
+});

@@ -1,10 +1,10 @@
 import { Analytics } from '@vercel/analytics/react';
 import localFont from 'next/font/local';
 import '@/src/styles/globals.css';
+import { siteConfig } from '@/config/site';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
-import { siteConfig } from '@/src/config/site';
 import { cn } from '@/src/util/utils';
 
 const pretendard = localFont({ src: '../src/styles/fonts/PretendardVariable.woff2' });
@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
         >
           <div className="relative flex min-h-lvh flex-col">
             <SiteHeader className="border-b bg-background" />
-            <main className="container relative flex-1 py-8 md:py-12">
+            <main className="container relative flex-1 py-8 tablet:py-12">
               {children}
             </main>
             <SiteFooter className="border-t bg-background" />
