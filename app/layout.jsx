@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import localFont from 'next/font/local';
 import '@/src/styles/globals.css';
 import { siteConfig } from '@/config/site';
