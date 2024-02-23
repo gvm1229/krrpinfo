@@ -29,7 +29,7 @@
     "watch-stories": "node scripts/watch-stories.js",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "clean": "rm -rf dist && rm -rf .next && rm -rf .husky/_",
+    "clean": "rm -rf dist && rm -rf .husky/_",
     "clean-all": "yarn clean && rm -rf node_modules && yarn cache clean --all",
     "refresh": "yarn clean-all && yarn install --immutable",
     "reinit": "yarn clean-all && rm yarn.lock && yarn install",
@@ -94,9 +94,6 @@
     "commitizen": {
       "path": "cz-emoji-conventional"
     }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "yarn lint-fix"
   },
   "packageManager": "yarn@4.1.0"
 }
