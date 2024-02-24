@@ -7,7 +7,7 @@ const object1To2396px = array0To599.reduce((o, key) => ({ ...o, [key]: `${key}px
 const array0To49 = Array.from(Array(50)).map((_, i) => i + 1);
 const object1To50rem = array0To49.reduce((o, key) => ({ ...o, [key]: `${key}px` }), {});
 
-// const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   darkMode: ['class'],
@@ -79,6 +79,9 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      fontFamily: {
+        sans: ['var(--font-pretendard)'],
       },
       fontSize: {
         title: '2.5rem',

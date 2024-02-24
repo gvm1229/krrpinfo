@@ -11,6 +11,7 @@ import { cn } from '@/src/util/utils';
 const pretendard = localFont({
   src: '../src/styles/fonts/PretendardVariable.woff2',
   display: 'swap',
+  variable: '--font-pretendard',
 });
 
 export const metadata = {
@@ -49,13 +50,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          'relative min-h-screen bg-background antialiased',
-          pretendard.className,
-        )}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={pretendard.variable}
+    >
+      <body className="relative min-h-screen bg-background antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
