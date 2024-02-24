@@ -8,7 +8,10 @@ import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
 import { cn } from '@/src/util/utils';
 
-const pretendard = localFont({ src: '../src/styles/fonts/PretendardVariable.woff2' });
+const pretendard = localFont({
+  src: '../src/styles/fonts/PretendardVariable.woff2',
+  display: 'swap',
+});
 
 export const metadata = {
   title: {
@@ -46,10 +49,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'relative min-h-lvh bg-background antialiased',
+          'relative min-h-screen bg-background antialiased',
           pretendard.className,
         )}
       >
@@ -58,7 +61,7 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
           enableSystem
         >
-          <div className="relative flex min-h-lvh flex-col">
+          <div className="relative flex min-h-screen flex-col">
             <SiteHeader className="border-b bg-background" />
             <main className="container relative flex-1 py-8 tablet:py-12">
               {children}
