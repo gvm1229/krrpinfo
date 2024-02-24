@@ -1,17 +1,10 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import localFont from 'next/font/local';
 import '@/src/styles/globals.css';
 import { siteConfig } from '@/config/site';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
-
-const pretendard = localFont({
-  src: '../src/styles/fonts/PretendardVariable.woff2',
-  display: 'swap',
-  variable: '--font-pretendard',
-});
 
 export const metadata = {
   title: {
@@ -52,7 +45,6 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={pretendard.variable}
     >
       <body className="relative min-h-screen bg-background antialiased">
         <ThemeProvider
