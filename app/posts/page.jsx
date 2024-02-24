@@ -11,7 +11,7 @@ export default async function PostRootPage() {
         {paths.map((post) => (
           <div
             key={post.slug}
-            className="rounded-md bg-primary-foreground p-4"
+            className="rounded-md bg-slate-200 p-4 dark:bg-slate-800"
           >
             <p className="text-sm text-primary">{new Date(post.date).toLocaleDateString()}</p>
             <Link
