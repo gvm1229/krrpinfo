@@ -11,6 +11,17 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const post = await getPostContent(slug);
+  const { data } = matter(post);
+
+  return {
+    title: data.title,
+    description: data.subtitle,
+  };
+}
+
 export default async function PostPage({ params }) {
   const { slug } = params;
   const post = await getPostContent(slug);
