@@ -25,7 +25,7 @@ export function DashboardTableOfContents({ toc }) {
 
   return mounted ? (
     <div className="space-y-2">
-      <p className="font-medium">On This Page</p>
+      <p className="text-2xl font-semibold">On This Page</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   ) : null;
@@ -77,10 +77,10 @@ function Tree({ tree, level = 1, activeItem }) {
           <a
             href={item.url}
             className={cn(
-              'inline-block no-underline',
+              'inline-block text-lg hover:text-primary',
               item.url === `#${activeItem}`
-                ? 'font-medium text-primary'
-                : 'text-sm text-muted-foreground',
+                ? 'font-medium text-primary underline underline-offset-4'
+                : 'text-muted-foreground',
             )}
           >
             {item.title}
