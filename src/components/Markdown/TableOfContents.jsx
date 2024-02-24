@@ -1,25 +1,95 @@
-const sampleToc = [
-  'Head1',
-  'Head2',
-  'Head3',
-  'Head4',
-  'Head5',
-];
+'use client';
 
-export default function TableOfContents({ markdownInput = sampleToc }) {
-  return (
-    <div className="sticky top-20 hidden h-1/4 w-full max-w-[25%] gap-y-10 bg-sky-300 p-4 pt-1.5 dark:bg-sky-700 tablet:flex tablet:flex-col">
-      <h1 className="text-xl font-bold">
-        Table O. Contents
-      </h1>
-      {markdownInput.map((item) => (
-        <span
-          key={item}
-          className="text-lg font-medium transition hover:text-xl hover:font-bold hover:underline"
-        >
-          {item}
-        </span>
-      ))}
-    </div>
+import * as React from 'react';
+
+import { useMounted } from '@/src/hooks/use-mounted';
+import { cn } from '@/src/util/utils';
+
+export function DashboardTableOfContents({ toc }) {
+  const itemIds = React.useMemo(
+    () => (toc.items
+      ? toc.items
+        .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
+        .flat()
+        .filter(Boolean)
+        .map((id) => id?.split('#')[1])
+      : []),
+    [toc],
   );
+  // eslint-disable-next-line no-use-before-define
+  const activeHeading = useActiveItem(itemIds);
+  const mounted = useMounted();
+
+  if (!toc?.items)
+    return null;
+
+  return mounted ? (
+    <div className="space-y-2">
+      <p className="font-medium">On This Page</p>
+      <Tree tree={toc} activeItem={activeHeading} />
+    </div>
+  ) : null;
+}
+
+function useActiveItem(itemIds) {
+  const [activeId, setActiveId] = React.useState('');
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting)
+            setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: '0% 0% -80% 0%' },
+    );
+
+    itemIds?.forEach((id) => {
+      if (!id)
+        return;
+
+      const element = document.getElementById(id);
+      if (element)
+        observer.observe(element);
+    });
+
+    return () => {
+      itemIds?.forEach((id) => {
+        if (!id)
+          return;
+
+        const element = document.getElementById(id);
+        if (element)
+          observer.unobserve(element);
+      });
+    };
+  }, [itemIds]);
+
+  return activeId;
+}
+
+function Tree({ tree, level = 1, activeItem }) {
+  return tree?.items?.length && level < 3 ? (
+    <ul className={cn('m-0 list-none', { 'pl-4': level !== 1 })}>
+      {tree.items.map((item) => (
+        <li key={item.url} className={cn('mt-0 pt-2')}>
+          <a
+            href={item.url}
+            className={cn(
+              'inline-block no-underline',
+              item.url === `#${activeItem}`
+                ? 'font-medium text-primary'
+                : 'text-sm text-muted-foreground',
+            )}
+          >
+            {item.title}
+          </a>
+          {item.items?.length ? (
+            <Tree tree={item} level={level + 1} activeItem={activeItem} />
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  ) : null;
 }

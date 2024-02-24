@@ -2,7 +2,8 @@ import matter from 'gray-matter';
 import Markdown from 'markdown-to-jsx';
 import { notFound } from 'next/navigation';
 import { getAllPostSlugs, getPostContent } from '@/app/actions/posts';
-import TableOfContents from '@/src/components/Markdown/TableOfContents';
+import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
+import { getTableOfContents } from '@/src/util/toc';
 
 export async function generateStaticParams() {
   const paths = await getAllPostSlugs();
@@ -32,6 +33,7 @@ export default async function PostPage({ params }) {
 
   const { content, data } = matter(post);
   const formattedDate = new Date(data.date).toLocaleDateString();
+  const toc = await getTableOfContents(content);
 
   return (
     <div className="flex tablet:gap-x-16">
@@ -45,7 +47,11 @@ export default async function PostPage({ params }) {
           <Markdown>{content}</Markdown>
         </article>
       </div>
-      <TableOfContents />
+      <div className="hidden text-sm tablet:block">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
+          <DashboardTableOfContents toc={toc} />
+        </div>
+      </div>
     </div>
   );
 }
