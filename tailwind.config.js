@@ -81,7 +81,11 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       fontFamily: {
-        sans: ['var(--font-pretendard)'],
+        sans: [
+          'Pretendard Variable',
+          'Pretendard',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
       fontSize: {
         title: '2.5rem',
