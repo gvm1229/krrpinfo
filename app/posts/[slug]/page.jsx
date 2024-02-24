@@ -34,16 +34,18 @@ export default async function PostPage({ params }) {
   const formattedDate = new Date(data.date).toLocaleDateString();
 
   return (
-    <div className="space-y-8 tablet:space-y-16">
-      <div className="border-b pb-4 text-left">
-        <h1 className="text-4xl font-bold dark:text-slate-400">{data.title}</h1>
-        <p className="mt-2 text-2xl dark:text-slate-500">{data.subtitle}</p>
-        <p className="mt-2 text-xl dark:text-slate-600">{formattedDate}</p>
+    <div className="flex tablet:gap-x-16">
+      <div className="flex-1 space-y-8 tablet:space-y-16">
+        <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-8">
+          <p className="text-sm font-medium dark:text-slate-500 tablet:text-lg">{formattedDate}</p>
+          <h1 className="text-2xl font-bold tablet:text-5xl">{data.title}</h1>
+          <p className="text-lg font-semibold dark:text-slate-400 tablet:text-2xl">{data.subtitle}</p>
+        </header>
+        <article className="prose dark:prose-invert">
+          <Markdown>{content}</Markdown>
+        </article>
       </div>
-
-      <article className="prose dark:prose-invert">
-        <Markdown>{content}</Markdown>
-      </article>
+      <TableOfContents />
     </div>
   );
 }
