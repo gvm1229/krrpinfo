@@ -24,6 +24,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:tailwindcss/recommended',
     'plugin:storybook/recommended',
+    'plugin:mdx/recommended',
   ],
   settings: {
     react: {
@@ -37,6 +38,7 @@ module.exports = {
     next: {
       rootDir: true,
     },
+    'mdx/code-blocks': true,
   },
   plugins: [
     'react',
