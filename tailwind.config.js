@@ -7,7 +7,7 @@ const object1To2396px = array0To599.reduce((o, key) => ({ ...o, [key]: `${key}px
 const array0To49 = Array.from(Array(50)).map((_, i) => i + 1);
 const object1To50rem = array0To49.reduce((o, key) => ({ ...o, [key]: `${key}px` }), {});
 
-const defaultTheme = require('tailwindcss/defaultTheme');
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
   darkMode: ['class'],
@@ -84,7 +84,7 @@ module.exports = {
         sans: [
           'Pretendard Variable',
           'Pretendard',
-          ...defaultTheme.fontFamily.sans,
+          ...fontFamily.sans,
         ],
       },
       fontSize: {
