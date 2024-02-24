@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
       lang="en"
       suppressHydrationWarning
     >
-      <body className="relative min-h-screen bg-background">
+      <body className="relative min-h-screen bg-background antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
