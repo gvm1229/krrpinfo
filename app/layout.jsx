@@ -6,7 +6,6 @@ import { siteConfig } from '@/config/site';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
-import { cn } from '@/src/util/utils';
 
 const pretendard = localFont({
   src: '../src/styles/fonts/PretendardVariable.woff2',
