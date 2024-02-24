@@ -82,7 +82,7 @@ const Posts = ({ className }) => {
     <div
       className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-2 tablet:gap-4 desktop:grid-cols-3', className)}
     >
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <Blog
           key={post.title}
           isImagePriority

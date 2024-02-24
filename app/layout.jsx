@@ -6,9 +6,12 @@ import { siteConfig } from '@/config/site';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
-import { cn } from '@/src/util/utils';
 
-const pretendard = localFont({ src: '../src/styles/fonts/PretendardVariable.woff2' });
+const pretendard = localFont({
+  src: '../src/styles/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  variable: '--font-pretendard',
+});
 
 export const metadata = {
   title: {
@@ -46,19 +49,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          'relative min-h-lvh bg-background antialiased',
-          pretendard.className,
-        )}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={pretendard.variable}
+    >
+      <body className="relative min-h-screen bg-background antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
         >
-          <div className="relative flex min-h-lvh flex-col">
+          <div className="relative flex min-h-screen flex-col">
             <SiteHeader className="border-b bg-background" />
             <main className="container relative flex-1 py-8 tablet:py-12">
               {children}

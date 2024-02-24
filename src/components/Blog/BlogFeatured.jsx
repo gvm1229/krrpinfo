@@ -18,7 +18,6 @@ const BlogFeatured = ({
         <ResponsiveImage
           src={thumbnail}
           alt="blog-featured-thumbnail"
-          aspectRatio="aspect-video"
           wrapperClassName={maxHeight}
           isPriority={isImagePriority}
         />
