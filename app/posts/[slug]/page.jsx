@@ -1,8 +1,8 @@
 import matter from 'gray-matter';
 import { notFound } from 'next/navigation';
 import { getAllPostSlugs, getPostContent } from '@/app/actions/posts';
+import MarkdownViewer from '@/src/components/Markdown/MarkdownViewer';
 import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
-import Viewer from '@/src/components/Markdown/Viewer';
 import { getTableOfContents } from '@/src/util/toc';
 
 export async function generateStaticParams() {
@@ -43,9 +43,7 @@ export default async function PostPage({ params }) {
           <h1 className="text-2xl font-bold tablet:text-5xl">{data.title}</h1>
           <p className="text-lg font-semibold dark:text-slate-400 tablet:text-2xl">{data.subtitle}</p>
         </header>
-        <article className="prose dark:prose-invert">
-          <Viewer content={content} />
-        </article>
+        <MarkdownViewer content={content} />
       </div>
       <div className="hidden text-sm tablet:block">
         <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
