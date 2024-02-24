@@ -39,6 +39,7 @@ module.exports = {
       rootDir: true,
     },
     'mdx/code-blocks': true,
+    'mdx/language-mapper': {},
   },
   plugins: [
     'react',
