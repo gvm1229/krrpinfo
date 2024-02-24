@@ -6,17 +6,25 @@ const Featured = ({ className }) => (
     className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-3 tablet:gap-4', className)}
   >
     <div className="col-span-2 flex h-28 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-144">
-      Ongoing event
+      <h1 className="text-xl font-semibold tablet:text-3xl">
+        Ongoing event
+      </h1>
     </div>
     <div className="col-span-1 grid size-full grid-rows-3 gap-y-4 tablet:gap-4">
       <div className="flex h-16 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-full">
-        Current season: S24
+        <h1 className="text-xl font-semibold tablet:text-3xl">
+          Current season: S24
+        </h1>
       </div>
       <div className="flex h-16 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-full">
-        PLACEHOLDER
+        <h1 className="text-xl font-semibold tablet:text-3xl">
+          PLACEHOLDER
+        </h1>
       </div>
       <div className="flex h-16 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-full">
-        PLACEHOLDER
+        <h1 className="text-xl font-semibold tablet:text-3xl">
+          PLACEHOLDER
+        </h1>
       </div>
     </div>
   </div>
