@@ -22,7 +22,7 @@ const Blog = ({
         {hyperlink && (
           <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
             <LinkIcon
-              className="size-8 text-blue-600"
+              className="size-8 text-blue-600 dark:text-blue-400"
             />
           </div>
         )}
@@ -36,7 +36,7 @@ const Blog = ({
       </div>
       <div className="group text-left">
         <div className="flex items-center justify-between">
-          <h2 className="mt-4 w-fit text-sm font-semibold text-blue-600">{category}</h2>
+          <h2 className="mt-4 w-fit text-sm font-semibold text-blue-600 dark:text-blue-400">{category}</h2>
           <h2 className="mt-4 w-fit text-sm font-semibold text-neutral-600 dark:text-neutral-200">{date}</h2>
         </div>
         <h1 className="mt-2 text-2xl font-bold text-primary">{title}</h1>

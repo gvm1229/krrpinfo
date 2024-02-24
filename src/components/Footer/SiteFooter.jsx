@@ -34,7 +34,7 @@ export function SiteFooter({ className }) {
           </a>
           .
         </p>
-        <p className="flex size-12 items-center justify-center rounded-lg bg-blue-400 text-sm text-white">QR</p>
+        <p className="flex size-12 items-center justify-center rounded-lg bg-blue-600 text-sm text-white">QR</p>
       </div>
     </footer>
   );
