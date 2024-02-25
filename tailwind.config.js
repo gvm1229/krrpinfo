@@ -120,6 +120,7 @@ module.exports = {
       // custom production norms
       mobile: { max: '720px' },
       tablet: { min: '721px' },
+      tablet_only: { min: '721px', max: '1240px' },
       desktop: { min: '1241px' },
       // retina: { min: '1921px' },
     },
