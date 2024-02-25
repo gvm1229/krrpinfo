@@ -11923,6 +11923,7 @@ __metadata:
     husky: "npm:^9.0.11"
     lint-staged: "npm:^15.2.2"
     lucide-react: "npm:^0.336.0"
+    markdown-to-jsx: "npm:^7.4.1"
     mdast-util-toc: "npm:^7.0.0"
     mongodb: "npm:^6.3.0"
     next: "npm:14.1.0"
@@ -12474,7 +12475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-to-jsx@npm:^7.1.8":
+"markdown-to-jsx@npm:^7.1.8, markdown-to-jsx@npm:^7.4.1":
   version: 7.4.1
   resolution: "markdown-to-jsx@npm:7.4.1"
   peerDependencies:
