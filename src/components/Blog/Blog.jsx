@@ -7,10 +7,11 @@ const Blog = ({
   width = 'min-w-80',
   thumbnail = 'https://dummyimage.com/1280x720',
   category = 'Sample Category',
-  date = '2024/1/11',
+  date = '1/11/2024',
   title = 'Sample Title',
   toNavigate,
   hyperlink,
+  gridNums = [1, 2, 3],
   isImagePriority = false,
 }) => {
   const children = (
@@ -30,7 +31,7 @@ const Blog = ({
           src={thumbnail}
           alt="blog-thumbnail"
           wrapperClassName="rounded-md shadow-md dark:shadow-slate-600"
-          gridNums={[1, 2, 3]}
+          gridNums={gridNums}
           isPriority={isImagePriority}
         />
       </div>

@@ -52,8 +52,10 @@ export async function getAllPosts(customPostsFolder) {
     return {
       slug,
       title: matterResult.data?.title,
-      date: matterResult.data?.date,
+      date: new Date(matterResult.data?.date).toLocaleDateString(),
       subtitle: matterResult.data?.subtitle,
+      thumbnail: matterResult.data?.thumbnail,
+      tags: matterResult.data?.tags,
     };
   }));
 }

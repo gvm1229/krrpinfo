@@ -90,10 +90,16 @@
     "eslint-plugin-tailwindcss": "^3.14.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "mdast-util-toc": "^7.0.0",
     "npm-check-updates": "^16.14.15",
     "postcss": "^8.4.35",
     "postcss-cli": "^11.0.0",
-    "storybook": "^7.6.17"
+    "react-markdown": "^9.0.1",
+    "rehype-raw": "^7.0.0",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.0",
+    "storybook": "^7.6.17",
+    "unist-util-visit": "^5.0.0"
   },
   "config": {
     "commitizen": {

@@ -15,14 +15,20 @@ export const metadata = {
   keywords: [
     'Kartrider Rush+',
     'Kartrider Rush Plus',
+    '카트라이더 러쉬플러스',
+    '카러플',
   ],
   authors: [
     {
-      name: 'Megi',
+      name: 'Hojin (Tom) Jeong',
       url: 'https://github.com/gvm1229',
     },
   ],
-  creator: 'Megi',
+  creator: 'Hojin (Tom) Jeong',
+  // themeColor: [
+  //   { media: '(prefers-color-scheme: light)', color: 'white' },
+  //   { media: '(prefers-color-scheme: dark)', color: 'black' },
+  // ],
   icons: {
     icon: [
       {
@@ -38,6 +44,13 @@ export const metadata = {
     ],
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+};
+
+export const viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#020617' },
+  ],
 };
 
 export default function RootLayout({ children }) {
