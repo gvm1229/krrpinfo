@@ -4,6 +4,7 @@ import { getAllPostSlugs, getPostContent } from '@/app/actions/posts';
 import MarkdownViewer from '@/src/components/Markdown/MarkdownViewer';
 import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
 import { getTableOfContents } from '@/src/util/toc';
+import { formatDate } from '@/src/util/utils';
 
 export async function generateStaticParams() {
   const paths = await getAllPostSlugs();
@@ -32,16 +33,15 @@ export default async function PostPage({ params }) {
     notFound();
 
   const { content, data } = matter(post);
-  const formattedDate = new Date(data.date).toLocaleDateString();
   const toc = await getTableOfContents(content);
 
   return (
     <div className="flex tablet:gap-x-16">
       <div className="flex-1 space-y-8 tablet:space-y-16">
         <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-8">
-          <p className="text-sm font-medium dark:text-slate-500 tablet:text-lg">{formattedDate}</p>
+          <p className="text-sm font-medium dark:text-slate-500 tablet:text-lg">{formatDate(data.date)}</p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{data.title}</h1>
-          <p className="text-lg font-semibold dark:text-slate-400 tablet:text-2xl">{data.subtitle}</p>
+          <p className="text-lg font-semibold dark:text-slate-400 tablet:text-2xl">{data.description}</p>
         </header>
         <MarkdownViewer content={content} />
       </div>

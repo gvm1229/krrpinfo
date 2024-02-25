@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
+import { formatDate } from '@/src/util/utils';
 
 const defaultPostsFolder = 'content/posts';
 
@@ -52,8 +53,8 @@ export async function getAllPosts(customPostsFolder) {
     return {
       slug,
       title: matterResult.data?.title,
-      date: new Date(matterResult.data?.date).toLocaleDateString(),
-      subtitle: matterResult.data?.subtitle,
+      date: formatDate(matterResult.data?.date),
+      description: matterResult.data?.description,
       thumbnail: matterResult.data?.thumbnail,
       tags: matterResult.data?.tags,
     };
