@@ -156,8 +156,8 @@ export function Mdx({ code }) {
   const Component = useMDXComponent(code);
 
   return (
-    <div className="mdx">
+    <article className="mdx prose dark:prose-invert">
       <Component components={components} />
-    </div>
+    </article>
   );
 }
