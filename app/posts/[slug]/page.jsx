@@ -7,6 +7,7 @@ import { Mdx } from '@/src/components/Markdown/mdx-components';
 import { buttonVariants } from '@/src/components/ui/button';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
+import '@/src/styles/mdx.css';
 
 async function getPostFromParams(params) {
   const slug = params?.slug;
@@ -93,10 +94,10 @@ export default async function PostPage({ params }) {
       </Link>
       <div className="flex-1 space-y-8">
         <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-8">
-          <p className="text-sm font-medium dark:text-slate-500 tablet:text-lg">{formatDate(post.date)}</p>
+          <p className="text-sm font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
-            <p className="text-lg font-semibold dark:text-slate-400 tablet:text-2xl">{post.description}</p>
+            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
           )}
         </header>
         <Mdx code={post.body.code} />
