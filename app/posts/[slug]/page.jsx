@@ -82,16 +82,20 @@ export default async function PostPage({ params }) {
 
   return (
     <div className="flex tablet:gap-x-16">
-      <Link
-        href="/posts"
-        className={cn(
-          buttonVariants({ variant: 'ghost' }),
-          'relative hidden tablet:inline-flex',
-        )}
-      >
-        <ChevronLeft className="mr-2 size-4" />
-        포스트 목록으로 돌아가기
-      </Link>
+      <div className="hidden text-sm tablet:block">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
+          <Link
+            href="/posts"
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              'relative hidden tablet:inline-flex',
+            )}
+          >
+            <ChevronLeft className="mr-2 size-4" />
+            포스트 목록으로 돌아가기
+          </Link>
+        </div>
+      </div>
       <div className="flex-1 space-y-8">
         <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-8">
           <p className="text-sm font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
