@@ -25,7 +25,7 @@ export function DashboardTableOfContents({ toc }) {
 
   return mounted ? (
     <div className="space-y-2">
-      <p className="text-2xl font-semibold">On This Page</p>
+      <p className="text-2xl font-semibold">목차</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   ) : null;
