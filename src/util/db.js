@@ -1,10 +1,11 @@
 import { config } from 'dotenv';
 import { MongoClient } from 'mongodb';
+import { env } from '@/env.mjs';
 
 // Load environment variables from .env file
 config();
 
-const url = process.env.MONGODB_URL;
+const url = env.MONGODB_URL;
 
 const mongoClient = async () => {
   if (process.env.NODE_ENV === 'development') {
