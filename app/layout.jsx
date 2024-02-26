@@ -70,13 +70,13 @@ export default function RootLayout({ children }) {
       lang="en"
       suppressHydrationWarning
     >
-      <body className="relative min-h-screen bg-background antialiased">
+      <body className="relative min-h-svh bg-background antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
         >
-          <div className="relative flex min-h-screen flex-col">
+          <div className="relative flex min-h-svh flex-col">
             <SiteHeader className="border-b bg-background" />
             <main className="container relative flex-1 py-8 tablet:py-12">
               {children}
