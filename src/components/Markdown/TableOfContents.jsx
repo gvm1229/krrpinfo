@@ -25,7 +25,7 @@ export function DashboardTableOfContents({ toc }) {
 
   return mounted ? (
     <div className="space-y-2">
-      <p className="text-2xl font-semibold">On This Page</p>
+      <p className="text-2xl font-semibold">목차</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   ) : null;
@@ -73,22 +73,26 @@ function Tree({ tree, level = 1, activeItem }) {
   return tree?.items?.length && level < 3 ? (
     <ul className={cn('m-0 list-none', { 'pl-4': level !== 1 })}>
       {tree.items.map((item) => (
-        <li key={item.url} className={cn('mt-0 pt-2')}>
-          <a
-            href={item.url}
-            className={cn(
-              'inline-block text-lg hover:text-primary',
-              item.url === `#${activeItem}`
-                ? 'font-medium text-primary underline underline-offset-4'
-                : 'text-muted-foreground',
-            )}
-          >
-            {item.title}
-          </a>
-          {item.items?.length ? (
-            <Tree tree={item} level={level + 1} activeItem={activeItem} />
-          ) : null}
-        </li>
+        <>
+          {item.title && (
+            <li key={item.url} className={cn('mt-0 pt-2')}>
+              <a
+                href={item.url}
+                className={cn(
+                  'inline-block text-lg hover:text-primary',
+                  item.url === `#${activeItem}`
+                    ? 'font-medium text-primary underline underline-offset-4'
+                    : 'text-muted-foreground',
+                )}
+              >
+                {item.title}
+              </a>
+              {item.items?.length ? (
+                <Tree tree={item} level={level + 1} activeItem={activeItem} />
+              ) : null}
+            </li>
+          )}
+        </>
       ))}
     </ul>
   ) : null;

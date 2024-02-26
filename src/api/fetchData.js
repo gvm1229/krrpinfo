@@ -1,10 +1,11 @@
 /* eslint-disable no-useless-catch */
 import { config } from 'dotenv';
+import { env } from '@/env.mjs';
 
 // Load environment variables from .env file
 config();
 
-const API_KEY = process.env.NEXON_API_KEY;
+const API_KEY = env.NEXON_API_KEY;
 
 const fetchData = async (urlString) => {
   try {

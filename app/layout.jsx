@@ -20,11 +20,11 @@ export const metadata = {
   ],
   authors: [
     {
-      name: 'Hojin (Tom) Jeong',
+      name: 'Megi',
       url: 'https://github.com/gvm1229',
     },
   ],
-  creator: 'Hojin (Tom) Jeong',
+  creator: 'Megi',
   // themeColor: [
   //   { media: '(prefers-color-scheme: light)', color: 'white' },
   //   { media: '(prefers-color-scheme: dark)', color: 'black' },
@@ -44,6 +44,17 @@ export const metadata = {
     ],
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+  metadataBase: siteConfig.url,
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'ko-KR': '/ko-KR',
+    },
+  },
+  openGraph: {
+    images: './opengraph-image.webp',
+  },
 };
 
 export const viewport = {
