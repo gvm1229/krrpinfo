@@ -32,9 +32,5 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  width: 'w-full',
-  height: 'mobile:h-80 tablet:h-96 desktop:h-108',
   thumbnail: hdDummy,
-  category: 'Sample Category',
-  title: 'Sample Title',
 };
