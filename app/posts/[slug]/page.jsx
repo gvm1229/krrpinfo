@@ -96,7 +96,7 @@ export default async function PostPage({ params }) {
           </Link>
         </div>
       </div>
-      <div className="flex-1 space-y-8">
+      <div className="space-y-8">
         <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-8">
           <p className="text-sm font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
