@@ -1,7 +1,6 @@
 import { allPosts } from 'contentlayer/generated';
 import { compareDesc } from 'date-fns';
 import Blog from '@/src/components/Blog/Blog';
-import { formatDate } from '@/src/util/utils';
 
 export const metadata = {
   title: 'Posts',
@@ -18,11 +17,12 @@ export default async function PostRootPage() {
       <div className="mt-8 grid gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
         {posts.map((post, index) => (
           <Blog
-            key={post.title}
+            key={post._id}
             thumbnail={post.thumbnail}
-            category="No"
-            date={formatDate(post.date)}
+            date={post.date}
             title={post.title}
+            description={post.description}
+            tags={post.tags}
             toNavigate={post.slug}
             isImagePriority={index < 3}
           />
