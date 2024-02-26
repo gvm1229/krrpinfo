@@ -34,7 +34,7 @@ const BlogFeatured = ({
   if (toNavigate)
     return (
       <Link
-        href={`/${toNavigate}`}
+        href={toNavigate}
         className={mutualClassName}
       >
         {children}

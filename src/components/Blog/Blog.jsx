@@ -50,7 +50,7 @@ const Blog = ({
   if (toNavigate)
     return (
       <Link
-        href={`/${toNavigate}`}
+        href={toNavigate}
         className={mutualClassName}
       >
         {children}
