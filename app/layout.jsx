@@ -44,6 +44,17 @@ export const metadata = {
     ],
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'ko-KR': '/ko-KR',
+    },
+  },
+  openGraph: {
+    images: './opengraph-image.webp',
+  },
 };
 
 export const viewport = {

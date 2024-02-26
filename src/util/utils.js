@@ -9,3 +9,7 @@ export function formatDate(input) {
   const date = new Date(input);
   return date.toLocaleDateString();
 }
+
+export function absoluteUrl(path) {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
+}
