@@ -132,7 +132,7 @@ const components = {
   pre: ({ className, ...props }) => (
     <pre
       className={cn(
-        'mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4',
+        'mb-4 mt-6 overflow-x-auto rounded-lg border bg-black px-2 py-4',
         className,
       )}
       {...props}
@@ -156,8 +156,8 @@ export function Mdx({ code }) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className="mdx">
+    <div className="mdx">
       <Component components={components} />
-    </article>
+    </div>
   );
 }
