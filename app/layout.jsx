@@ -44,7 +44,7 @@ export const metadata = {
     ],
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL),
+  metadataBase: siteConfig.url,
   alternates: {
     canonical: '/',
     languages: {

@@ -27,8 +27,8 @@ export async function generateMetadata({
   if (!post)
     return {};
 
-  // const url = process.env.NEXT_PUBLIC_APP_URL;
-  //
+  // const url = env.NEXT_PUBLIC_APP_URL;
+
   // const ogUrl = new URL(`${url}/api/og`);
   // ogUrl.searchParams.set('heading', post.title);
   // ogUrl.searchParams.set('type', 'Blog Post');

@@ -5001,6 +5001,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@t3-oss/env-core@npm:0.9.2":
+  version: 0.9.2
+  resolution: "@t3-oss/env-core@npm:0.9.2"
+  peerDependencies:
+    typescript: ">=5.0.0"
+    zod: ^3.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/2e87aff2e811535eaa8cbc85f26a44fddf5af4428add237fc75770978ef6c43914031bc3d827c5face170632cd08fb7af8d037379f30b8d73fceaf6b1b746e0b
+  languageName: node
+  linkType: hard
+
+"@t3-oss/env-nextjs@npm:^0.9.2":
+  version: 0.9.2
+  resolution: "@t3-oss/env-nextjs@npm:0.9.2"
+  dependencies:
+    "@t3-oss/env-core": "npm:0.9.2"
+  peerDependencies:
+    typescript: ">=5.0.0"
+    zod: ^3.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/2defb935eb65f87eb6dd620cd46a2a873ca2283076b4e0ba8acd30e5e6c7c425cb144668a6830977dc4b4467b645a04056b9dd258a04c51871a223fc351368b7
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/typography@npm:^0.5.10":
   version: 0.5.10
   resolution: "@tailwindcss/typography@npm:0.5.10"
@@ -12869,6 +12897,7 @@ __metadata:
     "@storybook/nextjs": "npm:^7.6.17"
     "@storybook/react": "npm:^7.6.17"
     "@storybook/test": "npm:^7.6.17"
+    "@t3-oss/env-nextjs": "npm:^0.9.2"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@vercel/analytics": "npm:^1.2.2"
     "@vercel/speed-insights": "npm:^1.0.10"
@@ -12918,6 +12947,7 @@ __metadata:
     tailwindcss: "npm:^3.4.1"
     tailwindcss-animate: "npm:^1.0.7"
     unist-util-visit: "npm:^5.0.0"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -20837,7 +20867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.21.4":
+"zod@npm:^3.21.4, zod@npm:^3.22.4":
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 10c0/7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
