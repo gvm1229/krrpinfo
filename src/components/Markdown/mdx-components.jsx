@@ -141,7 +141,7 @@ const components = {
   code: ({ className, ...props }) => (
     <code
       className={cn(
-        'relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm',
+        'relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm',
         className,
       )}
       {...props}
@@ -156,7 +156,7 @@ export function Mdx({ code }) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className="mdx prose dark:prose-invert">
+    <article className="mdx">
       <Component components={components} />
     </article>
   );
