@@ -2,13 +2,15 @@ import { Link as LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
 import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
+import { formatDate } from '@/src/util/utils';
 
 const Blog = ({
   width = 'min-w-80',
   thumbnail = 'https://dummyimage.com/1280x720',
-  category = 'Sample Category',
-  date = '1/11/2024',
+  tags = ['Sample Tag'],
+  date,
   title = 'Sample Title',
+  description,
   toNavigate,
   hyperlink,
   gridNums = [1, 2, 3],
@@ -35,12 +37,22 @@ const Blog = ({
           isPriority={isImagePriority}
         />
       </div>
-      <div className="group text-left">
-        <div className="flex items-center justify-between">
-          <h2 className="mt-4 w-fit text-sm font-semibold text-blue-600 dark:text-blue-400">{category}</h2>
-          <h2 className="mt-4 w-fit text-sm font-semibold text-neutral-600 dark:text-neutral-200">{date}</h2>
-        </div>
-        <h1 className="mt-2 text-2xl font-bold text-primary">{title}</h1>
+      <div className="group mt-4 space-y-1 text-left">
+        <h2 className="text-sm font-medium text-neutral-600 dark:text-neutral-200">{formatDate(date ?? new Date())}</h2>
+        <h1 className="truncate text-2xl font-bold text-primary">{title}</h1>
+        {description && (
+          <p className="truncate font-medium text-neutral-600 dark:text-neutral-200">{description}</p>
+        )}
+        <ul className="flex gap-2 pt-2">
+          {tags.map((tag) => (
+            <h2
+              key={tag}
+              className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-xs font-semibold text-white dark:bg-blue-600"
+            >
+              {tag}
+            </h2>
+          ))}
+        </ul>
       </div>
     </>
   );
@@ -50,7 +62,7 @@ const Blog = ({
   if (toNavigate)
     return (
       <Link
-        href={`/${toNavigate}`}
+        href={toNavigate}
         className={mutualClassName}
       >
         {children}

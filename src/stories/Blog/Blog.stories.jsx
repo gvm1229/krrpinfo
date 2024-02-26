@@ -32,9 +32,6 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  width: 'min-w-80',
+  width: 'w-80',
   thumbnail: hdDummy,
-  category: 'Sample Category',
-  date: '2024/1/11',
-  title: 'Sample Title',
 };

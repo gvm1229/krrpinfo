@@ -39,7 +39,7 @@ const BlogMini = ({
   if (toNavigate)
     return (
       <Link
-        href={`/${toNavigate}`}
+        href={toNavigate}
         className={mutualClassName}
       >
         {children}
