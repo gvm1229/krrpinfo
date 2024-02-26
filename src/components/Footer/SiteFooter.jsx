@@ -7,7 +7,7 @@ export function SiteFooter({ className }) {
       className={cn(className)}
     >
       <div
-        className="flex flex-col items-center justify-between gap-4 tablet_only:container tablet:h-24 tablet:flex-row desktop:px-8"
+        className="flex flex-col items-center justify-between gap-4 mobile:container tablet_only:container tablet:h-24 tablet:flex-row desktop:px-8"
       >
         {/* <div className="flex flex-col items-center gap-4 px-8 tablet:flex-row tablet:gap-2 tablet:px-0"> */}
         {/* </div> */}
