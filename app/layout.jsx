@@ -20,11 +20,11 @@ export const metadata = {
   ],
   authors: [
     {
-      name: 'Hojin (Tom) Jeong',
+      name: 'Megi',
       url: 'https://github.com/gvm1229',
     },
   ],
-  creator: 'Hojin (Tom) Jeong',
+  creator: 'Megi',
   // themeColor: [
   //   { media: '(prefers-color-scheme: light)', color: 'white' },
   //   { media: '(prefers-color-scheme: dark)', color: 'black' },

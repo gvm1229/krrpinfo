@@ -20,7 +20,7 @@ export function SiteFooter({ className }) {
             rel="noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            Hojin (Tom) Jeong
+            Megi
           </a>
           . Any inquiries welcome at
           {' '}
