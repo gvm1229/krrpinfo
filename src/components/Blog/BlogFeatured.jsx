@@ -4,7 +4,7 @@ import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 import { formatDate } from '@/src/util/utils';
 
 const BlogFeatured = ({
-  maxHeight = 'mobile:max-h-80 tablet:max-h-96 desktop:max-h-108',
+  maxHeight = 'mobile_only:max-h-80 tablet:max-h-96 desktop:max-h-108',
   thumbnail = 'https://dummyimage.com/1280x720',
   date,
   title = 'Sample Title',

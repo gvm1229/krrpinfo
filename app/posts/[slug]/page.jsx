@@ -81,8 +81,8 @@ export default async function PostPage({ params }) {
   const toc = await getTableOfContents(post.body.raw);
 
   return (
-    <div className="flex mobile:flex-col tablet:gap-x-16">
-      <div className="block text-sm mobile:mb-4">
+    <div className="flex mobile_only:flex-col tablet:gap-x-16">
+      <div className="block text-sm mobile_only:mb-4">
         <div
           className="tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10"
         >
@@ -90,7 +90,7 @@ export default async function PostPage({ params }) {
             href="/posts"
             className={cn(
               buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-sm mobile:pl-2',
+              'relative inline-flex text-sm mobile_only:pl-2',
             )}
           >
             <ChevronLeft className="mr-2 size-4" />

@@ -118,7 +118,7 @@ module.exports = {
       sm: { min: '0px', max: '1023px' },
       md: { min: '1024px' },
       // custom production norms
-      mobile: { max: '720px' },
+      mobile_only: { max: '720px' },
       tablet: { min: '721px' },
       tablet_only: { min: '721px', max: '1240px' },
       desktop: { min: '1241px' },

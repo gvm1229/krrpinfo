@@ -11,7 +11,7 @@ export function SiteHeader({ className }) {
       id="header"
       className={cn('z-40', className)}
     >
-      <div className="flex h-20 items-center justify-between mobile:container tablet_only:container desktop:px-8">
+      <div className="flex h-20 items-center justify-between mobile_only:container tablet_only:container desktop:px-8">
         <MainNav items={navContents} />
         {/* <nav> */}
         {/*  <Link */}
