@@ -84,7 +84,7 @@ export default async function PostPage({ params }) {
     <div className="flex mobile_only:flex-col tablet:gap-x-16">
       <div className="block text-sm mobile_only:mb-4">
         <div
-          className="tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10"
+          className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10"
         >
           <Link
             href="/posts"
@@ -109,7 +109,9 @@ export default async function PostPage({ params }) {
         <Mdx code={post.body.code} />
       </div>
       <div className="hidden text-sm tablet:block">
-        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
+        <div
+          className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48"
+        >
           <DashboardTableOfContents toc={toc} />
         </div>
       </div>
