@@ -7,11 +7,11 @@ import { MainNav } from './MainNav';
 
 export function SiteHeader({ className }) {
   return (
-    <header
-      id="header"
-      className={cn('z-40', className)}
-    >
-      <div className="flex h-20 items-center justify-between mobile_only:container tablet_only:container desktop:px-8">
+    <>
+      <header
+        id="header"
+        className={cn('z-40 flex h-20 items-center justify-between mobile_only:container tablet_only:container desktop:px-8', className)}
+      >
         <MainNav items={navContents} />
         {/* <nav> */}
         {/*  <Link */}
@@ -25,7 +25,8 @@ export function SiteHeader({ className }) {
         {/*  </Link> */}
         {/* </nav> */}
         <ModeToggle />
-      </div>
-    </header>
+      </header>
+      <div className="h-20" />
+    </>
   );
 }
