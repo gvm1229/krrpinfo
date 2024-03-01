@@ -12,6 +12,25 @@ const RedeemButton = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify(payload),
+      });
+      const responseData = await response.json();
+      setResponse(responseData);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  };
+
+  const handleUserLookupProxy = async () => {
+    try {
+      const payload = { npaCode: '07S0LCI10W02W', coupon: '중요한건잊지않는마음', region: 'KR' };
+      const response = await fetch('https://proxy.cors.sh/https://mcoupon.nexon.com/kartrush/coupon/api/v1/characters-by-npacode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-cors-api-key': 'temp_4b3e164d0edac11bccda267eeffae079',
         },
         body: JSON.stringify(payload),
       });
@@ -46,16 +65,33 @@ const RedeemButton = () => {
     }
   };
 
+  const handleRedeemProxy = async () => {
+    try {
+      const payload = {
+        coupon: '중요한건잊지않는마음',
+        id: '16520000032888233',
+        name: 'Megiii',
+        npaCode: '07S0LCI10W02W',
+        region: 'KR',
+        world: '',
+      };
+      const response = await fetch('https://proxy.cors.sh/https://mcoupon.nexon.com/kartrush/coupon/api/v1/redeem-coupon-by-npacode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-cors-api-key': 'temp_4b3e164d0edac11bccda267eeffae079',
+        },
+        body: JSON.stringify(payload),
+      });
+      const responseData = await response.json();
+      setResponse(responseData);
+    } catch (error) {
+      console.error('Error fetching coupon:', error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-y-8">
-      {/* <button
-        type="button"
-        className="rounded-lg bg-pink-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-pink-400"
-        onClick={handleButtonClick}
-        data-message="user-lookup"
-      >
-        Proxy Test
-      </button> */}
       <button
         type="button"
         className="rounded-lg bg-purple-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-purple-400"
@@ -66,11 +102,27 @@ const RedeemButton = () => {
       </button>
       <button
         type="button"
+        className="rounded-lg bg-pink-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-pink-400"
+        onClick={handleUserLookupProxy}
+        data-message="user-lookup"
+      >
+        User Lookup (Proxy)
+      </button>
+      <button
+        type="button"
         className="rounded-lg bg-blue-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-blue-400"
         onClick={handleRedeem}
         data-message="redeem"
       >
         Redeem
+      </button>
+      <button
+        type="button"
+        className="rounded-lg bg-pink-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-pink-400"
+        onClick={handleRedeemProxy}
+        data-message="redeem"
+      >
+        Redeem (Proxy)
       </button>
       {response && (
         <div>
