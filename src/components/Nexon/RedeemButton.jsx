@@ -21,6 +21,7 @@ const RedeemButton = () => {
       return responseData;
     } catch (error) {
       console.error('Error fetching user:', error);
+      setResponse(`Error fetching user: ${error}`);
       return null;
     }
   };
@@ -38,6 +39,7 @@ const RedeemButton = () => {
       return responseData;
     } catch (error) {
       console.error('Error fetching coupon:', error);
+      setResponse(`Error fetching coupon: ${error}`);
       return null;
     }
   };
@@ -67,12 +69,12 @@ const RedeemButton = () => {
           else
             setResponse('이미 사용된 쿠폰 / 잘못된 입력');
         } catch (error) {
-          console.error('Error fetching coupon:', error);
+          console.error('[Unified] Error fetching coupon:', error);
         }
       else
         setResponse('이미 사용된 쿠폰 / 잘못된 입력');
     } catch (error) {
-      console.error('Error fetching coupon:', error);
+      console.error('[Unified] Error fetching user:', error);
     }
   };
 
@@ -90,6 +92,7 @@ const RedeemButton = () => {
       return responseData;
     } catch (error) {
       console.error('Error fetching user:', error);
+      setResponse(`Error fetching user: ${error}`);
       return null;
     }
   };
@@ -108,6 +111,7 @@ const RedeemButton = () => {
       return responseData;
     } catch (error) {
       console.error('Error fetching coupon:', error);
+      setResponse(`Error fetching coupon: ${error}`);
       return null;
     }
   };
@@ -137,17 +141,17 @@ const RedeemButton = () => {
           else
             setResponse('이미 사용된 쿠폰 / 잘못된 입력');
         } catch (error) {
-          console.error('Error fetching coupon:', error);
+          console.error('[Unified] Error fetching coupon:', error);
         }
       else
         setResponse('이미 사용된 쿠폰 / 잘못된 입력');
     } catch (error) {
-      console.error('Error fetching coupon:', error);
+      console.error('[Unified] Error fetching user:', error);
     }
   };
 
   return (
-    <div className="flex flex-col gap-y-8">
+    <div className="flex size-full flex-col gap-y-8">
       <h2 className="text-2xl font-medium">
         <span className="font-bold">국가/지역:</span>
         {' '}
@@ -181,11 +185,19 @@ const RedeemButton = () => {
       />
       <button
         type="button"
+        className="rounded-lg bg-blue-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-blue-400"
+        onClick={() => handleUnified(npaCode, couponCode)}
+        data-message="unified"
+      >
+        쿠폰 리딤
+      </button>
+      <button
+        type="button"
         className="rounded-lg bg-pink-500 px-3 py-1.5 text-center text-xl font-semibold text-white hover:cursor-pointer hover:bg-pink-400"
         onClick={() => handleUnifiedProxy(npaCode, couponCode)}
         data-message="unified"
       >
-        Unified (Proxy)
+        쿠폰 리딤 (Proxy)
       </button>
       {response && (
         <div>
