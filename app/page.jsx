@@ -54,8 +54,16 @@ const Posts = ({ className }) => {
       thumbnail: '/assets/images/썸네일공지사항.jpg',
       imgStyle: 'object-cover desktop:object-fill',
       tags: ['넥슨 공식 매체'],
-      title: '넥슨 공지사항',
+      title: '일반 공지사항',
       hyperlink: 'https://forum.nexon.com/kartrush/board_list?board=839',
+    },
+    {
+      width: 'w-full',
+      thumbnail: '/assets/images/썸네일이벤트.png',
+      imgStyle: 'object-cover desktop:object-fill',
+      tags: ['넥슨 공식 매체'],
+      title: '이벤트 공지사항',
+      hyperlink: 'https://forum.nexon.com/kartrush/board_list?board=741',
     },
     {
       width: 'w-full',
