@@ -15,4 +15,8 @@ export const navContents = [
     title: 'Posts',
     href: '/posts',
   },
+  {
+    title: 'Redeem',
+    href: '/redeem',
+  },
 ];

@@ -77,7 +77,7 @@ export default function RootLayout({ children }) {
           enableSystem
         >
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader className="border-b bg-background" />
+            <SiteHeader className="fixed w-full border-b bg-background" />
             <main className="container relative flex-1 py-8 tablet:py-12">
               {children}
             </main>
