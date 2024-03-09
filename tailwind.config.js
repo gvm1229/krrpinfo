@@ -1,5 +1,3 @@
-/** @type {import('tailwindcss').Config} */
-
 const array100To599 = Array.from(Array(500)).map((_, i) => i + 100);
 const object400To2396px = array100To599.reduce((o, key) => ({ ...o, [key]: `${key * 4}px` }), {});
 const array0To599 = Array.from(Array(600)).map((_, i) => i + 1);
@@ -9,6 +7,7 @@ const object1To50rem = array0To49.reduce((o, key) => ({ ...o, [key]: `${key}px` 
 
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
   content: [
