@@ -12,10 +12,10 @@ export default async function PostRootPage() {
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return (
-    <main className="container flex h-full flex-col items-center p-8 tablet:py-12">
+    <main className="container flex h-full flex-col items-center py-8 tablet:py-12">
       {posts?.length ? (
         <>
-          <h1 className="text-2xl font-bold">포스트 목록</h1>
+          <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">포스트 목록</h1>
           <div className="mt-8 grid gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
             {posts.map((post, index) => (
               <Blog
