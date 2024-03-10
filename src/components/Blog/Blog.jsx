@@ -5,7 +5,7 @@ import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 import { formatDate } from '@/src/util/utils';
 
 const Blog = ({
-  width = 'min-w-80',
+  width,
   thumbnail = 'https://dummyimage.com/1280x720',
   tags = ['Sample Tag'],
   date,
