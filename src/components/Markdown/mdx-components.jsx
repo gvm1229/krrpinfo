@@ -1,6 +1,7 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import * as React from 'react';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 import { cn } from '@/src/util/utils';
 import { Callout } from './callout';
@@ -147,7 +148,15 @@ const components = {
       {...props}
     />
   ),
-  Image,
+  Image: ({ className, ...props }) => (
+    <ResponsiveImage
+      wrapperClassName={cn(
+        'mt-6',
+        className,
+      )}
+      {...props}
+    />
+  ),
   Callout,
   Card: MdxCard,
 };
