@@ -1,11 +1,11 @@
 import React from 'react';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import RedeemButton from '@/src/components/Nexon/RedeemButton';
+import RedeemContainer from '@/src/components/Nexon/RedeemContainer';
 
 export default {
-  title: 'Components/Nexon/RedeemButton',
-  component: RedeemButton,
+  title: 'Components/Nexon/RedeemContainer',
+  component: RedeemContainer,
   argTypes: {
     // Define default argTypes here
   },
@@ -24,7 +24,7 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <RedeemButton {...args} />
+      <RedeemContainer {...args} />
     </div>
   </ThemeProvider>
 );
