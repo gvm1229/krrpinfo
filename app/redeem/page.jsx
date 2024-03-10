@@ -1,7 +1,7 @@
 import RedeemButton from '@/src/components/Nexon/RedeemButton';
 
 export const metadata = {
-  title: 'Coupon Redeem',
+  title: '쿠폰 리딤',
 };
 
 export default async function RedeemRootPage() {
