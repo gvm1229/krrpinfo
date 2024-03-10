@@ -2,6 +2,7 @@ import { allPosts } from 'contentlayer/generated';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
 import { Mdx } from '@/src/components/Markdown/mdx-components';
 import { buttonVariants } from '@/src/components/ui/button';
@@ -98,14 +99,19 @@ export default async function PostPage({ params }) {
           </Link>
         </div>
       </div>
-      <div className="space-y-8 tablet:flex-1">
-        <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-8">
+      <div className="space-y-6 tablet:flex-1">
+        <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
           <p className="text-sm font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
           )}
         </header>
+        <ResponsiveImage
+          src={post.thumbnail}
+          alt="thumbnail"
+          wrapperClassName="px-6 desktop:px-12"
+        />
         <Mdx code={post.body.code} />
       </div>
       <div className="hidden text-sm tablet:block">
