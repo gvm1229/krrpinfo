@@ -20,7 +20,7 @@ const components = {
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        'mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0',
+        'mt-8 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0',
         className,
       )}
       {...props}
@@ -151,7 +151,7 @@ const components = {
   Image: ({ className, ...props }) => (
     <ResponsiveImage
       wrapperClassName={cn(
-        'mt-6',
+        'mt-6 px-6 desktop:px-12',
         className,
       )}
       {...props}
