@@ -111,6 +111,7 @@ export default async function PostPage({ params }) {
           src={post.thumbnail}
           alt="thumbnail"
           wrapperClassName="px-6 desktop:px-12"
+          isPriority
         />
         <Mdx code={post.body.code} />
       </div>
