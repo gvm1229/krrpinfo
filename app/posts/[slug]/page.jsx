@@ -1,8 +1,8 @@
 import { allPosts } from 'contentlayer/generated';
 import { ChevronLeft } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
 import { Mdx } from '@/src/components/Markdown/mdx-components';
 import { buttonVariants } from '@/src/components/ui/button';
@@ -107,11 +107,12 @@ export default async function PostPage({ params }) {
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
           )}
         </header>
-        <ResponsiveImage
+        <Image
           src={post.thumbnail}
           alt="thumbnail"
-          wrapperClassName="px-6 desktop:px-12"
-          isPriority
+          width={1920}
+          height={1080}
+          priority
         />
         <Mdx code={post.body.code} />
       </div>
