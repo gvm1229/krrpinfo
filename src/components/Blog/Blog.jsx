@@ -45,12 +45,12 @@ const Blog = ({
         )}
         <ul className="flex gap-2 pt-2">
           {tags.map((tag) => (
-            <h2
+            <li
               key={tag}
               className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-xs font-semibold text-white dark:bg-blue-600"
             >
               {tag}
-            </h2>
+            </li>
           ))}
         </ul>
       </div>
