@@ -25,7 +25,7 @@ const Blog = ({
         {hyperlink && (
           <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
             <LinkIcon
-              className="size-8 text-blue-600 dark:text-blue-400"
+              className="size-8 text-blue-600"
             />
           </div>
         )}
