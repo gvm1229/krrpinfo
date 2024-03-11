@@ -6,7 +6,7 @@ import S24Title from '@/public/assets/images/한섭/S24_타이틀_가공.png';
 export const revalidate = 60;
 
 const Countdown = ({
-  size = 'size-64',
+  size,
   bgColor = 'bg-yellow-600',
   targetDateStr,
 }) => {
@@ -41,7 +41,7 @@ const Countdown = ({
 
   return (
     <main className={`size-full rounded-lg p-2 ${bgColor} ${size}`}>
-      <div className="flex size-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-white p-4 ">
+      <div className="flex size-full flex-col items-center justify-center rounded-lg border-2 border-white p-4">
         <Image
           src={S24Title}
           alt="S24타이틀"
@@ -50,13 +50,13 @@ const Countdown = ({
           priority
         />
         <h1
-          className="text-center text-2xl font-bold text-indigo-50"
+          className="mt-4 text-center text-2xl font-bold text-indigo-50"
           suppressHydrationWarning
         >
           {formatRemainingDays(remainingDays)}
         </h1>
         <p
-          className="text-center text-lg font-semibold text-indigo-50"
+          className="mt-2 text-center text-lg font-semibold text-indigo-50"
           suppressHydrationWarning
         >
           {`(${formatDate(targetDateStr)})`}

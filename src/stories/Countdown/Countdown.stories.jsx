@@ -32,5 +32,6 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // Define default props here
+  size: 'size-72',
   targetDateStr: '4/17/2024',
 };
