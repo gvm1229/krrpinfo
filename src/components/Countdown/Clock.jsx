@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Clock = ({
   size,
@@ -23,7 +23,12 @@ const Clock = ({
   return (
     <div className={`flex flex-col items-center justify-center text-center ${size} ${bgColor}`}>
       <h2 className="text-4xl font-bold">현재 시각:</h2>
-      <p className="mt-2 text-2xl">{currentTime.toLocaleTimeString()}</p>
+      <p
+        className="mt-2 text-2xl"
+        suppressHydrationWarning
+      >
+        {currentTime.toLocaleTimeString()}
+      </p>
     </div>
   );
 };

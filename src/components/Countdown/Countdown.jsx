@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import S24Title from '@/public/assets/images/한섭/S24_타이틀_가공.png';
 import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
@@ -54,8 +54,18 @@ const Countdown = ({
           src={S24Title}
           alt="S24타이틀"
         />
-        <h1 className="text-center text-2xl font-bold text-indigo-50">{formatRemainingDays(remainingDays)}</h1>
-        <p className="text-center text-lg font-semibold text-indigo-50">{`(${formatDate(targetDateStr)})`}</p>
+        <h1
+          className="text-center text-2xl font-bold text-indigo-50"
+          suppressHydrationWarning
+        >
+          {formatRemainingDays(remainingDays)}
+        </h1>
+        <p
+          className="text-center text-lg font-semibold text-indigo-50"
+          suppressHydrationWarning
+        >
+          {`(${formatDate(targetDateStr)})`}
+        </p>
       </div>
     </main>
   );
