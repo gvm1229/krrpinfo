@@ -100,7 +100,7 @@ export default async function PostPage({ params }) {
           </Link>
         </div>
       </div>
-      <div className="space-y-6 tablet:flex-1">
+      <div className="space-y-6 tablet:mt-1 tablet:flex-1">
         <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
           <BreadcrumbContainer
             itemsInput={[{ url: '/posts', label: '포스트' }]}
