@@ -47,7 +47,7 @@ const Blog = ({
           {tags.map((tag) => (
             <li
               key={tag}
-              className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-xs font-semibold text-white dark:bg-blue-600"
+              className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-sm font-semibold text-white dark:bg-blue-600"
             >
               {tag}
             </li>
