@@ -2,9 +2,26 @@
 
 import { ArrowUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const scrollToTop = () => {
+    scroll.scrollToTop({
+      duration: 500, // Adjust the duration to control the scroll speed (in milliseconds)
+      smooth: 'easeInOutQuart', // Adjust the smoothness of the scroll animation
+      // smooth: true,
+    });
+  };
+
+  // const scrollToBottom = () => {
+  //   scroll.scrollToBottom({
+  //     duration: 500, // Adjust the duration to control the scroll speed (in milliseconds)
+  //     smooth: 'easeInOutQuart', // Adjust the smoothness of the scroll animation
+  //     // smooth: true,
+  //   });
+  // };
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -21,23 +38,18 @@ const ScrollToTopButton = () => {
     };
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
-    <button
-      onClick={scrollToTop}
-      className={
-        `fixed bottom-6 right-4 rounded-full bg-slate-600 p-3 text-white transition duration-200 ease-in-out focus:outline-none md:bottom-8 md:right-8 tablet:p-4
+    <div className="fixed bottom-6 right-4 z-50 tablet:bottom-24 tablet:right-7">
+      <button
+        onClick={scrollToTop}
+        className={
+          `rounded-full bg-slate-600 p-3 text-white transition duration-200 ease-in-out focus:outline-none tablet:p-4
         ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`
-      }
-    >
-      <ArrowUp size={24} />
-    </button>
+        }
+      >
+        <ArrowUp size={24} />
+      </button>
+    </div>
   );
 };
 
