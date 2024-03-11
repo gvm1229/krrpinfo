@@ -12,21 +12,17 @@ export default async function PostRootPage() {
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return (
-    <div className="flex h-full flex-col items-center">
-      {posts?.length ? (
+    <div className="relative flex flex-col items-center gap-y-8">
+      {posts ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">포스트 목록</h1>
-          <div className="mt-8 grid gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
+          <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 desktop:grid-cols-3">
             {posts.map((post, index) => (
               <Blog
                 key={post._id}
-                thumbnail={post.thumbnail}
-                date={post.date}
-                title={post.title}
-                description={post.description}
-                tags={post.tags}
                 toNavigate={post.slug}
                 isImagePriority={index < 3}
+                {...post}
               />
             ))}
           </div>
