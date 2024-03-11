@@ -8,7 +8,7 @@ const Featured = ({ className }) => (
     className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-3 tablet:gap-4', className)}
   >
     <div
-      className="col-span-2 flex size-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-144"
+      className="col-span-2 flex size-full items-center justify-center bg-slate-400 dark:bg-slate-600 mobile_only:py-6 tablet:h-144"
     >
       <h1 className="text-xl font-semibold tablet:text-3xl">
         Ongoing event
@@ -21,7 +21,7 @@ const Featured = ({ className }) => (
       />
       <Clock
         bgColor="bg-slate-400 dark:bg-slate-600"
-        size="size-full"
+        size="size-full mobile_only:py-6"
       />
     </div>
   </div>
@@ -93,7 +93,7 @@ const Posts = ({ className }) => {
 
   return (
     <div
-      className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-2 tablet:gap-4 desktop:grid-cols-3', className)}
+      className={cn('relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3', className)}
     >
       {posts.map((post, index) => (
         <Blog
@@ -109,7 +109,7 @@ const Posts = ({ className }) => {
 export default function Home() {
   return (
     <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
-      <Featured className="px-4" />
+      <Featured />
       <Posts />
     </main>
   );
