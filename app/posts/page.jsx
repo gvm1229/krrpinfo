@@ -12,7 +12,7 @@ export default async function PostRootPage() {
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return (
-    <div className="flex h-full flex-col items-center py-8 tablet:py-12">
+    <div className="flex h-full flex-col items-center">
       {posts?.length ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">포스트 목록</h1>
