@@ -1,20 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import S24Title from '@/public/assets/images/한섭/S24_타이틀_가공.png';
-import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 const Countdown = ({
   size = 'size-64',
   bgColor = 'bg-yellow-600',
   targetDateStr,
 }) => {
-  const [
-    remainingDays,
-    setRemainingDays,
-  ] = useState(0);
+  // Function to calculate the remaining days
+  const calculateRemainingDays = (targetDate) => {
+    const currentDate = new Date();
+    const differenceInDays = Math.floor((targetDate - currentDate) / (1000 * 60 * 60 * 24)) + 1;
+    return differenceInDays > 0 ? differenceInDays : 0; // Ensure remainingDays is not negative
+  };
+
+  // Parse the target date string to create a Date object
+  const targetDate = new Date(targetDateStr);
+  // Initialize the remainingDays state with the initial value
+  const remainingDays = calculateRemainingDays(targetDate);
 
   // Function to format the date from 'MM/DD/YYYY' to 'YYYY/MM/DD'
   const formatDate = (dateString) => {
@@ -33,27 +39,15 @@ const Countdown = ({
     return `종료까지: D-${remainingDays}`;
   };
 
-  useEffect(() => {
-    // Parse the target date string to create a Date object
-    const targetDate = new Date(targetDateStr);
-
-    // Get the current date
-    const currentDate = new Date();
-
-    // Calculate the difference in days (+ target date)
-    const differenceInDays = Math.floor((targetDate - currentDate) / (1000 * 60 * 60 * 24)) + 1;
-
-    // Update the state with the remaining days
-    setRemainingDays(differenceInDays);
-  }, [targetDateStr]);
-
   return (
     <main className={`size-full rounded-lg p-2 ${bgColor} ${size}`}>
       <div className="flex size-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-white p-4 ">
-        <ResponsiveImage
+        <Image
           src={S24Title}
           alt="S24타이틀"
-          isPriority
+          width={372}
+          height={144}
+          priority
         />
         <h1
           className="text-center text-2xl font-bold text-indigo-50"
