@@ -106,6 +106,16 @@ export default async function PostPage({ params }) {
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
           )}
+          <ul className="flex gap-2">
+            {post.tags.map((tag) => (
+              <li
+                key={tag}
+                className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-sm font-semibold text-white dark:bg-blue-600"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
         </header>
         <Image
           src={post.thumbnail}
