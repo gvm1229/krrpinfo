@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/src/styles/globals.css';
 import { siteConfig } from '@/config/site';
+import ScrollToTopButton from '@/src/components/Button/ScrollToTopButton';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/src/components/Footer/SiteFooter';
 import { SiteHeader } from '@/src/components/Header/SiteHeader';
@@ -82,6 +83,7 @@ export default function RootLayout({ children }) {
               {children}
             </main>
             <SiteFooter className="border-t bg-background" />
+            <ScrollToTopButton />
           </div>
         </ThemeProvider>
         <Analytics />
