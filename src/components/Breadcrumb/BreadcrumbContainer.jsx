@@ -1,0 +1,40 @@
+import React from 'react';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/src/components/ui/breadcrumb';
+import { cn } from '@/src/util/utils';
+
+const BreadcrumbContainer = ({
+  itemsInput,
+  className,
+}) => {
+  const items = [{ url: '/', label: '홈' }, ...itemsInput];
+
+  return (
+    <div className={cn('relative', className)}>
+      <Breadcrumb>
+        <BreadcrumbList>
+          {items.map((item, index) => (
+            <React.Fragment key={item.label}>
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  href={item.url}
+                  className="text-base tablet:text-lg"
+                >
+                  {item.label}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              {index < items.length - 1 && <BreadcrumbSeparator />}
+            </React.Fragment>
+          ))}
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
+  );
+};
+
+export default BreadcrumbContainer;

@@ -3,6 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import BreadcrumbContainer from '@/src/components/Breadcrumb/BreadcrumbContainer';
 import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
 import { Mdx } from '@/src/components/Markdown/mdx-components';
 import Tag from '@/src/components/Tag/Tag';
@@ -100,8 +101,11 @@ export default async function PostPage({ params }) {
         </div>
       </div>
       <div className="space-y-6 tablet:flex-1">
-        <header className="space-y-3 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
-          <p className="text-sm font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
+        <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
+          <BreadcrumbContainer
+            itemsInput={[{ url: '/posts', label: '포스트' }]}
+          />
+          <p className="text-base font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
