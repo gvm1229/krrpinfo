@@ -45,6 +45,11 @@ export const Post = defineDocumentType(() => ({
       of: { type: 'string' },
       required: true,
     },
+    keywords: {
+      type: 'list',
+      of: { type: 'string' },
+      required: false,
+    },
     published: {
       type: 'boolean',
       default: true,

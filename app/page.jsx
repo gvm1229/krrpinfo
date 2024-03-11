@@ -1,4 +1,6 @@
 import Blog from '@/src/components/Blog/Blog';
+import Clock from '@/src/components/Countdown/Clock';
+import Countdown from '@/src/components/Countdown/Countdown';
 import { cn } from '@/src/util/utils';
 
 const Featured = ({ className }) => (
@@ -6,28 +8,21 @@ const Featured = ({ className }) => (
     className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-3 tablet:gap-4', className)}
   >
     <div
-      className="col-span-2 flex h-28 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-144"
+      className="col-span-2 flex size-full items-center justify-center bg-slate-400 dark:bg-slate-600 mobile_only:py-6 tablet:h-144"
     >
       <h1 className="text-xl font-semibold tablet:text-3xl">
         Ongoing event
       </h1>
     </div>
-    <div className="col-span-1 grid size-full grid-rows-3 gap-y-4 tablet:gap-4">
-      <div className="flex h-16 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-full">
-        <h1 className="text-xl font-semibold tablet:text-3xl">
-          Current season: S24
-        </h1>
-      </div>
-      <div className="flex h-16 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-full">
-        <h1 className="text-xl font-semibold tablet:text-3xl">
-          PLACEHOLDER
-        </h1>
-      </div>
-      <div className="flex h-16 w-full items-center justify-center bg-slate-400 dark:bg-slate-600 tablet:h-full">
-        <h1 className="text-xl font-semibold tablet:text-3xl">
-          PLACEHOLDER
-        </h1>
-      </div>
+    <div className="col-span-1 flex size-full flex-col gap-y-4 tablet:gap-4">
+      <Countdown
+        targetDateStr="4/17/2024"
+        size="w-full shrink-0 h-80"
+      />
+      <Clock
+        bgColor="bg-slate-400 dark:bg-slate-600"
+        size="size-full mobile_only:py-6"
+      />
     </div>
   </div>
 );
@@ -98,7 +93,7 @@ const Posts = ({ className }) => {
 
   return (
     <div
-      className={cn('relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-2 tablet:gap-4 desktop:grid-cols-3', className)}
+      className={cn('relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3', className)}
     >
       {posts.map((post, index) => (
         <Blog
@@ -114,7 +109,7 @@ const Posts = ({ className }) => {
 export default function Home() {
   return (
     <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
-      <Featured className="px-4" />
+      <Featured />
       <Posts />
     </main>
   );

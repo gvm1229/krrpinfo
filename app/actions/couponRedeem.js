@@ -94,6 +94,8 @@ function reformatMessage(messageInput) {
     return '잘못된 회원번호';
   if (messageInput === 'NpaCode is required.')
     return '회원번호 미입력';
+  if (messageInput === 'NpaCode is invalid length.')
+    return '잘못된 회원번호';
   if (messageInput === 'Coupon is required.')
     return '쿠폰 미입력';
   if (messageInput === '해당 게임에서 사용할 수 없는 쿠폰')

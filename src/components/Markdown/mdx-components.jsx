@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import * as React from 'react';
 
+import { sizeImageWidth } from '@/src/util/image';
 import { cn } from '@/src/util/utils';
 import { Callout } from './callout';
 import { MdxCard } from './mdx-card';
@@ -19,7 +20,7 @@ const components = {
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        'mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0',
+        'mt-8 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0',
         className,
       )}
       {...props}
@@ -69,7 +70,7 @@ const components = {
   ),
   p: ({ className, ...props }) => (
     <p
-      className={cn('leading-relaxed [&:not(:first-child)]:mt-6', className)}
+      className={cn('leading-relaxed tablet:text-xl [&:not(:first-child)]:mt-6', className)}
       {...props}
     />
   ),
@@ -147,7 +148,21 @@ const components = {
       {...props}
     />
   ),
-  Image,
+  Image: ({
+    className, src, alt, width = 1546, height = 1080, ...props // 기본 iPad 11 비율
+  }) => (
+    <Image
+      className={cn(
+        'mt-6',
+        className,
+      )}
+      src={src}
+      alt={alt}
+      width={sizeImageWidth(width, height)} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
+      height={1080}
+      {...props}
+    />
+  ),
   Callout,
   Card: MdxCard,
 };

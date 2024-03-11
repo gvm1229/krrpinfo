@@ -3,7 +3,7 @@ import { cn } from '@/src/util/utils';
 
 const ResponsiveImage = ({
   src,
-  alt,
+  alt = 'responsive-image-sample',
   quality,
   aspectRatio = 'aspect-auto',
   gridNums = [1, 1, 1],

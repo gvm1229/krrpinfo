@@ -1,11 +1,11 @@
 import React from 'react';
+import Clock from '@/src/components/Countdown/Clock';
 import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import RedeemButton from '@/src/components/Nexon/RedeemButton';
 
 export default {
-  title: 'Components/Nexon/RedeemButton',
-  component: RedeemButton,
+  title: 'Components/Countdown/Clock',
+  component: Clock,
   argTypes: {
     // Define default argTypes here
   },
@@ -24,7 +24,7 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <RedeemButton {...args} />
+      <Clock {...args} />
     </div>
   </ThemeProvider>
 );
@@ -32,4 +32,5 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // Define default props here
+  size: 'size-64',
 };
