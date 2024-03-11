@@ -9,7 +9,10 @@ const Tag = ({
     {tagInput.map((tag) => (
       <li
         key={tag}
-        className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-sm font-semibold text-white hover:bg-blue-400 dark:bg-blue-600"
+        className={cn(
+          'w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-sm font-medium text-white dark:bg-blue-600',
+          'hover:bg-blue-400 hover:underline dark:hover:bg-blue-500',
+        )}
       >
         {tag}
       </li>
