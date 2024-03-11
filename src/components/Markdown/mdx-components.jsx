@@ -2,8 +2,7 @@ import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import * as React from 'react';
 
-import { sizeImageWidth } from '@/src/util/image';
-import { cn } from '@/src/util/utils';
+import { cn, calcStdImageWidth } from '@/src/util/utils';
 import { Callout } from './callout';
 import { MdxCard } from './mdx-card';
 
@@ -158,7 +157,7 @@ const components = {
       )}
       src={src}
       alt={alt}
-      width={sizeImageWidth(width, height)} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
+      width={calcStdImageWidth(width, height)} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
       height={1080}
       {...props}
     />
