@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
 import { Mdx } from '@/src/components/Markdown/mdx-components';
+import Tag from '@/src/components/Tag/Tag';
 import { buttonVariants } from '@/src/components/ui/button';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
@@ -106,16 +107,7 @@ export default async function PostPage({ params }) {
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
           )}
-          <ul className="flex gap-2">
-            {post.tags.map((tag) => (
-              <li
-                key={tag}
-                className="w-fit rounded-lg bg-blue-500 px-2 py-1.5 text-sm font-semibold text-white dark:bg-blue-600"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
+          <Tag tagInput={post.tags} />
         </header>
         <Image
           src={post.thumbnail}
