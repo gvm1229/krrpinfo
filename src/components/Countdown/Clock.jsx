@@ -22,9 +22,9 @@ const Clock = ({
 
   return (
     <div className={`flex flex-col items-center justify-center text-center ${size} ${bgColor}`}>
-      <h2 className="text-4xl font-bold">현재 시각:</h2>
+      <h2 className="text-3xl font-bold tablet:text-4xl">현재 시각:</h2>
       <p
-        className="mt-2 text-2xl"
+        className="mt-2 text-xl tablet:text-2xl"
         suppressHydrationWarning
       >
         {currentTime.toLocaleTimeString()}
