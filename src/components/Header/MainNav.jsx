@@ -31,7 +31,7 @@ export function MainNav({ items, children }) {
               key={item.href}
               href={item.disabled ? '#' : item.href}
               className={cn(
-                'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm',
+                'flex items-center text-lg font-medium transition-colors hover:text-foreground/80',
                 item.href.startsWith(`/${segment}`)
                   ? 'text-foreground'
                   : 'text-foreground/60',
@@ -50,8 +50,8 @@ export function MainNav({ items, children }) {
         )}
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? <X size={20} /> : <Barcode color="red" size={20} />}
-        <span className="font-bold">Menu</span>
+        {showMobileMenu ? <X size={20} /> : <Barcode color="red" size={24} />}
+        <span className="text-lg font-bold">Menu</span>
       </button>
       {showMobileMenu && items && (
         <MobileNav
