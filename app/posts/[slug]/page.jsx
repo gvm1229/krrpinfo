@@ -108,6 +108,9 @@ export default async function PostPage({ params }) {
           )}
           <Tag tagInput={post.tags} />
         </header>
+        <div className="block border-b pb-4 text-sm tablet:hidden">
+          <DashboardTableOfContents toc={toc} />
+        </div>
         <Image
           src={post.thumbnail}
           alt="thumbnail"
