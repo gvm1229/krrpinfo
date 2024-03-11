@@ -21,9 +21,7 @@ async function getPostFromParams(params) {
   return post;
 }
 
-export async function generateMetadata({
-  params,
-}) {
+export async function generateMetadata({ params }, parent) {
   const post = await getPostFromParams(params);
 
   if (!post)
@@ -39,6 +37,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    keywords: post.keywords ? [...(await parent).keywords, ...post.keywords] : [...(await parent).keywords],
     authors: [
       {
         name: 'Megi',
