@@ -53,6 +53,7 @@ const Countdown = ({
         <ResponsiveImage
           src={S24Title}
           alt="S24타이틀"
+          isPriority
         />
         <h1
           className="text-center text-2xl font-bold text-indigo-50"
