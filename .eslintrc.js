@@ -1,14 +1,16 @@
 module.exports = {
   root: true,
-  env: {
-    // 브라우저의 document와 같은 객체 사용 여부
-    browser: true,
-    es2021: true,
+  env: { // 전역객체를 eslint가 인식하는 구간
+    browser: true, // document나 window 인식되게 함
+    node: true,
+    es6: true,
   },
   // eslint에 어떠한 parser를 사용할지 알려주는 옵션
   // eslint가 typescript 문법을 이해할 수 있게 해준다.
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    project: './tsconfig.json',
+    createDefaultProgram: true,
     // 자바스크립트 버전
     ecmaVersion: 'latest',
     // 모듈 export를 위해 import, export를 사용 가능여부를 설정
@@ -38,9 +40,11 @@ module.exports = {
     'import',
     'tailwindcss',
     '@typescript-eslint',
+    'prettier',
   ],
   extends: [
     'airbnb',
+    'airbnb-typescript',
     'airbnb/hooks',
     'eslint:recommended',
     'next/core-web-vitals',
@@ -48,6 +52,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:tailwindcss/recommended',
     'plugin:storybook/recommended',
+    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
   rules: {
@@ -118,11 +123,21 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
     '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+
+    // --- PRETTIER --- //
+    // 'prettier/prettier': [
+    //   'error',
+    //   {
+    //     endOfLine: 'auto'
+    //   },
+    // ],
 
     // --- OTHERS --- //
     'global-require': 0,
     'no-use-before-define': 0, // going to actively use functions
     'no-console': 1,
+    'no-useless-catch': 0, // 불필요한 catch 못쓰게 하는 기능 끔
     'no-param-reassign': 0,
     'no-undef': 1,
     'no-unused-vars': 2,
