@@ -1,6 +1,6 @@
-import { allPosts } from 'contentlayer/generated';
 import { compareDesc } from 'date-fns';
 import Blog from '@/src/components/Blog/Blog';
+import { allPosts } from 'contentlayer/generated';
 
 export const metadata = {
   title: '포스트 목록',

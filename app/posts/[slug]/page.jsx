@@ -1,4 +1,3 @@
-import { allPosts } from 'contentlayer/generated';
 import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +9,7 @@ import Tag from '@/src/components/Tag/Tag';
 import { buttonVariants } from '@/src/components/ui/button';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
+import { allPosts } from 'contentlayer/generated';
 import '@/src/styles/mdx.css';
 
 async function getPostFromParams(params) {
