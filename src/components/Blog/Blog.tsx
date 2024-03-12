@@ -121,7 +121,12 @@ function TextDataWrapper({
   className,
 }: TextDataWrapperProps) {
   return (
-    <div className={cn('relative flex flex-col rounded-lg focus:outline-none', className)}>
+    <div
+      className={cn(
+        'relative flex flex-col rounded-lg focus:outline-none',
+        className,
+      )}
+    >
       {toLink ? (
         <NavigateComponent href={toLink}>
           <ImageWrapper
@@ -151,22 +156,21 @@ function TextDataWrapper({
             id="views"
             className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400"
           >
-            <EyeIcon
-              className="size-6"
-            />
+            <EyeIcon className="size-5" />
             {views}
           </p>
         </div>
         <NavigateComponent href={toLink}>
-          <h1 className="w-fit truncate text-2xl font-bold text-primary hover:underline">{title}</h1>
+          <h1 className="w-fit truncate text-2xl font-bold text-primary hover:underline">
+            {title}
+          </h1>
         </NavigateComponent>
         {description && (
-          <p className="truncate font-medium text-slate-600 dark:text-slate-200">{description}</p>
+          <p className="truncate font-medium text-slate-600 dark:text-slate-200">
+            {description}
+          </p>
         )}
-        <Tag
-          tagInput={tags}
-          className="pt-2"
-        />
+        <Tag tagInput={tags} className="pt-2" />
       </div>
     </div>
   );
@@ -189,9 +193,7 @@ function ImageWrapper({
 }: ImageWrapperProps) {
   return (
     <div className={`relative aspect-video rounded-md ${width}`}>
-      <div
-        className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition hover:opacity-20 dark:bg-white"
-      />
+      <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
       <ResponsiveImage
         src={src}
         alt={alt}

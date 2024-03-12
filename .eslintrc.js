@@ -124,6 +124,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
+    '@typescript-eslint/no-shadow': 0,
 
     // --- PRETTIER --- //
     // 'prettier/prettier': [

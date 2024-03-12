@@ -1,23 +1,26 @@
-import { ChevronLeft } from 'lucide-react';
+import { Redis } from '@upstash/redis';
+import { ChevronLeft, EyeIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import BreadcrumbContainer from '@/src/components/Breadcrumb/BreadcrumbContainer';
-import { DashboardTableOfContents } from '@/src/components/Markdown/TableOfContents';
-import { Mdx } from '@/src/components/Markdown/mdx-components';
-import Tag from '@/src/components/Tag/Tag';
-import { buttonVariants } from '@/src/components/ui/button';
+import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
+import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
+import { Mdx } from '@/components/Markdown/mdx-components';
+import Tag from '@/components/Tag/Tag';
+import ViewReporter from '@/components/View/ViewReporter';
+import { buttonVariants } from '@/components/ui/button';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
 import { allPosts } from 'contentlayer/generated';
 import '@/src/styles/mdx.css';
 
-async function getPostFromParams(params) {
-  const slug = params?.slug;
-  const post = allPosts.find((post) => post.slugAsParams === slug);
+export const revalidate = 60;
+const redis = Redis.fromEnv();
 
-  if (!post)
-    return null;
+async function getPostFromParams(params) {
+  const post = allPosts.find((post) => post.slugAsParams === params.slug);
+
+  if (!post) return null;
 
   return post;
 }
@@ -25,8 +28,7 @@ async function getPostFromParams(params) {
 export async function generateMetadata({ params }, parent) {
   const post = await getPostFromParams(params);
 
-  if (!post)
-    return {};
+  if (!post) return {};
 
   // const url = env.NEXT_PUBLIC_APP_URL;
 
@@ -38,7 +40,9 @@ export async function generateMetadata({ params }, parent) {
   return {
     title: post.title,
     description: post.description,
-    keywords: post.keywords ? [...(await parent).keywords, ...post.keywords] : [...(await parent).keywords],
+    keywords: post.keywords
+      ? [...(await parent).keywords, ...post.keywords]
+      : [...(await parent).keywords],
     authors: [
       {
         name: 'Megi',
@@ -77,17 +81,18 @@ export async function generateStaticParams() {
 export default async function PostPage({ params }) {
   const post = await getPostFromParams(params);
 
-  if (!post)
-    notFound();
+  if (!post) notFound();
 
   const toc = await getTableOfContents(post.body.raw);
+  const views =
+    (await redis.get<number>(
+      ['pageviews', 'projects', 'posts', params.slug].join(':'),
+    )) ?? 0;
 
   return (
     <div className="flex mobile_only:flex-col tablet:gap-x-16">
       <div className="block text-sm mobile_only:mb-4">
-        <div
-          className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10"
-        >
+        <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
           <Link
             href="/posts"
             className={cn(
@@ -105,12 +110,25 @@ export default async function PostPage({ params }) {
           <BreadcrumbContainer
             itemsInput={[{ url: '/posts', label: '포스트' }]}
           />
-          <p className="text-base font-medium text-muted-foreground tablet:text-lg">{formatDate(post.date)}</p>
+          <p className="text-base font-medium text-muted-foreground tablet:text-lg">
+            {formatDate(post.date)}
+          </p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
-            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">{post.description}</p>
+            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
+              {post.description}
+            </p>
           )}
-          <Tag tagInput={post.tags} />
+          <div className="flex items-center justify-between">
+            <Tag tagInput={post.tags} />
+            <p
+              id="views"
+              className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg"
+            >
+              <EyeIcon className="size-6" />
+              {views}
+            </p>
+          </div>
         </header>
         <div className="block border-b pb-4 text-sm tablet:hidden">
           <DashboardTableOfContents toc={toc} />
@@ -125,12 +143,11 @@ export default async function PostPage({ params }) {
         <Mdx code={post.body.code} />
       </div>
       <div className="hidden text-sm tablet:block">
-        <div
-          className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48"
-        >
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
           <DashboardTableOfContents toc={toc} />
         </div>
       </div>
+      <ViewReporter slug={`posts:${params.slug}`} />
     </div>
   );
 }
