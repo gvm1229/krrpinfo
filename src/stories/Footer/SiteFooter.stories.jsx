@@ -31,5 +31,6 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  className: 'border-t bg-background',
+  className: 'w-full border-t bg-background',
+  totalViews: 100,
 };
