@@ -26,6 +26,9 @@
       "@/*": [
         "./*"
       ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
       "contentlayer/generated": [
         "./.contentlayer/generated"
       ]

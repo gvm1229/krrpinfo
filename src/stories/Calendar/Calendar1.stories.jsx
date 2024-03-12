@@ -1,7 +1,7 @@
 import React from 'react';
-import Calendar1 from '@/src/components/Calendar/Calendar1';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import Calendar1 from '@/components/Calendar/Calendar1';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Calendar/Calendar1',

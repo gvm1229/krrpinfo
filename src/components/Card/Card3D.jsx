@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
+import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import './Card3D.css';
 
 const Card3D = ({

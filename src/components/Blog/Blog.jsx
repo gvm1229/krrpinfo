@@ -1,8 +1,8 @@
 import { Link as LinkIcon } from 'lucide-react';
 import Link from 'next/link';
-import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
-import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
-import Tag from '@/src/components/Tag/Tag';
+import ButtonNewTab from '@/components/Button/ButtonNewTab';
+import ResponsiveImage from '@/components/Image/ResponsiveImage';
+import Tag from '@/components/Tag/Tag';
 import { cn, formatDate } from '@/src/util/utils';
 
 const Blog = ({

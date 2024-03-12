@@ -5,9 +5,9 @@ const directoryToWatch = './src/components'; // Change this to the directory whe
 
 function parseStoryContent(componentName, componentGroupName) {
   return `import React from 'react';
-import ${componentName} from '@/src/components/${componentGroupName}/${componentName}';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import ${componentName} from '@/components/${componentGroupName}/${componentName}';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/${componentGroupName}/${componentName}',

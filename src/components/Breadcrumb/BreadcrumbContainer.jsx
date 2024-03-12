@@ -5,7 +5,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from '@/src/components/ui/breadcrumb';
+} from '@/components/ui/breadcrumb';
 import { cn } from '@/src/util/utils';
 
 const BreadcrumbContainer = ({

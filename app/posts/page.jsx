@@ -1,5 +1,5 @@
 import { compareDesc } from 'date-fns';
-import Blog from '@/src/components/Blog/Blog';
+import Blog from '@/components/Blog/Blog';
 import { allPosts } from 'contentlayer/generated';
 
 export const metadata = {

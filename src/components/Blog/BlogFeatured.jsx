@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
-import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
+import ButtonNewTab from '@/components/Button/ButtonNewTab';
+import ResponsiveImage from '@/components/Image/ResponsiveImage';
 import { formatDate } from '@/src/util/utils';
 
 const BlogFeatured = ({

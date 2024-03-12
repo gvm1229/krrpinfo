@@ -1,6 +1,6 @@
-import Blog from '@/src/components/Blog/Blog';
-import Clock from '@/src/components/Countdown/Clock';
-import Countdown from '@/src/components/Countdown/Countdown';
+import Blog from '@/components/Blog/Blog';
+import Clock from '@/components/Countdown/Clock';
+import Countdown from '@/components/Countdown/Countdown';
 import { cn } from '@/src/util/utils';
 
 const Featured = ({ className }) => (

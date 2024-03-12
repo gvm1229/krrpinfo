@@ -1,8 +1,8 @@
 import React from 'react';
+import Blog from '@/components/Blog/Blog';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 import hdDummy from '@/public/assets/storybook/720p.png';
-import Blog from '@/src/components/Blog/Blog';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Blog/Blog',

@@ -1,14 +1,14 @@
 import { Link as LinkIcon } from 'lucide-react';
 import Image from 'next/image';
-import Tag from '@/src/components/Tag/Tag';
-import { Card, CardContent, CardTitle } from '@/src/components/ui/card';
+import Tag from '@/components/Tag/Tag';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
 export default function SimpleFeatured({
   thumbnail = 'https://dummyimage.com/1280x720',
   title = 'Sample Title',
   tags = ['Sample Tag', 'Sample Tag', 'Sample Tag'],
-  toNavigate,
-  hyperlink,
+  // toNavigate,
+  // hyperlink,
 }) {
   return (
     <Card className="w-[300px] overflow-hidden rounded-lg shadow-lg dark:shadow-slate-600">

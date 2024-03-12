@@ -1,7 +1,7 @@
 // import Link from 'next/link';
-// import { buttonVariants } from '@/src/components/ui/button';
+// import { buttonVariants } from '@/components/ui/button';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 import { navContents } from '@/config/navBar';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
 import { cn } from '@/src/util/utils';
 import { MainNav } from './MainNav';
 

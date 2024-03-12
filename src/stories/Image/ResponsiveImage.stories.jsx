@@ -1,8 +1,8 @@
 import React from 'react';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+import ResponsiveImage from '@/components/Image/ResponsiveImage';
 import s24BannerKr from '@/public/assets/images/한섭/S24_아리아.png';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import ResponsiveImage from '@/src/components/Image/ResponsiveImage';
 
 export default {
   title: 'Components/Image/ResponsiveImage',
