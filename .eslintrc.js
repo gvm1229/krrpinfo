@@ -119,7 +119,8 @@ module.exports = {
 
     // --- OTHERS --- //
     'global-require': 0,
-    'no-console': 0,
+    'no-use-before-define': 0, // going to actively use functions
+    'no-console': 1,
     'no-param-reassign': 0,
     'no-undef': 1,
     'no-unused-vars': 2,
