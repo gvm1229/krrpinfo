@@ -1,6 +1,18 @@
 import Image from 'next/image';
 import { cn } from '@/src/util/utils';
 
+interface ResponsiveImageProps {
+    src: string;
+    alt?: string;
+    quality?: number;
+    aspectRatio?: string;
+    gridNums?: number[];
+    isPriority?: boolean;
+    objectFit?: string;
+    wrapperClassName?: string;
+    imageClassName?: string;
+}
+
 const ResponsiveImage = ({
   src,
   alt = 'responsive-image-sample',
@@ -11,7 +23,7 @@ const ResponsiveImage = ({
   objectFit = 'object-cover',
   wrapperClassName,
   imageClassName,
-}) => {
+}: ResponsiveImageProps) => {
   const dynamicViewport = () => {
     // if (mobile=1, tablet=2, desktop=3) return '(max-width: 720px) 100vw, (max-width: 1240px) 50vw, 33vw';
     // if (mobile=1, tablet=2, desktop=2) return '(max-width: 720px) 100vw, (max-width: 1240px) 50vw, 50vw';

@@ -1,12 +1,20 @@
 import React from 'react';
 
+interface ButtonNewTabProps {
+    href: string;
+    className?: string;
+    containerStyle?: React.CSSProperties;
+    isNewTab?: boolean;
+    children?: React.ReactNode;
+}
+
 const ButtonNewTab = ({
   href,
   className,
   containerStyle,
   isNewTab = true,
   children,
-}) => {
+}: ButtonNewTabProps) => {
   if (href == null || href === '') return (
     <div
       className={className}
