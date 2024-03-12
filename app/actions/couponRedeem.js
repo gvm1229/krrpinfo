@@ -12,8 +12,7 @@ export async function handleUserLookup(payload) {
       },
       body: JSON.stringify(payload),
     });
-    const responseData = await response.json();
-    return responseData;
+    return await response.json();
   } catch (error) {
     console.error('Error fetching user:', error);
     throw new Error(`Error fetching user: ${error}`);
@@ -29,8 +28,7 @@ export async function handleRedeem(payload) {
       },
       body: JSON.stringify(payload),
     });
-    const responseData = await response.json();
-    return responseData;
+    return await response.json();
   } catch (error) {
     console.error('Error fetching coupon:', error);
     throw new Error(`Error fetching coupon: ${error}`);
