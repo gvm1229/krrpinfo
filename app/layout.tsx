@@ -72,19 +72,14 @@ const redis = Redis.fromEnv();
 
 export default async function RootLayout({ children }) {
   const totalViewSlug = 'krrpinfo:total-views';
-  const totalViews = await redis.get<number>(['pageviews', 'projects', totalViewSlug].join(':')) ?? 0;
+  const totalViews = (await redis.get<number>(
+    ['pageviews', 'projects', totalViewSlug].join(':'),
+  )) ?? 0;
 
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en">
       <body className="relative min-h-svh bg-background antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
             <SiteHeader className="border-b bg-background" />
             <main className="container relative flex-1 py-8 tablet:py-12">
@@ -97,7 +92,7 @@ export default async function RootLayout({ children }) {
             <ScrollToTopButton />
           </div>
         </ThemeProvider>
-        <ViewReporter slug={totalViewSlug} />
+        <ViewReporter slug={totalViewSlug} path="/" />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -84,10 +84,9 @@ export default async function PostPage({ params }) {
   if (!post) notFound();
 
   const toc = await getTableOfContents(post.body.raw);
-  const views =
-    (await redis.get<number>(
-      ['pageviews', 'projects', 'posts', params.slug].join(':'),
-    )) ?? 0;
+  const views = (await redis.get<number>(
+    ['pageviews', 'projects', 'posts', params.slug].join(':'),
+  )) ?? 0;
 
   return (
     <div className="flex mobile_only:flex-col tablet:gap-x-16">
@@ -147,7 +146,10 @@ export default async function PostPage({ params }) {
           <DashboardTableOfContents toc={toc} />
         </div>
       </div>
-      <ViewReporter slug={`posts:${params.slug}`} />
+      <ViewReporter
+        slug={`posts:${params.slug}`}
+        path={`/posts/${params.slug}`}
+      />
     </div>
   );
 }

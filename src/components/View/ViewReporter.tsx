@@ -1,8 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
+import revalidate from '@/app/actions/revalidate';
 
-function ViewReporter({ slug }: { slug: string }) {
+interface ViewReporterProps {
+  slug: string;
+  path: string;
+}
+
+function ViewReporter({ slug, path }: ViewReporterProps) {
   useEffect(() => {
     fetch('/api/viewcount', {
       method: 'POST',
@@ -11,6 +17,7 @@ function ViewReporter({ slug }: { slug: string }) {
       },
       body: JSON.stringify({ slug }),
     });
+    revalidate(path);
   }, [slug]);
 
   return null;
