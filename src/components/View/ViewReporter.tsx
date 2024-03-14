@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useEffect } from 'react';
 import revalidate from '@/app/actions/revalidate';
 
