@@ -1,7 +1,7 @@
 import React from 'react';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import RedeemContainer from '@/src/components/Nexon/RedeemContainer';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+import RedeemContainer from '@/components/Nexon/RedeemContainer';
 
 export default {
   title: 'Components/Nexon/RedeemContainer',

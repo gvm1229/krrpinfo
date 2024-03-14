@@ -1,9 +1,9 @@
 import { MailOpen } from 'lucide-react';
 import React from 'react';
-import ButtonNewTab from '@/src/components/Button/ButtonNewTab';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import { Button } from '@/src/components/ui/button';
+import ButtonNewTab from '@/components/Button/ButtonNewTab';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+import { Button } from '@/components/ui/button';
 
 export default {
   title: 'Components/Button/ButtonNewTab',

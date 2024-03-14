@@ -1,11 +1,13 @@
 import React from 'react';
 import { cn } from '@/src/util/utils';
 
-const Tag = ({
-  tagInput,
-  className,
-  innerClassName,
-}) => (
+interface TagProps {
+  tagInput: string[];
+  className?: string;
+  innerClassName?: string;
+}
+
+const Tag = ({ tagInput, className, innerClassName }: TagProps) => (
   <ul className={cn('flex gap-2', className)}>
     {tagInput.map((tag) => (
       <li

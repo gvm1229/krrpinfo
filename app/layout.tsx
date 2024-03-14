@@ -1,11 +1,13 @@
+import { Redis } from '@upstash/redis';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/src/styles/globals.css';
+import ScrollToTopButton from '@/components/Button/ScrollToTopButton';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { SiteFooter } from '@/components/Footer/SiteFooter';
+import { SiteHeader } from '@/components/Header/SiteHeader';
+import ViewReporter from '@/components/View/ViewReporter';
 import { siteConfig } from '@/config/site';
-import ScrollToTopButton from '@/src/components/Button/ScrollToTopButton';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { SiteFooter } from '@/src/components/Footer/SiteFooter';
-import { SiteHeader } from '@/src/components/Header/SiteHeader';
 
 export const metadata = {
   title: {
@@ -45,7 +47,7 @@ export const metadata = {
     ],
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
-  metadataBase: siteConfig.url,
+  metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: '/',
     languages: {
@@ -65,27 +67,32 @@ export const viewport = {
   ],
 };
 
-export default function RootLayout({ children }) {
+export const revalidate = 60;
+const redis = Redis.fromEnv();
+
+export default async function RootLayout({ children }) {
+  const totalViewSlug = 'krrpinfo:total-views';
+  const totalViews = (await redis.get<number>(
+    ['pageviews', 'projects', totalViewSlug].join(':'),
+  )) ?? 0;
+
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en">
       <body className="relative min-h-svh bg-background antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader className="fixed w-full border-b bg-background" />
+            <SiteHeader className="border-b bg-background" />
             <main className="container relative flex-1 py-8 tablet:py-12">
               {children}
             </main>
-            <SiteFooter className="border-t bg-background" />
+            <SiteFooter
+              className="border-t bg-background"
+              totalViews={totalViews}
+            />
             <ScrollToTopButton />
           </div>
         </ThemeProvider>
+        <ViewReporter slug={totalViewSlug} path="/" />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,7 +1,7 @@
 import React from 'react';
-import Clock from '@/src/components/Countdown/Clock';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import Clock from '@/components/Countdown/Clock';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Countdown/Clock',

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
-import { SiteFooter } from '@/src/components/Footer/SiteFooter';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+import { SiteFooter } from '@/components/Footer/SiteFooter';
 
 export default {
   title: 'Components/Footer/SiteFooter',
@@ -31,5 +31,6 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  className: 'border-t bg-background',
+  className: 'w-full border-t bg-background',
+  totalViews: 100,
 };

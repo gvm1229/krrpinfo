@@ -1,7 +1,7 @@
 // import Link from 'next/link';
-// import { buttonVariants } from '@/src/components/ui/button';
+// import { buttonVariants } from '@/components/ui/button';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 import { navContents } from '@/config/navBar';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
 import { cn } from '@/src/util/utils';
 import { MainNav } from './MainNav';
 
@@ -10,7 +10,7 @@ export function SiteHeader({ className }) {
     <>
       <header
         id="header"
-        className={cn('z-40 flex h-20 items-center justify-between mobile_only:container tablet_only:container desktop:px-8', className)}
+        className={cn('fixed z-40 flex h-20 w-full items-center justify-between mobile_only:container tablet_only:container desktop:px-8', className)}
       >
         <MainNav items={navContents} />
         {/* <nav> */}

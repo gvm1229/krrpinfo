@@ -5,13 +5,21 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from '@/src/components/ui/breadcrumb';
+} from '@/components/ui/breadcrumb';
 import { cn } from '@/src/util/utils';
+
+interface BreadcrumbContainerProps {
+  itemsInput: {
+    url: string;
+    label: string;
+  }[];
+  className?: string;
+}
 
 const BreadcrumbContainer = ({
   itemsInput,
   className,
-}) => {
+}: BreadcrumbContainerProps) => {
   const items = [{ url: '/', label: '홈' }, ...itemsInput];
 
   return (

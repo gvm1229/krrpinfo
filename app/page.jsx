@@ -1,6 +1,6 @@
-import Blog from '@/src/components/Blog/Blog';
-import Clock from '@/src/components/Countdown/Clock';
-import Countdown from '@/src/components/Countdown/Countdown';
+import Blog from '@/components/Blog/Blog';
+import Clock from '@/components/Countdown/Clock';
+import Countdown from '@/components/Countdown/Countdown';
 import { cn } from '@/src/util/utils';
 
 const Featured = ({ className }) => (
@@ -31,7 +31,7 @@ const Posts = ({ className }) => {
   const posts = [
     // {
     //   width: 'w-full',
-    //   thumbnail: '/assets/images/넥슨API.jpg',
+    //   thumbnail: '/assets/images/links/넥슨API.jpg',
     //   category: '유틸리티 도구',
     //   title: '계정 정보 조회',
     //   toNavigate: 'view_account',
@@ -46,7 +46,7 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/썸네일공지사항.jpg',
+      thumbnail: '/assets/images/links/썸네일공지사항.jpg',
       imgStyle: 'object-cover desktop:object-fill',
       tags: ['넥슨 공식 매체'],
       title: '일반 공지사항',
@@ -54,7 +54,7 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/썸네일이벤트.png',
+      thumbnail: '/assets/images/links/썸네일이벤트.png',
       imgStyle: 'object-cover desktop:object-fill',
       tags: ['넥슨 공식 매체'],
       title: '이벤트 공지사항',
@@ -62,28 +62,28 @@ const Posts = ({ className }) => {
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/확짤1.jpg',
+      thumbnail: '/assets/images/links/확짤1.jpg',
       tags: ['유용한 링크'],
       title: '확률표 1 - 상점 교환 관련',
       hyperlink: 'https://m.nexon.com/probability/2038?language=ko',
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/확짤2.jpg',
+      thumbnail: '/assets/images/links/확짤2.jpg',
       tags: ['유용한 링크'],
       title: '확률표 2 - 주 과금 컨텐츠 관련',
       hyperlink: 'https://m.nexon.com/probability/705?language=ko',
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/sukimi.jpg',
+      thumbnail: '/assets/images/links/sukimi.jpg',
       tags: ['유용한 링크'],
       title: '스피드 카트 성능 비교',
       hyperlink: 'https://krp-kart-compare.netlify.app/',
     },
     {
       width: 'w-full',
-      thumbnail: '/assets/images/아이템전.webp',
+      thumbnail: '/assets/images/links/아이템전.webp',
       imgStyle: 'object-fill',
       tags: ['유용한 링크'],
       title: '아이템전용 카트 & 펫 목록 퀵뷰',

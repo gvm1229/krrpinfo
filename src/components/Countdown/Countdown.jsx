@@ -45,8 +45,6 @@ const Countdown = ({
         <Image
           src={S24Title}
           alt="S24타이틀"
-          width={372}
-          height={144}
           priority
         />
         <h1

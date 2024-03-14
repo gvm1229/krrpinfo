@@ -1,7 +1,7 @@
 import React from 'react';
-import BreadcrumbContainer from '@/src/components/Breadcrumb/BreadcrumbContainer';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Breadcrumb/BreadcrumbContainer',
