@@ -123,6 +123,13 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-shadow": 0,
     "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
+    "@typescript-eslint/indent": [
+      "error",
+      2,
+      {
+        ignoredNodes: ["TSTypeParameterInstantiation"],
+      },
+    ],
 
     // --- PRETTIER --- //
     // 'prettier/prettier': [
