@@ -5,16 +5,16 @@ import * as React from 'react';
 import { cn } from '@/src/util/utils';
 
 const Breadcrumb = React.forwardRef<
-    HTMLElement,
-    React.ComponentPropsWithoutRef<'nav'> & {
-    separator?: React.ReactNode
-}
+  HTMLElement,
+  React.ComponentPropsWithoutRef<'nav'> & {
+    separator?: React.ReactNode;
+  }
 >(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
 Breadcrumb.displayName = 'Breadcrumb';
 
 const BreadcrumbList = React.forwardRef<
-    HTMLOListElement,
-    React.ComponentPropsWithoutRef<'ol'>
+  HTMLOListElement,
+  React.ComponentPropsWithoutRef<'ol'>
 >(({ className, ...props }, ref) => (
   <ol
     ref={ref}
@@ -28,8 +28,8 @@ const BreadcrumbList = React.forwardRef<
 BreadcrumbList.displayName = 'BreadcrumbList';
 
 const BreadcrumbItem = React.forwardRef<
-    HTMLLIElement,
-    React.ComponentPropsWithoutRef<'li'>
+  HTMLLIElement,
+  React.ComponentPropsWithoutRef<'li'>
 >(({ className, ...props }, ref) => (
   <li
     ref={ref}
@@ -40,10 +40,10 @@ const BreadcrumbItem = React.forwardRef<
 BreadcrumbItem.displayName = 'BreadcrumbItem';
 
 const BreadcrumbLink = React.forwardRef<
-    HTMLAnchorElement,
-    React.ComponentPropsWithoutRef<'a'> & {
-    asChild?: boolean
-}
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<'a'> & {
+    asChild?: boolean;
+  }
 >(({ asChild, className, ...props }, ref) => {
   const Comp = asChild ? Slot : 'a';
 
@@ -58,8 +58,8 @@ const BreadcrumbLink = React.forwardRef<
 BreadcrumbLink.displayName = 'BreadcrumbLink';
 
 const BreadcrumbPage = React.forwardRef<
-    HTMLSpanElement,
-    React.ComponentPropsWithoutRef<'span'>
+  HTMLSpanElement,
+  React.ComponentPropsWithoutRef<'span'>
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}

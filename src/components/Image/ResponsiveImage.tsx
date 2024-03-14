@@ -2,15 +2,15 @@ import Image from 'next/image';
 import { cn } from '@/src/util/utils';
 
 interface ResponsiveImageProps {
-    src: string;
-    alt?: string;
-    quality?: number;
-    aspectRatio?: string;
-    gridNums?: number[];
-    isPriority?: boolean;
-    objectFit?: string;
-    wrapperClassName?: string;
-    imageClassName?: string;
+  src: string;
+  alt?: string;
+  quality?: number;
+  aspectRatio?: string;
+  gridNums?: number[];
+  isPriority?: boolean;
+  objectFit?: string;
+  wrapperClassName?: string;
+  imageClassName?: string;
 }
 
 const ResponsiveImage = ({

@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface ButtonNewTabProps {
-    href: string;
-    className?: string;
-    containerStyle?: React.CSSProperties;
-    isNewTab?: boolean;
-    children?: React.ReactNode;
+  href: string;
+  className?: string;
+  containerStyle?: React.CSSProperties;
+  isNewTab?: boolean;
+  children?: React.ReactNode;
 }
 
 const ButtonNewTab = ({

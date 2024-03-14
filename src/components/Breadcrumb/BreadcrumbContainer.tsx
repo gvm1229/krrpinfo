@@ -9,11 +9,11 @@ import {
 import { cn } from '@/src/util/utils';
 
 interface BreadcrumbContainerProps {
-    itemsInput: {
-        url: string;
-        label: string;
-    }[];
-    className?: string;
+  itemsInput: {
+    url: string;
+    label: string;
+  }[];
+  className?: string;
 }
 
 const BreadcrumbContainer = ({

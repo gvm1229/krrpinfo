@@ -71,8 +71,8 @@ export async function handleUnified(npaCode, coupon) {
         return {
           success: false,
           message:
-            reformatMessage(redeemResponseData.message) ??
-            '이미 사용된 쿠폰 / 잘못된 입력',
+            reformatMessage(redeemResponseData.message)
+            ?? '이미 사용된 쿠폰 / 잘못된 입력',
         };
       } catch (error) {
         // console.error('[Unified] Error fetching coupon:', error);
@@ -85,8 +85,8 @@ export async function handleUnified(npaCode, coupon) {
       return {
         success: false,
         message:
-          reformatMessage(responseData.message) ??
-          '이미 사용된 쿠폰 / 잘못된 입력',
+          reformatMessage(responseData.message)
+          ?? '이미 사용된 쿠폰 / 잘못된 입력',
       };
   } catch (error) {
     // console.error('[Unified] Error fetching user:', error);
