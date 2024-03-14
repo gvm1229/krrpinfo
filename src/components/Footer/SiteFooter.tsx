@@ -3,21 +3,11 @@ import ViewCounter from '@/components//View/ViewCounter';
 import qrc from '@/public/assets/images/qrc/qrc-xl-c.png';
 import { cn } from '@/src/util/utils';
 
-export function SiteFooter({
-  className,
-  totalViews,
-}) {
+export function SiteFooter({ className, totalViews }) {
   return (
-    <footer
-      id="footer"
-      className={cn(className)}
-    >
-      <div
-        className="flex items-center justify-between py-8 mobile_only:container tablet_only:container desktop:px-8"
-      >
-        <div
-          className="flex flex-col items-start justify-between gap-4"
-        >
+    <footer id="footer" className={cn(className)}>
+      <div className="flex flex-col items-center py-8 mobile_only:container tablet_only:container tablet:flex-row tablet:justify-between desktop:px-8">
+        <div className="flex flex-col items-start justify-between gap-4">
           {/* contact */}
           <p className="text-center text-sm leading-loose tablet:text-left tablet:text-lg">
             오류 신고 및 문의 :
@@ -46,18 +36,13 @@ export function SiteFooter({
             . All rights reserved.
           </p>
         </div>
-        <div className="flex flex-col items-end justify-end gap-2">
+        <div className="mt-4 flex flex-col items-center gap-2 tablet:mt-0 tablet:items-end tablet:justify-end">
           <ViewCounter view={totalViews} />
           {/* qr code */}
-          <div className="flex items-center gap-2">
-            <p className="text-lg font-medium">
-              공유용 QR 코드:
-            </p>
+          <div className="mt-2 flex items-center gap-2 tablet:mt-0">
+            <p className="text-lg font-medium">공유용 QR 코드:</p>
             <div className="size-12">
-              <Image
-                src={qrc}
-                alt="QR Code"
-              />
+              <Image src={qrc} alt="QR Code" />
             </div>
           </div>
         </div>
