@@ -57,8 +57,8 @@ export async function generateMetadata({ params }, parent) {
       images: [
         {
           url: post.thumbnail,
-          width: 1200,
-          height: 630,
+          width: 1280,
+          height: 720,
           alt: post.title,
         },
       ],
