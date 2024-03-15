@@ -1,4 +1,4 @@
-import { EyeIcon } from 'lucide-react';
+import { EyeIcon, LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
@@ -8,10 +8,10 @@ import { cn, formatDate } from '@/src/util/utils';
 interface BlogProps {
   width?: string;
   thumbnail?: string;
-  tags?: string[];
   date?: string;
-  title?: string;
+  title: string;
   description?: string;
+  tags: string[];
   toNavigate?: string;
   hyperlink?: string;
   gridNums?: number[];
@@ -23,10 +23,10 @@ interface BlogProps {
 export default function Blog({
   width,
   thumbnail = 'https://dummyimage.com/1280x720',
-  tags = ['Sample Tag'],
   date,
-  title = 'Sample Title',
+  title,
   description,
+  tags,
   toNavigate,
   hyperlink,
   gridNums = [1, 2, 3],
@@ -47,7 +47,7 @@ export default function Blog({
         gridNums={gridNums}
         isPriority={isImagePriority}
         NavigateComponent={Link}
-        toLink={toNavigate}
+        toNavigate={toNavigate}
         views={views}
         className={className}
       />
@@ -66,7 +66,7 @@ export default function Blog({
         gridNums={gridNums}
         isPriority={isImagePriority}
         NavigateComponent={ButtonNewTab}
-        toLink={hyperlink}
+        hyperlink={hyperlink}
         views={views}
         className={className}
       />
@@ -84,7 +84,6 @@ export default function Blog({
       gridNums={gridNums}
       isPriority={isImagePriority}
       NavigateComponent={ButtonNewTab}
-      toLink={hyperlink}
       views={views}
       className={className}
     />
@@ -101,7 +100,8 @@ interface TextDataWrapperProps {
   gridNums: number[];
   isPriority: boolean;
   NavigateComponent?: typeof Link | typeof ButtonNewTab;
-  toLink?: string;
+  toNavigate?: string;
+  hyperlink?: string;
   views: number;
   className: string;
 }
@@ -116,7 +116,8 @@ function TextDataWrapper({
   gridNums,
   isPriority,
   NavigateComponent,
-  toLink,
+  toNavigate,
+  hyperlink,
   views,
   className,
 }: TextDataWrapperProps) {
@@ -127,8 +128,8 @@ function TextDataWrapper({
         className,
       )}
     >
-      {toLink ? (
-        <NavigateComponent href={toLink}>
+      {toNavigate ? (
+        <NavigateComponent href={toNavigate}>
           <ImageWrapper
             src={thumbnail}
             gridNums={gridNums}
@@ -141,36 +142,42 @@ function TextDataWrapper({
           src={thumbnail}
           gridNums={gridNums}
           isPriority={isPriority}
+          isHyperlink={!!hyperlink}
           width={width}
         />
       )}
-      <div className="group mt-4 space-y-1 text-left">
-        <div className="flex items-center justify-between">
+      <div className="group mt-4 space-y-2 text-left">
+        <div
+          className={`flex items-center justify-between ${toNavigate && 'pb-2'}`}
+        >
           <p
             id="date"
             className="text-sm font-medium text-slate-600 dark:text-slate-300"
           >
             {formatDate(date ?? new Date())}
           </p>
-          <p
-            id="views"
-            className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400"
-          >
-            <EyeIcon className="size-5" />
-            {views}
-          </p>
+          {views > 0 && (
+            <p
+              id="views"
+              className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400"
+            >
+              <EyeIcon className="size-5" />
+              {views}
+            </p>
+          )}
         </div>
-        <NavigateComponent href={toLink}>
-          <h1 className="w-fit truncate text-2xl font-bold text-primary hover:underline">
-            {title}
-          </h1>
+        <NavigateComponent
+          href={toNavigate}
+          className="w-fit truncate text-2xl font-bold text-primary hover:underline"
+        >
+          {title}
         </NavigateComponent>
         {description && (
           <p className="truncate font-medium text-slate-600 dark:text-slate-200">
             {description}
           </p>
         )}
-        <Tag tagInput={tags} className="pt-2" />
+        <Tag tagInput={tags} />
       </div>
     </div>
   );
@@ -181,6 +188,7 @@ interface ImageWrapperProps {
   alt?: string;
   gridNums: number[];
   isPriority: boolean;
+  isHyperlink?: boolean;
   width: string;
 }
 
@@ -189,11 +197,17 @@ function ImageWrapper({
   alt = 'blog-thumbnail',
   gridNums,
   isPriority,
+  isHyperlink,
   width,
 }: ImageWrapperProps) {
   return (
     <div className={`relative aspect-video rounded-md ${width}`}>
       <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
+      {isHyperlink && (
+        <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
+          <LinkIcon className="size-8 text-blue-600" />
+        </div>
+      )}
       <ResponsiveImage
         src={src}
         alt={alt}

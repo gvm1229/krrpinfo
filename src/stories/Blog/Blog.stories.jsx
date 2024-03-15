@@ -34,5 +34,7 @@ export const Default = Template.bind({});
 Default.args = {
   width: 'w-96',
   thumbnail: hdDummy,
+  tags: ['Sample Tag'],
+  title: 'Sample Title',
   views: 100,
 };
