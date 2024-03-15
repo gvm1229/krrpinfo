@@ -31,7 +31,7 @@ const BreadcrumbContainer = ({
               <BreadcrumbItem>
                 <BreadcrumbLink
                   href={item.url}
-                  className="text-base tablet:text-lg"
+                  className="text-base text-primary tablet:text-lg"
                 >
                   {item.label}
                 </BreadcrumbLink>
