@@ -4,7 +4,7 @@ import Tag from '@/components/Tag/Tag';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
 export default function SimpleFeatured({
-  thumbnail = 'https://dummyimage.com/1280x720',
+  thumbnail = 'https://res.cloudinary.com/djfgq8qk3/image/upload/v1710490251/storybook/nextjs-720p.png',
   title = 'Sample Title',
   tags = ['Sample Tag', 'Sample Tag', 'Sample Tag'],
   // toNavigate,

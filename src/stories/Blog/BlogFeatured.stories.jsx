@@ -2,7 +2,6 @@ import React from 'react';
 import BlogFeatured from '@/components/Blog/BlogFeatured';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import hdDummy from '@/public/assets/storybook/720p.png';
 
 export default {
   title: 'Components/Blog/BlogFeatured',
@@ -32,5 +31,5 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  thumbnail: hdDummy,
+  // Define default props here
 };

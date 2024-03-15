@@ -2,7 +2,6 @@ import React from 'react';
 import Blog from '@/components/Blog/Blog';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import hdDummy from '@/public/assets/storybook/720p.png';
 
 export default {
   title: 'Components/Blog/Blog',
@@ -33,7 +32,6 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   width: 'w-96',
-  thumbnail: hdDummy,
   tags: ['Sample Tag'],
   title: 'Sample Title',
   views: 100,
