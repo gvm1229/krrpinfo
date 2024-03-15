@@ -8,6 +8,7 @@ import { SiteFooter } from '@/components/Footer/SiteFooter';
 import { SiteHeader } from '@/components/Header/SiteHeader';
 import ViewReporter from '@/components/View/ViewReporter';
 import { siteConfig } from '@/config/site';
+import { env } from '@/env.mjs';
 
 export const metadata = {
   title: {
@@ -28,6 +29,26 @@ export const metadata = {
     },
   ],
   creator: 'Megi',
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: 'article',
+    url: env.NEXT_PUBLIC_APP_URL,
+    images: [
+      {
+        url: './opengraph-image.webp',
+        width: 1280,
+        height: 720,
+        alt: 'current_season_image',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: './opengraph-image.webp',
+  },
   // themeColor: [
   //   { media: '(prefers-color-scheme: light)', color: 'white' },
   //   { media: '(prefers-color-scheme: dark)', color: 'black' },
@@ -54,9 +75,6 @@ export const metadata = {
       'en-US': '/en-US',
       'ko-KR': '/ko-KR',
     },
-  },
-  openGraph: {
-    images: './opengraph-image.webp',
   },
 };
 
