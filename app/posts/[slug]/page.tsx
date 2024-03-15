@@ -90,13 +90,13 @@ export default async function PostPage({ params }) {
 
   return (
     <div className="flex mobile_only:flex-col tablet:gap-x-16">
-      <div className="block text-sm mobile_only:mb-4">
+      <div className="hidden tablet:block">
         <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
           <Link
             href="/posts"
             className={cn(
               buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-sm mobile_only:pl-2',
+              'relative inline-flex text-sm',
             )}
           >
             <ChevronLeft className="mr-2 size-4" />
@@ -140,6 +140,18 @@ export default async function PostPage({ params }) {
           priority
         />
         <Mdx code={post.body.code} />
+        <div className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
+          <Link
+            href="/posts"
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              'relative inline-flex text-sm',
+            )}
+          >
+            <ChevronLeft className="mr-2 size-4" />
+            포스트 목록으로 돌아가기
+          </Link>
+        </div>
       </div>
       <div className="hidden text-sm tablet:block">
         <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
