@@ -95,7 +95,7 @@ export default async function RootLayout({ children }) {
   )) ?? 0;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="relative min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
