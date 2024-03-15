@@ -44,6 +44,7 @@ export function MainNav({ items, children }) {
         </nav>
       ) : null}
       <button
+        name="mobileMenuBtn"
         className={cn(
           'flex items-center space-x-2 tablet:hidden',
           'ring-transparent focus-visible:ring-transparent',

@@ -31,6 +31,7 @@ const FileButton = ({
 
   return (
     <button
+      name="fileDownloadBtn"
       onClick={handleDownload}
       className={`${className} ${width}`}
     >
