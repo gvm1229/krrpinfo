@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import ViewCounter from '@/components//View/ViewCounter';
-import qrc from '@/public/assets/images/qrc/qrc-xl-c.png';
+import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
 import { cn } from '@/src/util/utils';
 
 export function SiteFooter({ className, totalViews }) {
