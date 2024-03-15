@@ -1,7 +1,7 @@
 import React from 'react';
-import FileButton from '@/src/components/Button/FileButton';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import FileButton from '@/components/Button/FileButton';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Button/FileButton',

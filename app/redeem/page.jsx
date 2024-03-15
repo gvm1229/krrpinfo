@@ -1,4 +1,4 @@
-import RedeemContainer from '@/src/components/Nexon/RedeemContainer';
+import RedeemContainer from '@/components/Nexon/RedeemContainer';
 
 export const metadata = {
   title: '쿠폰 리딤',

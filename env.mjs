@@ -8,7 +8,8 @@ export const env = createEnv({
     // NEXTAUTH_URL: z.string().url().optional(),
     // NEXTAUTH_SECRET: z.string().min(1),
     NEXT_PUBLIC_APP_URL: z.string().min(1),
-    MONGODB_URL: z.string().min(1),
+    UPSTASH_REDIS_REST_URL: z.string().min(1),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     NEXON_API_KEY: z.string().min(1),
   },
   client: {
@@ -16,7 +17,8 @@ export const env = createEnv({
   },
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    MONGODB_URL: process.env.MONGODB_URL,
+    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
+    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     NEXON_API_KEY: process.env.NEXON_API_KEY,
   },
 });

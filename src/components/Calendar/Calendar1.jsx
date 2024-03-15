@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar } from '@/src/components/ui/calendar';
+import { Calendar } from '@/components/ui/calendar';
 
 const Calendar1 = () => {
   const [date, setDate] = useState(new Date());

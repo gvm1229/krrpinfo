@@ -1,7 +1,7 @@
 import React from 'react';
-import Card3D from '@/src/components/Card/Card3D';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import Card3D from '@/components/Card/Card3D';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Card/Card3D',

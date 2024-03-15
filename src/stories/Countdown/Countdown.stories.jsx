@@ -1,7 +1,7 @@
 import React from 'react';
-import Countdown from '@/src/components/Countdown/Countdown';
-import { ThemeProvider } from '@/src/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/src/components/DarkMode/theme-toggle';
+import Countdown from '@/components/Countdown/Countdown';
+import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 
 export default {
   title: 'Components/Countdown/Countdown',
@@ -32,5 +32,6 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // Define default props here
+  size: 'size-72',
   targetDateStr: '4/17/2024',
 };
