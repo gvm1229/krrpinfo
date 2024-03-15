@@ -43,7 +43,7 @@ const ScrollToTopButton = () => {
       <button
         onClick={scrollToTop}
         className={
-          `rounded-full bg-slate-600 p-3 text-white transition duration-200 ease-in-out focus:outline-none tablet:p-4
+          `rounded-full bg-slate-500 p-3 text-white transition duration-200 ease-in-out focus:outline-none dark:bg-slate-600 tablet:p-4
         ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`
         }
       >
