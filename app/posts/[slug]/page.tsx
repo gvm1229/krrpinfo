@@ -129,7 +129,7 @@ export default async function PostPage({ params }) {
             </p>
           </div>
         </header>
-        <div className="block border-b pb-4 text-sm tablet:hidden">
+        <div className="block border-b pb-6 text-sm tablet:hidden">
           <DashboardTableOfContents toc={toc} />
         </div>
         <Image
