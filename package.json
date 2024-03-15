@@ -17,7 +17,7 @@
     "npm": "yarn only"
   },
   "scripts": {
-    "dev": "concurrently \"contentlayer dev\" \"next dev --turbo\" \"yarn open-browser\" \"yarn storybook\"",
+    "dev": "concurrently \"contentlayer dev\" \"next dev\" \"yarn open-browser\" \"yarn storybook\"",
     "open-browser": "start http://localhost:3000",
     "build": "contentlayer build && next build",
     "analyze": "ANALYZE=true next build",
