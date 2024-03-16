@@ -132,7 +132,12 @@ export async function handleRedeem(payload: RedeemPayload) {
   }
 }
 
-export async function handleUnified(npaCode: string, coupon: string) {
+interface UnifiedResponse {
+  success: boolean
+  message: string
+}
+
+export async function handleUnified(npaCode: string, coupon: string): Promise<UnifiedResponse> {
   // const npaCode = '07S0LCI10W02W'; // 본계
   // const npaCode = '07X0MCW10M027'; // 부계
   // const coupon = '중요한건잊지않는마음';

@@ -2,7 +2,16 @@
 
 import { handleUnified } from '@/app/actions/couponRedeem';
 
-const RedeemButton = ({ npaCode, couponCode, setResponse }) => {
+interface RedeemButtonProps {
+  npaCode: string
+  couponCode: string
+  setResponse: (data: {
+    success: boolean
+    message: string
+  }) => void
+}
+
+const RedeemButton = ({ npaCode, couponCode, setResponse }: RedeemButtonProps) => {
   const handleRedeem = () => {
     handleUnified(npaCode, couponCode)
       .then((data) => setResponse(data));
