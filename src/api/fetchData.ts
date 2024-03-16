@@ -7,7 +7,7 @@ config();
 
 const API_KEY = env.NEXON_API_KEY;
 
-const fetchData = async (urlString) => {
+const fetchData = async (urlString: string) => {
   try {
     if (!urlString) throw new Error('urlString cannot be empty');
 
@@ -26,17 +26,39 @@ const fetchData = async (urlString) => {
   }
 };
 
-const fetchOuidData = async (characterName) => {
+interface OuidData {
+  ouid_info: {
+    ouid: string;
+    racer_date_create: string;
+    racer_level: string;
+  }[];
+}
+
+const fetchOuidData = async (characterName: string): Promise<OuidData> => {
   const urlString = `https://open.api.nexon.com/kartrush/v1/id?racer_name=${characterName}`;
   return fetchData(urlString);
 };
 
-const fetchBasicData = async (ouid) => {
+interface BasicData {
+  racer_name: string,
+  racer_date_create: string,
+  racer_date_last_login: string,
+  racer_date_last_logout: string,
+  racer_level: number,
+}
+
+const fetchBasicData = async (ouid: string): Promise<BasicData> => {
   const urlString = `https://open.api.nexon.com/kartrush/v1/user/basic?ouid=${ouid}`;
   return fetchData(urlString);
 };
 
-const fetchTitleData = async (ouid) => {
+interface TitleData {
+  title_equipment: {
+    title_name: string;
+  }[];
+}
+
+const fetchTitleData = async (ouid: string): Promise<TitleData> => {
   const urlString = `https://open.api.nexon.com/kartrush/v1/user/title-equipment?ouid=${ouid}`;
   return fetchData(urlString);
 };
