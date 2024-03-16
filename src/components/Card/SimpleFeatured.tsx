@@ -3,13 +3,21 @@ import Image from 'next/image';
 import Tag from '@/components/Tag/Tag';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
+interface SimpleFeaturedProps {
+  thumbnail?: string;
+  title: string;
+  tags: string[];
+  // toNavigate?: string;
+  // hyperlink?: string;
+}
+
 export default function SimpleFeatured({
-  thumbnail = 'https://dummyimage.com/1280x720',
-  title = 'Sample Title',
-  tags = ['Sample Tag', 'Sample Tag', 'Sample Tag'],
+  thumbnail = 'https://res.cloudinary.com/djfgq8qk3/image/upload/v1710490251/storybook/nextjs-720p.png',
+  title,
+  tags,
   // toNavigate,
   // hyperlink,
-}) {
+}: SimpleFeaturedProps) {
   return (
     <Card className="w-[300px] overflow-hidden rounded-lg shadow-lg dark:shadow-slate-600">
       <div className="relative aspect-video">
@@ -34,6 +42,7 @@ export default function SimpleFeatured({
         {/* <CardDescription className="text-sm text-gray-500">2 minutes!</CardDescription> */}
         <Tag
           tagInput={tags}
+          isHoverEnabled={false}
           className="flex-wrap pt-2"
           innerClassName="text-xs"
         />

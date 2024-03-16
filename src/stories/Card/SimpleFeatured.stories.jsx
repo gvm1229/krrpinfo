@@ -2,7 +2,6 @@ import React from 'react';
 import SimpleFeatured from '@/components/Card/SimpleFeatured';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import hdDummy from '@/public/assets/storybook/720p.png';
 
 export default {
   title: 'Components/Card/SimpleFeatured',
@@ -33,5 +32,6 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // Define default props here
-  thumbnail: hdDummy,
+  title: 'Sample Title',
+  tags: ['Sample Tag', 'Sample Tag', 'Sample Tag'],
 };

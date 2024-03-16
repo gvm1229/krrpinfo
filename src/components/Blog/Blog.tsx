@@ -22,7 +22,7 @@ interface BlogProps {
 
 export default function Blog({
   width,
-  thumbnail = 'https://dummyimage.com/1280x720',
+  thumbnail = 'https://res.cloudinary.com/djfgq8qk3/image/upload/v1710490251/storybook/nextjs-720p.png',
   date,
   title,
   description,

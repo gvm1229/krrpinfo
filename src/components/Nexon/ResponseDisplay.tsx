@@ -1,6 +1,13 @@
 'use client';
 
-const ResponseDisplay = ({ response }) => (
+interface ResponseDisplayProps {
+  response: {
+    success: boolean
+    message: string
+  }
+}
+
+const ResponseDisplay = ({ response }: ResponseDisplayProps) => (
   <div>
     <h2 className="text-2xl font-bold">Response:</h2>
     {response?.success ? (

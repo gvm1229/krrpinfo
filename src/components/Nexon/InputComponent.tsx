@@ -1,6 +1,12 @@
 'use client';
 
-const InputComponent = ({ label, value, onChange }) => (
+interface InputComponentProps {
+  label: string
+  value: string
+  onChange: (value: string) => void
+}
+
+const InputComponent = ({ label, value, onChange }: InputComponentProps) => (
   <div className="flex size-full flex-col gap-4">
     <label
       htmlFor={label}
