@@ -1,4 +1,4 @@
-export const navContents = [
+export const navContents: { title: string; href: string }[] = [
   // {
   //   title: 'Karts',
   //   href: '/karts',
