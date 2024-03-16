@@ -128,12 +128,13 @@ function TextDataWrapper({
         className,
       )}
     >
-      {toNavigate ? (
-        <NavigateComponent href={toNavigate}>
+      {(toNavigate || hyperlink) ? (
+        <NavigateComponent href={toNavigate || hyperlink}>
           <ImageWrapper
             src={thumbnail}
             gridNums={gridNums}
             isPriority={isPriority}
+            isHyperlink={!!hyperlink}
             width={width}
           />
         </NavigateComponent>
@@ -142,7 +143,6 @@ function TextDataWrapper({
           src={thumbnail}
           gridNums={gridNums}
           isPriority={isPriority}
-          isHyperlink={!!hyperlink}
           width={width}
         />
       )}
@@ -166,12 +166,21 @@ function TextDataWrapper({
             </p>
           )}
         </div>
-        <NavigateComponent
-          href={toNavigate}
-          className="w-fit truncate text-2xl font-bold text-primary hover:underline"
-        >
-          {title}
-        </NavigateComponent>
+        {(toNavigate || hyperlink) ? (
+          <NavigateComponent
+            href={toNavigate || hyperlink}
+            className="w-fit truncate text-2xl font-bold text-primary hover:underline"
+          >
+            {title}
+          </NavigateComponent>
+        ) : (
+          <h1
+            id="title"
+            className="w-fit truncate text-2xl font-bold text-primary hover:underline"
+          >
+            {title}
+          </h1>
+        )}
         {description && (
           <p className="truncate font-medium text-slate-600 dark:text-slate-200">
             {description}
