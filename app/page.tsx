@@ -78,7 +78,7 @@ const Links = ({ className }: { className?: string }) => {
       className={cn('space-y-8 desktop:space-y-16', className)}
     >
       <h1 className="container text-center text-3xl font-bold desktop:text-4xl">유용한 링크</h1>
-      <div className="relative mx-auto flex w-full flex-col items-center justify-center gap-8 tablet:flex-row">
+      <div className="relative mx-auto flex w-full flex-col items-center justify-center gap-8 mobile_only:container tablet:flex-row">
         {links.map((post) => (
           <SimpleLinkCard
             key={post.title}
