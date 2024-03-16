@@ -8,7 +8,6 @@ import { SiteFooter } from '@/components/Footer/SiteFooter';
 import { SiteHeader } from '@/components/Header/SiteHeader';
 import ViewReporter from '@/components/View/ViewReporter';
 import { siteConfig } from '@/config/site';
-import { env } from '@/env.mjs';
 
 export const metadata = {
   title: {
@@ -30,24 +29,19 @@ export const metadata = {
   ],
   creator: 'Megi',
   openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
-    type: 'article',
-    url: env.NEXT_PUBLIC_APP_URL,
-    images: [
-      {
-        url: './opengraph-image.webp',
-        width: 1280,
-        height: 720,
-        alt: 'current_season_image',
-      },
-    ],
+    siteName: siteConfig.name,
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
-    images: './opengraph-image.webp',
+    images: [`${siteConfig.url}/opengraph-image.webp`],
+    creator: 'Megi',
   },
   // themeColor: [
   //   { media: '(prefers-color-scheme: light)', color: 'white' },
@@ -69,13 +63,13 @@ export const metadata = {
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'en-US': '/en-US',
-      'ko-KR': '/ko-KR',
-    },
-  },
+  // alternates: {
+  //   canonical: '/',
+  //   languages: {
+  //     'en-US': '/en-US',
+  //     'ko-KR': '/ko-KR',
+  //   },
+  // },
 };
 
 export const viewport = {

@@ -1,14 +1,24 @@
 import Link from 'next/link';
+import React from 'react';
 
 import { siteConfig } from '@/config/site';
 import { useLockBody } from '@/src/hooks/use-lock-body';
 import { cn } from '@/src/util/utils';
 
+interface MobileNavProps {
+  items?: {
+    title: string
+    href: string
+    disabled?: boolean
+  }[]
+  children?: React.ReactNode
+}
+
 export function MobileNav({
   items,
   // setShowMobileMenu,
   children,
-}) {
+}: MobileNavProps) {
   useLockBody();
 
   return (

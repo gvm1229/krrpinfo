@@ -5,7 +5,7 @@ import { navContents } from '@/config/navBar';
 import { cn } from '@/src/util/utils';
 import { MainNav } from './MainNav';
 
-export function SiteHeader({ className }) {
+export function SiteHeader({ className }: { className?: string }) {
   return (
     <>
       <header
