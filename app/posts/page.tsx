@@ -27,7 +27,7 @@ export default async function PostRootPage() {
   }, {} as Record<string, number>);
 
   return (
-    <div className="relative flex flex-col items-center gap-y-8">
+    <div className="container relative flex flex-col items-center gap-y-8">
       {posts ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">포스트 목록</h1>

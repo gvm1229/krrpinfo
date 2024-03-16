@@ -89,7 +89,7 @@ export default async function PostPage({ params }) {
   )) ?? 0;
 
   return (
-    <div className="flex mobile_only:flex-col tablet:gap-x-16">
+    <div className="container flex mobile_only:flex-col tablet:gap-x-16">
       <div className="hidden tablet:block">
         <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
           <Link
