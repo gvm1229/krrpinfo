@@ -1,6 +1,22 @@
 import { Download } from 'lucide-react';
 import React from 'react';
 
+interface FileButtonProps {
+  className?: string;
+  title: string;
+  fileData: {
+    src: string;
+    filename: string;
+    extension: string;
+  };
+  width?: string;
+  isDownloadDecorationExist?: boolean;
+  titleAlign?: string;
+  titleTextColor?: string;
+  titleFontSize?: string;
+  titleFontWeight?: string;
+}
+
 const FileButton = ({
   className = 'px-6 py-4 bg-white shadow-md flex justify-between items-center group transition hover:bg-gray-50 hover:scale-105',
   title,
@@ -11,7 +27,7 @@ const FileButton = ({
   titleTextColor = 'text-gray-900',
   titleFontSize = 'text-lg',
   titleFontWeight = 'font-semibold',
-}) => {
+}: FileButtonProps) => {
   const handleDownload = () => {
     // Perform any necessary logic here
 

@@ -2,10 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
+interface ClockProps {
+  size?: string;
+  bgColor?: string;
+}
+
 const Clock = ({
   size,
   bgColor,
-}) => {
+}: ClockProps) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const tick = () => {

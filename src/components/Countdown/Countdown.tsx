@@ -5,15 +5,22 @@ import S24Title from '@/public/assets/images/한섭/S24_타이틀_가공.png';
 
 export const revalidate = 60;
 
+interface CountdownProps {
+  size?: string;
+  bgColor?: string;
+  targetDateStr: string;
+}
+
 const Countdown = ({
   size,
   bgColor = 'bg-yellow-600',
   targetDateStr,
-}) => {
+}: CountdownProps) => {
   // Function to calculate the remaining days
-  const calculateRemainingDays = (targetDate) => {
+  const calculateRemainingDays = (targetDate: Date): number => {
     const currentDate = new Date();
-    const differenceInDays = Math.floor((targetDate - currentDate) / (1000 * 60 * 60 * 24)) + 1;
+    const differenceInTime = targetDate.getTime() - currentDate.getTime();
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24)) + 1;
     return differenceInDays > 0 ? differenceInDays : 0; // Ensure remainingDays is not negative
   };
 
@@ -23,7 +30,7 @@ const Countdown = ({
   const remainingDays = calculateRemainingDays(targetDate);
 
   // Function to format the date from 'MM/DD/YYYY' to 'YYYY/MM/DD'
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const year = date.getFullYear();
     const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
@@ -32,7 +39,7 @@ const Countdown = ({
     return `${year}/${month}/${day}`;
   };
 
-  const formatRemainingDays = (remainingDaysInput) => {
+  const formatRemainingDays = (remainingDaysInput: number): string => {
     if (remainingDaysInput <= 0)
       return '종료';
 

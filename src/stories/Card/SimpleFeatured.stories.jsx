@@ -32,4 +32,6 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // Define default props here
+  title: 'Sample Title',
+  tags: ['Sample Tag', 'Sample Tag', 'Sample Tag'],
 };

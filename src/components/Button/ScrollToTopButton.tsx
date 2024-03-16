@@ -25,7 +25,7 @@ const ScrollToTopButton = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300)
+      if (window.scrollY > 300)
         setIsVisible(true);
       else
         setIsVisible(false);
@@ -45,7 +45,7 @@ const ScrollToTopButton = () => {
         onClick={scrollToTop}
         className={
           `rounded-full bg-slate-500 p-3 text-white transition duration-200 ease-in-out focus:outline-none dark:bg-slate-600 tablet:p-4
-        ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`
+          ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`
         }
       >
         <ArrowUp size={24} />

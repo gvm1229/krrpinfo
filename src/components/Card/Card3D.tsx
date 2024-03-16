@@ -4,6 +4,25 @@ import React from 'react';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import './Card3D.css';
 
+interface Card3DProps {
+  width?: number;
+  height?: number;
+  containerClassName?: string;
+  containerStyle?: React.CSSProperties;
+  backgroundImage?: string;
+  backgroundImageClassName?: string;
+  popupTitleImage?: string;
+  popupTitleImageClassName?: string;
+  popupCharacterImage?: string;
+  popupCharacterImageClassName?: string;
+  toNavigate?: string;
+  hyperlink?: string;
+  isClickButtonExist?: boolean;
+  clickButtonClassName?: string;
+  clickButtonTitle?: string;
+  clickButtonTitleClassName?: string;
+}
+
 const Card3D = ({
   width = 200,
   height = 300,
@@ -21,7 +40,7 @@ const Card3D = ({
   clickButtonClassName = 'top-6 px-4 py-3 bg-white transition hover:bg-blue-500',
   clickButtonTitle = 'Click Me',
   clickButtonTitleClassName,
-}) => {
+}: Card3DProps) => {
   const children = (
     <>
       <div className="wrapper">

@@ -95,17 +95,17 @@ const components = {
     className,
     alt,
     ...props
-  }) => (
+  }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img className={cn('rounded-md border', className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
-  table: ({ className, ...props }) => (
+  table: ({ className, ...props }: React.ImgHTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto">
       <table className={cn('w-full', className)} {...props} />
     </div>
   ),
-  tr: ({ className, ...props }) => (
+  tr: ({ className, ...props }: React.ImgHTMLAttributes<HTMLTableRowElement>) => (
     <tr
       className={cn('m-0 border-t p-0 even:bg-muted', className)}
       {...props}
@@ -166,7 +166,11 @@ const components = {
   Card: MdxCard,
 };
 
-export function Mdx({ code }) {
+interface MdxProps {
+  code: string
+}
+
+export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (

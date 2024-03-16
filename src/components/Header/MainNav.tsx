@@ -3,13 +3,22 @@
 import { Barcode, X } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { siteConfig } from '@/config/site';
 import { cn } from '@/src/util/utils';
 import { MobileNav } from './MobileNav';
 
-export function MainNav({ items, children }) {
+interface MainNavProps {
+  items?: {
+    title: string
+    href: string
+    disabled?: boolean
+  }[]
+  children?: React.ReactNode
+}
+
+export function MainNav({ items, children }: MainNavProps) {
   const segment = useSelectedLayoutSegment();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
