@@ -34,6 +34,7 @@ export default function SimpleFeatured({
         {/* <CardDescription className="text-sm text-gray-500">2 minutes!</CardDescription> */}
         <Tag
           tagInput={tags}
+          isHoverEnabled={false}
           className="flex-wrap pt-2"
           innerClassName="text-xs"
         />
