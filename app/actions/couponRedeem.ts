@@ -2,7 +2,56 @@
 
 'use server';
 
-export async function handleUserLookup(payload) {
+// 240301 API POST RESULT (유저 조회)
+// API URL: https://mcoupon.nexon.com/kartrush/coupon/api/v1/characters-by-npacode
+// HTTP REQUEST: POST
+
+// Payload: {
+//   npaCode: "07S0LCI10W02W",
+//   coupon: "중요한건잊지않는마음",
+//   region: "KR"
+// }
+
+// RESPONSE: 200 OK
+// Response: {
+//   "result": true,
+//   "code": 0,
+//   "message": "조회 완료",
+//   "info": [
+//       {
+//           "id": "16520000032888233",
+//           "name": "Megiii"
+//       }
+//   ],
+//   "gc_count": 0
+// }
+
+// 이미 사용한 쿠폰 / 잘못된 쿠폰 정보 입력 시
+// {
+//   "result":false,
+//   "code":95100,
+//   "message":"해당 쿠폰 완료 상태",
+//   "gc_count":0
+// }
+
+interface UserLookUpPayload {
+  npaCode: string;
+  coupon: string;
+  region: string;
+}
+
+interface UserLookUpResponse {
+  result: boolean;
+  code: number;
+  message: string;
+  info?: {
+    id: string;
+    name: string;
+  }[];
+  gc_count: number;
+}
+
+export async function handleUserLookup(payload: UserLookUpPayload) {
   try {
     const response = await fetch(
       'https://mcoupon.nexon.com/kartrush/coupon/api/v1/characters-by-npacode',
@@ -15,14 +64,56 @@ export async function handleUserLookup(payload) {
         body: JSON.stringify(payload),
       },
     );
-    return await response.json();
+    return await response.json() as UserLookUpResponse;
   } catch (error) {
     // console.error('Error fetching user:', error);
     throw new Error(`Error fetching user: ${error}`);
   }
 }
 
-export async function handleRedeem(payload) {
+// 240301 API POST RESULT (쿠폰 수령)
+// API URL: https://mcoupon.nexon.com/kartrush/coupon/api/v1/redeem-coupon-by-npacode
+// HTTP REQUEST: POST
+
+// Payload: {
+//   coupon: "중요한건잊지않는마음",
+//   id: "16520000032888233",
+//   name: "Megiii",
+//   npaCode: "07S0LCI10W02W",
+//   region: "KR",
+//   world: ""
+// }
+
+// RESPONSE: 200 OK
+// Response: {
+//   "result":true,
+//   "code":0,
+//   "message":"Success"
+// }
+
+// 이미 사용한 쿠폰 / 잘못된 쿠폰 정보 입력 시
+// {
+//   "result":false,
+//   "code":95100,
+//   "message":"해당 쿠폰 완료 상태"
+// }
+
+interface RedeemPayload {
+  coupon: string;
+  id: string;
+  name: string;
+  npaCode: string;
+  region: string;
+  world: string;
+}
+
+interface RedeemResponse {
+  result: boolean;
+  code: number;
+  message: string;
+}
+
+export async function handleRedeem(payload: RedeemPayload) {
   try {
     const response = await fetch(
       'https://mcoupon.nexon.com/kartrush/coupon/api/v1/redeem-coupon-by-npacode',
@@ -34,14 +125,14 @@ export async function handleRedeem(payload) {
         body: JSON.stringify(payload),
       },
     );
-    return await response.json();
+    return await response.json() as RedeemResponse;
   } catch (error) {
     // console.error('Error fetching coupon:', error);
     throw new Error(`Error fetching coupon: ${error}`);
   }
 }
 
-export async function handleUnified(npaCode, coupon) {
+export async function handleUnified(npaCode: string, coupon: string) {
   // const npaCode = '07S0LCI10W02W'; // 본계
   // const npaCode = '07X0MCW10M027'; // 부계
   // const coupon = '중요한건잊지않는마음';
@@ -63,10 +154,10 @@ export async function handleUnified(npaCode, coupon) {
         };
         const redeemResponseData = await handleRedeem(redeemPayload);
         // console.log('Unified redeemResponseData', redeemResponseData);
-        if (redeemResponseData.result)
+        if (redeemResponseData.result && responseData.info) // 안전을 위해 둘 다
           return {
             success: true,
-            message: `{${responseData.name}} 에게 {${responseData.coupon}} 쿠폰 사용 성공`,
+            message: `{${responseData.info[0].name}} 에게 {${coupon}} 쿠폰 사용 성공`,
           };
         return {
           success: false,
@@ -97,13 +188,12 @@ export async function handleUnified(npaCode, coupon) {
   }
 }
 
-function reformatMessage(messageInput) {
+function reformatMessage(messageInput: string) {
   if (messageInput === 'Incorrect npaCode.') return '잘못된 회원번호';
   if (messageInput === 'NpaCode is required.') return '회원번호 미입력';
   if (messageInput === 'NpaCode is invalid length.') return '잘못된 회원번호';
   if (messageInput === 'Coupon is required.') return '쿠폰 미입력';
-  if (messageInput === '해당 게임에서 사용할 수 없는 쿠폰')
-    return '존재하지 않는 쿠폰';
+  if (messageInput === '해당 게임에서 사용할 수 없는 쿠폰') return '존재하지 않는 쿠폰';
   if (messageInput === '쿠폰사용기간이 아님') return '사용 기간이 지난 쿠폰';
   if (messageInput === '해당 쿠폰 완료 상태') return '이미 사용한 쿠폰';
   return messageInput;
