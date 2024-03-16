@@ -46,8 +46,7 @@ export default function SimpleLinkCard({
           <Tag
             tagInput={tags}
             isHoverEnabled={false}
-            className="flex-wrap pt-2"
-            innerClassName="text-xs"
+            className="flex-wrap pt-3"
           />
         </CardContent>
       </Card>
@@ -74,8 +73,8 @@ export default function SimpleLinkCard({
           <Tag
             tagInput={tags}
             isHoverEnabled={false}
+            isExtraSmall
             className="flex-wrap pt-2"
-            innerClassName="text-[0.6rem]"
           />
         </CardContent>
       </Card>
