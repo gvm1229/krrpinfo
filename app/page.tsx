@@ -1,7 +1,10 @@
-import Blog from '@/components/Blog/Blog';
+import { compareDesc } from 'date-fns';
 import Clock from '@/components/Countdown/Clock';
 import Countdown from '@/components/Countdown/Countdown';
+import Blog from '@/src/components/Blog/Blog';
+import SimpleLinkCard from '@/src/components/Card/SimpleLinkCard';
 import { cn } from '@/src/util/utils';
+import { allPosts } from 'contentlayer/generated';
 
 const Featured = ({ className }: { className?: string }) => (
   <div
@@ -23,8 +26,8 @@ const Featured = ({ className }: { className?: string }) => (
   </div>
 );
 
-const Posts = ({ className }: { className?: string }) => {
-  const posts = [
+const Links = ({ className }: { className?: string }) => {
+  const links = [
     {
       thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
       tags: ['넥슨 공식 매체'],
@@ -71,21 +74,46 @@ const Posts = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={cn(
-        'relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3',
-        className,
-      )}
+      id="links_wrapper"
+      className={cn('space-y-8 desktop:space-y-16', className)}
     >
-      {posts.map((post, index) => (
-        <Blog
-          key={post.title}
-          thumbnail={post.thumbnail}
-          isImagePriority={index < 3}
-          title={post.title}
-          tags={post.tags}
-          hyperlink={post.hyperlink}
-        />
-      ))}
+      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">유용한 링크</h1>
+      <div className="relative mx-auto flex w-full flex-col items-center justify-center gap-8 tablet:flex-row">
+        {links.map((post) => (
+          <SimpleLinkCard
+            key={post.title}
+            thumbnail={post.thumbnail}
+            tags={post.tags}
+            title={post.title}
+            hyperlink={post.hyperlink}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Posts = ({ className }: { className?: string }) => {
+  const posts = allPosts
+    .filter((post) => post.published)
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
+  return (
+    <div
+      id="posts_wrapper"
+      className={cn('space-y-8 desktop:space-y-16', className)}
+    >
+      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">최신 포스트 목록</h1>
+      <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3">
+        {posts.slice(0, 6).map((post) => (
+          <Blog
+            key={post._id}
+            toNavigate={post.slug}
+            isImagePriority={false}
+            {...post}
+          />
+        ))}
+      </div>
     </div>
   );
 };
@@ -93,8 +121,9 @@ const Posts = ({ className }: { className?: string }) => {
 export default function Home() {
   return (
     <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
-      <Featured />
-      <Posts />
+      <Featured className="container" />
+      <Links />
+      <Posts className="container pt-4" />
     </main>
   );
 }

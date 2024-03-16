@@ -1,7 +1,7 @@
 import React from 'react';
-import SimpleFeatured from '@/components/Card/SimpleFeatured';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+import SimpleFeatured from '@/src/components/Card/SimpleLinkCard';
 
 export default {
   title: 'Components/Card/SimpleFeatured',
