@@ -21,7 +21,7 @@ export default function SimpleLinkCard({
   hyperlink,
 }: SimpleLinkCardProps) {
   return (
-    <div id="simplecard_wrapper" className="w-full">
+    <div id="simplecard_wrapper" className="mobile_only:w-full">
       {/* tablet and above */}
       <Card className="hidden overflow-hidden rounded-lg shadow-lg dark:shadow-slate-600 tablet:block tablet:w-[300px]">
         <ButtonNewTab href={hyperlink}>
