@@ -12,8 +12,8 @@ export function SiteFooter({ className, totalViews }) {
         className,
       )}
     >
-      <div className="container flex flex-col items-center mobile_only:space-y-4 tablet:flex-row tablet:justify-between">
-        <div className="flex flex-col items-center justify-between tablet:items-start tablet:gap-6">
+      <div className="container flex flex-col items-start space-y-2 tablet:flex-row tablet:items-center tablet:justify-between desktop:space-y-0">
+        <div className="space-y-2 desktop:space-y-4">
           {/* contact */}
           <p className="text-center leading-loose tablet:text-left tablet:text-lg">
             오류 신고 및 문의 :
@@ -28,6 +28,16 @@ export function SiteFooter({ className, totalViews }) {
             </a>
             .
           </p>
+          {/* qr code & visitor count */}
+          <div className="flex flex-col items-start justify-center gap-2 desktop:hidden">
+            <div className="flex items-center gap-2">
+              <p className="font-medium tablet:text-lg">공유용 QR 코드:</p>
+              <div className="size-10 tablet:size-12">
+                <Image src={qrc} alt="QR Code" />
+              </div>
+            </div>
+            <ViewCounter view={totalViews} />
+          </div>
           {/* copyright */}
           <p className="hidden text-left leading-loose tablet:block">
             {`© ${new Date().getFullYear()} `}
@@ -42,11 +52,11 @@ export function SiteFooter({ className, totalViews }) {
             . All rights reserved.
           </p>
         </div>
-        <div className="flex items-center justify-center gap-2 tablet:flex-col tablet:items-end tablet:justify-end tablet:gap-2">
+        <div className="hidden flex-col items-start justify-center gap-2 desktop:flex desktop:flex-col desktop:items-end desktop:justify-end desktop:gap-2">
           {/* qr code */}
-          <div className="flex items-center gap-2 tablet:mt-0">
-            <p className="font-medium tablet:text-lg">공유용 QR 코드:</p>
-            <div className="size-10 tablet:size-12">
+          <div className="flex items-center gap-2">
+            <p className="font-medium desktop:text-lg">공유용 QR 코드:</p>
+            <div className="size-10 desktop:size-12">
               <Image src={qrc} alt="QR Code" />
             </div>
           </div>
