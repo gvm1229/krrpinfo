@@ -8,11 +8,11 @@ export function SiteFooter({ className, totalViews }) {
     <footer
       id="footer"
       className={cn(
-        'py-4 mobile_only:container tablet_only:container tablet:py-8 desktop:px-8',
+        'py-4 tablet:py-8',
         className,
       )}
     >
-      <div className="flex flex-col items-center mobile_only:space-y-4 tablet:flex-row tablet:justify-between">
+      <div className="container flex flex-col items-center mobile_only:space-y-4 tablet:flex-row tablet:justify-between">
         <div className="flex flex-col items-center justify-between tablet:items-start tablet:gap-6">
           {/* contact */}
           <p className="text-center leading-loose tablet:text-left tablet:text-lg">
