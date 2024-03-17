@@ -1,11 +1,11 @@
 import React from 'react';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import SimpleFeatured from '@/src/components/Card/SimpleLinkCard';
+import { SimpleLinkCardSM } from '@/src/components/Card/SimpleLinkCard';
 
 export default {
-  title: 'Components/Card/SimpleFeatured',
-  component: SimpleFeatured,
+  title: 'Components/Card/SimpleLinkCardSM',
+  component: SimpleLinkCardSM,
   argTypes: {
     // Define default argTypes here
   },
@@ -24,7 +24,7 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <SimpleFeatured {...args} />
+      <SimpleLinkCardSM {...args} />
     </div>
   </ThemeProvider>
 );
