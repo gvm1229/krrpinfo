@@ -123,7 +123,7 @@ export default function Home() {
     <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
       <Featured className="container" />
       <Links />
-      <Posts className="container pt-4" />
+      <Posts className="container" />
     </main>
   );
 }
