@@ -93,6 +93,7 @@ module.exports = {
       maxWidth: {
         '8xl': '88rem',
         '9xl': '96rem',
+        '10xl': '104rem',
       },
       zIndex: {
         100: '100',
@@ -120,6 +121,7 @@ module.exports = {
       mobile_only: { max: '720px' },
       tablet: { min: '721px' },
       tablet_only: { min: '721px', max: '1240px' },
+      not_desktop: { max: '1240px' },
       desktop: { min: '1241px' },
       // retina: { min: '1921px' },
     },

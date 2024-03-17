@@ -91,7 +91,7 @@ const Links = ({ className }: { className?: string }) => {
         ))}
       </div>
       <CarouselContainer
-        className="mx-auto max-w-[100rem] mobile_only:hidden"
+        className="tablet_only:container mobile_only:hidden desktop:mx-auto desktop:max-w-10xl"
         linksInput={links}
       />
     </div>
