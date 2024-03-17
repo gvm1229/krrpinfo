@@ -23,7 +23,7 @@ interface CarouselContainerProps {
   }[]
 }
 
-export default function CarouselContainer({
+export default function CarouselContainerMD({
   className,
   linksInput,
 }: CarouselContainerProps) {
@@ -33,8 +33,8 @@ export default function CarouselContainer({
 
   return (
     <Carousel
-      plugins={[plugin.current]}
       className={cn('w-full', className)}
+      plugins={[plugin.current]}
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
       opts={{
