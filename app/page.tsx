@@ -1,8 +1,9 @@
 import { compareDesc } from 'date-fns';
+import Blog from '@/components/Blog/Blog';
+import { SimpleLinkCardSM } from '@/components/Card/SimpleLinkCard';
+import CarouselContainer from '@/components/Carousel/CarouselContainer';
 import Clock from '@/components/Countdown/Clock';
 import Countdown from '@/components/Countdown/Countdown';
-import Blog from '@/src/components/Blog/Blog';
-import SimpleLinkCard from '@/src/components/Card/SimpleLinkCard';
 import { cn } from '@/src/util/utils';
 import { allPosts } from 'contentlayer/generated';
 
@@ -75,12 +76,12 @@ const Links = ({ className }: { className?: string }) => {
   return (
     <div
       id="links_wrapper"
-      className={cn('space-y-8 desktop:space-y-16', className)}
+      className={cn('space-y-8 overflow-hidden desktop:space-y-16', className)}
     >
       <h1 className="container text-center text-3xl font-bold desktop:text-4xl">유용한 링크</h1>
-      <div className="relative mx-auto flex w-full flex-col items-center justify-center gap-8 mobile_only:container tablet:flex-row">
+      <div className="relative mx-auto flex w-full flex-col items-center justify-center gap-8 mobile_only:container tablet:hidden tablet:flex-row">
         {links.map((post) => (
-          <SimpleLinkCard
+          <SimpleLinkCardSM
             key={post.title}
             thumbnail={post.thumbnail}
             tags={post.tags}
@@ -89,6 +90,10 @@ const Links = ({ className }: { className?: string }) => {
           />
         ))}
       </div>
+      <CarouselContainer
+        className="mx-auto max-w-[100rem] mobile_only:hidden"
+        linksInput={links}
+      />
     </div>
   );
 };

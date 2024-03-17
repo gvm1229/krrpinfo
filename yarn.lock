@@ -8742,6 +8742,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"embla-carousel-autoplay@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "embla-carousel-autoplay@npm:8.0.0"
+  peerDependencies:
+    embla-carousel: 8.0.0
+  checksum: 10c0/4a7d233c629e549d05ef931f10de550cba757f68ea37617f76b5e7f1f637e1639f402aefaf1f52cd6aefcb148bb9478482a25dbfb1aa47bbc1661c87ecfc5599
+  languageName: node
+  linkType: hard
+
 "embla-carousel-react@npm:^8.0.0":
   version: 8.0.0
   resolution: "embla-carousel-react@npm:8.0.0"
@@ -12597,6 +12606,7 @@ __metadata:
     cz-emoji-conventional: "npm:^1.0.2"
     date-fns: "npm:^3.4.0"
     dotenv: "npm:^16.4.5"
+    embla-carousel-autoplay: "npm:^8.0.0"
     embla-carousel-react: "npm:^8.0.0"
     eslint: "npm:^8"
     eslint-config-airbnb: "npm:^19.0.4"
