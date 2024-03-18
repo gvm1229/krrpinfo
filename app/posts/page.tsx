@@ -17,20 +17,23 @@ export default async function PostRootPage() {
 
   const views = (
     await redis.mget<number[]>(
-      ...allPosts.map((p) => [
-        'pageviews', 'projects', 'posts', p.slugAsParams,
-      ].join(':')),
+      ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),
     )
-  ).reduce((acc, v, i) => {
-    acc[allPosts[i].slugAsParams] = v ?? 0;
-    return acc;
-  }, {} as Record<string, number>);
+  ).reduce(
+    (acc, v, i) => {
+      acc[allPosts[i].slugAsParams] = v ?? 0;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   return (
-    <div className="container relative flex flex-col items-center gap-y-8">
+    <div className="container relative flex flex-1 flex-col items-center gap-y-8">
       {posts ? (
         <>
-          <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">포스트 목록</h1>
+          <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">
+            포스트 목록
+          </h1>
           <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 desktop:grid-cols-3">
             {posts.map((post, index) => (
               <Blog
