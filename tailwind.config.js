@@ -1,10 +1,3 @@
-const array100To599 = Array.from(Array(500)).map((_, i) => i + 100);
-const object400To2396px = array100To599.reduce((o, key) => ({ ...o, [key]: `${key * 4}px` }), {});
-const array0To599 = Array.from(Array(600)).map((_, i) => i + 1);
-const object1To2396px = array0To599.reduce((o, key) => ({ ...o, [key]: `${key}px` }), {});
-const array0To49 = Array.from(Array(50)).map((_, i) => i + 1);
-const object1To50rem = array0To49.reduce((o, key) => ({ ...o, [key]: `${key}px` }), {});
-
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
@@ -80,17 +73,17 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       fontFamily: {
-        sans: [
-          'Pretendard Variable',
-          'Pretendard',
-          ...fontFamily.sans,
-        ],
+        sans: ['Pretendard Variable', 'Pretendard', ...fontFamily.sans],
       },
       fontSize: {
         title: '2.5rem',
         subtitle: '1.2rem',
       },
+      maxHeight: {
+        108: '27rem',
+      },
       maxWidth: {
+        108: '27rem',
         '8xl': '88rem',
         '9xl': '96rem',
         '10xl': '104rem',
@@ -100,34 +93,28 @@ module.exports = {
       },
       height: {
         88: '22rem',
-        ...object400To2396px,
+        108: '27rem',
       },
       width: {
         88: '22rem',
-        ...object400To2396px,
+        108: '27rem',
       },
       scale: {
         103: '1.03',
       },
-      maxHeight: object400To2396px,
-      lineHeight: object1To2396px,
-      borderWidth: object1To50rem,
     },
     screens: {
       // default norms
       sm: { min: '0px', max: '1023px' },
       md: { min: '1024px' },
-      // custom production norms
+      // custom norms
       mobile_only: { max: '720px' },
-      tablet: { min: '721px' },
       tablet_only: { min: '721px', max: '1240px' },
+      tablet: { min: '721px' },
       not_desktop: { max: '1240px' },
       desktop: { min: '1241px' },
       // retina: { min: '1921px' },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 };

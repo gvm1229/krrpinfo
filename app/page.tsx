@@ -14,7 +14,7 @@ const Featured = ({ className }: { className?: string }) => (
       className,
     )}
   >
-    <div className="col-span-2 flex size-full items-center justify-center bg-slate-400 dark:bg-slate-600 mobile_only:py-6 tablet:h-144">
+    <div className="col-span-2 flex size-full items-center justify-center bg-slate-400 dark:bg-slate-600 mobile_only:py-6 tablet:h-[400px] desktop:h-[500px]">
       <h1 className="text-xl font-semibold tablet:text-3xl">Ongoing event</h1>
     </div>
     <div className="col-span-1 flex size-full flex-col gap-y-4 tablet:gap-4">
