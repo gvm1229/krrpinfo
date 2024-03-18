@@ -34,4 +34,5 @@ Default.args = {
   // Define default props here
   title: 'Sample Title',
   tags: ['Sample Tag', 'Sample Tag', 'Sample Tag'],
+  className: 'max-w-108',
 };
