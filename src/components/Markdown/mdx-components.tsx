@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import * as React from 'react';
 
-import { cn, calcStdImageWidth } from '@/src/util/utils';
+import StaticImage from '@/components/Image/StaticImage';
+import { cn } from '@/src/util/utils';
 import { Callout } from './callout';
 import { MdxCard } from './mdx-card';
 
@@ -69,7 +69,10 @@ const components = {
   ),
   p: ({ className, ...props }) => (
     <p
-      className={cn('leading-relaxed tablet:text-xl [&:not(:first-child)]:mt-6', className)}
+      className={cn(
+        'leading-relaxed tablet:text-xl [&:not(:first-child)]:mt-6',
+        className,
+      )}
       {...props}
     />
   ),
@@ -100,12 +103,18 @@ const components = {
     <img className={cn('rounded-md border', className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
-  table: ({ className, ...props }: React.ImgHTMLAttributes<HTMLTableElement>) => (
+  table: ({
+    className,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto">
       <table className={cn('w-full', className)} {...props} />
     </div>
   ),
-  tr: ({ className, ...props }: React.ImgHTMLAttributes<HTMLTableRowElement>) => (
+  tr: ({
+    className,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLTableRowElement>) => (
     <tr
       className={cn('m-0 border-t p-0 even:bg-muted', className)}
       {...props}
@@ -148,17 +157,19 @@ const components = {
     />
   ),
   Image: ({
-    className, src, alt, width = 1546, height = 1080, ...props // 기본 iPad 11 비율
+    className,
+    src,
+    alt,
+    width = 1546,
+    height = 1080,
+    ...props // 기본 iPad 11 비율
   }) => (
-    <Image
-      className={cn(
-        'mt-6',
-        className,
-      )}
+    <StaticImage
+      wrapperClassName={cn('mt-6', className)}
       src={src}
       alt={alt}
-      width={calcStdImageWidth(width, height)} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
-      height={1080}
+      width={width} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
+      height={height}
       {...props}
     />
   ),
@@ -167,7 +178,7 @@ const components = {
 };
 
 interface MdxProps {
-  code: string
+  code: string;
 }
 
 export function Mdx({ code }: MdxProps) {
