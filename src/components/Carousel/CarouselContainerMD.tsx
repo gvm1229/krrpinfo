@@ -14,13 +14,13 @@ import {
 import { cn } from '@/src/util/utils';
 
 interface CarouselContainerProps {
-  className?: string
+  className?: string;
   linksInput: {
-    thumbnail: string
-    tags: string[]
-    title: string
-    hyperlink: string
-  }[]
+    thumbnail: string;
+    tags: string[];
+    title: string;
+    hyperlink: string;
+  }[];
 }
 
 export default function CarouselContainerMD({
@@ -28,15 +28,15 @@ export default function CarouselContainerMD({
   linksInput,
 }: CarouselContainerProps) {
   const plugin = React.useRef(
-    Autoplay({ delay: 2500, stopOnInteraction: true }),
+    Autoplay({ delay: 2000, stopOnInteraction: true }),
   );
 
   return (
     <Carousel
-      className={cn('w-full', className)}
+      className={cn('relative size-full px-12', className)}
       plugins={[plugin.current]}
-      onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.reset}
+      // onMouseEnter={plugin.current.stop}
+      // onMouseLeave={plugin.current.reset}
       opts={{
         align: 'start',
         loop: true,
@@ -44,7 +44,10 @@ export default function CarouselContainerMD({
     >
       <CarouselContent className="gap-1">
         {linksInput.map((link) => (
-          <CarouselItem key={link.title} className="tablet:basis-1/3 desktop:basis-1/5">
+          <CarouselItem
+            key={link.title}
+            className="tablet:basis-1/3 desktop:basis-1/5"
+          >
             <div className="p-1">
               <SimpleLinkCardMD
                 key={link.title}
@@ -57,8 +60,8 @@ export default function CarouselContainerMD({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="left-0" />
+      <CarouselNext className="right-0" />
     </Carousel>
   );
 }

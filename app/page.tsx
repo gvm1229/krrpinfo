@@ -78,15 +78,15 @@ const Links = ({ className }: { className?: string }) => {
       id="links_wrapper"
       className={cn('space-y-8 overflow-hidden desktop:space-y-16', className)}
     >
-      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">유용한 링크</h1>
-      <CarouselContainerSM
-        className="container tablet:hidden"
-        linksInput={links}
-      />
-      <CarouselContainerMD
-        className="tablet_only:container mobile_only:hidden desktop:mx-auto desktop:max-w-10xl"
-        linksInput={links}
-      />
+      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">
+        유용한 링크
+      </h1>
+      <div className="container tablet:hidden">
+        <CarouselContainerSM linksInput={links} />
+      </div>
+      <div className="tablet_only:container mobile_only:hidden desktop:mx-auto desktop:max-w-10xl">
+        <CarouselContainerMD linksInput={links} />
+      </div>
     </div>
   );
 };
@@ -101,7 +101,9 @@ const Posts = ({ className }: { className?: string }) => {
       id="posts_wrapper"
       className={cn('space-y-8 desktop:space-y-16', className)}
     >
-      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">최신 포스트 목록</h1>
+      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">
+        최신 포스트 목록
+      </h1>
       <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3">
         {posts.slice(0, 6).map((post) => (
           <Blog

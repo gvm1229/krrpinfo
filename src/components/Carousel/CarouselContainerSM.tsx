@@ -8,19 +8,19 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
+  CarouselNext,
+  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { cn } from '@/src/util/utils';
 
 interface CarouselContainerProps {
-  className?: string
+  className?: string;
   linksInput: {
-    thumbnail: string
-    tags: string[]
-    title: string
-    hyperlink: string
-  }[]
+    thumbnail: string;
+    tags: string[];
+    title: string;
+    hyperlink: string;
+  }[];
 }
 
 export default function CarouselContainerSM({
@@ -28,16 +28,16 @@ export default function CarouselContainerSM({
   linksInput,
 }: CarouselContainerProps) {
   const plugin = React.useRef(
-    Autoplay({ delay: 2500, stopOnInteraction: true }),
+    Autoplay({ delay: 2000, stopOnInteraction: true }),
   );
 
   return (
     <Carousel
       orientation="vertical"
-      className={cn('w-full', className)}
+      className={cn('relative size-full py-12', className)}
       plugins={[plugin.current]}
-      onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.reset}
+      // onMouseEnter={plugin.current.stop}
+      // onMouseLeave={plugin.current.reset}
       opts={{
         align: 'start',
         loop: true,
@@ -58,8 +58,8 @@ export default function CarouselContainerSM({
           </CarouselItem>
         ))}
       </CarouselContent>
-      {/* <CarouselPrevious />
-      <CarouselNext /> */}
+      <CarouselPrevious className="top-0" />
+      <CarouselNext className="bottom-0" />
     </Carousel>
   );
 }
