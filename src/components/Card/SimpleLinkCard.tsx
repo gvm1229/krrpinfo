@@ -25,7 +25,12 @@ export function SimpleLinkCardMD({
 }: SimpleLinkCardProps) {
   // tablet and above
   return (
-    <Card className={cn('block w-fit overflow-hidden rounded-lg shadow-lg dark:shadow-slate-600', className)}>
+    <Card
+      className={cn(
+        'block w-fit overflow-hidden rounded-lg shadow-lg dark:shadow-slate-600',
+        className,
+      )}
+    >
       <ButtonNewTab href={hyperlink}>
         <div className="relative aspect-video">
           <div className="absolute inset-0 z-10 bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
@@ -43,12 +48,15 @@ export function SimpleLinkCardMD({
       </ButtonNewTab>
       <CardContent className="p-4">
         <ButtonNewTab href={hyperlink}>
-          <CardTitle className="text-lg font-bold hover:underline">{title}</CardTitle>
+          <CardTitle className="text-lg font-bold hover:underline">
+            {title}
+          </CardTitle>
         </ButtonNewTab>
         <Tag
           tagInput={tags}
           isHoverEnabled={false}
           className="flex-wrap pt-3"
+          innerClassName="text-xs"
         />
       </CardContent>
     </Card>
@@ -80,7 +88,9 @@ export function SimpleLinkCardSM({
           />
         </div>
         <CardContent className="flex flex-col items-start justify-center p-0 pl-4">
-          <CardTitle className="text-sm font-bold group-hover:underline">{title}</CardTitle>
+          <CardTitle className="text-sm font-bold group-hover:underline">
+            {title}
+          </CardTitle>
           <Tag
             tagInput={tags}
             isHoverEnabled={false}
