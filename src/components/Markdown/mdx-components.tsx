@@ -158,18 +158,14 @@ const components = {
   ),
   Image: ({
     className,
-    src,
-    alt,
-    width = 1546,
-    height = 1080,
     ...props // 기본 iPad 11 비율
   }) => (
     <StaticImage
       wrapperClassName={cn('mt-6', className)}
-      src={src}
-      alt={alt}
-      width={width} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
-      height={height}
+      src={props.src}
+      alt={props.alt}
+      width={props.width} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
+      height={props.height}
       {...props}
     />
   ),
