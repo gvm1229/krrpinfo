@@ -1,31 +1,62 @@
-import Link from 'next/link';
-import React from 'react';
+'use client';
 
+import { Menu, SquareLibrary } from 'lucide-react';
+import Link from 'next/link';
+
+import { useState } from 'react';
 import { siteConfig } from '@/config/site';
 import { useLockBody } from '@/src/hooks/use-lock-body';
 import { cn } from '@/src/util/utils';
 
 interface MobileNavProps {
   items?: {
-    title: string
-    href: string
-    disabled?: boolean
-  }[]
-  children?: React.ReactNode
+    title: string;
+    href: string;
+    disabled?: boolean;
+  }[];
+  className?: string;
 }
 
-export function MobileNav({
-  items,
-  // setShowMobileMenu,
-  children,
-}: MobileNavProps) {
+export function MobileNav({ items, className }: MobileNavProps) {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  return (
+    <>
+      <div
+        className={cn(
+          'flex w-full items-center justify-between tablet:hidden',
+          className,
+        )}
+      >
+        <div className="flex items-center gap-2">
+          <SquareLibrary color="cyan" size={28} />
+          <h1 className="text-xl font-bold">{siteConfig.name}</h1>
+        </div>
+        <button
+          name="mobileMenuBtn"
+          className={cn(
+            'flex items-center space-x-2',
+            'ring-transparent focus-visible:ring-transparent',
+          )}
+          onClick={() => setShowMobileMenu(!showMobileMenu)}
+        >
+          <Menu size={28} />
+        </button>
+      </div>
+      {showMobileMenu && items && <MobilePopover items={items} />}
+    </>
+  );
+}
+
+export function MobilePopover({ items, className }: MobileNavProps) {
   useLockBody();
 
   return (
     <div
       id="mobile-nav"
       className={cn(
-        'fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 tablet:hidden',
+        'fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80',
+        className,
       )}
     >
       <div
@@ -51,7 +82,6 @@ export function MobileNav({
             </Link>
           ))}
         </nav>
-        {children}
       </div>
     </div>
   );
