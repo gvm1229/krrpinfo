@@ -28,10 +28,12 @@ export function MobileNav({ items, className }: MobileNavProps) {
           className,
         )}
       >
-        <div className="flex items-center gap-2">
-          <SquareLibrary color="cyan" size={28} />
-          <h1 className="text-xl font-bold">{siteConfig.name}</h1>
-        </div>
+        <Link href="/" className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
+            <SquareLibrary color="cyan" size={28} />
+            <h1 className="text-xl font-bold">{siteConfig.name}</h1>
+          </div>
+        </Link>
         <button
           name="mobileMenuBtn"
           className={cn(
