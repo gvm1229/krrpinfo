@@ -1,3 +1,4 @@
+import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
 import Clock from '@/components/Countdown/Clock';
@@ -91,10 +92,25 @@ const Links = ({ className }: { className?: string }) => {
   );
 };
 
-const Posts = ({ className }: { className?: string }) => {
+export const revalidate = 60;
+const redis = Redis.fromEnv();
+
+async function Posts({ className }: { className?: string }) {
   const posts = allPosts
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
+  const views = (
+    await redis.mget<number[]>(
+      ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),
+    )
+  ).reduce(
+    (acc, v, i) => {
+      acc[allPosts[i].slugAsParams] = v ?? 0;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   return (
     <div
@@ -110,13 +126,14 @@ const Posts = ({ className }: { className?: string }) => {
             key={post._id}
             toNavigate={post.slug}
             isImagePriority={false}
+            views={views[post.slugAsParams]}
             {...post}
           />
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default function Home() {
   return (
