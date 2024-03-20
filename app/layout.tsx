@@ -93,14 +93,11 @@ export default async function RootLayout({ children }) {
       <body className="relative h-screen min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader className="border-b bg-background" />
+            <SiteHeader />
             <main className="relative flex-auto py-8 tablet:py-12">
               {children}
             </main>
-            <SiteFooter
-              className="border-t bg-background"
-              totalViews={totalViews}
-            />
+            <SiteFooter totalViews={totalViews} />
             <ScrollToTopButton />
           </div>
         </ThemeProvider>

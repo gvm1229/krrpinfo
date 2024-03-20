@@ -3,14 +3,17 @@ import ViewCounter from '@/components//View/ViewCounter';
 import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
 import { cn } from '@/src/util/utils';
 
-export function SiteFooter({ className, totalViews }) {
+export function SiteFooter({
+  className,
+  totalViews,
+}: {
+  className?: string;
+  totalViews: number;
+}) {
   return (
     <footer
       id="footer"
-      className={cn(
-        'py-4 tablet:py-8',
-        className,
-      )}
+      className={cn('border-t bg-background py-4 tablet:py-8', className)}
     >
       <div className="container flex flex-col items-start space-y-2 tablet:flex-row tablet:items-center tablet:justify-between desktop:space-y-0">
         <div className="space-y-2 desktop:space-y-4">
