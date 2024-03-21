@@ -2,7 +2,7 @@
 
 import { SquareLibrary } from 'lucide-react';
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
 
 import { siteConfig } from '@/config/site';
 import { cn } from '@/src/util/utils';
@@ -18,6 +18,7 @@ interface MainNavProps {
 
 export function MainNav({ items, className }: MainNavProps) {
   const segment = useSelectedLayoutSegment();
+  const router = useRouter();
 
   return (
     <div
@@ -27,10 +28,16 @@ export function MainNav({ items, className }: MainNavProps) {
         className,
       )}
     >
-      <Link href="/" className="flex items-center space-x-2">
+      <button
+        onClick={() => {
+          router.push('/');
+          router.refresh();
+        }}
+        className="flex items-center space-x-2"
+      >
         <SquareLibrary color="cyan" size={28} />
         <span className="text-2xl font-bold">{siteConfig.name}</span>
-      </Link>
+      </button>
       {items?.length ? (
         <nav className="flex gap-6">
           {items?.map((item) => (

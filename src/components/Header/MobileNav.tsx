@@ -15,6 +15,7 @@ import type { LinkProps } from 'next/link';
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -29,14 +30,17 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="pl-4 pr-0">
-        <MobileLink
-          href="/"
+        <button
+          onClick={() => {
+            router.push('/');
+            setOpen(false);
+            router.refresh();
+          }}
           className="flex items-center"
-          onOpenChange={setOpen}
         >
           <SquareLibrary color="cyan" className="mr-2 size-6" />
           <span className="text-lg font-bold">{siteConfig.name}</span>
-        </MobileLink>
+        </button>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-8">
           <div className="flex flex-col space-y-2 pt-2">
             {navContents.map((item, index) => (
