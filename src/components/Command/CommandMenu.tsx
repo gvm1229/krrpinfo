@@ -58,7 +58,7 @@ export function CommandMenu({ ...props }: DialogProps) {
         {...props}
       >
         <span className="inline-flex">검색...</span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 tablet:flex">
+        <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 tablet:flex">
           <span className="text-xs">⌘</span>
           K
         </kbd>
