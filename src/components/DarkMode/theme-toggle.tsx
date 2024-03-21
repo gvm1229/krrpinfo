@@ -31,19 +31,19 @@ export function ModeToggle() {
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           onClick={() => setTheme('light')}
-          className={`${theme === 'light' && 'bg-slate-200'}`}
+          className={`${theme === 'light' && 'bg-zinc-200'}`}
         >
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('dark')}
-          className={`${theme === 'dark' && 'bg-slate-700'}`}
+          className={`${theme === 'dark' && 'bg-zinc-700'}`}
         >
           Dark
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('system')}
-          className={`${theme === 'system' && 'bg-slate-200 dark:bg-slate-700'}`}
+          className={`${theme === 'system' && 'bg-zinc-200 dark:bg-zinc-700'}`}
         >
           System
         </DropdownMenuItem>
