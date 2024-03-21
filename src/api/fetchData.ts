@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-catch */
+
 import { config } from 'dotenv';
 import { env } from '@/env.mjs';
 

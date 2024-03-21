@@ -1,40 +1,38 @@
 'use client';
 
-import { Barcode, X } from 'lucide-react';
+import { SquareLibrary } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import React, { useState } from 'react';
 
 import { siteConfig } from '@/config/site';
 import { cn } from '@/src/util/utils';
-import { MobileNav } from './MobileNav';
 
 interface MainNavProps {
   items?: {
-    title: string
-    href: string
-    disabled?: boolean
-  }[]
-  children?: React.ReactNode
+    title: string;
+    href: string;
+    disabled?: boolean;
+  }[];
+  className?: string;
 }
 
-export function MainNav({ items, children }: MainNavProps) {
+export function MainNav({ items, className }: MainNavProps) {
   const segment = useSelectedLayoutSegment();
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
     <div
       id="main-nav"
-      className="flex items-center gap-6 tablet:gap-10"
+      className={cn(
+        'hidden items-center gap-6 tablet:flex tablet:gap-10',
+        className,
+      )}
     >
-      <Link href="/" className="hidden items-center space-x-2 tablet:flex">
-        <Barcode color="red" size={32} />
-        <span className="hidden text-2xl font-bold tablet:inline-block">
-          {siteConfig.name}
-        </span>
+      <Link href="/" className="flex items-center space-x-2">
+        <SquareLibrary color="cyan" size={28} />
+        <span className="text-2xl font-bold">{siteConfig.name}</span>
       </Link>
       {items?.length ? (
-        <nav className="hidden gap-6 tablet:flex">
+        <nav className="flex gap-6">
           {items?.map((item) => (
             <Link
               key={item.href}
@@ -52,25 +50,6 @@ export function MainNav({ items, children }: MainNavProps) {
           ))}
         </nav>
       ) : null}
-      <button
-        name="mobileMenuBtn"
-        className={cn(
-          'flex items-center space-x-2 tablet:hidden',
-          'ring-transparent focus-visible:ring-transparent',
-        )}
-        onClick={() => setShowMobileMenu(!showMobileMenu)}
-      >
-        {showMobileMenu ? <X size={20} /> : <Barcode color="red" size={24} />}
-        <span className="text-lg font-bold">Menu</span>
-      </button>
-      {showMobileMenu && items && (
-        <MobileNav
-          items={items}
-          // setShowMobileMenu={setShowMobileMenu}
-        >
-          {children}
-        </MobileNav>
-      )}
     </div>
   );
 }

@@ -90,17 +90,14 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="relative min-h-svh bg-background antialiased">
+      <body className="relative h-screen min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader className="border-b bg-background" />
-            <main className="container relative flex-1 py-8 tablet:py-12">
+            <SiteHeader />
+            <main className="relative flex-auto py-8 tablet:py-12">
               {children}
             </main>
-            <SiteFooter
-              className="border-t bg-background"
-              totalViews={totalViews}
-            />
+            <SiteFooter totalViews={totalViews} />
             <ScrollToTopButton />
           </div>
         </ThemeProvider>

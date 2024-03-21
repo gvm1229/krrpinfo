@@ -30,7 +30,7 @@ const ResponsiveImage = ({
     // if (mobile=1, tablet=1, desktop=1) return '100vw';
 
     const baseViewport = 90;
-    const calcViewWidth = (viewport) => Math.round(baseViewport / viewport);
+    const calcViewWidth = (viewport: number) => Math.round(baseViewport / viewport);
 
     return [
       `(max-width: 720px) ${calcViewWidth(gridNums[0])}vw`,

@@ -2,8 +2,13 @@
 
 import { useState } from 'react';
 import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/src/util/utils';
 
-const Calendar1 = () => {
+interface CalendarProps {
+  className?: string;
+}
+
+const Calendar1 = ({ className }: CalendarProps) => {
   const [date, setDate] = useState(new Date());
 
   return (
@@ -11,7 +16,7 @@ const Calendar1 = () => {
       mode="single"
       selected={date}
       onSelect={setDate}
-      className="rounded-md border"
+      className={cn('rounded-md border', className)}
       showOutsideDays
       fixedWeeks
     />

@@ -12,8 +12,8 @@
     "url": "https://github.com/gvm1229/krrpinfo"
   },
   "engines": {
-    "node": ">=18.x",
-    "yarn": ">=4.1.0",
+    "node": ">=20.x",
+    "yarn": ">=4.1.1",
     "npm": "yarn only"
   },
   "scripts": {
@@ -52,6 +52,8 @@
     "clsx": "^2.1.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^3.4.0",
+    "embla-carousel-autoplay": "^8.0.0",
+    "embla-carousel-react": "^8.0.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.356.0",
     "next": "14.1.3",
