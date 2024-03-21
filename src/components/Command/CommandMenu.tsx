@@ -66,7 +66,7 @@ export function CommandMenu({ ...props }: DialogProps) {
         <CommandInput placeholder="검색..." />
         <CommandList>
           <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-          <CommandGroup heading="Links">
+          <CommandGroup heading="Header Links">
             {navContents.map((navItem) => (
               <CommandItem
                 key={navItem.href}
