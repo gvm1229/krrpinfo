@@ -94,7 +94,7 @@ export default async function RootLayout({ children }) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
             <SiteHeader />
-            <main className="relative flex-auto py-8 tablet:py-12">
+            <main className="relative flex-1 py-8 tablet:py-12">
               {children}
             </main>
             <SiteFooter totalViews={totalViews} />

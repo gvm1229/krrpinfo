@@ -1,16 +1,12 @@
-export const navContents: { title: string; href: string }[] = [
-  // {
-  //   title: 'Karts',
-  //   href: '/karts',
-  // },
-  // {
-  //   title: 'Riders',
-  //   href: '/riders',
-  // },
-  // {
-  //   title: 'Guides',
-  //   href: '/guides',
-  // },
+interface NavItem {
+  title: string;
+  href: string;
+  disabled?: boolean;
+  label?: string;
+  items?: NavItem[];
+}
+
+export const navContents: NavItem[] = [
   {
     title: 'Posts',
     href: '/posts',
@@ -19,4 +15,27 @@ export const navContents: { title: string; href: string }[] = [
     title: 'Redeem',
     href: '/redeem',
   },
+  {
+    title: 'Karts',
+    href: '/karts',
+    items: [
+      {
+        title: 'Legendary Karts',
+        href: '/karts/legendary',
+        label: 'New',
+      },
+      {
+        title: 'Rare Karts',
+        href: '/karts/rare',
+      },
+    ],
+  },
+  // {
+  //   title: 'Riders',
+  //   href: '/riders',
+  // },
+  // {
+  //   title: 'Guides',
+  //   href: '/guides',
+  // },
 ];

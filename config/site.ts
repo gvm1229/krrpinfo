@@ -1,12 +1,11 @@
 interface SiteConfig {
-  name: string
-  description: string
-  url: string
-  ogImage: string
+  name: string;
+  description: string;
+  url: string;
+  ogImage: string;
   links: {
-    // twitter: string
-    github: string
-  }
+    github: string;
+  };
 }
 
 export const siteConfig: SiteConfig = {
@@ -15,7 +14,6 @@ export const siteConfig: SiteConfig = {
   url: 'https://krrpinfo.vercel.app',
   ogImage: '/public/opengraph-image.webp',
   links: {
-    // twitter: 'https://twitter.com/shadcn',
     github: 'https://github.com/gvm1229/krrpinfo',
   },
 };
