@@ -1,10 +1,8 @@
-// import Link from 'next/link';
-// import { buttonVariants } from '@/components/ui/button';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import { MobileNav } from '@/components/Header/MobileNav';
 import { navContents } from '@/config/navBar';
 import { cn } from '@/src/util/utils';
 import { MainNav } from './MainNav';
+import { MobileNav } from './MobileNav';
 
 export function SiteHeader({ className }: { className?: string }) {
   return (
@@ -17,10 +15,10 @@ export function SiteHeader({ className }: { className?: string }) {
         )}
       >
         <MainNav items={navContents} />
-        <div className="hidden tablet:block">
-          <ModeToggle />
+        <div className="tablet:hidden">
+          <MobileNav />
         </div>
-        <MobileNav items={navContents} />
+        <ModeToggle />
       </header>
       <div className="h-20" />
     </>
