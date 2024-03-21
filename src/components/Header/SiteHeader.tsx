@@ -11,6 +11,7 @@ import { MobileNav } from './MobileNav';
 export function SiteHeader({ className }: { className?: string }) {
   const [isMobile, setIsMobile] = React.useState(false);
 
+  // won't affect performance too much as this will only run once per render, as devices don't really change frequently
   React.useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 720px)'); // tailwind - mobile
     const handleResize = (e) => {
@@ -40,6 +41,7 @@ export function SiteHeader({ className }: { className?: string }) {
       >
         {isMobile ? (
           <>
+            {/* mobile view */}
             <MobileNav />
             <div className="w-full flex-1">
               <CommandMenu />
@@ -48,6 +50,7 @@ export function SiteHeader({ className }: { className?: string }) {
           </>
         ) : (
           <>
+            {/* tablet & desktop view */}
             <MainNav items={navContents} />
             <div className="flex w-auto flex-none items-center gap-x-2">
               <CommandMenu />
