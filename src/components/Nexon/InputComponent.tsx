@@ -19,7 +19,7 @@ const InputComponent = ({ label, value, onChange }: InputComponentProps) => (
       id={label}
       onChange={(e) => onChange(e.target.value)}
       value={value}
-      className="border-1 border-slate-500"
+      className="border-1 border-zinc-500"
     />
   </div>
 );

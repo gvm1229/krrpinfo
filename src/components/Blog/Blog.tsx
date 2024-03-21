@@ -152,14 +152,14 @@ function TextDataWrapper({
         >
           <p
             id="date"
-            className="text-sm font-medium text-slate-600 dark:text-slate-300"
+            className="text-sm font-medium text-zinc-600 dark:text-zinc-300"
           >
             {formatDate(date ?? new Date())}
           </p>
           {views > 0 && (
             <p
               id="views"
-              className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400"
+              className="flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400"
             >
               <EyeIcon className="size-5" />
               {views}
@@ -182,7 +182,7 @@ function TextDataWrapper({
           </h1>
         )}
         {description && (
-          <p className="truncate font-medium text-slate-600 dark:text-slate-200">
+          <p className="truncate font-medium text-zinc-600 dark:text-zinc-200">
             {description}
           </p>
         )}
@@ -220,7 +220,7 @@ function ImageWrapper({
       <ResponsiveImage
         src={src}
         alt={alt}
-        wrapperClassName="rounded-md shadow-md dark:shadow-slate-600"
+        wrapperClassName="rounded-md shadow-md dark:shadow-zinc-600"
         gridNums={gridNums}
         isPriority={isPriority}
       />

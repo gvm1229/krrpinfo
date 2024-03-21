@@ -2,89 +2,115 @@
 
 import { Menu, SquareLibrary } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
 
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { navContents } from '@/config/navBar';
 import { siteConfig } from '@/config/site';
-import { useLockBody } from '@/src/hooks/use-lock-body';
 import { cn } from '@/src/util/utils';
+import type { LinkProps } from 'next/link';
 
-interface MobileNavProps {
-  items?: {
-    title: string;
-    href: string;
-    disabled?: boolean;
-  }[];
-  className?: string;
-}
-
-export function MobileNav({ items, className }: MobileNavProps) {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+export function MobileNav() {
+  const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
   return (
-    <>
-      <div
-        className={cn(
-          'flex w-full items-center justify-between tablet:hidden',
-          className,
-        )}
-      >
-        <Link href="/" className="flex items-center space-x-2">
-          <div className="flex items-center gap-2">
-            <SquareLibrary color="cyan" size={28} />
-            <h1 className="text-xl font-bold">{siteConfig.name}</h1>
-          </div>
-        </Link>
-        <button
-          name="mobileMenuBtn"
-          className={cn(
-            'flex items-center space-x-2',
-            'ring-transparent focus-visible:ring-transparent',
-          )}
-          onClick={() => setShowMobileMenu(!showMobileMenu)}
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 tablet:hidden"
         >
           <Menu size={28} />
+          <span className="sr-only">Toggle Menu</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="pl-4 pr-0">
+        <button
+          onClick={() => {
+            router.push('/');
+            setOpen(false);
+            router.refresh();
+          }}
+          className="flex items-center"
+        >
+          <SquareLibrary color="cyan" className="mr-2 size-6" />
+          <span className="text-lg font-bold">{siteConfig.name}</span>
         </button>
-      </div>
-      {showMobileMenu && items && <MobilePopover items={items} />}
-    </>
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-8">
+          <div className="flex flex-col space-y-2 pt-2">
+            {navContents.map((item, index) => (
+              <div key={index} className="flex flex-col space-y-3">
+                {item.href && (
+                  <MobileLink
+                    key={item.href}
+                    href={item.href}
+                    onOpenChange={setOpen}
+                    className={`font-medium ${item?.items?.length ? 'pb-0' : 'pb-2'}`}
+                  >
+                    {item.title}
+                  </MobileLink>
+                )}
+                {item?.items?.length
+                  && item.items.map((item) => (
+                    <React.Fragment key={item.href}>
+                      {!item.disabled
+                        && (item.href ? (
+                          <MobileLink
+                            href={item.href}
+                            onOpenChange={setOpen}
+                            className="text-muted-foreground"
+                          >
+                            {item.title}
+                            {item.label && (
+                              <span className="ml-2 rounded-md bg-teal-400 px-1.5 py-0.5 text-xs leading-none text-black no-underline group-hover:no-underline">
+                                {item.label}
+                              </span>
+                            )}
+                          </MobileLink>
+                        ) : (
+                          item.title
+                        ))}
+                    </React.Fragment>
+                  ))}
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </SheetContent>
+    </Sheet>
   );
 }
 
-export function MobilePopover({ items, className }: MobileNavProps) {
-  useLockBody();
+interface MobileLinkProps extends LinkProps {
+  onOpenChange?: (open: boolean) => void;
+  children: React.ReactNode;
+  className?: string;
+}
 
+function MobileLink({
+  href,
+  onOpenChange,
+  className,
+  children,
+  ...props
+}: MobileLinkProps) {
+  const router = useRouter();
   return (
-    <div
-      id="mobile-nav"
-      className={cn(
-        'fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80',
-        className,
-      )}
+    <Link
+      href={href}
+      onClick={() => {
+        router.push(href.toString());
+        onOpenChange?.(false);
+      }}
+      className={cn(className)}
+      {...props}
     >
-      <div
-        className={cn(
-          'relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md',
-          'dark:shadow-slate-600',
-        )}
-      >
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold">{siteConfig.name}</span>
-        </Link>
-        <nav className="grid grid-flow-row auto-rows-max text-sm">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.disabled ? '#' : item.href}
-              className={cn(
-                'flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline',
-                item.disabled && 'cursor-not-allowed opacity-60',
-              )}
-            >
-              {item.title}
-            </Link>
-          ))}
-        </nav>
-      </div>
-    </div>
+      {children}
+    </Link>
   );
 }
