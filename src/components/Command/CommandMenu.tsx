@@ -12,7 +12,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '@/components/ui/command';
 import { navContents } from '@/config/navBar';
 import { cn } from '@/src/util/utils';
@@ -67,7 +66,7 @@ export function CommandMenu({ ...props }: DialogProps) {
         <CommandInput placeholder="검색..." />
         <CommandList>
           <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-          <CommandGroup heading="헤더 링크">
+          <CommandGroup heading="Links">
             {navContents.map((navItem) => (
               <CommandItem
                 key={navItem.href}
@@ -103,7 +102,6 @@ export function CommandMenu({ ...props }: DialogProps) {
               )}
             </div>
           ))}
-          <CommandSeparator />
         </CommandList>
       </CommandDialog>
     </>
