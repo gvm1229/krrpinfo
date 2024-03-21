@@ -1,5 +1,7 @@
+'use client';
+
 import { Home } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -11,6 +13,8 @@ import {
 } from '@/components/ui/card';
 
 export default function NotFound() {
+  const router = useRouter();
+
   return (
     <div className="absolute inset-0 mx-8 flex items-center justify-center">
       <Card className="flex h-72 w-full flex-col items-center justify-center tablet:h-80 tablet:max-w-xl desktop:h-96 desktop:max-w-3xl">
@@ -27,14 +31,15 @@ export default function NotFound() {
           </CardDescription>
         </CardHeader>
         <CardFooter className="flex justify-center">
-          <Button asChild className="tablet:h-[3.25rem]">
-            <Link
-              href="/"
-              className="flex items-center gap-3 text-lg tablet:text-xl"
-            >
-              <Home className="size-4 tablet:size-6" />
-              홈 화면으로 돌아가기
-            </Link>
+          <Button
+            onClick={() => {
+              router.push('/');
+              router.refresh();
+            }}
+            className="flex items-center gap-3 text-lg tablet:h-[3.25rem] tablet:text-xl"
+          >
+            <Home className="size-4 tablet:size-6" />
+            홈 화면으로 돌아가기
           </Button>
         </CardFooter>
       </Card>
