@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu } from 'lucide-react';
+import { Menu, SquareLibrary } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
@@ -27,16 +27,16 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
+      <SheetContent side="left" className="pl-4 pr-0">
         <MobileLink
           href="/"
-          className="flex items-center pl-6"
+          className="flex items-center"
           onOpenChange={setOpen}
         >
-          {/* <Logo className="mr-2 size-4" /> */}
-          <span className="font-bold">{siteConfig.name}</span>
+          <SquareLibrary color="cyan" className="mr-2 size-6" />
+          <span className="text-lg font-bold">{siteConfig.name}</span>
         </MobileLink>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-8">
           <div className="flex flex-col space-y-2 pt-2">
             {navContents.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3">
@@ -62,7 +62,7 @@ export function MobileNav() {
                           >
                             {item.title}
                             {item.label && (
-                              <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
+                              <span className="ml-2 rounded-md bg-teal-400 px-1.5 py-0.5 text-xs leading-none text-black no-underline group-hover:no-underline">
                                 {item.label}
                               </span>
                             )}
