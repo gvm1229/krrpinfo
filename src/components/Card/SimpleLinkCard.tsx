@@ -48,7 +48,7 @@ export function SimpleLinkCardMD({
       </ButtonNewTab>
       <CardContent className="p-4">
         <ButtonNewTab href={hyperlink}>
-          <CardTitle className="text-lg font-bold hover:underline">
+          <CardTitle className="truncate text-lg font-bold hover:underline">
             {title}
           </CardTitle>
         </ButtonNewTab>
@@ -88,7 +88,7 @@ export function SimpleLinkCardSM({
           />
         </div>
         <CardContent className="flex flex-col items-start justify-center p-0 pl-4">
-          <CardTitle className="text-sm font-bold group-hover:underline">
+          <CardTitle className="truncate text-sm font-bold group-hover:underline">
             {title}
           </CardTitle>
           <Tag

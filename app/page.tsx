@@ -100,6 +100,29 @@ async function Posts({ className }: { className?: string }) {
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
+  if (process.env.NODE_ENV === 'development')
+    return (
+      <div
+        id="posts_wrapper"
+        className={cn('space-y-8 desktop:space-y-16', className)}
+      >
+        <h1 className="container text-center text-3xl font-bold desktop:text-4xl">
+          최신 포스트 목록
+        </h1>
+        <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3">
+          {posts.slice(0, 6).map((post) => (
+            <Blog
+              key={post._id}
+              toNavigate={post.slug}
+              isImagePriority={false}
+              views={1234}
+              {...post}
+            />
+          ))}
+        </div>
+      </div>
+    );
+
   const views = (
     await redis.mget<number[]>(
       ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),

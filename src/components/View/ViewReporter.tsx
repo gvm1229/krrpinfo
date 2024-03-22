@@ -12,6 +12,8 @@ interface ViewReporterProps {
 
 function ViewReporter({ slug, path }: ViewReporterProps) {
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') return;
+
     fetch('/api/viewcount', {
       method: 'POST',
       headers: {
