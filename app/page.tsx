@@ -6,6 +6,7 @@ import Countdown from '@/components/Countdown/Countdown';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
 import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
 import { cn } from '@/src/util/utils';
+import type { Post } from 'contentlayer/generated';
 import { allPosts } from 'contentlayer/generated';
 
 const Featured = ({ className }: { className?: string }) => (
@@ -95,46 +96,7 @@ const Links = ({ className }: { className?: string }) => {
 export const revalidate = 60;
 const redis = Redis.fromEnv();
 
-async function Posts({ className }: { className?: string }) {
-  const posts = allPosts
-    .filter((post) => post.published)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
-
-  if (process.env.NODE_ENV === 'development')
-    return (
-      <div
-        id="posts_wrapper"
-        className={cn('space-y-8 desktop:space-y-16', className)}
-      >
-        <h1 className="container text-center text-3xl font-bold desktop:text-4xl">
-          최신 포스트 목록
-        </h1>
-        <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3">
-          {posts.slice(0, 6).map((post) => (
-            <Blog
-              key={post._id}
-              toNavigate={post.slug}
-              isImagePriority={false}
-              views={1234}
-              {...post}
-            />
-          ))}
-        </div>
-      </div>
-    );
-
-  const views = (
-    await redis.mget<number[]>(
-      ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),
-    )
-  ).reduce(
-    (acc, v, i) => {
-      acc[allPosts[i].slugAsParams] = v ?? 0;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
-
+function renderPosts(className: string, posts: Post[], views = {}) {
   return (
     <div
       id="posts_wrapper"
@@ -149,13 +111,36 @@ async function Posts({ className }: { className?: string }) {
             key={post._id}
             toNavigate={post.slug}
             isImagePriority={false}
-            views={views[post.slugAsParams]}
+            views={views[post.slugAsParams] ?? 1234} // Default views for development or if missing in production
             {...post}
           />
         ))}
       </div>
     </div>
   );
+}
+
+async function Posts({ className }: { className?: string }) {
+  const posts = allPosts
+    .filter((post) => post.published)
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
+  if (process.env.NODE_ENV === 'development')
+    return renderPosts(className, posts);
+
+  const views = (
+    await redis.mget<number[]>(
+      ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),
+    )
+  ).reduce(
+    (acc, v, i) => {
+      acc[allPosts[i].slugAsParams] = v ?? 0;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+
+  return renderPosts(className, posts, views);
 }
 
 export default function Home() {
