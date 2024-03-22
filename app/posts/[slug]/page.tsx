@@ -20,9 +20,7 @@ const redis = Redis.fromEnv();
 
 async function getPostFromParams(params) {
   const post = allPosts.find((post) => post.slugAsParams === params.slug);
-
   if (!post) return null;
-
   return post;
 }
 
@@ -88,96 +86,30 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PostPage({ params }) {
-  const post = await getPostFromParams(params);
+async function getViewCount(slug: string) {
+  if (process.env.NODE_ENV === 'production') {
+    const views = await redis.get<number>(
+      ['pageviews', 'projects', 'posts', slug].join(':'),
+    );
+    return views ?? 0;
+  }
+  return 1234; // Default view count for development
+}
 
+export default async function PostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await getPostFromParams(params);
   if (!post) notFound();
 
   const toc = await getTableOfContents(post.body.raw);
-
-  if (process.env.NODE_ENV === 'development')
-    return (
-      <div className="container flex flex-col tablet:gap-x-16 desktop:flex-row">
-        <div className="hidden desktop:block">
-          <div className="shrink-0 desktop:sticky desktop:top-16 desktop:-mt-10 desktop:max-h-[calc(var(--vh)-4rem)] desktop:overflow-y-auto desktop:pt-10">
-            <Link
-              href="/posts"
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                'relative inline-flex text-sm',
-              )}
-            >
-              <ChevronLeft className="mr-2 size-4" />
-              포스트 목록으로 돌아가기
-            </Link>
-          </div>
-        </div>
-        <div className="space-y-6 desktop:mt-1 desktop:flex-1">
-          <header className="space-y-4 border-b pb-4 text-left desktop:space-y-6 desktop:pb-6">
-            <BreadcrumbContainer
-              itemsInput={[{ url: '/posts', label: '포스트' }]}
-            />
-            <p className="text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl">
-              {formatDate(post.date)}
-            </p>
-            <h1 className="text-2xl font-bold tablet:text-3xl desktop:text-4xl">
-              {post.title}
-            </h1>
-            {post.description && (
-              <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
-                {post.description}
-              </p>
-            )}
-            <div className="flex items-center justify-between">
-              <Tag tagInput={post.tags} />
-              <p
-                id="views"
-                className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl"
-              >
-                <EyeIcon className="size-6" />
-                {1234}
-              </p>
-            </div>
-          </header>
-          <div className="block border-b pb-6 text-sm desktop:hidden">
-            <DashboardTableOfContents toc={toc} />
-          </div>
-          <Image
-            src={post.thumbnail}
-            alt="thumbnail"
-            width={1920}
-            height={1080}
-            priority
-          />
-          <Mdx code={post.body.code} />
-          <div className="flex w-full items-center justify-center border-t pt-8 desktop:hidden">
-            <Link
-              href="/posts"
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                'relative inline-flex text-sm',
-              )}
-            >
-              <ChevronLeft className="mr-2 size-4" />
-              포스트 목록으로 돌아가기
-            </Link>
-          </div>
-        </div>
-        <div className="hidden text-sm desktop:block">
-          <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] min-w-48 shrink-0 overflow-y-auto pt-10">
-            <DashboardTableOfContents toc={toc} />
-          </div>
-        </div>
-      </div>
-    );
-
-  const views = (await redis.get<number>(
-    ['pageviews', 'projects', 'posts', params.slug].join(':'),
-  )) ?? 0;
+  const views = await getViewCount(params.slug);
 
   return (
     <div className="container flex flex-col tablet:gap-x-16 desktop:flex-row">
-      <div className="hidden desktop:block">
+      <aside className="hidden desktop:block">
         <div className="shrink-0 desktop:sticky desktop:top-16 desktop:-mt-10 desktop:max-h-[calc(var(--vh)-4rem)] desktop:overflow-y-auto desktop:pt-10">
           <Link
             href="/posts"
@@ -190,8 +122,8 @@ export default async function PostPage({ params }) {
             포스트 목록으로 돌아가기
           </Link>
         </div>
-      </div>
-      <div className="space-y-6 desktop:mt-1 desktop:flex-1">
+      </aside>
+      <main className="space-y-6 desktop:mt-1 desktop:flex-1">
         <header className="space-y-4 border-b pb-4 text-left desktop:space-y-6 desktop:pb-6">
           <BreadcrumbContainer
             itemsInput={[{ url: '/posts', label: '포스트' }]}
@@ -199,9 +131,11 @@ export default async function PostPage({ params }) {
           <p className="text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl">
             {formatDate(post.date)}
           </p>
-          <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
+          <h1 className="text-2xl font-bold tablet:text-3xl desktop:text-4xl">
+            {post.title}
+          </h1>
           {post.description && (
-            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl desktop:text-2xl">
+            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
               {post.description}
             </p>
           )}
@@ -227,7 +161,7 @@ export default async function PostPage({ params }) {
           priority
         />
         <Mdx code={post.body.code} />
-        <div className="flex w-full items-center justify-center border-t pt-8 desktop:hidden">
+        <footer className="flex w-full items-center justify-center border-t pt-8 desktop:hidden">
           <Link
             href="/posts"
             className={cn(
@@ -238,13 +172,13 @@ export default async function PostPage({ params }) {
             <ChevronLeft className="mr-2 size-4" />
             포스트 목록으로 돌아가기
           </Link>
-        </div>
-      </div>
-      <div className="hidden text-sm desktop:block">
+        </footer>
+      </main>
+      <aside className="hidden text-sm desktop:block">
         <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] min-w-48 shrink-0 overflow-y-auto pt-10">
           <DashboardTableOfContents toc={toc} />
         </div>
-      </div>
+      </aside>
       <ViewReporter
         slug={`posts:${params.slug}`}
         path={`/posts/${params.slug}`}
