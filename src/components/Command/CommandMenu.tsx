@@ -23,6 +23,8 @@ export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
+  const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent);
+
   const posts = allPosts
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
@@ -63,8 +65,8 @@ export function CommandMenu({ ...props }: DialogProps) {
         {...props}
       >
         <span className="inline-flex">검색...</span>
-        <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 tablet:flex">
-          <span className="text-xs">⌘</span>
+        <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 tablet:flex">
+          <span className="text-xs">{isMac ? '⌘' : 'Ctrl + '}</span>
           K
         </kbd>
       </Button>
