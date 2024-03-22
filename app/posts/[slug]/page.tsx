@@ -84,6 +84,81 @@ export default async function PostPage({ params }) {
   if (!post) notFound();
 
   const toc = await getTableOfContents(post.body.raw);
+
+  if (process.env.NODE_ENV === 'development')
+    return (
+      <div className="container flex mobile_only:flex-col tablet:gap-x-16">
+        <div className="hidden tablet:block">
+          <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
+            <Link
+              href="/posts"
+              className={cn(
+                buttonVariants({ variant: 'ghost' }),
+                'relative inline-flex text-sm',
+              )}
+            >
+              <ChevronLeft className="mr-2 size-4" />
+              포스트 목록으로 돌아가기
+            </Link>
+          </div>
+        </div>
+        <div className="space-y-6 tablet:mt-1 tablet:flex-1">
+          <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
+            <BreadcrumbContainer
+              itemsInput={[{ url: '/posts', label: '포스트' }]}
+            />
+            <p className="text-base font-medium text-muted-foreground tablet:text-lg">
+              {formatDate(post.date)}
+            </p>
+            <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
+            {post.description && (
+              <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
+                {post.description}
+              </p>
+            )}
+            <div className="flex items-center justify-between">
+              <Tag tagInput={post.tags} />
+              <p
+                id="views"
+                className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg"
+              >
+                <EyeIcon className="size-6" />
+                {1234}
+              </p>
+            </div>
+          </header>
+          <div className="block border-b pb-6 text-sm tablet:hidden">
+            <DashboardTableOfContents toc={toc} />
+          </div>
+          <Image
+            src={post.thumbnail}
+            alt="thumbnail"
+            width={1920}
+            height={1080}
+            priority
+          />
+          <Mdx code={post.body.code} />
+          <div className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
+            <Link
+              href="/posts"
+              className={cn(
+                buttonVariants({ variant: 'ghost' }),
+                'relative inline-flex text-sm',
+              )}
+            >
+              <ChevronLeft className="mr-2 size-4" />
+              포스트 목록으로 돌아가기
+            </Link>
+          </div>
+        </div>
+        <div className="hidden text-sm tablet:block">
+          <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
+            <DashboardTableOfContents toc={toc} />
+          </div>
+        </div>
+      </div>
+    );
+
   const views = (await redis.get<number>(
     ['pageviews', 'projects', 'posts', params.slug].join(':'),
   )) ?? 0;

@@ -83,6 +83,24 @@ export const revalidate = 60;
 const redis = Redis.fromEnv();
 
 export default async function RootLayout({ children }) {
+  if (process.env.NODE_ENV === 'development')
+    return (
+      <html lang="en" suppressHydrationWarning>
+        <body className="relative h-screen min-h-svh bg-background antialiased">
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <div className="relative flex min-h-svh flex-col">
+              <SiteHeader />
+              <main className="relative flex-1 py-8 tablet:py-12">
+                {children}
+              </main>
+              <SiteFooter totalViews={1234} />
+              <ScrollToTopButton />
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
+    );
+
   const totalViewSlug = 'krrpinfo:total-views';
   const totalViews = (await redis.get<number>(
     ['pageviews', 'projects', totalViewSlug].join(':'),
