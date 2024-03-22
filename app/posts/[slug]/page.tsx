@@ -54,6 +54,7 @@ export async function generateMetadata({ params }, parent) {
       title: post.title,
       description: post.description,
       type: 'article',
+      authors: ['Megiii'],
       url: absoluteUrl(post.slug),
       images: [
         {
