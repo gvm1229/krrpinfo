@@ -97,9 +97,9 @@ export default async function PostPage({ params }) {
 
   if (process.env.NODE_ENV === 'development')
     return (
-      <div className="container flex mobile_only:flex-col tablet:gap-x-16">
-        <div className="hidden tablet:block">
-          <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
+      <div className="container flex flex-col tablet:gap-x-16 desktop:flex-row">
+        <div className="hidden desktop:block">
+          <div className="shrink-0 desktop:sticky desktop:top-16 desktop:-mt-10 desktop:max-h-[calc(var(--vh)-4rem)] desktop:overflow-y-auto desktop:pt-10">
             <Link
               href="/posts"
               className={cn(
@@ -112,15 +112,17 @@ export default async function PostPage({ params }) {
             </Link>
           </div>
         </div>
-        <div className="space-y-6 tablet:mt-1 tablet:flex-1">
-          <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
+        <div className="space-y-6 desktop:mt-1 desktop:flex-1">
+          <header className="space-y-4 border-b pb-4 text-left desktop:space-y-6 desktop:pb-6">
             <BreadcrumbContainer
               itemsInput={[{ url: '/posts', label: '포스트' }]}
             />
-            <p className="text-base font-medium text-muted-foreground tablet:text-lg">
+            <p className="text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl">
               {formatDate(post.date)}
             </p>
-            <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
+            <h1 className="text-2xl font-bold tablet:text-3xl desktop:text-4xl">
+              {post.title}
+            </h1>
             {post.description && (
               <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
                 {post.description}
@@ -130,14 +132,14 @@ export default async function PostPage({ params }) {
               <Tag tagInput={post.tags} />
               <p
                 id="views"
-                className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg"
+                className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl"
               >
                 <EyeIcon className="size-6" />
                 {1234}
               </p>
             </div>
           </header>
-          <div className="block border-b pb-6 text-sm tablet:hidden">
+          <div className="block border-b pb-6 text-sm desktop:hidden">
             <DashboardTableOfContents toc={toc} />
           </div>
           <Image
@@ -148,7 +150,7 @@ export default async function PostPage({ params }) {
             priority
           />
           <Mdx code={post.body.code} />
-          <div className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
+          <div className="flex w-full items-center justify-center border-t pt-8 desktop:hidden">
             <Link
               href="/posts"
               className={cn(
@@ -161,8 +163,8 @@ export default async function PostPage({ params }) {
             </Link>
           </div>
         </div>
-        <div className="hidden text-sm tablet:block">
-          <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
+        <div className="hidden text-sm desktop:block">
+          <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] min-w-48 shrink-0 overflow-y-auto pt-10">
             <DashboardTableOfContents toc={toc} />
           </div>
         </div>
@@ -174,9 +176,9 @@ export default async function PostPage({ params }) {
   )) ?? 0;
 
   return (
-    <div className="container flex mobile_only:flex-col tablet:gap-x-16">
-      <div className="hidden tablet:block">
-        <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
+    <div className="container flex flex-col tablet:gap-x-16 desktop:flex-row">
+      <div className="hidden desktop:block">
+        <div className="shrink-0 desktop:sticky desktop:top-16 desktop:-mt-10 desktop:max-h-[calc(var(--vh)-4rem)] desktop:overflow-y-auto desktop:pt-10">
           <Link
             href="/posts"
             className={cn(
@@ -189,17 +191,17 @@ export default async function PostPage({ params }) {
           </Link>
         </div>
       </div>
-      <div className="space-y-6 tablet:mt-1 tablet:flex-1">
-        <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
+      <div className="space-y-6 desktop:mt-1 desktop:flex-1">
+        <header className="space-y-4 border-b pb-4 text-left desktop:space-y-6 desktop:pb-6">
           <BreadcrumbContainer
             itemsInput={[{ url: '/posts', label: '포스트' }]}
           />
-          <p className="text-base font-medium text-muted-foreground tablet:text-lg">
+          <p className="text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl">
             {formatDate(post.date)}
           </p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
-            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
+            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl desktop:text-2xl">
               {post.description}
             </p>
           )}
@@ -207,14 +209,14 @@ export default async function PostPage({ params }) {
             <Tag tagInput={post.tags} />
             <p
               id="views"
-              className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg"
+              className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl"
             >
               <EyeIcon className="size-6" />
               {views}
             </p>
           </div>
         </header>
-        <div className="block border-b pb-6 text-sm tablet:hidden">
+        <div className="block border-b pb-6 text-sm desktop:hidden">
           <DashboardTableOfContents toc={toc} />
         </div>
         <Image
@@ -225,7 +227,7 @@ export default async function PostPage({ params }) {
           priority
         />
         <Mdx code={post.body.code} />
-        <div className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
+        <div className="flex w-full items-center justify-center border-t pt-8 desktop:hidden">
           <Link
             href="/posts"
             className={cn(
@@ -238,8 +240,8 @@ export default async function PostPage({ params }) {
           </Link>
         </div>
       </div>
-      <div className="hidden text-sm tablet:block">
-        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
+      <div className="hidden text-sm desktop:block">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] min-w-48 shrink-0 overflow-y-auto pt-10">
           <DashboardTableOfContents toc={toc} />
         </div>
       </div>
