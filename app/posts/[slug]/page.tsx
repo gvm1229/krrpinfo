@@ -108,9 +108,9 @@ export default async function PostPage({
   const views = await getViewCount(params.slug);
 
   return (
-    <div className="container flex flex-col tablet:gap-x-16 desktop:flex-row">
-      <aside className="hidden desktop:block">
-        <div className="shrink-0 desktop:sticky desktop:top-16 desktop:-mt-10 desktop:max-h-[calc(var(--vh)-4rem)] desktop:overflow-y-auto desktop:pt-10">
+    <div className="container flex mobile_only:flex-col tablet:gap-x-16">
+      <aside className="hidden tablet:block">
+        <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
           <Link
             href="/posts"
             className={cn(
@@ -123,15 +123,15 @@ export default async function PostPage({
           </Link>
         </div>
       </aside>
-      <main className="space-y-6 desktop:mt-1 desktop:flex-1">
-        <header className="space-y-4 border-b pb-4 text-left desktop:space-y-6 desktop:pb-6">
+      <main className="space-y-6 tablet:mt-1 tablet:flex-1">
+        <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
           <BreadcrumbContainer
             itemsInput={[{ url: '/posts', label: '포스트' }]}
           />
-          <p className="text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl">
+          <p className="text-base font-medium text-muted-foreground tablet:text-lg">
             {formatDate(post.date)}
           </p>
-          <h1 className="text-2xl font-bold tablet:text-3xl desktop:text-4xl">
+          <h1 className="text-2xl font-bold tablet:text-5xl">
             {post.title}
           </h1>
           {post.description && (
@@ -143,14 +143,14 @@ export default async function PostPage({
             <Tag tagInput={post.tags} />
             <p
               id="views"
-              className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg desktop:text-xl"
+              className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg"
             >
               <EyeIcon className="size-6" />
               {views}
             </p>
           </div>
         </header>
-        <div className="block border-b pb-6 text-sm desktop:hidden">
+        <div className="block border-b pb-6 text-sm tablet:hidden">
           <DashboardTableOfContents toc={toc} />
         </div>
         <Image
@@ -161,7 +161,7 @@ export default async function PostPage({
           priority
         />
         <Mdx code={post.body.code} />
-        <footer className="flex w-full items-center justify-center border-t pt-8 desktop:hidden">
+        <footer className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
           <Link
             href="/posts"
             className={cn(
@@ -174,8 +174,8 @@ export default async function PostPage({
           </Link>
         </footer>
       </main>
-      <aside className="hidden text-sm desktop:block">
-        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] min-w-48 shrink-0 overflow-y-auto pt-10">
+      <aside className="hidden text-sm tablet:block">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
           <DashboardTableOfContents toc={toc} />
         </div>
       </aside>
