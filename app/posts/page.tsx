@@ -1,10 +1,19 @@
 import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
+import { siteConfig } from '@/config/site';
 import { allPosts } from 'contentlayer/generated';
 
 export const metadata = {
   title: '포스트 목록',
+  metadataBase: new URL(`${siteConfig.url}/posts`),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ko-KR': '/ko-KR',
+      // 'en-US': '/en-US',
+    },
+  },
 };
 
 export const revalidate = 60;

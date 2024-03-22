@@ -1,7 +1,16 @@
 import RedeemContainer from '@/components/Nexon/RedeemContainer';
+import { siteConfig } from '@/config/site';
 
 export const metadata = {
   title: '쿠폰 리딤',
+  metadataBase: new URL(`${siteConfig.url}/redeem`),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ko-KR': '/ko-KR',
+      // 'en-US': '/en-US',
+    },
+  },
 };
 
 export default async function RedeemRootPage() {

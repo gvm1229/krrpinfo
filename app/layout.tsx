@@ -79,13 +79,13 @@ export const metadata = {
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
   metadataBase: new URL(siteConfig.url),
-  // alternates: {
-  //   canonical: '/',
-  //   languages: {
-  //     'en-US': '/en-US',
-  //     'ko-KR': '/ko-KR',
-  //   },
-  // },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ko-KR': '/ko-KR',
+      // 'en-US': '/en-US',
+    },
+  },
 };
 
 export const viewport = {

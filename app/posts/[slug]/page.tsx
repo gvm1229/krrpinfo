@@ -9,6 +9,7 @@ import { Mdx } from '@/components/Markdown/mdx-components';
 import Tag from '@/components/Tag/Tag';
 import ViewReporter from '@/components/View/ViewReporter';
 import { buttonVariants } from '@/components/ui/button';
+import { siteConfig } from '@/config/site';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
 import { allPosts } from 'contentlayer/generated';
@@ -68,6 +69,14 @@ export async function generateMetadata({ params }, parent) {
       title: post.title,
       description: post.description,
       images: [post.thumbnail],
+    },
+    metadataBase: new URL(`${siteConfig.url}${post.slug}`),
+    alternates: {
+      canonical: '/',
+      languages: {
+        'ko-KR': '/ko-KR',
+        // 'en-US': '/en-US',
+      },
     },
   };
 }
