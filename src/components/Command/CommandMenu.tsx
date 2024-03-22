@@ -1,7 +1,7 @@
 'use client';
 
 import { compareDesc } from 'date-fns';
-import { Circle, File } from 'lucide-react';
+import { Circle, File, Newspaper } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
@@ -121,7 +121,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   runCommand(() => router.push(post.slug as string));
                 }}
               >
-                <File className="mr-2 size-4" />
+                <Newspaper className="mr-2 size-4" />
                 {post.title}
               </CommandItem>
             ))}
