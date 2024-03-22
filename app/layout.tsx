@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/src/styles/globals.css';
 import { headers } from 'next/headers';
+import React from 'react';
 import ScrollToTopButton from '@/components/Button/ScrollToTopButton';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/components/Footer/SiteFooter';
@@ -98,32 +99,12 @@ export const viewport = {
 export const revalidate = 60;
 const redis = Redis.fromEnv();
 
-export default async function RootLayout({ children }) {
-  const userAgent: string = headers().get('user-agent');
-
-  if (process.env.NODE_ENV === 'development')
-    return (
-      <html lang="en" suppressHydrationWarning>
-        <body className="relative h-screen min-h-svh bg-background antialiased">
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-svh flex-col">
-              <SiteHeader userAgent={userAgent} />
-              <main className="relative flex-1 py-8 tablet:py-12">
-                {children}
-              </main>
-              <SiteFooter totalViews={1234} />
-              <ScrollToTopButton />
-            </div>
-          </ThemeProvider>
-        </body>
-      </html>
-    );
-
-  const totalViewSlug = 'krrpinfo:total-views';
-  const totalViews = (await redis.get<number>(
-    ['pageviews', 'projects', totalViewSlug].join(':'),
-  )) ?? 0;
-
+function render(
+  userAgent: string,
+  children: React.ReactNode,
+  totalViewSlug: string = '',
+  totalViews: number = 1234,
+) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="relative h-screen min-h-svh bg-background antialiased">
@@ -143,4 +124,18 @@ export default async function RootLayout({ children }) {
       </body>
     </html>
   );
+}
+
+export default async function RootLayout({ children }) {
+  const userAgent: string = headers().get('user-agent');
+
+  if (process.env.NODE_ENV === 'development')
+    return render(userAgent, children);
+
+  const totalViewSlug = 'krrpinfo:total-views';
+  const totalViews = (await redis.get<number>(
+    ['pageviews', 'projects', totalViewSlug].join(':'),
+  )) ?? 0;
+
+  return render(userAgent, children, totalViewSlug, totalViews);
 }
