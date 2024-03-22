@@ -123,12 +123,9 @@ function TextDataWrapper({
 }: TextDataWrapperProps) {
   return (
     <div
-      className={cn(
-        'relative flex flex-col rounded-lg focus:outline-none',
-        className,
-      )}
+      className={cn('relative rounded-lg focus:outline-none', width, className)}
     >
-      {(toNavigate || hyperlink) ? (
+      {toNavigate || hyperlink ? (
         <NavigateComponent href={toNavigate || hyperlink}>
           <ImageWrapper
             src={thumbnail}
@@ -166,17 +163,17 @@ function TextDataWrapper({
             </p>
           )}
         </div>
-        {(toNavigate || hyperlink) ? (
+        {toNavigate || hyperlink ? (
           <NavigateComponent
             href={toNavigate || hyperlink}
-            className="w-fit truncate text-2xl font-bold text-primary hover:underline"
+            className="truncate text-2xl font-bold text-primary hover:underline"
           >
             {title}
           </NavigateComponent>
         ) : (
           <h1
             id="title"
-            className="w-fit truncate text-2xl font-bold text-primary hover:underline"
+            className="truncate text-2xl font-bold text-primary hover:underline"
           >
             {title}
           </h1>
