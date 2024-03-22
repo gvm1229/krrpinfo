@@ -15,18 +15,26 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { navContents } from '@/config/navBar';
-import { isAppleDevice } from '@/src/util/deviceDetect';
 import { cn } from '@/src/util/utils';
-import type { DialogProps } from '@radix-ui/react-alert-dialog';
 import { allPosts } from 'contentlayer/generated';
 
-export function CommandMenu({ ...props }: DialogProps) {
+interface CommandMenuProps {
+  userAgent: string;
+}
+
+export function CommandMenu({ userAgent }: CommandMenuProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
   const posts = allPosts
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
+  const isAppleDevice = () => {
+    const appleDevices = ['Mac', 'iPhone', 'iPod', 'iPad'];
+    // determines if the userAgent string includes at least one of the Apple devices
+    return appleDevices.some((device: string) => userAgent.includes(device));
+  };
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -61,7 +69,6 @@ export function CommandMenu({ ...props }: DialogProps) {
           'relative h-10 w-full shrink-0 justify-start rounded-[0.5rem] bg-background pr-12 text-sm font-medium text-muted-foreground shadow-none tablet:w-56 desktop:w-64',
         )}
         onClick={() => setOpen(true)}
-        {...props}
       >
         <span className="inline-flex">검색...</span>
         <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 tablet:flex">

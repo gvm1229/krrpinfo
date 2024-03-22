@@ -8,7 +8,13 @@ import { cn } from '@/src/util/utils';
 import { MainNav } from './MainNav';
 import { MobileNav } from './MobileNav';
 
-export function SiteHeader({ className }: { className?: string }) {
+export function SiteHeader({
+  userAgent,
+  className,
+}: {
+  userAgent: string;
+  className?: string;
+}) {
   const [isMobile, setIsMobile] = React.useState(false);
 
   // won't affect performance too much as this will only run once per render, as devices don't really change frequently
@@ -44,7 +50,7 @@ export function SiteHeader({ className }: { className?: string }) {
             {/* mobile view */}
             <MobileNav />
             <div className="w-full flex-1">
-              <CommandMenu />
+              <CommandMenu userAgent={userAgent} />
             </div>
             <ModeToggle />
           </>
@@ -53,7 +59,7 @@ export function SiteHeader({ className }: { className?: string }) {
             {/* tablet & desktop view */}
             <MainNav items={navContents} />
             <div className="flex w-auto flex-none items-center gap-x-2">
-              <CommandMenu />
+              <CommandMenu userAgent={userAgent} />
               <ModeToggle />
             </div>
           </>

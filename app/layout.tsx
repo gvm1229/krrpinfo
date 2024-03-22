@@ -2,6 +2,7 @@ import { Redis } from '@upstash/redis';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/src/styles/globals.css';
+import { headers } from 'next/headers';
 import ScrollToTopButton from '@/components/Button/ScrollToTopButton';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/components/Footer/SiteFooter';
@@ -83,13 +84,15 @@ export const revalidate = 60;
 const redis = Redis.fromEnv();
 
 export default async function RootLayout({ children }) {
+  const userAgent: string = headers().get('user-agent');
+
   if (process.env.NODE_ENV === 'development')
     return (
       <html lang="en" suppressHydrationWarning>
         <body className="relative h-screen min-h-svh bg-background antialiased">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-svh flex-col">
-              <SiteHeader />
+              <SiteHeader userAgent={userAgent} />
               <main className="relative flex-1 py-8 tablet:py-12">
                 {children}
               </main>
@@ -111,7 +114,7 @@ export default async function RootLayout({ children }) {
       <body className="relative h-screen min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader />
+            <SiteHeader userAgent={userAgent} />
             <main className="relative flex-1 py-8 tablet:py-12">
               {children}
             </main>
