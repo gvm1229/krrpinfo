@@ -1,7 +1,5 @@
 import { MessageCircle } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
 import ViewCounter from '@/components//View/ViewCounter';
 import { buttonVariants } from '@/components/ui/button';
 import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
@@ -26,8 +24,10 @@ export function SiteFooter({
             <p className="text-left leading-loose tablet:text-left tablet:text-lg">
               오류 신고 및 문의 :
             </p>
-            <Link
+            <a
               href="https://open.kakao.com/me/Megiii"
+              target="_blank"
+              rel="noreferrer"
               className={cn(
                 buttonVariants(),
                 'flex gap-2 bg-yellow-300 font-bold text-black hover:bg-yellow-200',
@@ -35,7 +35,7 @@ export function SiteFooter({
             >
               <MessageCircle fill="black" className="text-black" />
               카카오톡 오픈프로필 (Megiii)
-            </Link>
+            </a>
           </div>
           {/* qr code & visitor count */}
           <div className="flex flex-col items-start justify-center gap-2 desktop:hidden">
