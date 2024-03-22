@@ -1,5 +1,6 @@
 'use client';
 
+import { compareDesc } from 'date-fns';
 import { Circle, File } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
@@ -16,10 +17,15 @@ import {
 import { navContents } from '@/config/navBar';
 import { cn } from '@/src/util/utils';
 import type { DialogProps } from '@radix-ui/react-alert-dialog';
+import { allPosts } from 'contentlayer/generated';
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
+
+  const posts = allPosts
+    .filter((post) => post.published)
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -67,41 +73,59 @@ export function CommandMenu({ ...props }: DialogProps) {
         <CommandList>
           <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
           <CommandGroup heading="Header Links">
-            {navContents.map((navItem) => (
+            {navContents
+              .filter((navItem) => !navItem.items)
+              .map((navItem) => (
+                <CommandItem
+                  key={navItem.href}
+                  value={navItem.title}
+                  onSelect={() => {
+                    runCommand(() => router.push(navItem.href as string));
+                  }}
+                >
+                  <File className="mr-2 size-4" />
+                  {navItem.title}
+                </CommandItem>
+              ))}
+          </CommandGroup>
+          {navContents
+            .filter((navItem) => navItem.items)
+            .map((navItem) => (
+              <div key={navItem.title}>
+                {navItem?.items?.length && (
+                  <CommandGroup heading={navItem.title}>
+                    {navItem.items.map((navItem) => (
+                      <CommandItem
+                        key={navItem.href}
+                        value={navItem.title}
+                        onSelect={() => {
+                          runCommand(() => router.push(navItem.href as string));
+                        }}
+                      >
+                        <div className="mr-2 flex size-4 items-center justify-center">
+                          <Circle className="size-3" />
+                        </div>
+                        {navItem.title}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                )}
+              </div>
+            ))}
+          <CommandGroup heading="Posts">
+            {posts.map((post) => (
               <CommandItem
-                key={navItem.href}
-                value={navItem.title}
+                key={post.slugAsParams}
+                value={post.title}
                 onSelect={() => {
-                  runCommand(() => router.push(navItem.href as string));
+                  runCommand(() => router.push(post.slug as string));
                 }}
               >
                 <File className="mr-2 size-4" />
-                {navItem.title}
+                {post.title}
               </CommandItem>
             ))}
           </CommandGroup>
-          {navContents.map((navItem) => (
-            <div key={navItem.title}>
-              {navItem?.items?.length && (
-                <CommandGroup heading={navItem.title}>
-                  {navItem.items.map((navItem) => (
-                    <CommandItem
-                      key={navItem.href}
-                      value={navItem.title}
-                      onSelect={() => {
-                        runCommand(() => router.push(navItem.href as string));
-                      }}
-                    >
-                      <div className="mr-2 flex size-4 items-center justify-center">
-                        <Circle className="size-3" />
-                      </div>
-                      {navItem.title}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              )}
-            </div>
-          ))}
         </CommandList>
       </CommandDialog>
     </>
