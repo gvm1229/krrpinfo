@@ -15,6 +15,7 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { navContents } from '@/config/navBar';
+import { deviceDetect } from '@/src/util/deviceDetect';
 import { cn } from '@/src/util/utils';
 import type { DialogProps } from '@radix-ui/react-alert-dialog';
 import { allPosts } from 'contentlayer/generated';
@@ -22,8 +23,6 @@ import { allPosts } from 'contentlayer/generated';
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
-
-  const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent);
 
   const posts = allPosts
     .filter((post) => post.published)
@@ -66,7 +65,9 @@ export function CommandMenu({ ...props }: DialogProps) {
       >
         <span className="inline-flex">검색...</span>
         <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 tablet:flex">
-          <span className="text-xs">{isMac ? '⌘' : 'Ctrl + '}</span>
+          <span suppressHydrationWarning className="text-xs">
+            {deviceDetect() === 'apple' ? '⌘' : 'Ctrl + '}
+          </span>
           K
         </kbd>
       </Button>
