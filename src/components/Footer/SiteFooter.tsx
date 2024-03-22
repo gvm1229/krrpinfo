@@ -30,10 +30,10 @@ export function SiteFooter({
               href="https://open.kakao.com/me/Megiii"
               className={cn(
                 buttonVariants(),
-                'flex gap-3 bg-yellow-300 font-bold hover:bg-yellow-200',
+                'flex gap-3 bg-yellow-300 font-bold text-black hover:bg-yellow-200',
               )}
             >
-              <MessageCircle fill="black" />
+              <MessageCircle fill="black" className="text-black" />
               카카오톡 오픈프로필 (Megiii)
             </Link>
           </div>
