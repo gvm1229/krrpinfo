@@ -2,6 +2,7 @@ import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
+import type { Post } from 'contentlayer/generated';
 import { allPosts } from 'contentlayer/generated';
 
 export const metadata = {
@@ -20,7 +21,7 @@ export const revalidate = 60;
 const redis = Redis.fromEnv();
 
 // Extracted rendering of posts to a reusable function
-function renderPosts(posts, views = {}) {
+function renderPosts(posts: Post[], views = {}) {
   return (
     <div className="container relative flex flex-col items-center gap-y-8">
       {posts.length > 0 ? (
