@@ -24,11 +24,11 @@ export default async function PostRootPage() {
               포스트 목록
             </h1>
             <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 desktop:grid-cols-3">
-              {posts.slice(0, 6).map((post) => (
+              {posts.map((post, index) => (
                 <Blog
                   key={post._id}
                   toNavigate={post.slug}
-                  isImagePriority={false}
+                  isImagePriority={index < 6}
                   views={1234}
                   {...post}
                 />
@@ -67,7 +67,7 @@ export default async function PostRootPage() {
               <Blog
                 key={post._id}
                 toNavigate={post.slug}
-                isImagePriority={index < 3}
+                isImagePriority={index < 6}
                 views={views[post.slugAsParams]}
                 {...post}
               />
