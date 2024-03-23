@@ -55,6 +55,7 @@ export default function CarouselContainerMD({
               <SimpleLinkCardMD
                 key={link.title}
                 thumbnail={link.thumbnail}
+                gridNums={[3, 3, 5]}
                 tags={link.tags}
                 title={link.title}
                 hyperlink={link.hyperlink}

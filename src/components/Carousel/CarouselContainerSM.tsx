@@ -53,6 +53,7 @@ export default function CarouselContainerSM({
               <SimpleLinkCardSM
                 key={link.title}
                 thumbnail={link.thumbnail}
+                gridNums={[3, 3, 3]}
                 tags={link.tags}
                 title={link.title}
                 hyperlink={link.hyperlink}

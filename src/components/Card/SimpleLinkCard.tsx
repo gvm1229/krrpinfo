@@ -1,5 +1,4 @@
 import { Link as LinkIcon } from 'lucide-react';
-import Image from 'next/image';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
 import Tag from '@/components/Tag/Tag';
@@ -8,6 +7,7 @@ import { cn } from '@/src/util/utils';
 
 interface SimpleLinkCardProps {
   thumbnail?: string;
+  gridNums?: number[];
   title: string;
   tags: string[];
   // toNavigate?: string;
@@ -17,6 +17,7 @@ interface SimpleLinkCardProps {
 
 export function SimpleLinkCardMD({
   thumbnail = 'https://res.cloudinary.com/djfgq8qk3/image/upload/v1710490251/storybook/nextjs-720p.png',
+  gridNums,
   title,
   tags,
   // toNavigate,
@@ -37,12 +38,11 @@ export function SimpleLinkCardMD({
           <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
             <LinkIcon className="size-8 text-blue-600" />
           </div>
-          <Image
+          <ResponsiveImage
             src={thumbnail}
             alt="blog-mini-thumbnail"
-            width={1280}
-            height={720}
-            priority
+            gridNums={gridNums}
+            isPriority
           />
         </div>
       </ButtonNewTab>
@@ -65,6 +65,7 @@ export function SimpleLinkCardMD({
 
 export function SimpleLinkCardSM({
   thumbnail = 'https://res.cloudinary.com/djfgq8qk3/image/upload/v1710490251/storybook/nextjs-720p.png',
+  gridNums,
   title,
   tags,
   // toNavigate,
@@ -83,7 +84,7 @@ export function SimpleLinkCardSM({
           <ResponsiveImage
             src={thumbnail}
             alt="blog-mini-thumbnail"
-            gridNums={[3, 3, 3]}
+            gridNums={gridNums}
             objectFit="object-contain"
           />
         </div>
