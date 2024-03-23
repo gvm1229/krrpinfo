@@ -59,7 +59,7 @@ const CountdownKR = ({
   return (
     <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
       <div className="grid size-full grid-rows-7">
-        <div className="row-span-3 self-center">
+        <div className="row-span-3 self-start tablet:self-center">
           <ResponsiveImage
             src={currentSeason.src}
             alt={currentSeason.alt}
@@ -67,7 +67,7 @@ const CountdownKR = ({
             isPriority
           />
         </div>
-        <div className="row-span-4 self-end">
+        <div className="row-span-4 self-center">
           <h1
             className="text-left text-lg font-semibold text-white/90"
           >

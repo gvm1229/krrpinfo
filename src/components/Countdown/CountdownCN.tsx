@@ -55,14 +55,14 @@ const CountdownCN = ({
   return (
     <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tl p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
       <div className="grid size-full grid-rows-7">
-        <div className="row-span-3 self-center">
+        <div className="row-span-3 self-start tablet:self-center">
           <h1
             className="mt-4 flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
           >
             {`중섭 현재: S${currentSeason.seasonNum}`}
           </h1>
         </div>
-        <div className="row-span-4 self-end">
+        <div className="row-span-4 self-center">
           <h1
             className="text-left text-lg font-semibold text-white/90"
           >
