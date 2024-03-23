@@ -1,11 +1,12 @@
 import React from 'react';
-import Countdown from '@/components/Countdown/Countdown';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+import s24Title from '@/public/assets/images/한섭/S24_타이틀_가공.png';
+import CountdownKR from '@/src/components/Countdown/CountdownKR';
 
 export default {
   title: 'Components/Countdown/Countdown',
-  component: Countdown,
+  component: CountdownKR,
   argTypes: {
     // Define default argTypes here
   },
@@ -24,7 +25,7 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <Countdown {...args} />
+      <CountdownKR {...args} />
     </div>
   </ThemeProvider>
 );
@@ -32,6 +33,7 @@ const Template = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   // Define default props here
-  size: 'size-72',
+  size: 'size-44',
+  src: s24Title,
   targetDateStr: '4/17/2024',
 };

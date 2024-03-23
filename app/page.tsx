@@ -1,10 +1,11 @@
 import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
-import Countdown from '@/components/Countdown/Countdown';
 import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
 import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
+import CountdownCN from '@/src/components/Countdown/CountdownCN';
+import CountdownKR from '@/src/components/Countdown/CountdownKR';
 import { cn } from '@/src/util/utils';
 import type { Post } from 'contentlayer/generated';
 import { allPosts } from 'contentlayer/generated';
@@ -16,12 +17,47 @@ const FeaturedBento = ({ className }: { className?: string }) => (
       className,
     )}
   >
-    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-zinc-400 dark:bg-zinc-600">
-      <h1 className="text-center text-xl font-semibold tablet:text-3xl">중국 서버 시즌: 30</h1>
+    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden">
+      <CountdownCN
+        seasons={[
+          {
+            seasonNum: 29,
+            targetEndDate: '3/27/2024',
+            bgFromColor: 'from-cyan-600',
+            bgToColor: 'to-cyan-300',
+          },
+          {
+            seasonNum: 30,
+            targetEndDate: '5/27/2024',
+            bgFromColor: 'from-indigo-600',
+            bgToColor: 'to-indigo-300',
+          },
+        ]}
+      />
     </div>
-    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-zinc-400 dark:bg-zinc-600">
-      <Countdown targetDateStr="4/17/2024" size="w-full" />
+    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden">
+      <CountdownKR
+        seasons={[
+          {
+            seasonNum: 24,
+            src: '/assets/images/한섭/S24_타이틀_가공.png',
+            alt: 'S24타이틀',
+            targetEndDate: '4/17/2024',
+            bgFromColor: 'from-amber-600',
+            bgToColor: 'to-amber-300',
+          },
+          {
+            seasonNum: 25,
+            src: '/assets/images/한섭/S24_타이틀_가공.png',
+            alt: 'S25타이틀',
+            targetEndDate: '6/20/2024',
+            bgFromColor: 'from-purple-600',
+            bgToColor: 'to-purple-300',
+          },
+        ]}
+      />
     </div>
+    {/* <h1 className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden rounded-[1rem] bg-zinc-400 text-center text-xl font-bold dark:bg-zinc-600 tablet:text-3xl">중국 서버 시즌: 30</h1> */}
   </div>
 );
 
