@@ -27,7 +27,7 @@ export function SimpleLinkCardMD({
   return (
     <Card
       className={cn(
-        'block w-fit overflow-hidden rounded-lg shadow-lg dark:shadow-zinc-600',
+        'block w-full overflow-hidden rounded-lg shadow-lg dark:shadow-zinc-600',
         className,
       )}
     >
