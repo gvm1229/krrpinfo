@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ResponsiveImage from '@/components/Image/ResponsiveImage';
+import StaticImage from '@/components/Image/StaticImage';
 import { cn, formatDate } from '@/src/util/utils';
 
 interface BlogFeaturedProps {
@@ -19,9 +19,13 @@ export default function BlogFeatured({
 }: BlogFeaturedProps) {
   return (
     <div className={cn('grid gap-4 rounded-lg bg-popover tablet:grid-cols-2 tablet:gap-8', className)}>
-      <ResponsiveImage
+      <StaticImage
         src={thumbnail}
+        alt="blog-featured-thumbnail"
+        width={1920}
+        height={1080}
         wrapperClassName="rounded-lg w-full h-auto"
+        isPriority
       />
       <div className="laptop:min-w-md flex flex-col justify-center gap-3 tablet_only:max-w-md">
         <p className="text-sm font-medium text-muted-foreground tablet:text-base laptop:text-lg">
