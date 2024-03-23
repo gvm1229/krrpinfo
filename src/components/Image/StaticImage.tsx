@@ -3,10 +3,10 @@ import { cn, calcStdImageWidth, dynamicViewport } from '@/src/util/utils';
 
 interface StaticImageProps {
   src: string;
-  alt?: string;
   width: number;
   height: number;
   targetHeight?: number;
+  alt?: string;
   quality?: number;
   aspectRatio?: string;
   gridNums?: number[];
@@ -17,10 +17,10 @@ interface StaticImageProps {
 
 const StaticImage = ({
   src,
-  alt = 'static-image-sample',
   width = 1546, // 기본 iPad 11 비율
   height = 1080, // 기본 iPad 11 비율
   targetHeight = 1080,
+  alt = 'static-image-sample',
   quality,
   aspectRatio = 'aspect-auto',
   gridNums = [1, 2, 2],
