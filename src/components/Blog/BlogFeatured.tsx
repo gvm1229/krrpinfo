@@ -28,6 +28,8 @@ export default function BlogFeatured({
           {`최근 수정 날짜: ${formatDate(lastEditDate ?? new Date())}`}
         </p>
         <h2 className="text-2xl font-bold tablet:text-3xl laptop:text-4xl">
+          📢
+          {' '}
           {title}
         </h2>
         <p className="text-base font-medium text-muted-foreground tablet:text-lg laptop:text-xl">
