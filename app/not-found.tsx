@@ -24,15 +24,15 @@ export default function NotFound() {
     <>
       <title>{`404 찾을 수 없음 | ${siteConfig.name}`}</title>
       <div className="absolute inset-0 mx-8 flex items-center justify-center">
-        <Card className="flex h-72 w-full flex-col items-center justify-center tablet:h-80 tablet:max-w-xl desktop:h-96 desktop:max-w-3xl">
+        <Card className="flex h-72 w-full flex-col items-center justify-center tablet:h-80 tablet:max-w-xl laptop:h-96 laptop:max-w-3xl">
           <CardHeader className="space-y-2 text-center tablet:space-y-4">
-            <CardTitle className="text-4xl tablet:text-6xl desktop:text-7xl">
+            <CardTitle className="text-4xl tablet:text-6xl laptop:text-7xl">
               404
             </CardTitle>
-            <h1 className="text-2xl font-medium tracking-tight tablet:text-3xl desktop:text-4xl">
+            <h1 className="text-2xl font-medium tracking-tight tablet:text-3xl laptop:text-4xl">
               페이지를 찾을 수 없음
             </h1>
-            <CardDescription className="pt-2 text-base tablet:text-xl desktop:text-2xl">
+            <CardDescription className="pt-2 text-base tablet:text-xl laptop:text-2xl">
               잘못된 주소가 입력되었거나,
               {' '}
               <br className="inline tablet:hidden" />

@@ -74,15 +74,15 @@ const Links = ({ className }: { className?: string }) => {
   return (
     <div
       id="links_wrapper"
-      className={cn('space-y-8 overflow-hidden bg-muted py-8 desktop:space-y-12', className)}
+      className={cn('space-y-8 overflow-hidden bg-muted py-8 laptop:space-y-12', className)}
     >
-      <h1 className="text-center text-3xl font-bold desktop:text-4xl">
+      <h1 className="text-center text-3xl font-bold laptop:text-4xl">
         유용한 링크
       </h1>
       <div className="container tablet:hidden">
         <CarouselContainerSM linksInput={links} />
       </div>
-      <div className="container mobile_only:hidden desktop:mx-auto desktop:max-w-10xl">
+      <div className="container mobile_only:hidden laptop:mx-auto laptop:max-w-10xl">
         <CarouselContainerMD linksInput={links} />
       </div>
     </div>
@@ -96,12 +96,12 @@ function renderPosts(className: string, posts: Post[], views = {}) {
   return (
     <div
       id="posts_wrapper"
-      className={cn('space-y-8 desktop:space-y-12', className)}
+      className={cn('space-y-8 laptop:space-y-12', className)}
     >
-      <h1 className="text-center text-3xl font-bold desktop:text-4xl">
+      <h1 className="text-center text-3xl font-bold laptop:text-4xl">
         최신 포스트 목록
       </h1>
-      <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3">
+      <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 laptop:grid-cols-3">
         {posts.slice(0, 6).map((post) => (
           <Blog
             key={post._id}

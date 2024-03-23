@@ -36,11 +36,11 @@ export const Template = () => (
         <div className="absolute inset-0 flex items-center justify-center">
           <Card className="flex w-full flex-col items-center justify-center">
             <CardHeader className="space-y-2 text-center tablet:space-y-4 tablet:pt-12">
-              <CardTitle className="text-4xl tablet:text-6xl desktop:text-7xl">오류</CardTitle>
-              <h1 className="text-2xl font-medium tracking-tight tablet:text-3xl desktop:text-4xl">
+              <CardTitle className="text-4xl tablet:text-6xl laptop:text-7xl">오류</CardTitle>
+              <h1 className="text-2xl font-medium tracking-tight tablet:text-3xl laptop:text-4xl">
                 무언가가 잘못되었습니다!
               </h1>
-              <CardDescription className="pt-2 text-base tablet:text-xl desktop:text-2xl">
+              <CardDescription className="pt-2 text-base tablet:text-xl laptop:text-2xl">
                 Something went wrong...
               </CardDescription>
             </CardHeader>

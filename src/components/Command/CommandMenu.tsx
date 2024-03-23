@@ -66,7 +66,7 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
       <Button
         variant="outline"
         className={cn(
-          'relative h-10 w-full shrink-0 justify-start rounded-[0.5rem] bg-background pr-12 text-sm font-medium text-muted-foreground shadow-none tablet:w-56 desktop:w-64',
+          'relative h-10 w-full shrink-0 justify-start rounded-[0.5rem] bg-background pr-12 text-sm font-medium text-muted-foreground shadow-none tablet:w-56 laptop:w-64',
         )}
         onClick={() => setOpen(true)}
       >

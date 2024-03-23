@@ -26,10 +26,10 @@ function renderPosts(posts: Post[], views = {}) {
     <div className="container relative flex flex-col items-center gap-y-8">
       {posts.length > 0 ? (
         <>
-          <h1 className="text-3xl font-bold tablet:text-4xl desktop:text-5xl">
+          <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
             포스트 목록
           </h1>
-          <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 desktop:grid-cols-3">
+          <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {posts.map((post, index) => (
               <Blog
                 key={post._id}
@@ -42,7 +42,7 @@ function renderPosts(posts: Post[], views = {}) {
           </div>
         </>
       ) : (
-        <p className="text-center text-2xl font-bold tablet:text-3xl desktop:text-4xl">
+        <p className="text-center text-2xl font-bold tablet:text-3xl laptop:text-4xl">
           작성된 포스트가 없습니다.
         </p>
       )}

@@ -49,7 +49,7 @@ export default function CarouselContainerMD({
         {linksInput.map((link) => (
           <CarouselItem
             key={link.title}
-            className="tablet:basis-1/3 desktop:basis-1/5"
+            className="tablet:basis-1/3 laptop:basis-1/5"
           >
             <div className="p-1">
               <SimpleLinkCardMD

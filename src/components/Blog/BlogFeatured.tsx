@@ -23,17 +23,20 @@ export default function BlogFeatured({
         src={thumbnail}
         wrapperClassName="rounded-lg w-full h-auto"
       />
-      <div className="desktop:min-w-md flex flex-col justify-center gap-3 tablet_only:max-w-md">
-        <p className="font-medium text-muted-foreground">
+      <div className="laptop:min-w-md flex flex-col justify-center gap-3 tablet_only:max-w-md">
+        <p className="text-sm font-medium text-muted-foreground tablet:text-base laptop:text-lg">
           {`최근 수정 날짜: ${formatDate(lastEditDate ?? new Date())}`}
         </p>
-        <h2 className="text-3xl font-bold">
+        <h2 className="text-2xl font-bold tablet:text-3xl laptop:text-4xl">
           {title}
         </h2>
-        <p className="font-medium text-muted-foreground">
+        <p className="text-base font-medium text-muted-foreground tablet:text-lg laptop:text-xl">
           {description}
         </p>
-        <Link className="font-medium text-blue-600 hover:underline dark:text-blue-500" href="#">
+        <Link
+          href="#"
+          className="text-base font-medium text-blue-600 hover:underline hover:underline-offset-4 dark:text-blue-500 tablet:text-lg laptop:text-xl"
+        >
           자세히 알아보기 →
         </Link>
       </div>
