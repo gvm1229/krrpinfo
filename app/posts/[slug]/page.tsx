@@ -115,7 +115,7 @@ export default async function PostPage({
             href="/posts"
             className={cn(
               buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-sm',
+              'relative inline-flex text-base',
             )}
           >
             <ChevronLeft className="mr-2 size-4" />
@@ -166,7 +166,7 @@ export default async function PostPage({
             href="/posts"
             className={cn(
               buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-sm',
+              'relative inline-flex text-base',
             )}
           >
             <ChevronLeft className="mr-2 size-4" />
