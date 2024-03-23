@@ -53,11 +53,11 @@ const CountdownCN = ({
   const remainingDays = calculateRemainingDays(targetDate);
 
   return (
-    <main className={`aspect-square rounded-[1rem] bg-gradient-to-tl p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
+    <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tl p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
       <div className="grid size-full grid-rows-7">
-        <div className="row-span-3">
+        <div className="row-span-3 self-center">
           <h1
-            className="mt-4 flex-wrap text-left text-2xl font-bold text-white"
+            className="mt-4 flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
           >
             {`중섭 현재: S${currentSeason.seasonNum}`}
           </h1>

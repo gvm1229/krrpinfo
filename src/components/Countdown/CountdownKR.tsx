@@ -57,9 +57,9 @@ const CountdownKR = ({
   const remainingDays = calculateRemainingDays(targetDate);
 
   return (
-    <main className={`aspect-square rounded-[1rem] bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
+    <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
       <div className="grid size-full grid-rows-7">
-        <div className="row-span-3">
+        <div className="row-span-3 self-center">
           <ResponsiveImage
             src={currentSeason.src}
             alt={currentSeason.alt}
