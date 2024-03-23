@@ -1,8 +1,8 @@
 import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
-import Clock from '@/components/Countdown/Clock';
 import Countdown from '@/components/Countdown/Countdown';
+import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
 import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
 import { cn } from '@/src/util/utils';
@@ -12,19 +12,15 @@ import { allPosts } from 'contentlayer/generated';
 const FeaturedBento = ({ className }: { className?: string }) => (
   <div
     className={cn(
-      'relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-3 tablet:gap-4',
+      'relative grid grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3',
       className,
     )}
   >
-    <div className="col-span-2 flex size-full items-center justify-center bg-zinc-400 dark:bg-zinc-600 mobile_only:py-6 tablet:h-[400px] desktop:h-[500px]">
-      <h1 className="text-xl font-semibold tablet:text-3xl">Ongoing event</h1>
+    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-zinc-400 dark:bg-zinc-600">
+      <h1 className="text-center text-xl font-semibold tablet:text-3xl">중국 서버 시즌: 30</h1>
     </div>
-    <div className="col-span-1 flex size-full flex-col gap-y-4 tablet:gap-4">
-      <Countdown targetDateStr="4/17/2024" size="w-full shrink-0 h-80" />
-      <Clock
-        bgColor="bg-zinc-400 dark:bg-zinc-600"
-        size="size-full mobile_only:py-6"
-      />
+    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-zinc-400 dark:bg-zinc-600">
+      <Countdown targetDateStr="4/17/2024" size="w-full" />
     </div>
   </div>
 );
@@ -78,15 +74,15 @@ const Links = ({ className }: { className?: string }) => {
   return (
     <div
       id="links_wrapper"
-      className={cn('space-y-8 overflow-hidden desktop:space-y-16', className)}
+      className={cn('space-y-8 overflow-hidden bg-muted py-8 desktop:space-y-12', className)}
     >
-      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">
+      <h1 className="text-center text-3xl font-bold desktop:text-4xl">
         유용한 링크
       </h1>
       <div className="container tablet:hidden">
         <CarouselContainerSM linksInput={links} />
       </div>
-      <div className="tablet_only:container mobile_only:hidden desktop:mx-auto desktop:max-w-10xl">
+      <div className="container mobile_only:hidden desktop:mx-auto desktop:max-w-10xl">
         <CarouselContainerMD linksInput={links} />
       </div>
     </div>
@@ -100,9 +96,9 @@ function renderPosts(className: string, posts: Post[], views = {}) {
   return (
     <div
       id="posts_wrapper"
-      className={cn('space-y-8 desktop:space-y-16', className)}
+      className={cn('space-y-8 desktop:space-y-12', className)}
     >
-      <h1 className="container text-center text-3xl font-bold desktop:text-4xl">
+      <h1 className="text-center text-3xl font-bold desktop:text-4xl">
         최신 포스트 목록
       </h1>
       <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 desktop:grid-cols-3">
@@ -145,7 +141,14 @@ async function Posts({ className }: { className?: string }) {
 
 export default function Home() {
   return (
-    <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
+    <main className="relative h-full space-y-8 tablet:space-y-16">
+      <BlogFeatured
+        lastEditDate="4/17/2024"
+        thumbnail="/assets/images/S28/시즌배너.webp"
+        title="향후 시즌 미리보기"
+        description="중국 서버는 한국 서버에 비해 약 10개월 (5시즌) 이 앞서있습니다. 미래에는 어떤 카트, 캐릭터 등이 등장할지 미리 알아보세요."
+        className="container"
+      />
       <FeaturedBento className="container" />
       <Links />
       <Posts className="container" />
