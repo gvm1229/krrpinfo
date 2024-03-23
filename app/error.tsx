@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { siteConfig } from '@/config/site';
 import { Button } from '@/src/components/ui/button';
 
 export default function Error({
@@ -24,8 +25,9 @@ export default function Error({
   const router = useRouter();
 
   return (
-    <div className="container relative flex-1">
-      <div className="absolute inset-0 flex items-center justify-center">
+    <>
+      <title>{`알 수 없는 오류 | ${siteConfig.name}`}</title>
+      <div className="absolute inset-0 mx-8 flex items-center justify-center">
         <Card className="flex w-full flex-col items-center justify-center">
           <CardHeader className="space-y-2 text-center tablet:space-y-4 tablet:pt-12">
             <CardTitle className="text-4xl tablet:text-6xl desktop:text-7xl">오류</CardTitle>
@@ -60,6 +62,6 @@ export default function Error({
           </CardFooter>
         </Card>
       </div>
-    </div>
+    </>
   );
 }
