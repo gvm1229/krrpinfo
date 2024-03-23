@@ -66,7 +66,7 @@ const CountdownKR = ({
               isPriority
             />
           </div>
-          <div className="row-span-4">
+          <div className="row-span-4 self-end">
             <h1
               className="text-left text-lg font-semibold text-white/90"
             >
