@@ -27,7 +27,7 @@ export function SimpleLinkCardMD({
   return (
     <Card
       className={cn(
-        'block w-full overflow-hidden rounded-lg shadow-lg dark:shadow-zinc-600',
+        'block w-full overflow-hidden rounded-lg shadow dark:shadow-zinc-600',
         className,
       )}
     >
@@ -74,7 +74,7 @@ export function SimpleLinkCardSM({
   return (
     <ButtonNewTab href={hyperlink} className={cn('w-full', className)}>
       {/* mobile only */}
-      <Card className="group flex size-full overflow-hidden rounded-lg shadow-md dark:shadow-zinc-600 dark:hover:bg-zinc-900">
+      <Card className="group flex size-full overflow-hidden rounded-lg shadow dark:shadow-zinc-600 dark:hover:bg-zinc-900">
         <div className="relative w-36">
           <div className="absolute inset-0 z-10 bg-black opacity-0 transition group-hover:opacity-20 dark:bg-white" />
           <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
