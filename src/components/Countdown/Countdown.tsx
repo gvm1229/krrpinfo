@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import S24Title from '@/public/assets/images/한섭/S24_타이틀_가공.png';
+import ResponsiveImage from '@/components/Image/ResponsiveImage';
 
 export const revalidate = 60;
 
@@ -47,21 +46,22 @@ const Countdown = ({
   };
 
   return (
-    <main className={`size-full rounded-lg p-2 ${bgColor} ${size}`}>
-      <div className="flex size-full flex-col items-center justify-center rounded-lg border-2 border-white p-4">
-        <Image
-          src={S24Title}
+    <main className={`size-full rounded-lg p-4 ${bgColor} ${size}`}>
+      <div className="flex size-full flex-col items-center justify-center">
+        <ResponsiveImage
+          src="/assets/images/한섭/S24_타이틀_가공.png"
           alt="S24타이틀"
-          priority
+          gridNums={[2, 3, 3]}
+          isPriority
         />
         <h1
-          className="mt-4 text-center text-2xl font-bold text-indigo-50"
+          className="mt-4 text-center text-lg font-bold text-indigo-50 tablet:text-2xl"
           suppressHydrationWarning
         >
           {formatRemainingDays(remainingDays)}
         </h1>
         <p
-          className="mt-2 text-center text-lg font-semibold text-indigo-50"
+          className="mt-2 text-center text-sm font-semibold text-indigo-50 tablet:text-lg"
           suppressHydrationWarning
         >
           {`(${formatDate(targetDateStr)})`}
