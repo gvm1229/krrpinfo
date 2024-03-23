@@ -43,47 +43,11 @@ const CountdownCN = ({
 
   // Find the current season based on the current date
   const currentDate = new Date();
-  const currentSeason = seasons.find((season) => new Date(season.targetEndDate) >= currentDate);
+  let currentSeason = seasons.find((season) => new Date(season.targetEndDate) >= currentDate);
 
-  if (!currentSeason) {
+  if (!currentSeason)
     // If no current season found, default to the last season
-    const lastSeason = seasons[seasons.length - 1];
-    const lastSeasonTargetDate = new Date(lastSeason.targetEndDate);
-    const remainingDays = calculateRemainingDays(lastSeasonTargetDate);
-
-    return (
-      <main className={`aspect-square rounded-[1rem] bg-gradient-to-tl p-3 ${lastSeason.bgFromColor} ${lastSeason.bgToColor} ${size}`}>
-        <div className="grid size-full grid-rows-7">
-          <div className="row-span-3">
-            <h1
-              className="mt-4 flex-wrap text-left text-2xl font-bold text-white"
-            >
-              {`중섭 현재: S${lastSeason.seasonNum}`}
-            </h1>
-          </div>
-          <div className="row-span-4 self-end">
-            <h1
-              className="text-left text-lg font-semibold text-white/90"
-            >
-              종료까지:
-            </h1>
-            <h1
-              className="-my-1 text-left text-4xl font-extrabold text-white"
-              suppressHydrationWarning
-            >
-              {formatRemainingDays(remainingDays)}
-            </h1>
-            <p
-              className="text-left text-base font-medium text-white/90"
-              suppressHydrationWarning
-            >
-              {`(${formatDate(lastSeason.targetEndDate)})`}
-            </p>
-          </div>
-        </div>
-      </main>
-    );
-  }
+    currentSeason = seasons[seasons.length - 1];
 
   const targetDate = new Date(currentSeason.targetEndDate);
   const remainingDays = calculateRemainingDays(targetDate);
