@@ -1,9 +1,9 @@
 import { Redis } from '@upstash/redis';
 import { ChevronLeft, EyeIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
+import StaticImage from '@/components/Image/StaticImage';
 import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
 import { Mdx } from '@/components/Markdown/mdx-components';
 import Tag from '@/components/Tag/Tag';
@@ -153,12 +153,12 @@ export default async function PostPage({
         <div className="block border-b pb-6 text-sm tablet:hidden">
           <DashboardTableOfContents toc={toc} />
         </div>
-        <Image
+        <StaticImage
           src={post.thumbnail}
           alt="thumbnail"
           width={1920}
           height={1080}
-          priority
+          isPriority
         />
         <Mdx code={post.body.code} />
         <footer className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
