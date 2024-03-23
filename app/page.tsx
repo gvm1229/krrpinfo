@@ -9,7 +9,7 @@ import { cn } from '@/src/util/utils';
 import type { Post } from 'contentlayer/generated';
 import { allPosts } from 'contentlayer/generated';
 
-const Featured = ({ className }: { className?: string }) => (
+const FeaturedBento = ({ className }: { className?: string }) => (
   <div
     className={cn(
       'relative grid size-full grid-cols-1 content-center gap-y-4 tablet:grid-cols-3 tablet:gap-4',
@@ -146,7 +146,7 @@ async function Posts({ className }: { className?: string }) {
 export default function Home() {
   return (
     <main className="relative h-full space-y-8 tablet:space-y-16 desktop:space-y-24">
-      <Featured className="container" />
+      <FeaturedBento className="container" />
       <Links />
       <Posts className="container" />
     </main>
