@@ -28,7 +28,10 @@ export default function CarouselContainerMD({
   linksInput,
 }: CarouselContainerProps) {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true }),
+    Autoplay({
+      delay: 2000,
+      // stopOnInteraction: true,
+    }),
   );
 
   return (
