@@ -13,12 +13,13 @@ import { allPosts } from 'contentlayer/generated';
 const FeaturedBento = ({ className }: { className?: string }) => (
   <div
     className={cn(
-      'relative grid grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3',
+      'relative grid grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-4 tablet:gap-x-8 laptop:flex',
       className,
     )}
   >
-    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden">
+    <div className="col-span-1 row-span-1 flex aspect-square shrink-0 items-center justify-center self-center overflow-hidden tablet:size-56">
       <CountdownCN
+        size="size-full"
         seasons={[
           {
             seasonNum: 29,
@@ -35,8 +36,9 @@ const FeaturedBento = ({ className }: { className?: string }) => (
         ]}
       />
     </div>
-    <div className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden">
+    <div className="col-span-1 row-span-1 flex aspect-square shrink-0 items-center justify-center self-center overflow-hidden tablet:size-56">
       <CountdownKR
+        size="size-full"
         seasons={[
           {
             seasonNum: 24,
@@ -57,7 +59,11 @@ const FeaturedBento = ({ className }: { className?: string }) => (
         ]}
       />
     </div>
-    {/* <h1 className="col-span-1 row-span-1 flex aspect-square items-center justify-center overflow-hidden rounded-[1rem] bg-zinc-400 text-center text-xl font-bold dark:bg-zinc-600 tablet:text-3xl">중국 서버 시즌: 30</h1> */}
+    <div className="col-span-2 row-span-1 flex min-h-44 items-center justify-center overflow-hidden rounded-xl bg-blue-400 bg-gradient-to-t from-blue-600 to-blue-300 dark:bg-blue-600 tablet:order-first tablet:col-span-2 tablet:w-full laptop:col-span-3">
+      <h1 className="text-3xl font-bold text-white">
+        현재 이벤트 하이라이트
+      </h1>
+    </div>
   </div>
 );
 
@@ -178,14 +184,16 @@ async function Posts({ className }: { className?: string }) {
 export default function Home() {
   return (
     <main className="relative h-full space-y-8 tablet:space-y-16">
-      <BlogFeatured
-        lastEditDate="4/17/2024"
-        thumbnail="/assets/images/S28/시즌배너.webp"
-        title="향후 시즌 미리보기"
-        description="중국 서버는 한국 서버에 비해 약 10개월 (5시즌) 이 앞서있습니다. 미래에는 어떤 카트, 캐릭터 등이 등장할지 미리 알아보세요."
-        className="container"
-      />
-      <FeaturedBento className="container" />
+      <div>
+        <BlogFeatured
+          lastEditDate="4/17/2024"
+          thumbnail="/assets/images/S28/시즌배너.webp"
+          title="향후 시즌 미리보기"
+          description="중국 서버는 한국 서버에 비해 약 10개월 (5시즌) 이 앞서있습니다. 미래에는 어떤 카트, 캐릭터 등이 등장할지 미리 알아보세요."
+          className="container"
+        />
+        <FeaturedBento className="container mt-8" />
+      </div>
       <Links />
       <Posts className="container" />
     </main>
