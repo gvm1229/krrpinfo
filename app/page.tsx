@@ -13,23 +13,29 @@ import { allPosts } from 'contentlayer/generated';
 // Define the seasons data outside the component to keep the component clean
 const seasonsData = [
   {
+    // 종료니까 새 시즌 시작일 하루 전 날짜 입력할 것
     key: '중섭 현재 시즌',
     seasons: [
       {
         title: '중섭 현재: S29',
-        targetEndDate: '3/27/2024',
+        description: '블리자드',
+        targetEndDate: '3/26/2024',
+        countdownUntilEnd: true,
         bgFromColor: 'from-cyan-600',
         bgToColor: 'to-cyan-300',
       },
       {
         title: '중섭 현재: S30',
+        description: '붐힐',
         targetEndDate: '5/27/2024',
+        countdownUntilEnd: true,
         bgFromColor: 'from-indigo-600',
         bgToColor: 'to-indigo-300',
       },
     ],
   },
   {
+    // 종료니까 새 시즌 시작일 하루 전 날짜 입력할 것
     key: '한섭 현재 시즌',
     seasons: [
       {
@@ -37,83 +43,102 @@ const seasonsData = [
         src: '/assets/images/한섭/S24_타이틀_가공.png',
         alt: 'S24타이틀',
         targetEndDate: '4/17/2024',
+        countdownUntilEnd: true,
         bgFromColor: 'from-amber-600',
         bgToColor: 'to-amber-300',
       },
       {
         seasonNum: 25,
-        src: '/assets/images/한섭/S24_타이틀_가공.png',
-        alt: 'S25타이틀',
+        // alt: 'S25타이틀',
+        title: 'S25',
+        description: '노르테유2',
         targetEndDate: '6/20/2024',
+        countdownUntilEnd: true,
         bgFromColor: 'from-purple-600',
         bgToColor: 'to-purple-300',
       },
     ],
   },
   {
-    key: '다음 행운의 별자리 플라잉펫',
-    seasons: [
-      {
-        title: '플라잉 선인장',
-        description: '플라잉 선인장',
-        targetEndDate: '3/28/2024',
-        bgFromColor: 'from-pink-600',
-        bgToColor: 'to-pink-300',
-      },
-      {
-        title: '한섭 독자운영',
-        description: '한섭 독자운영',
-        targetEndDate: '5/31/2024',
-        bgFromColor: 'from-pink-600',
-        bgToColor: 'to-pink-300',
-      },
-    ],
-  },
-  {
+    // 출시니까 정확한 출시일 입력할 것
     key: '다음 행운의 별자리 카트',
     seasons: [
       {
         title: '로봇 팬더',
         description: '로봇 팬더',
         targetEndDate: '2/22/2024',
+        countdownUntilEnd: false,
         bgFromColor: 'from-zinc-600',
         bgToColor: 'to-zinc-300',
       },
       {
+        src: '/assets/images/S25/행운의별자리아이템카트.png',
         title: '홍련',
         description: '홍련',
         targetEndDate: '4/17/2024',
+        countdownUntilEnd: false,
         bgFromColor: 'from-red-600',
         bgToColor: 'to-red-300',
       },
     ],
   },
   {
-    key: '다음 골드 기어 뒤집기',
+    // 출시니까 정확한 출시일 입력할 것
+    key: '다음 골드 기어 뒤집기 카트',
     seasons: [
       {
         title: '호루스',
         description: '호루스',
         targetEndDate: '3/22/2024',
+        countdownUntilEnd: false,
         bgFromColor: 'from-yellow-600',
         bgToColor: 'to-yellow-300',
       },
       {
-        title: '골기아템카트??',
-        description: '골기아템카트??',
+        src: '/assets/images/S25/골드기어아이템카트.png',
+        title: '노르테유 탐사선',
+        description: '노르테유 탐사선',
         targetEndDate: '5/25/2024',
+        countdownUntilEnd: false,
         bgFromColor: 'from-yellow-600',
         bgToColor: 'to-yellow-300',
       },
     ],
   },
   {
+    // 출시니까 정확한 출시일 입력할 것
+    key: '다음 행운의 별자리 플라잉펫',
+    seasons: [
+      {
+        src: '/assets/images/한섭/플라잉선인장.png',
+        title: '플라잉 선인장',
+        description: '플라잉 선인장',
+        targetEndDate: '3/29/2024',
+        countdownUntilEnd: false,
+        bgFromColor: 'from-pink-600',
+        bgToColor: 'to-pink-300',
+      },
+      {
+        src: '/assets/images/한섭/펑키버드반전.png',
+        title: '한섭 독자운영.. 미상',
+        description: '한섭 독자운영.. 미상',
+        targetEndDate: '5/31/2024',
+        countdownUntilEnd: false,
+        bgFromColor: 'from-zinc-600',
+        bgToColor: 'to-zinc-300',
+      },
+    ],
+  },
+  {
+    // 출시니까 정확한 출시일 입력할 것
     key: '다음 행운의 별자리 의상',
     seasons: [
       {
+        src: '/assets/images/한섭/데저트로얄세트.png',
         title: '데저트 로얄 세트',
         description: '데저트 로얄 세트',
-        targetEndDate: '4/10/2024',
+        targetEndDate: '4/12/2024',
+        countdownUntilEnd: false,
         bgFromColor: 'from-emerald-600',
         bgToColor: 'to-emerald-300',
       },
@@ -121,6 +146,7 @@ const seasonsData = [
         title: '로얄 나이트 세트?',
         description: '로얄 나이트 세트?',
         targetEndDate: '9/1/2024',
+        countdownUntilEnd: false,
         bgFromColor: 'from-emerald-600',
         bgToColor: 'to-emerald-300',
       },
