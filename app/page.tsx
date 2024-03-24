@@ -132,7 +132,7 @@ const FeaturedBento = ({ className }) => (
   <div className={cn('relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6', className)}>
     {seasonsData.map((season) => (
       <div key={season.key} className="relative col-span-1 row-span-1 flex h-full flex-1 flex-col items-center self-center">
-        <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs tablet:text-sm">{season.key}</Badge>
+        <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs text-white tablet:text-sm">{season.key}</Badge>
         <Countdown
           className="relative aspect-auto size-full flex-1"
           {...season}
