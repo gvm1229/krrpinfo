@@ -72,7 +72,7 @@ const Countdown = ({
             <h1
               className="mt-4 flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
             >
-              {currentSeason.title || 'NULL TITLE'}
+              {currentSeason.title || currentSeason.alt || 'NULL TITLE'}
             </h1>
           )}
         </div>
