@@ -72,7 +72,7 @@ const seasonsData = [
         bgToColor: 'to-zinc-300',
       },
       {
-        src: '/assets/images/S25/행운의별자리아이템카트.png',
+        src: '/assets/images/S25/행운의별자리아이템카트.webp',
         title: '홍련',
         description: '홍련',
         targetEndDate: '4/17/2024',
@@ -95,7 +95,7 @@ const seasonsData = [
         bgToColor: 'to-yellow-300',
       },
       {
-        src: '/assets/images/S25/골드기어아이템카트.png',
+        src: '/assets/images/S25/골드기어아이템카트.webp',
         title: '노르테유 탐사선',
         description: '노르테유 탐사선',
         targetEndDate: '5/25/2024',
@@ -110,7 +110,7 @@ const seasonsData = [
     key: '다음 행운의 별자리 플라잉펫',
     seasons: [
       {
-        src: '/assets/images/한섭/플라잉선인장.png',
+        src: '/assets/images/한섭/플라잉선인장.webp',
         title: '플라잉 선인장',
         description: '플라잉 선인장',
         targetEndDate: '3/29/2024',
@@ -119,7 +119,7 @@ const seasonsData = [
         bgToColor: 'to-pink-300',
       },
       {
-        src: '/assets/images/한섭/펑키버드반전.png',
+        src: '/assets/images/한섭/펑키버드반전.webp',
         title: '한섭 독자운영.. 미상',
         description: '한섭 독자운영.. 미상',
         targetEndDate: '5/31/2024',
