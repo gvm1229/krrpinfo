@@ -69,7 +69,6 @@ const Countdown = ({
               alt={currentSeason.alt}
               gridNums={[2, 3, 3]}
               isPriority
-              wrapperClassName="tablet:px-4"
             />
           ) : (
             <div className="mt-4">

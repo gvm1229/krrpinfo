@@ -24,7 +24,9 @@ export default function BlogFeatured({
         alt="blog-featured-thumbnail"
         width={1920}
         height={1080}
-        wrapperClassName="rounded-lg w-full h-auto"
+        // gridNums={[1, 2, 3]}
+        wrapperClassName="flex items-center justify-center"
+        imageClassName="rounded-lg w-full h-auto"
         isPriority
       />
       <div className="laptop:min-w-md flex flex-col justify-center gap-3 tablet_only:max-w-md">
