@@ -11,6 +11,7 @@ interface StaticImageProps {
   aspectRatio?: string;
   gridNums?: number[];
   isPriority?: boolean;
+  objectFit?: string;
   wrapperClassName?: string;
   imageClassName?: string;
 }
@@ -25,6 +26,7 @@ const StaticImage = ({
   aspectRatio = 'aspect-auto',
   gridNums = [1, 2, 2],
   isPriority = false,
+  objectFit = 'object-cover',
   wrapperClassName,
   imageClassName,
 }: StaticImageProps) => (
@@ -39,7 +41,7 @@ const StaticImage = ({
       height={targetHeight}
       sizes={dynamicViewport(gridNums)}
       priority={isPriority}
-      className={cn('relative', imageClassName)}
+      className={cn(`relative ${objectFit}`, imageClassName)}
     />
   </div>
 );
