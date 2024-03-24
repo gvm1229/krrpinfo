@@ -4,66 +4,141 @@ import Blog from '@/components/Blog/Blog';
 import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
 import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
-import CountdownCN from '@/src/components/Countdown/CountdownCN';
-import CountdownKR from '@/src/components/Countdown/CountdownKR';
+import Countdown from '@/src/components/Countdown/Countdown';
+import { Badge } from '@/src/components/ui/badge';
 import { cn } from '@/src/util/utils';
 import type { Post } from 'contentlayer/generated';
 import { allPosts } from 'contentlayer/generated';
 
-const FeaturedBento = ({ className }: { className?: string }) => (
-  <div
-    className={cn(
-      'relative grid grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-4 tablet:gap-x-8 laptop:flex',
-      className,
-    )}
-  >
-    <div className="col-span-1 row-span-1 flex aspect-square shrink-0 items-center justify-center self-center overflow-hidden tablet:size-56">
-      <CountdownCN
-        size="size-full"
-        seasons={[
-          {
-            seasonNum: 29,
-            targetEndDate: '3/27/2024',
-            bgFromColor: 'from-cyan-600',
-            bgToColor: 'to-cyan-300',
-          },
-          {
-            seasonNum: 30,
-            targetEndDate: '5/27/2024',
-            bgFromColor: 'from-indigo-600',
-            bgToColor: 'to-indigo-300',
-          },
-        ]}
-      />
-    </div>
-    <div className="col-span-1 row-span-1 flex aspect-square shrink-0 items-center justify-center self-center overflow-hidden tablet:size-56">
-      <CountdownKR
-        size="size-full"
-        seasons={[
-          {
-            seasonNum: 24,
-            src: '/assets/images/한섭/S24_타이틀_가공.png',
-            alt: 'S24타이틀',
-            targetEndDate: '4/17/2024',
-            bgFromColor: 'from-amber-600',
-            bgToColor: 'to-amber-300',
-          },
-          {
-            seasonNum: 25,
-            src: '/assets/images/한섭/S24_타이틀_가공.png',
-            alt: 'S25타이틀',
-            targetEndDate: '6/20/2024',
-            bgFromColor: 'from-purple-600',
-            bgToColor: 'to-purple-300',
-          },
-        ]}
-      />
-    </div>
-    <div className="col-span-2 row-span-1 flex min-h-44 items-center justify-center overflow-hidden rounded-xl bg-blue-400 bg-gradient-to-t from-blue-600 to-blue-300 dark:bg-blue-600 tablet:order-first tablet:col-span-2 tablet:w-full laptop:col-span-3">
-      <h1 className="text-3xl font-bold text-white">
-        현재 이벤트 하이라이트
-      </h1>
-    </div>
+// Define the seasons data outside the component to keep the component clean
+const seasonsData = [
+  {
+    key: '중섭 현재 시즌',
+    seasons: [
+      {
+        title: '중섭 현재: S29',
+        targetEndDate: '3/27/2024',
+        bgFromColor: 'from-cyan-600',
+        bgToColor: 'to-cyan-300',
+      },
+      {
+        title: '중섭 현재: S30',
+        targetEndDate: '5/27/2024',
+        bgFromColor: 'from-indigo-600',
+        bgToColor: 'to-indigo-300',
+      },
+    ],
+  },
+  {
+    key: '한섭 현재 시즌',
+    seasons: [
+      {
+        seasonNum: 24,
+        src: '/assets/images/한섭/S24_타이틀_가공.png',
+        alt: 'S24타이틀',
+        targetEndDate: '4/17/2024',
+        bgFromColor: 'from-amber-600',
+        bgToColor: 'to-amber-300',
+      },
+      {
+        seasonNum: 25,
+        src: '/assets/images/한섭/S24_타이틀_가공.png',
+        alt: 'S25타이틀',
+        targetEndDate: '6/20/2024',
+        bgFromColor: 'from-purple-600',
+        bgToColor: 'to-purple-300',
+      },
+    ],
+  },
+  {
+    key: '다음 행운의 별자리 플라잉펫',
+    seasons: [
+      {
+        title: '플라잉 선인장',
+        description: '플라잉 선인장',
+        targetEndDate: '3/28/2024',
+        bgFromColor: 'from-pink-600',
+        bgToColor: 'to-pink-300',
+      },
+      {
+        title: '한섭 독자운영',
+        description: '한섭 독자운영',
+        targetEndDate: '5/31/2024',
+        bgFromColor: 'from-pink-600',
+        bgToColor: 'to-pink-300',
+      },
+    ],
+  },
+  {
+    key: '다음 행운의 별자리 카트',
+    seasons: [
+      {
+        title: '로봇 팬더',
+        description: '로봇 팬더',
+        targetEndDate: '2/22/2024',
+        bgFromColor: 'from-zinc-600',
+        bgToColor: 'to-zinc-300',
+      },
+      {
+        title: '홍련',
+        description: '홍련',
+        targetEndDate: '4/17/2024',
+        bgFromColor: 'from-red-600',
+        bgToColor: 'to-red-300',
+      },
+    ],
+  },
+  {
+    key: '다음 골드 기어 뒤집기',
+    seasons: [
+      {
+        title: '호루스',
+        description: '호루스',
+        targetEndDate: '3/22/2024',
+        bgFromColor: 'from-yellow-600',
+        bgToColor: 'to-yellow-300',
+      },
+      {
+        title: '골기아템카트??',
+        description: '골기아템카트??',
+        targetEndDate: '5/25/2024',
+        bgFromColor: 'from-yellow-600',
+        bgToColor: 'to-yellow-300',
+      },
+    ],
+  },
+  {
+    key: '다음 행운의 별자리 의상',
+    seasons: [
+      {
+        title: '데저트 로얄 세트',
+        description: '데저트 로얄 세트',
+        targetEndDate: '4/10/2024',
+        bgFromColor: 'from-emerald-600',
+        bgToColor: 'to-emerald-300',
+      },
+      {
+        title: '로얄 나이트 세트?',
+        description: '로얄 나이트 세트?',
+        targetEndDate: '9/1/2024',
+        bgFromColor: 'from-emerald-600',
+        bgToColor: 'to-emerald-300',
+      },
+    ],
+  },
+];
+
+const FeaturedBento = ({ className }) => (
+  <div className={cn('relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6', className)}>
+    {seasonsData.map((season) => (
+      <div key={season.key} className="relative col-span-1 row-span-1 flex h-full flex-1 flex-col items-center self-center">
+        <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs tablet:text-sm">{season.key}</Badge>
+        <Countdown
+          className="relative aspect-auto size-full flex-1"
+          {...season}
+        />
+      </div>
+    ))}
   </div>
 );
 
