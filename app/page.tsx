@@ -135,7 +135,7 @@ const FeaturedBento = ({ className }) => (
         <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs text-white tablet:text-sm">{season.key}</Badge>
         <Countdown
           className="relative aspect-auto size-full flex-1"
-          {...season}
+          seasons={season.seasons}
         />
       </div>
     ))}
