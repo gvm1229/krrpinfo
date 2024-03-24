@@ -72,9 +72,15 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
       >
         <span className="inline-flex">검색...</span>
         <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 tablet:flex">
-          <span suppressHydrationWarning className="text-xs">
-            {isAppleDevice() ? '⌘' : 'Ctrl + '}
-          </span>
+          {isAppleDevice() ? (
+            <span suppressHydrationWarning className="text-sm">
+              ⌘
+            </span>
+          ) : (
+            <span suppressHydrationWarning className="text-xs">
+              {'Ctrl + '}
+            </span>
+          )}
           K
         </kbd>
       </Button>
