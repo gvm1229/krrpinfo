@@ -28,3 +28,18 @@ export function calcStdImageWidth(
   // return standardWidth
   return widthInput / (heightInput / standardHeight);
 }
+
+export function dynamicViewport(gridNums: number[]) {
+  // if (mobile=1, tablet=2, desktop=3) return '(max-width: 720px) 100vw, (max-width: 1240px) 50vw, 33vw';
+  // if (mobile=1, tablet=2, desktop=2) return '(max-width: 720px) 100vw, (max-width: 1240px) 50vw, 50vw';
+  // if (mobile=1, tablet=1, desktop=1) return '100vw';
+
+  const baseViewport = 90;
+  const calcViewWidth = (viewport: number) => Math.round(baseViewport / viewport);
+
+  return [
+    `(max-width: 720px) ${calcViewWidth(gridNums[0])}vw`,
+    `(max-width: 1240px) ${calcViewWidth(gridNums[1])}vw`,
+    `${calcViewWidth(gridNums[2])}vw`,
+  ].join(', ');
+}

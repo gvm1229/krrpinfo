@@ -41,7 +41,7 @@ export function SiteHeader({
       <header
         id="header"
         className={cn(
-          'fixed z-40 flex h-20 w-full items-center justify-between gap-x-4 border-b bg-background mobile_only:container tablet_only:container tablet:gap-0 desktop:px-8',
+          'fixed z-40 flex h-20 w-full items-center justify-between gap-x-4 border-b bg-background mobile_only:container tablet_only:container tablet:gap-0 laptop:px-8',
           className,
         )}
       >

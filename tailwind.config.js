@@ -14,7 +14,7 @@ module.exports = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '1534px',
       },
     },
     extend: {
@@ -54,6 +54,7 @@ module.exports = {
         },
       },
       borderRadius: {
+        xl: '1rem',
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
@@ -111,8 +112,10 @@ module.exports = {
       mobile_only: { max: '720px' },
       tablet_only: { min: '721px', max: '1240px' },
       tablet: { min: '721px' },
-      not_desktop: { max: '1240px' },
-      desktop: { min: '1241px' },
+      laptop_only: { min: '1241px', max: '1599px' },
+      laptop: { min: '1241px' },
+      not_desktop: { max: '1599px' },
+      desktop: { min: '1600px' },
       // retina: { min: '1921px' },
     },
   },

@@ -9,46 +9,46 @@ const directoryToWatch = './src/components'; // Change this to the directory whe
 function parseStoryContent(
   componentName,
   componentGroupName,
-  componentExtension,
+  // componentExtension,
 ) {
-  if (componentExtension === '.tsx')
-    return `import React from 'react';
-import ${componentName} from '@/components/${componentGroupName}/${componentName}';
-import { ThemeProvider } from '@/components/DarkMode/theme-provider';
-import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import type { Meta, StoryObj } from '@storybook/react';
+//   if (componentExtension === '.tsx')
+//     return `import React from 'react';
+// import ${componentName} from '@/components/${componentGroupName}/${componentName}';
+// import { ThemeProvider } from '@/components/DarkMode/theme-provider';
+// import { ModeToggle } from '@/components/DarkMode/theme-toggle';
+// import type { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'Components/${componentGroupName}/${componentName}',
-  component: ${componentName},
-  argTypes: {
-    // Define default argTypes here
-  },
-  parameters: {
-    layout: 'fullscreen', // or \`padded\` by default
-  },
-} as Meta<typeof ${componentName}>;
+  // export default {
+  //   title: 'Components/${componentGroupName}/${componentName}',
+  //   component: ${componentName},
+  //   argTypes: {
+  //     // Define default argTypes here
+  //   },
+  //   parameters: {
+  //     layout: 'fullscreen', // or \`padded\` by default
+  //   },
+  // } as Meta<typeof ${componentName}>;
 
-type ${componentName}Props = React.ComponentProps<typeof ${componentName}>;
+  // type ${componentName}Props = React.ComponentProps<typeof ${componentName}>;
 
-export const Default: StoryObj<${componentName}> = (args: ${componentName}Props) => (
-  <ThemeProvider
-    attribute="class"
-    defaultTheme="system"
-    enableSystem
-  >
-    <div className="container relative flex h-screen w-screen items-center justify-center">
-      <div className="absolute right-4 top-4">
-        <ModeToggle />
-      </div>
-      <${componentName} {...args} />
-    </div>
-  </ThemeProvider>
-);
-Default.args = {
-  // Define default props here
-};
-`;
+  // export const Default: StoryObj<${componentName}> = (args: ${componentName}Props) => (
+  //   <ThemeProvider
+  //     attribute="class"
+  //     defaultTheme="system"
+  //     enableSystem
+  //   >
+  //     <div className="container relative flex h-screen w-screen items-center justify-center">
+  //       <div className="absolute right-4 top-4">
+  //         <ModeToggle />
+  //       </div>
+  //       <${componentName} {...args} />
+  //     </div>
+  //   </ThemeProvider>
+  // );
+  // Default.args = {
+  //   // Define default props here
+  // };
+  // `;
 
   return `import React from 'react';
 import ${componentName} from '@/components/${componentGroupName}/${componentName}';
@@ -120,7 +120,8 @@ function generateStories(componentDirectory) {
     const storyDirectoryPath = path.join('./src/stories', componentGroupName);
     const storyFilePath = path.join(
       storyDirectoryPath,
-      `${componentName}.stories${path.extname(componentFile)}`,
+      // `${componentName}.stories${path.extname(componentFile)}`,
+      `${componentName}.stories.jsx`,
     );
 
     // Check if the story directory exists, if not, create it
@@ -135,7 +136,7 @@ function generateStories(componentDirectory) {
         parseStoryContent(
           componentName,
           componentGroupName,
-          path.extname(componentFile),
+          // path.extname(componentFile),
         ),
         'utf-8',
       );

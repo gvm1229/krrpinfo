@@ -28,7 +28,10 @@ export default function CarouselContainerMD({
   linksInput,
 }: CarouselContainerProps) {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true }),
+    Autoplay({
+      delay: 2000,
+      // stopOnInteraction: true,
+    }),
   );
 
   return (
@@ -46,12 +49,13 @@ export default function CarouselContainerMD({
         {linksInput.map((link) => (
           <CarouselItem
             key={link.title}
-            className="tablet:basis-1/3 desktop:basis-1/5"
+            className="tablet:basis-1/3 laptop:basis-1/5"
           >
             <div className="p-1">
               <SimpleLinkCardMD
                 key={link.title}
                 thumbnail={link.thumbnail}
+                gridNums={[3, 3, 5]}
                 tags={link.tags}
                 title={link.title}
                 hyperlink={link.hyperlink}

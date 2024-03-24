@@ -66,15 +66,21 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
       <Button
         variant="outline"
         className={cn(
-          'relative h-10 w-full shrink-0 justify-start rounded-[0.5rem] bg-background pr-12 text-sm font-medium text-muted-foreground shadow-none tablet:w-56 desktop:w-64',
+          'relative h-10 w-full shrink-0 justify-start rounded-[0.5rem] bg-background pr-12 text-sm font-medium text-muted-foreground shadow-none tablet:w-56 laptop:w-64',
         )}
         onClick={() => setOpen(true)}
       >
         <span className="inline-flex">검색...</span>
         <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 tablet:flex">
-          <span suppressHydrationWarning className="text-xs">
-            {isAppleDevice() ? '⌘' : 'Ctrl + '}
-          </span>
+          {isAppleDevice() ? (
+            <span suppressHydrationWarning className="text-sm">
+              ⌘
+            </span>
+          ) : (
+            <span suppressHydrationWarning className="text-xs">
+              {'Ctrl + '}
+            </span>
+          )}
           K
         </kbd>
       </Button>

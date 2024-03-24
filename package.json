@@ -12,13 +12,13 @@
     "url": "https://github.com/gvm1229/krrpinfo"
   },
   "engines": {
-    "node": ">=20.x",
+    "node": ">=18.x",
     "yarn": ">=4.1.1",
     "npm": "yarn only"
   },
   "scripts": {
     "dev": "concurrently \"contentlayer dev\" \"next dev\" \"yarn open-browser\" \"yarn storybook\"",
-    "open-browser": "start http://localhost:3000",
+    "open-browser": "open http://localhost:3000",
     "build": "contentlayer build && next build",
     "analyze": "ANALYZE=true next build",
     "turbo": "next dev --turbo",

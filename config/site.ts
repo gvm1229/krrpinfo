@@ -12,7 +12,7 @@ export const siteConfig: SiteConfig = {
   name: 'KRRP INFO',
   description: 'Next14, KRRP',
   url: 'https://krrpinfo.vercel.app',
-  ogImage: '/public/opengraph-image.webp',
+  ogImage: 'https://krrpinfo.vercel.app/opengraph-image.webp',
   links: {
     github: 'https://github.com/gvm1229/krrpinfo',
   },
