@@ -1,25 +1,27 @@
 'use client';
 
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
+import { cn } from '@/src/util/utils';
 
 export const revalidate = 60;
 
 interface CountdownProps {
-  size?: string;
   seasons: {
     targetEndDate: string;
     seasonNum?: number;
     src?: string;
     alt?: string;
     title?: string;
-    bgFromColor?: string;
-    bgToColor?: string;
+    description?: string;
+    bgFromColor: string;
+    bgToColor: string;
   }[];
+  className?: string;
 }
 
 const Countdown = ({
-  size = 'size-full',
   seasons,
+  className,
 }: CountdownProps) => {
   // Function to calculate the remaining days
   const calculateRemainingDays = (targetDate: Date): number => {
@@ -58,25 +60,35 @@ const Countdown = ({
   const remainingDays = calculateRemainingDays(targetDate);
 
   return (
-    <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
-      <div className="grid size-full grid-rows-7">
-        <div className="row-span-3 self-start tablet:self-center">
+    <main className={cn(`aspect-square shrink-0 rounded-xl bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor}`, className)}>
+      <div className="grid size-full auto-rows-fr">
+        <div className="self-start tablet:self-center">
           {currentSeason.src ? (
             <ResponsiveImage
               src={currentSeason.src}
               alt={currentSeason.alt}
               gridNums={[2, 3, 3]}
               isPriority
+              wrapperClassName="tablet:px-4"
             />
           ) : (
-            <h1
-              className="mt-4 flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
-            >
-              {currentSeason.title || currentSeason.alt || 'NULL TITLE'}
-            </h1>
+            <div className="mt-4">
+              <h1
+                className="flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
+              >
+                {currentSeason.title || currentSeason.alt || 'NULL TITLE'}
+              </h1>
+              {currentSeason.description && (
+                <p
+                  className="text-left text-lg font-semibold text-white/90"
+                >
+                  {currentSeason.description}
+                </p>
+              )}
+            </div>
           )}
         </div>
-        <div className="row-span-4 self-center">
+        <div className="self-center">
           <h1
             className="text-left text-lg font-semibold text-white/90"
           >
