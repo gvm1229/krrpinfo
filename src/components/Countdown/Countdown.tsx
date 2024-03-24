@@ -1,18 +1,23 @@
 'use client';
 
+import ResponsiveImage from '@/components/Image/ResponsiveImage';
+
 export const revalidate = 60;
 
 interface CountdownProps {
   size?: string;
   seasons: {
-    seasonNum: number;
     targetEndDate: string;
+    seasonNum?: number;
+    src?: string;
+    alt?: string;
+    title?: string;
     bgFromColor?: string;
     bgToColor?: string;
   }[];
 }
 
-const CountdownCN = ({
+const Countdown = ({
   size = 'size-full',
   seasons,
 }: CountdownProps) => {
@@ -46,21 +51,30 @@ const CountdownCN = ({
   let currentSeason = seasons.find((season) => new Date(season.targetEndDate) >= currentDate);
 
   if (!currentSeason)
-    // If no current season found, default to the last season
+  // If no current season found, default to the last season
     currentSeason = seasons[seasons.length - 1];
 
   const targetDate = new Date(currentSeason.targetEndDate);
   const remainingDays = calculateRemainingDays(targetDate);
 
   return (
-    <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tl p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
+    <main className={`aspect-square shrink-0 rounded-xl bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor} ${size}`}>
       <div className="grid size-full grid-rows-7">
         <div className="row-span-3 self-start tablet:self-center">
-          <h1
-            className="mt-4 flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
-          >
-            {`중섭 현재: S${currentSeason.seasonNum}`}
-          </h1>
+          {currentSeason.src ? (
+            <ResponsiveImage
+              src={currentSeason.src}
+              alt={currentSeason.alt}
+              gridNums={[2, 3, 3]}
+              isPriority
+            />
+          ) : (
+            <h1
+              className="mt-4 flex-wrap text-left text-2xl font-bold text-white tablet:text-3xl"
+            >
+              {currentSeason.title || 'NULL TITLE'}
+            </h1>
+          )}
         </div>
         <div className="row-span-4 self-center">
           <h1
@@ -86,4 +100,4 @@ const CountdownCN = ({
   );
 };
 
-export default CountdownCN;
+export default Countdown;
