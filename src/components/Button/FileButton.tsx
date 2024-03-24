@@ -47,14 +47,15 @@ const FileButton = ({
 
   return (
     <button
-      name="fileDownloadBtn"
+      id="fileDownloadBtn"
+      aria-label="file-download-button"
       onClick={handleDownload}
       className={`${className} ${width}`}
     >
       <h1 className={`uppercase ${titleAlign} ${titleTextColor} ${titleFontSize} ${titleFontWeight}`}>{title}</h1>
       {isDownloadDecorationExist && (
         <div className="flex items-center gap-3">
-          <h3 className="text-center text-base font-normal text-gray-600">Download</h3>
+          <p className="text-center text-base font-normal text-gray-600">Download</p>
           <Download />
         </div>
       )}
