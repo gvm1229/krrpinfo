@@ -15,21 +15,21 @@ export const navContents: NavItem[] = [
     title: 'Redeem',
     href: '/redeem',
   },
-  {
-    title: 'Karts',
-    href: '/karts',
-    items: [
-      {
-        title: 'Legendary Karts',
-        href: '/karts/legendary',
-        label: 'New',
-      },
-      {
-        title: 'Rare Karts',
-        href: '/karts/rare',
-      },
-    ],
-  },
+  // {
+  //   title: 'Karts',
+  //   href: '/karts',
+  //   items: [
+  //     {
+  //       title: 'Legendary Karts',
+  //       href: '/karts/legendary',
+  //       label: 'New',
+  //     },
+  //     {
+  //       title: 'Rare Karts',
+  //       href: '/karts/rare',
+  //     },
+  //   ],
+  // },
   // {
   //   title: 'Riders',
   //   href: '/riders',
