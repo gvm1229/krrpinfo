@@ -134,7 +134,7 @@ const seasonsData = [
     key: '다음 행운의 별자리 의상',
     seasons: [
       {
-        src: '/assets/images/한섭/데저트로얄세트.png',
+        src: '/assets/images/한섭/데저트로얄세트.webp',
         title: '데저트 로얄 세트',
         description: '데저트 로얄 세트',
         targetEndDate: '4/12/2024',
