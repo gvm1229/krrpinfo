@@ -1,9 +1,9 @@
 'use client';
 
-import { SquareLibrary } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
 
+import StaticImage from '@/components/Image/StaticImage';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/src/util/utils';
 
@@ -24,7 +24,7 @@ export function MainNav({ items, className }: MainNavProps) {
     <div
       id="main-nav"
       className={cn(
-        'hidden items-center gap-6 tablet:flex tablet:gap-10',
+        'hidden items-center gap-6 tablet:flex tablet:gap-8',
         className,
       )}
     >
@@ -33,9 +33,15 @@ export function MainNav({ items, className }: MainNavProps) {
           router.push('/');
           router.refresh();
         }}
-        className="flex items-center space-x-2"
+        className="flex items-center gap-x-4"
       >
-        <SquareLibrary color="cyan" size={28} />
+        <StaticImage
+          src="/krrpLogo-192x192.png"
+          width={40}
+          height={40}
+          targetHeight={40}
+          imageClassName="rounded-lg"
+        />
         <span className="text-2xl font-bold">{siteConfig.name}</span>
       </button>
       {items?.length ? (
