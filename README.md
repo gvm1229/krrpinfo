@@ -10,7 +10,7 @@
 
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.1-gray?labelColor=38B2AC&style=for-the-badge&logo=Tailwind+CSS&logoColor=white&link=https://tailwindcss.com/)](https://tailwindcss.com/)
 
-[![MDX](https://img.shields.io/badge/MDX-3.4.1-gray?labelColor=fcb32c&style=for-the-badge&logo=MDX&logoColor=black&link=https://mdxjs.com/)](https://mdxjs.com/)
+[![MDX](https://img.shields.io/badge/MDX-3.0.0-gray?labelColor=fcb32c&style=for-the-badge&logo=MDX&logoColor=black&link=https://mdxjs.com/)](https://mdxjs.com/)
 
 ## Dev Stack
 
