@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
+import { revalidatePath } from 'next/cache';
 import Blog from '@/components/Blog/Blog';
 import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
@@ -154,19 +155,33 @@ const seasonsData = [
   },
 ];
 
-const FeaturedBento = ({ className }) => (
-  <div className={cn('relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6', className)}>
-    {seasonsData.map((season) => (
-      <div key={season.key} className="relative col-span-1 row-span-1 flex h-full flex-1 flex-col items-center self-center">
-        <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs text-white hover:bg-blue-600 tablet:text-sm">{season.key}</Badge>
-        <Countdown
-          className="relative aspect-auto size-full flex-1"
-          seasons={season.seasons}
-        />
-      </div>
-    ))}
-  </div>
-);
+const FeaturedBento = ({ className }) => {
+  revalidatePath('/');
+
+  return (
+    <div
+      className={cn(
+        'relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6',
+        className,
+      )}
+    >
+      {seasonsData.map((season) => (
+        <div
+          key={season.key}
+          className="relative col-span-1 row-span-1 flex h-full flex-1 flex-col items-center self-center"
+        >
+          <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs text-white hover:bg-blue-600 tablet:text-sm">
+            {season.key}
+          </Badge>
+          <Countdown
+            className="relative aspect-auto size-full flex-1"
+            seasons={season.seasons}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const Links = ({ className }: { className?: string }) => {
   const links = [
@@ -217,7 +232,10 @@ const Links = ({ className }: { className?: string }) => {
   return (
     <div
       id="links_wrapper"
-      className={cn('space-y-8 overflow-hidden bg-muted py-8 laptop:space-y-12', className)}
+      className={cn(
+        'space-y-8 overflow-hidden bg-muted py-8 laptop:space-y-12',
+        className,
+      )}
     >
       <h1 className="text-center text-3xl font-bold laptop:text-4xl">
         유용한 링크

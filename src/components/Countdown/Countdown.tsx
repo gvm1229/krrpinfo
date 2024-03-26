@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-import revalidate from '@/app/actions/revalidate';
+// import { useEffect } from 'react';
+// import revalidate from '@/app/actions/revalidate';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
 import { cn } from '@/src/util/utils';
 
@@ -21,9 +21,9 @@ interface CountdownProps {
 }
 
 const Countdown = ({ seasons, className }: CountdownProps) => {
-  useEffect(() => {
-    revalidate('/');
-  }, []);
+  // useEffect(() => {
+  //   revalidate('/');
+  // }, []);
 
   // Function to calculate the remaining days
   const calculateRemainingDays = (targetDate: Date): number => {
