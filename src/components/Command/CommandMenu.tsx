@@ -88,7 +88,7 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
         <CommandInput placeholder="검색..." />
         <CommandList>
           <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-          <CommandGroup heading="Header Links">
+          <CommandGroup heading="헤더 링크">
             {navContents
               .filter((navItem) => !navItem.items)
               .map((navItem) => (
@@ -128,7 +128,7 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
                 )}
               </div>
             ))}
-          <CommandGroup heading="Posts">
+          <CommandGroup heading="포스트">
             {posts.map((post) => (
               <CommandItem
                 key={post.slugAsParams}

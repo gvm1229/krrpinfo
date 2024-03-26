@@ -2,11 +2,12 @@
 
 'use client';
 
-import { Menu, SquareLibrary } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
+import StaticImage from '@/components/Image/StaticImage';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -40,10 +41,17 @@ export function MobileNav() {
           }}
           className="flex items-center"
         >
-          <SquareLibrary color="cyan" className="mr-2 size-6" />
+          <StaticImage
+            src="/krrpLogo-192x192.png"
+            width={28}
+            height={28}
+            targetHeight={28}
+            wrapperClassName="mr-3"
+            imageClassName="rounded-lg"
+          />
           <span className="text-lg font-bold">{siteConfig.name}</span>
         </button>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-8">
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-10">
           <div className="flex flex-col space-y-2 pt-2">
             {navContents.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3">

@@ -19,14 +19,13 @@ export function formatDate(input: string | number | Date): string {
 export function calcStdImageWidth(
   widthInput: number,
   heightInput: number,
+  targetHeight: number = 1080,
 ): number {
-  const standardHeight = 1080;
-
   // 498 x 375 (before)
   // 1434 x 1080 (after)
 
   // return standardWidth
-  return widthInput / (heightInput / standardHeight);
+  return widthInput / (heightInput / targetHeight);
 }
 
 export function dynamicViewport(gridNums: number[]) {

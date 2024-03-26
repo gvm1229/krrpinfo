@@ -8,11 +8,11 @@ interface NavItem {
 
 export const navContents: NavItem[] = [
   {
-    title: 'Posts',
+    title: '포스트 목록',
     href: '/posts',
   },
   {
-    title: 'Redeem',
+    title: '쿠폰 리딤',
     href: '/redeem',
   },
   // {

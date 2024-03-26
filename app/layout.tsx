@@ -22,6 +22,9 @@ export const metadata = {
     'Kartrider Rush Plus',
     '카트라이더 러쉬플러스',
     '카러플',
+    '정보',
+    '공략',
+    '팁',
   ],
   authors: [
     {
