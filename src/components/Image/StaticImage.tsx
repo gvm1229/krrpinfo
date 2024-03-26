@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { cn, calcStdImageWidth, dynamicViewport } from '@/src/util/utils';
+import { calcStdImageWidth, cn, dynamicViewport } from '@/src/util/utils';
 
 interface StaticImageProps {
   src: string;
@@ -37,7 +37,7 @@ const StaticImage = ({
       src={src}
       alt={alt}
       quality={quality ?? 75}
-      width={calcStdImageWidth(width, height)} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
+      width={calcStdImageWidth(width, height, targetHeight)} // 다른 dimension 입력하면 1080 height 기준으로 맞춤
       height={targetHeight}
       sizes={dynamicViewport(gridNums)}
       priority={isPriority}
