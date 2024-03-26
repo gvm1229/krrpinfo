@@ -65,7 +65,7 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
-    
+
     --radius: 0.5rem;
   }
 }
@@ -77,5 +77,11 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .no-focus {
+    @apply shadow-none outline-none ring-0 ring-offset-0 focus:shadow-none focus:ring-0 focus:ring-offset-0 !important;
   }
 }
