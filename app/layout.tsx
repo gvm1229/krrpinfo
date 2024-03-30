@@ -68,18 +68,21 @@ export const metadata = {
   //   { media: '(prefers-color-scheme: dark)', color: 'black' },
   // ],
   icons: {
-    icon: [
-      {
-        media: '(prefers-color-scheme: light)',
-        url: '/icons/favicon.ico',
-        href: '/icons/favicon.ico',
-      },
-      {
-        media: '(prefers-color-scheme: dark)',
-        url: '/icons/favicon.ico',
-        href: '/icons/favicon.ico',
-      },
-    ],
+    // In case of Dark Mode icon switch
+    // icon: [
+    //   {
+    //     media: '(prefers-color-scheme: light)',
+    //     url: '/icons/favicon.ico',
+    //     href: '/icons/favicon.ico',
+    //   },
+    //   {
+    //     media: '(prefers-color-scheme: dark)',
+    //     url: '/icons/favicon.ico',
+    //     href: '/icons/favicon.ico',
+    //   },
+    // ],
+    icon: '/icons/favicon.ico',
+    apple: '/icons/favicon.ico',
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
   metadataBase: new URL(siteConfig.url),
