@@ -1,7 +1,8 @@
-import { MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import ViewCounter from '@/components//View/ViewCounter';
+import StaticImage from '@/components/Image/StaticImage';
 import { buttonVariants } from '@/components/ui/button';
+import kakaotalkIcon from '@/public/assets/icons/kakaotalk.svg';
 import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
 import { cn } from '@/src/util/utils';
 
@@ -33,7 +34,14 @@ export function SiteFooter({
                 'flex gap-2 bg-yellow-300 font-bold text-black hover:bg-yellow-200',
               )}
             >
-              <MessageCircle fill="black" className="text-black" />
+              {/* <MessageCircle fill="black" className="text-black" /> */}
+              <StaticImage
+                src={kakaotalkIcon}
+                alt="kakaotalkIcon"
+                width={24}
+                height={24}
+                targetHeight={24}
+              />
               카카오톡 오픈프로필 (Megiii)
             </a>
           </div>
