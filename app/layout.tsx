@@ -72,17 +72,17 @@ export const metadata = {
     // icon: [
     //   {
     //     media: '(prefers-color-scheme: light)',
-    //     url: '/icons/favicon.ico',
-    //     href: '/icons/favicon.ico',
+    //     url: '/favicon.ico',
+    //     href: '/favicon.ico',
     //   },
     //   {
     //     media: '(prefers-color-scheme: dark)',
-    //     url: '/icons/favicon.ico',
-    //     href: '/icons/favicon.ico',
+    //     url: '/favicon.ico',
+    //     href: '/favicon.ico',
     //   },
     // ],
-    icon: '/icons/favicon.ico',
-    apple: '/icons/favicon.ico',
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
   metadataBase: new URL(siteConfig.url),
