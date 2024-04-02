@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import ViewCounter from '@/components//View/ViewCounter';
-import StaticImage from '@/components/Image/StaticImage';
+import KakaoTalkIcon from '@/components/Icons/KakaoTalkIcon';
 import { buttonVariants } from '@/components/ui/button';
-import kakaotalkIcon from '@/public/assets/icons/kakaotalk.svg';
 import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
 import { cn } from '@/src/util/utils';
 
@@ -35,13 +34,7 @@ export function SiteFooter({
               )}
             >
               {/* <MessageCircle fill="black" className="text-black" /> */}
-              <StaticImage
-                src={kakaotalkIcon}
-                alt="kakaotalkIcon"
-                width={24}
-                height={24}
-                targetHeight={24}
-              />
+              <KakaoTalkIcon className="size-6 fill-black" />
               카카오톡 오픈프로필 (Megiii)
             </a>
           </div>
