@@ -16,16 +16,18 @@ const ButtonNewTab = ({
   children,
 }: ButtonNewTabProps) => {
   if (href == null || href === '') return (
-    <div
+    <button
+      id="buttonNewTab_null"
       className={className}
       style={containerStyle}
     >
       {children}
-    </div>
+    </button>
   );
 
   if (isNewTab) return (
     <a
+      id="buttonNewTab_default"
       href={href}
       className={className}
       style={containerStyle}
@@ -38,6 +40,7 @@ const ButtonNewTab = ({
 
   return (
     <a
+      id="buttonNewTab_noNewTab"
       href={href}
       className={className}
       style={containerStyle}
