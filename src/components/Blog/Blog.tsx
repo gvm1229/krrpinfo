@@ -218,6 +218,7 @@ function ImageWrapper({
         src={src}
         alt={alt}
         wrapperClassName="rounded-md shadow-md dark:shadow-zinc-600"
+        aspectRatio="aspect-video"
         gridNums={gridNums}
         isPriority={isPriority}
       />
