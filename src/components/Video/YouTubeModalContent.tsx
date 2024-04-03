@@ -5,12 +5,18 @@ import ReactPlayer from 'react-player/youtube';
 import { buttonVariants } from '@/components/ui/button';
 import { cn, convertSecondsToTime } from '@/src/util/utils';
 
+interface YouTubeModalContentProps {
+  videoId: string;
+}
+
 interface TimeStamp {
   title: string;
   seconds: number;
 }
 
-const YouTubeModalContent = () => {
+const YouTubeModalContent = ({
+  videoId,
+}: YouTubeModalContentProps) => {
   const playerRef = React.useRef(null);
   const [currentTime, setCurrentTime] = React.useState(0);
 
@@ -34,7 +40,7 @@ const YouTubeModalContent = () => {
       <div className="aspect-video max-h-[50vh] w-auto">
         <ReactPlayer
           ref={playerRef}
-          url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+          url={`https://www.youtube.com/watch?v=${videoId}"`}
           controls
           light={false} // for thumbnail-only load
           width="100%"

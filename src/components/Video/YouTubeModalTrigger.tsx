@@ -1,6 +1,8 @@
 import { ExternalLink } from 'lucide-react';
+import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+import Blog from '@/components/Blog/Blog';
+import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -13,29 +15,48 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import YouTubeModalContent from './YouTubeModalContent';
 
-export function YouTubeModalTrigger() {
+interface YouTubeModalTriggerProps {
+  videoData: YouTubeVideoItem;
+}
+
+export function YouTubeModalTrigger({
+  videoData,
+}: YouTubeModalTriggerProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Blog
+          thumbnail={videoData.snippet.thumbnails.maxres.url}
+          title={videoData.snippet.title}
+          description="sample description"
+          date={videoData.snippet.publishedAt}
+          tags={[]}
+        />
       </DialogTrigger>
-      <DialogContent className="max-h-[80vh] max-w-[90vw] gap-0 overflow-hidden rounded-md bg-primary-foreground p-0">
+      <DialogContent className="max-h-[80vh] max-w-[90vw] gap-0 overflow-hidden rounded-md bg-primary-foreground p-4">
         <DialogHeader className="justify-start p-4 text-left">
-          <DialogTitle className="text-2xl font-bold tablet:text-3xl">Title</DialogTitle>
+          <DialogTitle className="text-2xl font-bold tablet:text-3xl">
+            {videoData.snippet.title}
+          </DialogTitle>
           <DialogDescription className="text-base font-medium tablet:text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis blandit.
+            sample description
           </DialogDescription>
-          <DialogDescription className="flex items-center gap-2 text-lg font-medium text-primary tablet:text-xl">
-            <YouTubeIcon className="size-7" />
-            Author
-            <ExternalLink
-              size={20}
-              className="text-primary"
-            />
+          <DialogDescription>
+            <ButtonNewTab
+              href={`https://www.youtube.com/channel/${videoData.snippet.channelId}`}
+              className="flex w-fit items-center gap-2 text-lg font-medium text-primary hover:underline tablet:text-xl"
+            >
+              <YouTubeIcon className="size-7" />
+              {videoData.snippet.channelTitle}
+              <ExternalLink
+                size={20}
+                className="text-primary"
+              />
+            </ButtonNewTab>
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="size-full max-h-[60vh] p-4">
-          <YouTubeModalContent />
+          <YouTubeModalContent videoId={videoData.id} />
         </ScrollArea>
         {/* <DialogFooter>
           <Button type="submit">Save changes</Button>
