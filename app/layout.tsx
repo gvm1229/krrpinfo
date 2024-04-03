@@ -93,6 +93,10 @@ export const metadata = {
       // 'en-US': '/en-US',
     },
   },
+  verification: {
+    google: 'C7yAFuoHGn1yFWeweU6z9pwxdHNzwmYUAajFNjBfGNA',
+    naver: 'b41015a8ba8f731e92476553c4fa3dc48ad9f63c',
+  },
 };
 
 export const viewport = {
