@@ -16,6 +16,34 @@ export function formatDate(input: string | number | Date): string {
   return date.toLocaleDateString();
 }
 
+// utility function that converts the seconds into HH:MM:SS format
+export function convertSecondsToTime(seconds: number, truncate: boolean = true) {
+  const roundedSeconds = Math.round(seconds);
+
+  // if 'truncate' is true, then the format should be only M:SS for seconds less than 10 minutes
+  // if 'truncate' is true, then the format should be only MM:SS for seconds less than 1 hour.
+  // if 'truncate' is true, then the format should be only H:MM:SS for seconds greater than 1 hour but less than 10 hours.
+  // if 'truncate' is true, then the format should be only HH:MM:SS for seconds greater than 10 hours.
+  if (truncate) {
+    if (roundedSeconds < 3600) {
+      const minutes = Math.floor(roundedSeconds / 60);
+      const remainingSeconds = roundedSeconds % 60;
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    } if (roundedSeconds < 36000) {
+      const hours = Math.floor(roundedSeconds / 3600);
+      const minutes = Math.floor((roundedSeconds % 3600) / 60);
+      const remainingSeconds = roundedSeconds % 60;
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+  }
+
+  const hours = Math.floor(roundedSeconds / 3600);
+  const minutes = Math.floor((roundedSeconds % 3600) / 60);
+  const remainingSeconds = roundedSeconds % 60;
+  const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  return formattedTime;
+}
+
 export function calcStdImageWidth(
   widthInput: number,
   heightInput: number,
