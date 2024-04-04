@@ -58,7 +58,8 @@ function filteredUrlId(allUrl: string) {
   if (allUrl.indexOf('/watch') > -1) {
     const arr = allUrl.replaceAll(/=|&/g, '?').split('?');
     return arr[arr.indexOf('v') + 1];
-  } if (allUrl.indexOf('/youtu.be') > -1) {
+  }
+  if (allUrl.indexOf('/youtu.be') > -1) {
     const arr = allUrl.replaceAll(/=|&|\//g, '?').split('?');
     return arr[arr.indexOf('youtu.be') + 1];
   }
