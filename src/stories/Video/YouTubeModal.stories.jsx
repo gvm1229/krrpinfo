@@ -25,7 +25,7 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <div className="relative grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
         <YouTubeModalTrigger {...args} />
       </div>
     </div>
