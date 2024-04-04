@@ -1,7 +1,6 @@
+import Link from 'next/link';
 import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
-import { YouTubeModal } from '@/components/Video/YouTubeModal';
 import { siteConfig } from '@/config/site';
-import video1 from '@/content/youtubers/루밍밍/w1Rrw2T7Bz4.json';
 
 export const metadata = {
   title: '추천 유튜버 목록',
@@ -15,11 +14,22 @@ export const metadata = {
   },
 };
 
-export default async function RedeemRootPage() {
+export default async function YouTubersRootPage() {
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
-      <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
-        <YouTubeModal videoData={video1} />
+      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 laptop:grid-cols-3">
+        <Link
+          href="/youtubers/루밍밍"
+          className="flex size-24 items-center justify-center bg-secondary p-4 font-bold"
+        >
+          루밍밍
+        </Link>
+        <button className="flex size-24 items-center justify-center bg-secondary p-4 font-bold">
+          YT2
+        </button>
+        <button className="flex size-24 items-center justify-center bg-secondary p-4 font-bold">
+          YT3
+        </button>
       </div>
       <YouTubeDataInput />
     </main>
