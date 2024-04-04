@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  //   DialogFooter,
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { formatDate } from '@/src/util/utils';
@@ -21,9 +20,7 @@ interface YouTubeModalProps {
   videoData: YouTubeVideoItem;
 }
 
-export function YouTubeModal({
-  videoData,
-}: YouTubeModalProps) {
+export function YouTubeModal({ videoData }: YouTubeModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -38,9 +35,7 @@ export function YouTubeModal({
             className="pointer-events-auto cursor-pointer"
           />
           <div className="group mt-4 space-y-2 text-left">
-            <div
-              className="flex items-center justify-between"
-            >
+            <div className="flex items-center justify-between">
               <p
                 id="date"
                 className="text-sm font-medium text-zinc-600 dark:text-zinc-300"
@@ -80,17 +75,51 @@ export function YouTubeModal({
               <YouTubeIcon className="flex size-7 items-center justify-center" />
               {/* {videoData.snippet.channelTitle} */}
               Sample author
-              <ExternalLink
-                size={20}
-                className="text-primary"
-              />
+              <ExternalLink size={20} className="text-primary" />
             </ButtonNewTab>
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="size-full max-h-[70vh] p-4">
-          <YouTubeModalContent
-            videoId={videoData.id}
-          />
+        <ScrollArea className="size-full max-h-[60vh] p-4">
+          <YouTubeModalContent videoId={videoData.id} />
+        </ScrollArea>
+        <ScrollArea className="size-full max-h-[20vh] p-4">
+          <p className="whitespace-pre-wrap text-lg font-medium">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
+            libero nunc consequat interdum varius sit amet mattis. Praesent
+            semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget magna
+            fermentum iaculis eu. Viverra adipiscing at in tellus integer
+            feugiat scelerisque. Urna duis convallis convallis tellus id
+            interdum velit laoreet. Sed velit dignissim sodales ut. Amet risus
+            nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
+            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut
+            faucibus pulvinar elementum integer enim neque volutpat ac
+            tincidunt.
+            {'\n\n'}
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
+            libero nunc consequat interdum varius sit amet mattis. Praesent
+            semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget magna
+            fermentum iaculis eu. Viverra adipiscing at in tellus integer
+            feugiat scelerisque. Urna duis convallis convallis tellus id
+            interdum velit laoreet. Sed velit dignissim sodales ut. Amet risus
+            nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
+            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut
+            faucibus pulvinar elementum integer enim neque volutpat ac
+            tincidunt.
+            {'\n\n'}
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
+            libero nunc consequat interdum varius sit amet mattis. Praesent
+            semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget magna
+            fermentum iaculis eu. Viverra adipiscing at in tellus integer
+            feugiat scelerisque. Urna duis convallis convallis tellus id
+            interdum velit laoreet. Sed velit dignissim sodales ut. Amet risus
+            nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
+            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut
+            faucibus pulvinar elementum integer enim neque volutpat ac
+            tincidunt.
+          </p>
         </ScrollArea>
         {/* <DialogFooter>
           <Button type="submit">Save changes</Button>
