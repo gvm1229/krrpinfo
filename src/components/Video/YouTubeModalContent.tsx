@@ -16,7 +16,6 @@ interface TimeStamp {
 }
 
 const YouTubeModalContent = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   videoId,
   className,
 }: YouTubeModalContentProps) => {
@@ -113,7 +112,7 @@ const YouTubeModalContent = ({
       <div className="relative aspect-video laptop:h-[50vh]">
         <ReactPlayer
           ref={playerRef}
-          url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+          url={`https://www.youtube.com/watch?v=${videoId}`}
           controls
           light={false} // for thumbnail-only load
           width="100%"
