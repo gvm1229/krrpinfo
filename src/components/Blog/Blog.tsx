@@ -132,7 +132,7 @@ function TextDataWrapper({
             gridNums={gridNums}
             isPriority={isPriority}
             isHyperlink={!!hyperlink}
-            width={width}
+            className={width}
           />
         </NavigateComponent>
       ) : (
@@ -140,7 +140,7 @@ function TextDataWrapper({
           src={thumbnail}
           gridNums={gridNums}
           isPriority={isPriority}
-          width={width}
+          className={width}
         />
       )}
       <div className="group mt-4 space-y-2 text-left">
@@ -195,19 +195,19 @@ interface ImageWrapperProps {
   gridNums: number[];
   isPriority: boolean;
   isHyperlink?: boolean;
-  width: string;
+  className?: string;
 }
 
-function ImageWrapper({
+export function ImageWrapper({
   src,
   alt = 'blog-thumbnail',
   gridNums,
   isPriority,
   isHyperlink,
-  width,
+  className,
 }: ImageWrapperProps) {
   return (
-    <div className={`relative aspect-video rounded-md ${width}`}>
+    <div className={cn('relative aspect-video rounded-md', className)}>
       <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
       {isHyperlink && (
         <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
