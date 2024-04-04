@@ -52,7 +52,7 @@ export async function generateMetadata({ params }, parent) {
       title: post.title,
       description: post.description,
       type: 'article',
-      authors: ['Megiii'],
+      authors: ['Megi'],
       url: absoluteUrl(post.slug),
       images: [
         {
@@ -68,6 +68,7 @@ export async function generateMetadata({ params }, parent) {
       title: post.title,
       description: post.description,
       images: [post.thumbnail],
+      creator: 'Megi',
     },
     metadataBase: new URL(`${siteConfig.url}${post.slug}`),
     alternates: {
@@ -131,9 +132,7 @@ export default async function PostPage({
           <p className="text-base font-medium text-muted-foreground tablet:text-lg">
             {formatDate(post.date)}
           </p>
-          <h1 className="text-2xl font-bold tablet:text-5xl">
-            {post.title}
-          </h1>
+          <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
               {post.description}
