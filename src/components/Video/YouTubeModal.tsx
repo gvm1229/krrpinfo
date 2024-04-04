@@ -17,13 +17,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { formatDate } from '@/src/util/utils';
 import YouTubeModalContent from './YouTubeModalContent';
 
-interface YouTubeModalTriggerProps {
+interface YouTubeModalProps {
   videoData: YouTubeVideoItem;
 }
 
-export function YouTubeModalTrigger({
+export function YouTubeModal({
   videoData,
-}: YouTubeModalTriggerProps) {
+}: YouTubeModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -63,21 +63,23 @@ export function YouTubeModalTrigger({
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="max-h-[80vh] max-w-[90vw] gap-0 overflow-hidden rounded-md bg-primary-foreground p-4">
+      <DialogContent className="max-h-[90vh] max-w-[90vw] gap-0 overflow-hidden rounded-md bg-primary-foreground p-4">
         <DialogHeader className="justify-start p-4 text-left">
           <DialogTitle className="text-2xl font-bold tablet:text-3xl">
-            {videoData.snippet.title}
+            {/* {videoData.snippet.title} */}
+            Sample title
           </DialogTitle>
           <DialogDescription className="text-base font-medium tablet:text-lg">
-            sample description
+            Sample description
           </DialogDescription>
           <DialogDescription>
             <ButtonNewTab
               href={`https://www.youtube.com/channel/${videoData.snippet.channelId}`}
               className="flex w-fit items-center gap-2 text-lg font-medium text-primary hover:underline tablet:text-xl"
             >
-              <YouTubeIcon className="size-7" />
-              {videoData.snippet.channelTitle}
+              <YouTubeIcon className="flex size-7 items-center justify-center" />
+              {/* {videoData.snippet.channelTitle} */}
+              Sample author
               <ExternalLink
                 size={20}
                 className="text-primary"
@@ -85,8 +87,10 @@ export function YouTubeModalTrigger({
             </ButtonNewTab>
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="size-full max-h-[60vh] p-4">
-          <YouTubeModalContent videoId={videoData.id} />
+        <ScrollArea className="size-full max-h-[70vh] p-4">
+          <YouTubeModalContent
+            videoId={videoData.id}
+          />
         </ScrollArea>
         {/* <DialogFooter>
           <Button type="submit">Save changes</Button>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import { YouTubeModalTrigger } from '@/components/Video/YouTubeModalTrigger';
+import { YouTubeModal } from '@/components/Video/YouTubeModal';
 import video1 from '@/content/youtubers/루밍밍/w1Rrw2T7Bz4.json';
 
 export default {
   title: 'Components/Video/YouTubeModal',
-  component: YouTubeModalTrigger,
+  component: YouTubeModal,
   argTypes: {
     // Define default argTypes here
   },
@@ -26,7 +26,7 @@ const Template = (args) => (
         <ModeToggle />
       </div>
       <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
-        <YouTubeModalTrigger {...args} />
+        <YouTubeModal {...args} />
       </div>
     </div>
   </ThemeProvider>
