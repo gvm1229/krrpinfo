@@ -164,11 +164,13 @@ function TextDataWrapper({
           )}
         </div>
         {toNavigate || hyperlink ? (
-          <NavigateComponent
-            href={toNavigate || hyperlink}
-            className="truncate text-2xl font-bold text-primary hover:underline"
-          >
-            {title}
+          <NavigateComponent href={toNavigate || hyperlink}>
+            <h1
+              id="title"
+              className="truncate text-2xl font-bold text-primary hover:underline"
+            >
+              {title}
+            </h1>
           </NavigateComponent>
         ) : (
           <h1
