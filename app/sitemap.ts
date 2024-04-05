@@ -18,13 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://krrpinfo.vercel.app/youtubers',
       lastModified: new Date(),
       changeFrequency: 'daily',
-      priority: 0.5,
+      priority: 0.8,
     },
     {
       url: 'https://krrpinfo.vercel.app/redeem',
       lastModified: new Date(),
       changeFrequency: 'always',
-      priority: 0.2,
+      priority: 0.8,
     },
   ];
 }
