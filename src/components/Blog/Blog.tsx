@@ -185,7 +185,10 @@ function TextDataWrapper({
             {description}
           </p>
         )}
-        <Tag tagInput={tags} />
+        <Tag
+          tagInput={tags}
+          isEllipsisEnabled
+        />
       </div>
     </div>
   );
