@@ -12,19 +12,23 @@ import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
+import type { ResolvingMetadata } from 'next';
 import { allPosts } from 'contentlayer/generated';
 import '@/src/styles/mdx.css';
 
 export const revalidate = 60;
 const redis = Redis.fromEnv();
 
-async function getPostFromParams(params) {
+async function getPostFromParams(params: { slug: string }) {
   const post = allPosts.find((post) => post.slugAsParams === params.slug);
   if (!post) return null;
   return post;
 }
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata,
+) {
   const post = await getPostFromParams(params);
 
   if (!post) return {};
