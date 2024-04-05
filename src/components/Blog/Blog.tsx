@@ -122,9 +122,7 @@ function TextDataWrapper({
   className,
 }: TextDataWrapperProps) {
   return (
-    <div
-      className={cn('relative rounded-lg focus:outline-none', width, className)}
-    >
+    <div className={cn('rounded-lg focus:outline-none', width, className)}>
       {toNavigate || hyperlink ? (
         <NavigateComponent href={toNavigate || hyperlink}>
           <ImageWrapper
@@ -185,10 +183,7 @@ function TextDataWrapper({
             {description}
           </p>
         )}
-        <Tag
-          tagInput={tags}
-          isEllipsisEnabled
-        />
+        <Tag tagInput={tags} isEllipsisEnabled />
       </div>
     </div>
   );

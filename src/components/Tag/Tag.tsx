@@ -1,7 +1,8 @@
 'use client';
 
-import { Ellipsis } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { Ellipsis, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import TooltipWrapper from '@/components/Tooltip/TooltipWrapper';
 import { cn } from '@/src/util/utils';
 
 interface TagProps {
@@ -43,7 +44,7 @@ const Tag = ({
   }, [tagInput]); // Rerun when tagInput changes, you might want to adjust this dependency array based on your needs
 
   return (
-    <div className={cn('relative flex', className)}>
+    <div className={cn('relative flex items-center', className)}>
       <ul
         ref={ulRef}
         className={`flex w-full gap-2 ${isEllipsisEnabled && 'max-w-[90%]'} ${isEllipsisEnabled && isTagsOpen ? 'flex-wrap' : 'overflow-x-hidden'}`}
@@ -63,12 +64,17 @@ const Tag = ({
         ))}
       </ul>
       {isEllipsisEnabled && showEllipsis && (
-        <button
-          className="flex w-full max-w-[10%] shrink-0 items-center justify-end"
-          onClick={() => setIsTagsOpen(!isTagsOpen)}
+        <TooltipWrapper
+          text={isTagsOpen ? '태그 최소화하기' : '태그 더 보기'}
+          triggerClassName="flex size-full max-w-[10%] items-center justify-end"
         >
-          <Ellipsis />
-        </button>
+          <button
+            onClick={() => setIsTagsOpen(!isTagsOpen)}
+            className="aspect-square rounded-full bg-muted p-1"
+          >
+            {isTagsOpen ? <X /> : <Ellipsis />}
+          </button>
+        </TooltipWrapper>
       )}
     </div>
   );
