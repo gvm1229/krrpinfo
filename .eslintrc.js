@@ -122,7 +122,6 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-shadow': 0,
-    '@typescript-eslint/comma-dangle': 'off', // Avoid conflict rule between Eslint and Prettier
     '@typescript-eslint/indent': [
       'error',
       2,
@@ -130,14 +129,6 @@ module.exports = {
         ignoredNodes: ['TSTypeParameterInstantiation'],
       },
     ],
-
-    // --- PRETTIER --- //
-    // 'prettier/prettier': [
-    //   'error',
-    //   {
-    //     singleQuote: true,
-    //   },
-    // ],
 
     // --- CODE FORMAT --- //
     quotes: ['error', 'single'],
