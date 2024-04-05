@@ -27,6 +27,7 @@
     "storybook": "storybook dev --quiet -p 6006",
     "build-storybook": "storybook build --test",
     "generate-stories": "node scripts/generate-stories.js",
+    "build-yt": "node scripts/build-yt-index.js",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "clean": "rm -rf dist && rm -rf .husky/_",
