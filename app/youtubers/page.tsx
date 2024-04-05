@@ -19,7 +19,7 @@ export default async function YouTubersRootPage() {
     <main className="container relative flex h-full flex-col items-center gap-12">
       <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 laptop:grid-cols-3">
         <Link
-          href="/youtubers/루밍밍"
+          href="/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ"
           className="flex size-24 items-center justify-center bg-secondary p-4 font-bold"
         >
           루밍밍

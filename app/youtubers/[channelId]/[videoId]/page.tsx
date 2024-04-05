@@ -2,16 +2,20 @@ import { notFound } from 'next/navigation';
 import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 import { siteConfig } from '@/config/site';
-import { allVideos } from '@/content/youtubers/루밍밍/allVideos';
+import { allVideos } from '@/content/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ';
 import { absoluteUrl } from '@/src/util/utils';
+import type { ResolvingMetadata } from 'next';
 
-async function getVideoFromParams(params) {
-  const video = allVideos.find((video) => video.id === params.id);
+async function getVideoFromParams(params: { videoId: string }) {
+  const video = allVideos.find((video) => video.id === params.videoId);
   if (!video) return null;
   return video;
 }
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata(
+  { params }: { params: { videoId: string } },
+  parent: ResolvingMetadata,
+) {
   const video = await getVideoFromParams(params);
 
   if (!video) return {};
@@ -58,14 +62,14 @@ export async function generateMetadata({ params }, parent) {
 
 export async function generateStaticParams() {
   return allVideos.map((video) => ({
-    id: video.id,
+    videoId: video.id,
   }));
 }
 
 export default async function YouTubeVideoPage({
   params,
 }: {
-  params: { id: string };
+  params: { videoId: string };
 }) {
   const video = await getVideoFromParams(params);
   if (!video) notFound();
@@ -73,7 +77,7 @@ export default async function YouTubeVideoPage({
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
       <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
-        <YouTubeModalContent videoId={params.id} />
+        <YouTubeModalContent videoId={params.videoId} />
       </div>
       <YouTubeDataInput />
     </main>

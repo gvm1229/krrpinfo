@@ -1,11 +1,14 @@
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
-import { allVideos } from '@/content/youtubers/루밍밍/allVideos';
+import { channelTitle, allVideos } from '@/content/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ';
 import { absoluteUrl } from '@/src/util/utils';
+import type { ResolvingMetadata } from 'next';
 
-export async function generateMetadata({ params }, parent) {
-  const channelTitle = params.youtuber;
+export async function generateMetadata(
+  { params }: { params: { channelId: string } },
+  parent: ResolvingMetadata,
+) {
   const mutualTitle = `${channelTitle} | 유튜버`;
 
   return {
@@ -19,7 +22,7 @@ export async function generateMetadata({ params }, parent) {
       },
       {
         name: channelTitle,
-        url: `https://www.youtube.com/channel/${allVideos[0].snippet.channelId}`,
+        url: `https://www.youtube.com/channel/${params.channelId}`,
       },
     ],
     openGraph: {
@@ -50,7 +53,7 @@ export async function generateMetadata({ params }, parent) {
 export default async function YouTuberRootPage({
   params,
 }: {
-  params: { youtuber: string };
+  params: { channelId: string };
 }) {
   const videos = allVideos.sort((a, b) => compareDesc(
     new Date(a.snippet.publishedAt),
@@ -62,13 +65,13 @@ export default async function YouTuberRootPage({
       {videos.length > 0 ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
-            {`${params.youtuber} - 영상 목록`}
+            {`${params.channelId} - 영상 목록`}
           </h1>
           <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {videos.map((video, index) => (
               <Blog
                 key={video.id}
-                toNavigate={`${params.youtuber}/${video.id}`}
+                toNavigate={`${params.channelId}/${video.id}`}
                 thumbnail={video.snippet.thumbnails.maxres.url}
                 isImagePriority={index < 6}
                 title={video.snippet.title}
