@@ -3,7 +3,6 @@
 // Error components must be Client Components
 
 import { Home } from 'lucide-react';
-import { headers } from 'next/headers';
 import { useRouter } from 'next/navigation';
 
 import React from 'react';
@@ -28,14 +27,12 @@ export default function GlobalError({
   error: Error & { digest?: string };
   // reset: () => void
 }) {
-  const userAgent: string = headers().get('user-agent');
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="relative h-screen min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader userAgent={userAgent} />
+            <SiteHeader userAgent="" />
             <main className="relative flex-1 py-8 tablet:py-12">
               <ErrorBody error={error} />
             </main>
