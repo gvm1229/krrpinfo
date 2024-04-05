@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 import { YouTubeModal } from '@/components/Video/YouTubeModal';
-import video1 from '@/content/youtubers/루밍밍/w1Rrw2T7Bz4.json';
+import { allVideos_UC2k5P3gHLWmqDHmyG5iLNfQ as video1 } from '@/content/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ';
 
 export default {
   title: 'Components/Video/YouTubeModal',
@@ -34,5 +34,5 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  videoData: video1,
+  videoData: video1[0],
 };

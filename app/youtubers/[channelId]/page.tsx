@@ -1,14 +1,28 @@
 import { compareDesc } from 'date-fns';
+import { notFound } from 'next/navigation';
+import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
-import { channelTitle, allVideos } from '@/content/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ';
+import { allYoutubers } from '@/content/youtubers';
 import { absoluteUrl } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
+
+async function getChannelFromParams(params: { channelId: string }) {
+  const channel = allYoutubers[params.channelId];
+  if (!channel) return null;
+  return channel;
+}
 
 export async function generateMetadata(
   { params }: { params: { channelId: string } },
   parent: ResolvingMetadata,
 ) {
+  const channel = await getChannelFromParams(params);
+
+  if (!channel) return {};
+
+  const { channelTitle } = channel;
+
   const mutualTitle = `${channelTitle} | 유튜버`;
 
   return {
@@ -55,7 +69,12 @@ export default async function YouTuberRootPage({
 }: {
   params: { channelId: string };
 }) {
-  const videos = allVideos.sort((a, b) => compareDesc(
+  const channel = await getChannelFromParams(params);
+  if (!channel) notFound();
+
+  const { channelId, channelTitle } = channel;
+
+  const videos = allYoutubers[params.channelId].allVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
     new Date(a.snippet.publishedAt),
     new Date(b.snippet.publishedAt),
   ));
@@ -65,17 +84,17 @@ export default async function YouTuberRootPage({
       {videos.length > 0 ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
-            {`${params.channelId} - 영상 목록`}
+            {`${channelTitle} - 영상 목록`}
           </h1>
           <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
-            {videos.map((video, index) => (
+            {videos.map((video: YouTubeVideoItem, index: number) => (
               <Blog
                 key={video.id}
-                toNavigate={`${params.channelId}/${video.id}`}
+                toNavigate={`${channelId}/${video.id}`}
                 thumbnail={video.snippet.thumbnails.maxres.url}
                 isImagePriority={index < 6}
                 title={video.snippet.title}
-                description={video.snippet.channelTitle}
+                description={channelTitle}
                 date={video.snippet.publishedAt}
                 tags={[]}
               />
