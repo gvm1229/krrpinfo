@@ -30,26 +30,63 @@ const fetchChannelInfo = (source) => {
 // Main function to generate index.ts file for each channel directory
 const generateIndexFile = (source) => {
   const directories = getDirectories(source);
+  const allChannels = {};
+
   directories.forEach((dir) => {
     const dirPath = path.join(source, dir);
     const { channelId, channelTitle } = fetchChannelInfo(dirPath);
     const jsonFiles = getJsonFiles(dirPath);
-    const videoImports = jsonFiles.map((file) => {
-      const videoId = path.basename(file, '.json');
-      return `import ${videoId} from './${file}';`;
-    });
+    const allVideos = jsonFiles.map((file) => path.basename(file, '.json'));
+
     const content = `import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
-${videoImports.join('\n')}
+${jsonFiles.map((file) => `import ${path.basename(file, '.json')} from './${file}';`).join('\n')}
 
 const channelId = '${channelId}';
 const channelTitle = '${channelTitle}';
-const allVideos: YouTubeVideoItem[] = [${jsonFiles.map((file) => path.basename(file, '.json')).join(', ')}];
+const allVideos: YouTubeVideoItem[] = [${allVideos.join(', ')}];
 
-export { channelId, channelTitle, allVideos };
+export {
+  channelId as channelId_${channelId},
+  channelTitle as channelTitle_${channelId},
+  allVideos as allVideos_${channelId},
+};
 `;
+
     fs.writeFileSync(path.join(dirPath, 'index.ts'), content);
     console.log(`Generated index.ts file for ${channelTitle} (${dir})`);
+
+    allChannels[channelId] = {
+      channelId: `channelId_${channelId}`,
+      channelTitle: `channelTitle_${channelId}`,
+      allVideos: `allVideos_${channelId}`,
+    };
   });
+
+  // Create index.ts file in the youtubers directory
+  const allChannelsContent = `import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+${Object.keys(allChannels).map((channelId) => `import {
+  channelId_${channelId},
+  channelTitle_${channelId},
+  allVideos_${channelId},
+} from './${channelId}';`).join('\n')}
+
+export type YouTubeChannel = {
+  channelId: string;
+  channelTitle: string;
+  allVideos: YouTubeVideoItem[];
+};
+
+export const allYoutubers: Record<string, YouTubeChannel> = {
+${Object.keys(allChannels).map((channelId) => `  ${channelId}: {
+    channelId: channelId_${channelId},
+    channelTitle: channelTitle_${channelId},
+    allVideos: allVideos_${channelId},
+  },`).join('\n')}
+};
+`;
+
+  fs.writeFileSync(path.join(source, 'index.ts'), allChannelsContent);
+  console.log('Generated index.ts file for all channels');
 };
 
 // Execute the main function
