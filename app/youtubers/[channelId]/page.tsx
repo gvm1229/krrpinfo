@@ -64,6 +64,12 @@ export async function generateMetadata(
   };
 }
 
+export async function generateStaticParams() {
+  return Object.keys(allYoutubers).map((channelId) => ({
+    channelId,
+  }));
+}
+
 export default async function YouTuberRootPage({
   params,
 }: {

@@ -2,18 +2,19 @@ import { notFound } from 'next/navigation';
 import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 import { siteConfig } from '@/config/site';
-import { allVideos } from '@/content/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ';
+import { allYoutubers } from '@/content/youtubers';
 import { absoluteUrl } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
-async function getVideoFromParams(params: { videoId: string }) {
-  const video = allVideos.find((video) => video.id === params.videoId);
+async function getVideoFromParams(params: { channelId: string; videoId: string }) {
+  const channel = allYoutubers[params.channelId];
+  const video = channel.allVideos.find((video) => video.id === params.videoId);
   if (!video) return null;
   return video;
 }
 
 export async function generateMetadata(
-  { params }: { params: { videoId: string } },
+  { params }: { params: { channelId: string; videoId: string } },
   parent: ResolvingMetadata,
 ) {
   const video = await getVideoFromParams(params);
@@ -61,15 +62,16 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return allVideos.map((video) => ({
+  return Object.keys(allYoutubers).map((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
+    channelId,
     videoId: video.id,
-  }));
+  })));
 }
 
 export default async function YouTubeVideoPage({
   params,
 }: {
-  params: { videoId: string };
+  params: { channelId: string; videoId: string };
 }) {
   const video = await getVideoFromParams(params);
   if (!video) notFound();
