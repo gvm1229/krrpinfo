@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 import { siteConfig } from '@/config/site';
 import { allYoutubers } from '@/content/youtubers';
@@ -78,10 +77,7 @@ export default async function YouTubeVideoPage({
 
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
-      <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
-        <YouTubeModalContent videoId={params.videoId} />
-      </div>
-      <YouTubeDataInput />
+      <YouTubeModalContent videoId={params.videoId} />
     </main>
   );
 }
