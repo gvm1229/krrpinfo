@@ -61,7 +61,7 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return Object.keys(allYoutubers).map((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
+  return Object.keys(allYoutubers).flatMap((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
     channelId,
     videoId: video.id,
   })));
