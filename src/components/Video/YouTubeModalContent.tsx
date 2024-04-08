@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn, convertSecondsToTime } from '@/src/util/utils';
@@ -21,9 +21,9 @@ const YouTubeModalContent = ({
 }: YouTubeModalContentProps) => {
   const [isWindow, setIsWindow] = useState<boolean>(false);
 
-  const playerRef = React.useRef(null);
-  const [currentTime, setCurrentTime] = React.useState(0);
-  const [playing, setPlaying] = React.useState(true);
+  const playerRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [playing, setPlaying] = useState(true);
 
   const timestamps: TimeStamp[] = [
     {
@@ -111,7 +111,7 @@ const YouTubeModalContent = ({
   return (
     <main
       className={cn(
-        'relative flex flex-col justify-start gap-8 laptop:flex-row desktop:gap-12',
+        'relative flex min-w-full flex-col justify-start gap-8 laptop:flex-row desktop:gap-12',
         className,
       )}
     >
