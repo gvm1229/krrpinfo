@@ -22,7 +22,7 @@ const fetchChannelInfo = (source) => {
   const firstFile = path.join(source, files[0]);
   const data = JSON.parse(fs.readFileSync(firstFile, 'utf-8'));
   return {
-    channelId: data.snippet.channelId,
+    channelId: data.snippet.channelId.replace(/-/g, '_'), // Replace hyphens with underscores
     channelTitle: data.snippet.channelTitle,
   };
 };

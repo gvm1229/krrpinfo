@@ -23,11 +23,11 @@ export type Snippet = {
   description: string;
   thumbnails: Thumbnails;
   channelTitle: string;
-  tags: string[];
+  tags?: string[];
   categoryId: string;
   liveBroadcastContent: string;
   localized: Localized;
-  defaultAudioLanguage: string;
+  defaultAudioLanguage?: string;
 };
 
 export type Thumbnails = {
@@ -80,7 +80,7 @@ export async function getYoutubeData(url: string) {
     // receive res as object
     const data = (await res.json()) as YouTubeVideoListResponse;
 
-    return data.items[0]?.snippet;
+    return data.items[0];
   } catch (err) {
     throw new Error(`Error fetching YT Data: ${err}`);
   }
