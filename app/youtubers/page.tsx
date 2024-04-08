@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getAllChannels } from '@/app/actions/fetchChannels';
 import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
 import { siteConfig } from '@/config/site';
 
@@ -14,22 +15,26 @@ export const metadata = {
   },
 };
 
+export const revalidate = 60;
+
 export default async function YouTubersRootPage() {
+  const channels = await getAllChannels();
+
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
       <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 laptop:grid-cols-3">
-        <Link
-          href="/youtubers/UC2k5P3gHLWmqDHmyG5iLNfQ"
-          className="flex size-24 items-center justify-center bg-secondary p-4 font-bold"
-        >
-          루밍밍
-        </Link>
-        <button className="flex size-24 items-center justify-center bg-secondary p-4 font-bold">
-          YT2
-        </button>
-        <button className="flex size-24 items-center justify-center bg-secondary p-4 font-bold">
-          YT3
-        </button>
+        {channels.map((channel: {
+          channelId: string;
+          channelTitle: string;
+        }) => (
+          <Link
+            key={channel.channelId}
+            href={`/youtubers/${channel.channelId}`}
+            className="flex size-24 items-center justify-center bg-secondary p-4 font-bold"
+          >
+            {channel.channelTitle}
+          </Link>
+        ))}
       </div>
       <YouTubeDataInput />
     </main>
