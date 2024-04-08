@@ -14,6 +14,8 @@
 
 [![MDX](https://img.shields.io/badge/MDX-3.0.0-gray?labelColor=fcb32c&style=for-the-badge&logo=MDX&logoColor=black&link=https://mdxjs.com/)](https://mdxjs.com/)
 
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.5.0-gray?labelColor=47A248&style=for-the-badge&logo=mongodb&logoColor=white&link=https://mongodb.com/)](https://mongodb.com/)
+
 ## Dev Stack
 
 [![Node.js](https://img.shields.io/badge/Node.js-%5E18.17.0-gray?labelColor=339933&style=for-the-badge&logo=Node.js&logoColor=white&link=https://nodejs.org/en)](https://nodejs.org/en)
