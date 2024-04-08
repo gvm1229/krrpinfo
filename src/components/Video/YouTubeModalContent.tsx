@@ -1,105 +1,112 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import { cn } from '@/src/util/utils';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn, convertSecondsToTime } from '@/src/util/utils';
 
 interface YouTubeModalContentProps {
   videoId: string;
   className?: string;
 }
 
-// interface TimeStamp {
-//   title: string;
-//   seconds: number;
-// }
+interface TimeStamp {
+  title: string;
+  seconds: number;
+}
 
 const YouTubeModalContent = ({
   videoId,
   className,
 }: YouTubeModalContentProps) => {
+  const [isWindow, setIsWindow] = useState<boolean>(false);
+
   const playerRef = React.useRef(null);
-  // const [currentTime, setCurrentTime] = React.useState(0);
-  // const [playing, setPlaying] = React.useState(true);
+  const [currentTime, setCurrentTime] = React.useState(0);
+  const [playing, setPlaying] = React.useState(true);
 
-  // const timestamps: TimeStamp[] = [
-  //   {
-  //     title: 'Start',
-  //     seconds: 0,
-  //   },
-  //   {
-  //     title: 'Snake',
-  //     seconds: 6.847,
-  //   },
-  //   {
-  //     title: 'Sloth',
-  //     seconds: 12.764,
-  //   },
-  //   {
-  //     title: 'Ants',
-  //     seconds: 27.311,
-  //   },
-  //   {
-  //     title: 'Frog',
-  //     seconds: 34,
-  //   },
-  //   {
-  //     title: 'Snake 2',
-  //     seconds: 42.532,
-  //   },
-  //   {
-  //     title: 'Turtle',
-  //     seconds: 56.452,
-  //   },
-  //   {
-  //     title: 'Lizard',
-  //     seconds: 61.934,
-  //   },
-  //   {
-  //     title: 'Snake 3',
-  //     seconds: 72.353,
-  //   },
-  //   {
-  //     title: 'Frog 2',
-  //     seconds: 81.904,
-  //   },
-  //   {
-  //     title: 'Parrot',
-  //     seconds: 90.273,
-  //   },
-  // ];
+  const timestamps: TimeStamp[] = [
+    {
+      title: 'Start',
+      seconds: 0,
+    },
+    {
+      title: 'Snake',
+      seconds: 6.847,
+    },
+    {
+      title: 'Sloth',
+      seconds: 12.764,
+    },
+    {
+      title: 'Ants',
+      seconds: 27.311,
+    },
+    {
+      title: 'Frog',
+      seconds: 34,
+    },
+    {
+      title: 'Snake 2',
+      seconds: 42.532,
+    },
+    {
+      title: 'Turtle',
+      seconds: 56.452,
+    },
+    {
+      title: 'Lizard',
+      seconds: 61.934,
+    },
+    {
+      title: 'Snake 3',
+      seconds: 72.353,
+    },
+    {
+      title: 'Frog 2',
+      seconds: 81.904,
+    },
+    {
+      title: 'Parrot',
+      seconds: 90.273,
+    },
+  ];
 
-  // const updateCurrentTime = () => {
-  //   setCurrentTime(
-  //     playerRef.current.getCurrentTime()
-  //       ? playerRef.current.getCurrentTime().toFixed(3)
-  //       : 0,
-  //   );
-  // };
+  const updateCurrentTime = () => {
+    setCurrentTime(
+      playerRef.current.getCurrentTime()
+        ? playerRef.current.getCurrentTime().toFixed(3)
+        : 0,
+    );
+  };
 
-  // const isWithinInterval = (indexInput: number) => {
-  //   const currentTimeStamp = timestamps[indexInput].seconds;
+  const isWithinInterval = (indexInput: number) => {
+    const currentTimeStamp = timestamps[indexInput].seconds;
 
-  //   if (indexInput === timestamps.length - 1)
-  //     return currentTimeStamp <= currentTime;
+    if (indexInput === timestamps.length - 1)
+      return currentTimeStamp <= currentTime;
 
-  //   const nextTimeStamp = timestamps[indexInput + 1].seconds;
+    const nextTimeStamp = timestamps[indexInput + 1].seconds;
 
-  //   return currentTimeStamp <= currentTime && currentTime < nextTimeStamp;
-  // };
+    return currentTimeStamp <= currentTime && currentTime < nextTimeStamp;
+  };
 
-  // useEffect(() => {
-  //   let interval = null;
-  //   if (playing)
-  //     interval = setInterval(() => {
-  //       if (playerRef.current) updateCurrentTime();
-  //     }, 1000);
-  //   else if (!playing && interval) clearInterval(interval);
+  useEffect(() => {
+    setIsWindow(true);
+  }, []);
 
-  //   return () => {
-  //     if (interval) clearInterval(interval);
-  //   };
-  // }, [playing]);
+  useEffect(() => {
+    let interval = null;
+    if (playing)
+      interval = setInterval(() => {
+        if (playerRef.current) updateCurrentTime();
+      }, 1000);
+    else if (!playing && interval) clearInterval(interval);
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [playing]);
 
   return (
     <main
@@ -109,36 +116,38 @@ const YouTubeModalContent = ({
       )}
     >
       <div className="relative aspect-video laptop:h-[50vh]">
-        <ReactPlayer
-          ref={playerRef}
-          url={`https://www.youtube.com/watch?v=${videoId}`}
-          controls
-          light={false} // for thumbnail-only load
-          width="100%"
-          height="100%"
-          // onStart={() => {
-          //   updateCurrentTime();
-          //   setPlaying(true);
-          // }}
-          // onPlay={() => {
-          //   updateCurrentTime();
-          //   setPlaying(true);
-          // }}
-          // onPause={() => {
-          //   updateCurrentTime();
-          //   setPlaying(false);
-          // }}
-          // onSeek={() => {
-          //   updateCurrentTime();
-          //   setPlaying(false);
-          // }}
-          // onEnded={() => {
-          //   updateCurrentTime();
-          //   setPlaying(false);
-          // }}
-        />
+        {isWindow && (
+          <ReactPlayer
+            ref={playerRef}
+            url={`https://www.youtube.com/watch?v=${videoId}`}
+            controls
+            light={false} // for thumbnail-only load
+            width="100%"
+            height="100%"
+            onStart={() => {
+              updateCurrentTime();
+              setPlaying(true);
+            }}
+            onPlay={() => {
+              updateCurrentTime();
+              setPlaying(true);
+            }}
+            onPause={() => {
+              updateCurrentTime();
+              setPlaying(false);
+            }}
+            onSeek={() => {
+              updateCurrentTime();
+              setPlaying(false);
+            }}
+            onEnded={() => {
+              updateCurrentTime();
+              setPlaying(false);
+            }}
+          />
+        )}
       </div>
-      {/* <div className="relative flex flex-col overflow-hidden rounded-lg border-2 border-zinc-400 dark:border-zinc-600 laptop:w-full">
+      <div className="relative flex flex-col overflow-hidden rounded-lg border-2 border-zinc-400 dark:border-zinc-600 laptop:w-full">
         <div className="p-4 dark:bg-zinc-600">
           <h1 className="text-lg font-medium tablet:text-xl">챕터</h1>
         </div>
@@ -164,7 +173,7 @@ const YouTubeModalContent = ({
             </button>
           ))}
         </ScrollArea>
-      </div> */}
+      </div>
     </main>
   );
 };
