@@ -1,7 +1,7 @@
 import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
 import by77MxjPg1g from './by77MxjPg1g.json';
 
-const channelId = 'UCY74n_XQJ69dxNdN7h71wLg';
+const channelId = 'UCY74n-XQJ69dxNdN7h71wLg';
 const channelTitle = '런민기';
 const allVideos: YouTubeVideoItem[] = [by77MxjPg1g];
 

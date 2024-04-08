@@ -22,7 +22,7 @@ const fetchChannelInfo = (source) => {
   const firstFile = path.join(source, files[0]);
   const data = JSON.parse(fs.readFileSync(firstFile, 'utf-8'));
   return {
-    channelId: data.snippet.channelId.replace(/-/g, '_'), // Replace hyphens with underscores
+    channelId: data.snippet.channelId,
     channelTitle: data.snippet.channelTitle,
   };
 };
@@ -35,6 +35,7 @@ const generateIndexFile = (source) => {
   directories.forEach((dir) => {
     const dirPath = path.join(source, dir);
     const { channelId, channelTitle } = fetchChannelInfo(dirPath);
+    const cleanChannelId = channelId.replace(/-/g, '_'); // Replace hyphens with underscores
     const jsonFiles = getJsonFiles(dirPath);
     const allVideos = jsonFiles.map((file) => path.basename(file, '.json'));
 
@@ -46,19 +47,19 @@ const channelTitle = '${channelTitle}';
 const allVideos: YouTubeVideoItem[] = [${allVideos.join(', ')}];
 
 export {
-  channelId as channelId_${channelId},
-  channelTitle as channelTitle_${channelId},
-  allVideos as allVideos_${channelId},
+  channelId as channelId_${cleanChannelId},
+  channelTitle as channelTitle_${cleanChannelId},
+  allVideos as allVideos_${cleanChannelId},
 };
 `;
 
     fs.writeFileSync(path.join(dirPath, 'index.ts'), content);
     console.log(`Generated index.ts file for ${channelTitle} (${dir})`);
 
-    allChannels[channelId] = {
-      channelId: `channelId_${channelId}`,
-      channelTitle: `channelTitle_${channelId}`,
-      allVideos: `allVideos_${channelId}`,
+    allChannels[cleanChannelId] = {
+      channelId: `channelId_${cleanChannelId}`,
+      channelTitle: `channelTitle_${cleanChannelId}`,
+      allVideos: `allVideos_${cleanChannelId}`,
     };
   });
 
