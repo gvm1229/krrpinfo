@@ -14,13 +14,17 @@ import type { YouTubeVideoItem, YouTubeChannel, TimeStamp } from './fetchYouTube
 export async function checkIfChannelExists(channelId: string): Promise<boolean> {
   const db = (await mongoClient()).db('youtubers');
 
+  let result = true;
+
   try {
-    const result = await db.collection('channels').findOne({ channelId });
-    return !!result;
+    await db.collection('channels').findOne({ channelId });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
-    throw new Error(`Failed to check if channel exists: ${error}`);
+    // throw new Error(`Failed to check if channel exists: ${error}`);
+    result = false;
   }
+
+  return result;
 }
 
 /**
@@ -59,12 +63,12 @@ export async function getChannel(id: string): Promise<YouTubeChannel | null> {
 }
 
 /**
- * Insert data into the channels collection in the 'youtubers' database.
+ * Insert a channel into the 'channels' collection in the 'youtubers' database.
  *
  * @param {YouTubeChannel} data - the data to be inserted into the collection
- * @return {Promise<void>} a Promise that resolves once the data is inserted
+ * return nothing as this function just performs an action
  */
-export async function insertToChannels(data: YouTubeChannel) {
+export async function insertOneChannel(data: YouTubeChannel) {
   const db = (await mongoClient()).db('youtubers');
 
   try {
@@ -105,6 +109,11 @@ export async function editChannel(id: string, data: YouTubeChannel) {
  * @return {Promise<boolean>} Whether the video exists for the given channel ID.
  */
 export async function checkIfVideoExists(channelId: string, videoId: string): Promise<boolean> {
+  const isExistingChannel = await checkIfChannelExists(channelId);
+
+  if (!isExistingChannel)
+    return false;
+
   const db = (await mongoClient()).db('youtubers');
 
   try {
@@ -150,6 +159,26 @@ export async function getVideo(channelId: string, videoId: string): Promise<YouT
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve individual video: ${error}`);
+  }
+}
+
+/**
+ * Insert a video into the 'channels' collection for a specific channel.
+ *
+ * @param {string} channelId - The ID of the channel where the video will be inserted.
+ * @param {YouTubeVideoItem} videoData - The data of the video to be inserted.
+ * return nothing as this function just performs an action
+ */
+export async function insertOneVideo(channelId: string, videoData: YouTubeVideoItem) {
+  const db = (await mongoClient()).db('youtubers');
+
+  try {
+    await db
+      .collection('channels')
+      .updateOne({ channelId }, { $push: { allVideos: videoData } });
+  } catch (error) {
+    // Handle the error, you can log it or throw a custom error
+    throw new Error(`Failed to insert video: ${error}`);
   }
 }
 

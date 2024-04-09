@@ -30,7 +30,7 @@ export default async function YouTubersRootPage() {
           <Link
             key={channel.channelId}
             href={`/youtubers/${channel.channelId}`}
-            className="flex size-24 items-center justify-center bg-secondary p-4 font-bold"
+            className="flex size-28 items-center justify-center bg-secondary p-4 font-bold"
           >
             {channel.channelTitle}
           </Link>
