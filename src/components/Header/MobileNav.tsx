@@ -63,27 +63,32 @@ export function MobileNav() {
                     className={`font-medium ${item?.items?.length ? 'pb-0' : 'pb-2'}`}
                   >
                     {item.title}
+                    {item.label && (
+                      <span className="ml-2 rounded-md bg-teal-400 px-1.5 py-0.5 text-xs leading-none text-black no-underline group-hover:no-underline">
+                        {item.label}
+                      </span>
+                    )}
                   </MobileLink>
                 )}
                 {item?.items?.length
-                  && item.items.map((item) => (
-                    <React.Fragment key={item.href}>
-                      {!item.disabled
-                        && (item.href ? (
+                  && item.items.map((subItem) => (
+                    <React.Fragment key={subItem.href}>
+                      {!subItem.disabled
+                        && (subItem.href ? (
                           <MobileLink
-                            href={item.href}
+                            href={subItem.href}
                             onOpenChange={setOpen}
                             className="text-muted-foreground"
                           >
-                            {item.title}
-                            {item.label && (
+                            {subItem.title}
+                            {subItem.label && (
                               <span className="ml-2 rounded-md bg-teal-400 px-1.5 py-0.5 text-xs leading-none text-black no-underline group-hover:no-underline">
-                                {item.label}
+                                {subItem.label}
                               </span>
                             )}
                           </MobileLink>
                         ) : (
-                          item.title
+                          subItem.title
                         ))}
                     </React.Fragment>
                   ))}

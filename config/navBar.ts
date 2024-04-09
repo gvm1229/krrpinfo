@@ -18,6 +18,7 @@ export const navContents: NavItem[] = [
   {
     title: '추천 유튜버 목록',
     href: '/youtubers',
+    label: 'New',
   },
   // {
   //   title: 'Karts',
