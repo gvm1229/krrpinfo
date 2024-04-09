@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import InputComponent from './InputComponent';
+import InputComponent from '@/components/Input/InputComponent';
 import RedeemButton from './RedeemButton';
 import ResponseDisplay from './ResponseDisplay';
 

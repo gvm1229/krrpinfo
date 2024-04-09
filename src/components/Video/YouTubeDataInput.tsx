@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { getYoutubeData } from '@/app/actions/fetchYouTube';
-import InputComponent from '@/components/Nexon/InputComponent';
+import InputComponent from '@/components/Input/InputComponent';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/src/util/utils';
 
