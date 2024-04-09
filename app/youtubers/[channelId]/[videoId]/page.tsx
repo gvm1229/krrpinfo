@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getAllChannels, getChannel } from '@/app/actions/fetchChannels';
+import { getAllChannels, getChannel } from '@/app/actions/handleYTData';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 import { siteConfig } from '@/config/site';
 import { absoluteUrl } from '@/src/util/utils';

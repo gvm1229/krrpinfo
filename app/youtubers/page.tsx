@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllChannels } from '@/app/actions/fetchChannels';
+import { getAllChannels } from '@/app/actions/handleYTData';
 import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
 import { siteConfig } from '@/config/site';
 
