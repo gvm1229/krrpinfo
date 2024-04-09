@@ -24,7 +24,7 @@ export default function BlogFeatured({
         alt="blog-featured-thumbnail"
         width={1920}
         height={1080}
-        // gridNums={[1, 2, 3]}
+        gridNums={[2, 2, 2]}
         wrapperClassName="flex items-center justify-center"
         imageClassName="rounded-lg w-full h-auto"
         isPriority
