@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { CommandMenu } from '@/components/Command/CommandMenu';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
@@ -15,55 +13,37 @@ export function SiteHeader({
   userAgent: string;
   className?: string;
 }) {
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  // won't affect performance too much as this will only run once per render, as devices don't really change frequently
-  React.useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 720px)'); // tailwind - mobile
-    const handleResize = (e) => {
-      setIsMobile(e.matches);
-    };
-
-    // Call once to set the initial state
-    handleResize(mediaQuery);
-
-    // Add event listener for resize
-    mediaQuery.addEventListener('change', handleResize);
-
-    // Cleanup
-    return () => {
-      mediaQuery.removeEventListener('change', handleResize);
-    };
-  }, []);
-
   return (
     <>
       <header
         id="header"
         className={cn(
-          'fixed z-40 flex h-20 w-full items-center justify-between gap-x-4 border-b bg-background mobile_only:container tablet_only:container tablet:gap-0 laptop:px-8',
+          'fixed z-40 w-full border-b bg-background mobile_only:container tablet_only:container laptop:px-8',
           className,
         )}
       >
-        {isMobile ? (
-          <>
-            {/* mobile view */}
+        <div className="flex h-20 w-full items-center justify-between gap-x-4 tablet:hidden">
+          {/* mobile view */}
+          <React.Suspense
+            fallback={(
+              <h1 className="bg-blue-400 p-2">Toggle Menu</h1>
+            )}
+          >
             <MobileNav />
-            <div className="w-full flex-1">
-              <CommandMenu userAgent={userAgent} />
-            </div>
+          </React.Suspense>
+          <div className="w-full flex-1">
+            <CommandMenu userAgent={userAgent} />
+          </div>
+          <ModeToggle />
+        </div>
+        <div className="hidden h-20 w-full items-center justify-between gap-0 tablet:flex">
+          {/* tablet & desktop view */}
+          <MainNav items={navContents} />
+          <div className="flex w-auto flex-none items-center gap-x-2">
+            <CommandMenu userAgent={userAgent} />
             <ModeToggle />
-          </>
-        ) : (
-          <>
-            {/* tablet & desktop view */}
-            <MainNav items={navContents} />
-            <div className="flex w-auto flex-none items-center gap-x-2">
-              <CommandMenu userAgent={userAgent} />
-              <ModeToggle />
-            </div>
-          </>
-        )}
+          </div>
+        </div>
       </header>
       <div className="h-20" />
     </>
