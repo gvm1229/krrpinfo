@@ -1,4 +1,4 @@
-import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import by77MxjPg1g from './by77MxjPg1g.json';
 
 const channelId = 'UCY74n-XQJ69dxNdN7h71wLg';

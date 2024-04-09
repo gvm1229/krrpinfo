@@ -1,4 +1,4 @@
-import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import w1Rrw2T7Bz4 from './w1Rrw2T7Bz4.json';
 
 const channelId = 'UC2k5P3gHLWmqDHmyG5iLNfQ';

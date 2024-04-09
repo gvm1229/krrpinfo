@@ -39,7 +39,7 @@ const generateIndexFile = (source) => {
     const jsonFiles = getJsonFiles(dirPath);
     const allVideos = jsonFiles.map((file) => path.basename(file, '.json'));
 
-    const content = `import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+    const content = `import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 ${jsonFiles.map((file) => `import ${path.basename(file, '.json')} from './${file}';`).join('\n')}
 
 const channelId = '${channelId}';
@@ -64,7 +64,7 @@ export {
   });
 
   // Create index.ts file in the youtubers directory
-  const allChannelsContent = `import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+  const allChannelsContent = `import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 ${Object.keys(allChannels).map((channelId) => `import {
   channelId_${channelId},
   channelTitle_${channelId},

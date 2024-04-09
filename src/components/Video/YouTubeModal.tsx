@@ -1,5 +1,5 @@
 import { ExternalLink } from 'lucide-react';
-import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import { ImageWrapper } from '@/components/Blog/Blog';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';

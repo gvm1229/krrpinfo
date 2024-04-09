@@ -1,4 +1,4 @@
-import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import {
   channelId_UC2k5P3gHLWmqDHmyG5iLNfQ,
   channelTitle_UC2k5P3gHLWmqDHmyG5iLNfQ,

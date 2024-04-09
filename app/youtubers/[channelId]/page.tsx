@@ -1,6 +1,6 @@
 import { compareDesc } from 'date-fns';
 import { notFound } from 'next/navigation';
-import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
+import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
 import { allYoutubers } from '@/content/youtubers';
