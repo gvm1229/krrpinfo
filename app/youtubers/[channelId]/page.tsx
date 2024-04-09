@@ -1,14 +1,14 @@
 import { compareDesc } from 'date-fns';
 import { notFound } from 'next/navigation';
+import { getAllChannels, getChannel } from '@/app/actions/fetchChannels';
 import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
-import { allYoutubers } from '@/content/youtubers';
 import { absoluteUrl } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
 async function getChannelFromParams(params: { channelId: string }) {
-  const channel = allYoutubers[params.channelId];
+  const channel = getChannel(params.channelId);
   if (!channel) return null;
   return channel;
 }
@@ -65,8 +65,9 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return Object.keys(allYoutubers).map((channelId) => ({
-    channelId,
+  const allChannels = await getAllChannels();
+  return allChannels.map((channel) => ({
+    channelId: channel.channelId,
   }));
 }
 
@@ -80,7 +81,7 @@ export default async function YouTuberRootPage({
 
   const { channelId, channelTitle } = channel;
 
-  const videos = allYoutubers[params.channelId].allVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
+  const videos = channel.allVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
     new Date(a.snippet.publishedAt),
     new Date(b.snippet.publishedAt),
   ));

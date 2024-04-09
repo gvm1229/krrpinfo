@@ -2,6 +2,7 @@
 
 import { env } from '@/env.mjs';
 
+// YouTube API types
 export type YouTubeVideoListResponse = {
   kind: string;
   etag: string;
@@ -52,6 +53,13 @@ export type Localized = {
 export type PageInfo = {
   totalResults: number;
   resultsPerPage: number;
+};
+
+// Custom YouTube types
+export type YouTubeChannel = {
+  channelId: string;
+  channelTitle: string;
+  allVideos: YouTubeVideoItem[];
 };
 
 function filteredUrlId(allUrl: string) {

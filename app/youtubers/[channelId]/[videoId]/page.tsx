@@ -1,12 +1,12 @@
 import { notFound } from 'next/navigation';
+import { getAllChannels, getChannel } from '@/app/actions/fetchChannels';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 import { siteConfig } from '@/config/site';
-import { allYoutubers } from '@/content/youtubers';
 import { absoluteUrl } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
 async function getVideoFromParams(params: { channelId: string; videoId: string }) {
-  const channel = allYoutubers[params.channelId];
+  const channel = await getChannel(params.channelId);
   const video = channel.allVideos.find((video) => video.id === params.videoId);
   if (!video) return null;
   return video;
@@ -61,8 +61,9 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return Object.keys(allYoutubers).flatMap((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
-    channelId,
+  const allChannels = await getAllChannels();
+  return allChannels.flatMap((channel) => channel.allVideos.map((video) => ({
+    channelId: channel.channelId,
     videoId: video.id,
   })));
 }
