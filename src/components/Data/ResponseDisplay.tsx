@@ -5,10 +5,11 @@ interface ResponseDisplayProps {
     success: boolean
     message: string
   }
+  className?: string
 }
 
-const ResponseDisplay = ({ response }: ResponseDisplayProps) => (
-  <div>
+const ResponseDisplay = ({ response, className }: ResponseDisplayProps) => (
+  <div className={className}>
     <h2 className="text-2xl font-bold">Response:</h2>
     {response?.success ? (
       <p className="mt-2 text-3xl font-bold text-green-500">
