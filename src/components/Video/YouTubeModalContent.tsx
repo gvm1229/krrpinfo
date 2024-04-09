@@ -2,75 +2,26 @@
 
 import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
+import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn, convertSecondsToTime } from '@/src/util/utils';
 
 interface YouTubeModalContentProps {
-  videoId: string;
+  videoData: YouTubeVideoItem;
   className?: string;
 }
 
-interface TimeStamp {
-  title: string;
-  seconds: number;
-}
-
 const YouTubeModalContent = ({
-  videoId,
+  videoData,
   className,
 }: YouTubeModalContentProps) => {
+  const { timestamps } = videoData;
+
   const [isWindow, setIsWindow] = useState<boolean>(false);
 
   const playerRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [playing, setPlaying] = useState(true);
-
-  const timestamps: TimeStamp[] = [
-    {
-      title: 'Start',
-      seconds: 0,
-    },
-    {
-      title: 'Snake',
-      seconds: 6.847,
-    },
-    {
-      title: 'Sloth',
-      seconds: 12.764,
-    },
-    {
-      title: 'Ants',
-      seconds: 27.311,
-    },
-    {
-      title: 'Frog',
-      seconds: 34,
-    },
-    {
-      title: 'Snake 2',
-      seconds: 42.532,
-    },
-    {
-      title: 'Turtle',
-      seconds: 56.452,
-    },
-    {
-      title: 'Lizard',
-      seconds: 61.934,
-    },
-    {
-      title: 'Snake 3',
-      seconds: 72.353,
-    },
-    {
-      title: 'Frog 2',
-      seconds: 81.904,
-    },
-    {
-      title: 'Parrot',
-      seconds: 90.273,
-    },
-  ];
 
   const updateCurrentTime = () => {
     setCurrentTime(
@@ -119,7 +70,7 @@ const YouTubeModalContent = ({
         {isWindow && (
           <ReactPlayer
             ref={playerRef}
-            url={`https://www.youtube.com/watch?v=${videoId}`}
+            url={`https://www.youtube.com/watch?v=${videoData.id}`}
             controls
             light={false} // for thumbnail-only load
             width="100%"

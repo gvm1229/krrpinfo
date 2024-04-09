@@ -78,7 +78,7 @@ export default async function YouTubeVideoPage({
 
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
-      <YouTubeModalContent videoId={params.videoId} />
+      <YouTubeModalContent videoData={video} />
     </main>
   );
 }

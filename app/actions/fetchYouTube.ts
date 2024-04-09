@@ -15,6 +15,7 @@ export type YouTubeVideoItem = {
   etag: string;
   id: string;
   snippet: Snippet;
+  timestamps?: TimeStamp[];
 };
 
 export type Snippet = {
@@ -60,6 +61,11 @@ export type YouTubeChannel = {
   channelId: string;
   channelTitle: string;
   allVideos: YouTubeVideoItem[];
+};
+
+export type TimeStamp = {
+  title: string;
+  seconds: number;
 };
 
 /**
