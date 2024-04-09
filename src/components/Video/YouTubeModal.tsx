@@ -80,7 +80,7 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="size-full max-h-[60vh] p-4">
-          <YouTubeModalContent videoId={videoData.id} />
+          <YouTubeModalContent videoData={videoData} />
         </ScrollArea>
         <ScrollArea className="size-full max-h-[20vh] p-4">
           <p className="whitespace-pre-wrap text-lg font-medium">
