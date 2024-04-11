@@ -119,7 +119,7 @@ function render(
 ) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="relative min-h-screen bg-background antialiased">
+      <body className="relative h-screen min-h-lvh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ClientLayout>
             <div className="relative flex min-h-svh flex-col">
