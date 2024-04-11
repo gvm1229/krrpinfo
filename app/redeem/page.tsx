@@ -1,4 +1,5 @@
 import RedeemContainer from '@/components/Nexon/RedeemContainer';
+import RedeemCard from '@/components/Redeem/RedeemCard';
 import { siteConfig } from '@/config/site';
 
 export const metadata = {
@@ -16,7 +17,8 @@ export const metadata = {
 export default async function RedeemRootPage() {
   return (
     <main className="container flex h-full flex-col items-center">
-      <div className="mx-auto w-full max-w-5xl">
+      <div className="mx-auto w-full max-w-5xl space-y-8">
+        <RedeemCard />
         <RedeemContainer />
       </div>
     </main>
