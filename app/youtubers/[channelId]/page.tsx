@@ -93,7 +93,7 @@ export default async function YouTuberRootPage({
           <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
             {`${channelTitle} - 영상 목록`}
           </h1>
-          <div className="relative grid size-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
+          <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {videos.map((video: YouTubeVideoItem, index: number) => (
               <Blog
                 key={video.id}
