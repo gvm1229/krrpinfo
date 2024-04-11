@@ -62,11 +62,11 @@ const YouTubeModalContent = ({
   return (
     <main
       className={cn(
-        'relative flex min-w-full flex-col justify-start gap-8 laptop:flex-row desktop:gap-12',
+        'relative flex min-w-full flex-col justify-start gap-8 laptop:flex-row',
         className,
       )}
     >
-      <div className="relative aspect-video laptop:h-[50vh]">
+      <div className="relative aspect-video overflow-hidden laptop:max-h-[50vh] laptop:grow">
         {isWindow && (
           <ReactPlayer
             ref={playerRef}
@@ -98,7 +98,7 @@ const YouTubeModalContent = ({
           />
         )}
       </div>
-      <div className="relative flex flex-col overflow-hidden rounded-lg border-2 border-zinc-400 dark:border-zinc-600 laptop:w-full">
+      <div className="relative flex flex-col overflow-hidden rounded-lg border-2 border-zinc-400 dark:border-zinc-600 laptop:min-w-80">
         <div className="p-4 dark:bg-zinc-600">
           <h1 className="text-lg font-medium tablet:text-xl">챕터</h1>
         </div>
