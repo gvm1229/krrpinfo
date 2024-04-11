@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import type { YouTubeVideoItem } from '@/src/types';
 import { cn, convertSecondsToTime } from '@/src/util/utils';
 
 interface YouTubeModalContentProps {

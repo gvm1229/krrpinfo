@@ -1,5 +1,4 @@
 import { ExternalLink } from 'lucide-react';
-import type { YouTubeVideoItem } from '@/app/actions/fetchYouTube';
 import { ImageWrapper } from '@/components/Blog/Blog';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';
@@ -13,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import type { YouTubeVideoItem } from '@/src/types';
 import { formatDate } from '@/src/util/utils';
 import YouTubeModalContent from './YouTubeModalContent';
 
