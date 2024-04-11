@@ -1,7 +1,7 @@
 'use server';
 
+import type { YouTubeVideoItem, YouTubeChannel, TimeStamp } from '@/src/types';
 import mongoClient from '@/src/util/db';
-import type { YouTubeVideoItem, YouTubeChannel, TimeStamp } from './fetchYouTube';
 
 // YouTube Channel functions
 
@@ -14,17 +14,13 @@ import type { YouTubeVideoItem, YouTubeChannel, TimeStamp } from './fetchYouTube
 export async function checkIfChannelExists(channelId: string): Promise<boolean> {
   const db = (await mongoClient()).db('youtubers');
 
-  let result = true;
-
   try {
-    await db.collection('channels').findOne({ channelId });
+    const result = await db.collection('channels').findOne({ channelId });
+    return result !== null;
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
-    // throw new Error(`Failed to check if channel exists: ${error}`);
-    result = false;
+    throw new Error(`Failed to check if channel exists: ${error}`);
   }
-
-  return result;
 }
 
 /**
