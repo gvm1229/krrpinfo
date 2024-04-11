@@ -24,7 +24,7 @@ const Template = (args) => (
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3">
+      <div className="mx-auto max-w-96">
         <YouTubeModal {...args} />
       </div>
     </div>
@@ -33,47 +33,69 @@ const Template = (args) => (
 
 const video = {
   kind: 'youtube#video',
-  etag: 'Zg-xNQHYQ39xCys0D1BIq1H4IFI',
-  id: 'by77MxjPg1g',
+  etag: 'eDjtrE00haThHgOYjJYN5alUUfo',
+  id: 'LXb3EKWsInQ',
   snippet: {
-    publishedAt: '2024-03-29T07:15:03Z',
-    channelId: 'UCY74n-XQJ69dxNdN7h71wLg',
-    title: '대장차 없는분들 꼭사세요 미친 플펫 나왔습니다',
-    description: '생방송 - https://chzzk.naver.com/22606f1ee5a444d63ccc49fbec69383d\n인스타그램 - https://instagram.com/runmingi\n비즈니스 관련 문의 - runmingiyt@gmail.com\n\n- \n\n#런민기 #카러플 #플라잉선인장',
+    publishedAt: '2018-06-13T02:49:29Z',
+    channelId: 'UCYq-iAOSZBvoUxvfzwKIZWA',
+    title: 'COSTA RICA IN 4K 60fps HDR (ULTRA HD)',
+    description: 'We\'ve re-mastered and re-uploaded our favorite video in HDR!\n\nCHECK OUT OUR MOST POPULAR VIDEO: https://youtu.be/tO01J-M3g0U\n► INSTAGRAM: http://www.instagram.com/mysterybox\n► INSTAGRAM: http://www.instagram.com/jacobschwarz\n►WEBSITE: http://www.mysterybox.us\n►FACEBOOK: https://www.facebook.com/mysteryboxdi...\n\nMake sure to follow us on Instagram for BTS and sneak-peaks at upcoming projects. \n\nLICENSING & BUSINESS INQUIRIES\n► contact@mysterybox.us\n\nCHECK OUT OUR VIDEO PRODUCTION COMPANY\n► https://www.mysterybox.us\n\n4K PLAYLISTS\n► https://www.youtube.com/playlist?list...\n\nBLOG Check out our blog for great information on working in HDR and 8K. \n► http://www.mysterybox.us/blog\n\nSUBSCRIBE FOR MORE VIDS\n►https://www.youtube.com/user/jacobsch...\n\nMUSIC\n► Storyworks Music "Promise of Dawn"\nhttps://soundcloud.com/joshuapeterson/promise-of-dawn\nwww.storyworksmusic.com\n\n► SHOT ON\nRed Weapon LE w/Helium 8K s35 sensor (Stormtrooper33)\nCanon 16-35mm III  \nCanon 24-70mm II\nSigma 150-500mm\nZeiss Classic 15mm\nMOVI M10\nAdobe Premiere and DaVinci Resolve\n\n\n\nLICENSING & BUSINESS INQUIRIES\n► contact@mysterybox.us\n\nThis video is subject to copyright owned by Mystery Box LLC. Any reproduction or republication of all or part of this video is expressly prohibited, unless Mystery Box has explicitly granted its prior written consent. All other rights reserved.\n\nCopyright © 2017 Mystery Box, LLC. All Rights Reserved.',
     thumbnails: {
       default: {
-        url: 'https://i.ytimg.com/vi/by77MxjPg1g/default.jpg',
+        url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/default.jpg',
         width: 120,
         height: 90,
       },
       medium: {
-        url: 'https://i.ytimg.com/vi/by77MxjPg1g/mqdefault.jpg',
+        url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/mqdefault.jpg',
         width: 320,
         height: 180,
       },
       high: {
-        url: 'https://i.ytimg.com/vi/by77MxjPg1g/hqdefault.jpg',
+        url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/hqdefault.jpg',
         width: 480,
         height: 360,
       },
       standard: {
-        url: 'https://i.ytimg.com/vi/by77MxjPg1g/sddefault.jpg',
+        url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/sddefault.jpg',
         width: 640,
         height: 480,
       },
       maxres: {
-        url: 'https://i.ytimg.com/vi/by77MxjPg1g/maxresdefault.jpg',
+        url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/maxresdefault.jpg',
         width: 1280,
         height: 720,
       },
     },
-    channelTitle: '런민기',
-    categoryId: '20',
+    channelTitle: 'Jacob + Katie Schwarz',
+    tags: [
+      '4K',
+      '4k resolution',
+      '60fps',
+      'HDR',
+      'High Dynamic Range',
+      'Costa Rica',
+      'four k',
+      'UHD',
+      'Ultra High Definition',
+      'Costa Rica 4k',
+      'Jacob + Katie',
+      'TV Demo',
+      '4k TV',
+      'HDR TV',
+      'Ultra HD',
+      '3840 x 2160',
+      '4k videos',
+      'ultra HD video',
+      'red digital cinema',
+    ],
+    categoryId: '1',
     liveBroadcastContent: 'none',
     localized: {
-      title: '대장차 없는분들 꼭사세요 미친 플펫 나왔습니다',
-      description: '생방송 - https://chzzk.naver.com/22606f1ee5a444d63ccc49fbec69383d\n인스타그램 - https://instagram.com/runmingi\n비즈니스 관련 문의 - runmingiyt@gmail.com\n\n- \n\n#런민기 #카러플 #플라잉선인장',
+      title: 'COSTA RICA IN 4K 60fps HDR (ULTRA HD)',
+      description: 'We\'ve re-mastered and re-uploaded our favorite video in HDR!\n\nCHECK OUT OUR MOST POPULAR VIDEO: https://youtu.be/tO01J-M3g0U\n► INSTAGRAM: http://www.instagram.com/mysterybox\n► INSTAGRAM: http://www.instagram.com/jacobschwarz\n►WEBSITE: http://www.mysterybox.us\n►FACEBOOK: https://www.facebook.com/mysteryboxdi...\n\nMake sure to follow us on Instagram for BTS and sneak-peaks at upcoming projects. \n\nLICENSING & BUSINESS INQUIRIES\n► contact@mysterybox.us\n\nCHECK OUT OUR VIDEO PRODUCTION COMPANY\n► https://www.mysterybox.us\n\n4K PLAYLISTS\n► https://www.youtube.com/playlist?list...\n\nBLOG Check out our blog for great information on working in HDR and 8K. \n► http://www.mysterybox.us/blog\n\nSUBSCRIBE FOR MORE VIDS\n►https://www.youtube.com/user/jacobsch...\n\nMUSIC\n► Storyworks Music "Promise of Dawn"\nhttps://soundcloud.com/joshuapeterson/promise-of-dawn\nwww.storyworksmusic.com\n\n► SHOT ON\nRed Weapon LE w/Helium 8K s35 sensor (Stormtrooper33)\nCanon 16-35mm III  \nCanon 24-70mm II\nSigma 150-500mm\nZeiss Classic 15mm\nMOVI M10\nAdobe Premiere and DaVinci Resolve\n\n\n\nLICENSING & BUSINESS INQUIRIES\n► contact@mysterybox.us\n\nThis video is subject to copyright owned by Mystery Box LLC. Any reproduction or republication of all or part of this video is expressly prohibited, unless Mystery Box has explicitly granted its prior written consent. All other rights reserved.\n\nCopyright © 2017 Mystery Box, LLC. All Rights Reserved.',
     },
+    defaultAudioLanguage: 'en',
   },
 };
 
