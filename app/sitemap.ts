@@ -1,5 +1,5 @@
 import { compareDesc } from 'date-fns';
-import { allYoutubers } from '@/content/youtubers';
+import { getAllChannels } from '@/app/actions/handleYTData';
 import { env } from '@/env.mjs';
 import type { MetadataRoute } from 'next';
 import { allPosts } from 'contentlayer/generated';
@@ -20,12 +20,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const allYTVideos = Object.keys(allYoutubers).flatMap((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
-    url: `${rootPath}/youtubers/${channelId}/${video.id}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: 'daily' as Changefreq,
-    priority: 0.8,
-  })));
+  let allYTVideos = [];
+
+  getAllChannels().then((allChannels) => {
+    allYTVideos = allChannels.flatMap((channel) => channel.allVideos.map((video) => ({
+      url: `${rootPath}/youtubers/${channel.channelId}/${video.id}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'daily' as Changefreq,
+      priority: 0.8,
+    })));
+  });
 
   return [
     {
