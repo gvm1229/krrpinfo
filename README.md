@@ -6,7 +6,7 @@
 
 [![React](https://img.shields.io/badge/React-18.2.0-gray?labelColor=222222&style=for-the-badge&logo=React&link=https://react.dev/)](https://react.dev/)
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.1.4-gray?labelColor=d4d4d8&style=for-the-badge&logo=Next.js&logoColor=black&link=https://nextjs.org/)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2.0-gray?labelColor=d4d4d8&style=for-the-badge&logo=Next.js&logoColor=black&link=https://nextjs.org/)](https://nextjs.org/)
 
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.3-gray?labelColor=06B6D4&style=for-the-badge&logo=Tailwind+CSS&logoColor=white&link=https://tailwindcss.com/)](https://tailwindcss.com/)
 
@@ -22,9 +22,9 @@
 
 [![Yarn](https://img.shields.io/badge/Yarn-%5E4.1.1-gray?labelColor=2c8ebb&style=for-the-badge&logo=Yarn&logoColor=white&link=https://yarnpkg.com/)](https://yarnpkg.com/)
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-%5E5.4.4-gray?labelColor=3178C6&style=for-the-badge&logo=TypeScript&logoColor=white&link=https://www.typescriptlang.org/)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-%5E5.4.5-gray?labelColor=3178C6&style=for-the-badge&logo=TypeScript&logoColor=white&link=https://www.typescriptlang.org/)](https://www.typescriptlang.org/)
 
-[![Storybook](https://img.shields.io/badge/Storybook-%5E8.0.5-gray?labelColor=FF4785&style=for-the-badge&logo=Storybook&logoColor=white&link=https://storybook.js.org/)](https://storybook.js.org/)
+[![Storybook](https://img.shields.io/badge/Storybook-%5E8.0.8-gray?labelColor=FF4785&style=for-the-badge&logo=Storybook&logoColor=white&link=https://storybook.js.org/)](https://storybook.js.org/)
 
 ## Constrained Dependency Upgrades
 
