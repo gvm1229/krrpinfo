@@ -12752,6 +12752,7 @@ __metadata:
     next: "npm:14.1.4"
     next-contentlayer: "npm:^0.3.4"
     next-themes: "npm:^0.3.0"
+    nextjs-toploader: "npm:^1.6.11"
     npm-check-updates: "npm:^16.14.18"
     postcss: "npm:^8.4.38"
     postcss-cli: "npm:^11.0.0"
@@ -15103,6 +15104,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nextjs-toploader@npm:^1.6.11":
+  version: 1.6.11
+  resolution: "nextjs-toploader@npm:1.6.11"
+  dependencies:
+    "@types/nprogress": "npm:^0.2.2"
+    nprogress: "npm:^0.2.0"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    next: ">= 6.0.0"
+    react: ">= 16.0.0"
+    react-dom: ">= 16.0.0"
+  checksum: 10c0/02884ceccac931ff158c894e06500207f5407937d7930d133109a6eb395b7fd00f75fa9201d71f7d87bd40e7ff0ee7fa2a4ed1f1e677bd14e4bac1cdf35285a1
+  languageName: node
+  linkType: hard
+
 "no-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "no-case@npm:3.0.4"
@@ -15480,6 +15496,13 @@ __metadata:
     gauge: "npm:^4.0.3"
     set-blocking: "npm:^2.0.0"
   checksum: 10c0/0cacedfbc2f6139c746d9cd4a85f62718435ad0ca4a2d6459cd331dd33ae58206e91a0742c1558634efcde3f33f8e8e7fd3adf1bfe7978310cf00bd55cccf890
+  languageName: node
+  linkType: hard
+
+"nprogress@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "nprogress@npm:0.2.0"
+  checksum: 10c0/eab9a923a1ad1eed71a455ecfbc358442dd9bcd71b9fa3fa1c67eddf5159360b182c218f76fca320c97541a1b45e19ced04e6dcb044a662244c5419f8ae9e821
   languageName: node
   linkType: hard
 
