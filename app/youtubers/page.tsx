@@ -21,7 +21,7 @@ export default async function YouTubersRootPage() {
   const channels = await getAllChannels();
 
   return (
-    <main className="container relative flex h-full flex-col items-center gap-y-8">
+    <main className="container relative flex h-full flex-col items-center gap-y-12 laptop:gap-y-16">
       <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
         유튜버 목록
       </h1>

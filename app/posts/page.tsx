@@ -23,7 +23,7 @@ const redis = Redis.fromEnv();
 // Extracted rendering of posts to a reusable function
 function renderPosts(posts: Post[], views = {}) {
   return (
-    <div className="container relative flex flex-col items-center gap-y-8">
+    <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
       {posts.length > 0 ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">

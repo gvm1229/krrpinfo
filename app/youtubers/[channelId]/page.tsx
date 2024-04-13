@@ -87,7 +87,7 @@ export default async function YouTuberRootPage({
   ));
 
   return (
-    <div className="container relative flex flex-col items-center gap-y-8">
+    <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
       {videos.length > 0 ? (
         <>
           <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
