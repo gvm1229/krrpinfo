@@ -50,9 +50,8 @@ const seasonsData = [
       },
       {
         seasonNum: 25,
-        // alt: 'S25타이틀',
-        title: 'S25',
-        description: '노르테유2',
+        src: '/assets/images/한섭/S25_타이틀.png',
+        alt: 'S25타이틀',
         targetEndDate: '6/20/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-purple-600',
