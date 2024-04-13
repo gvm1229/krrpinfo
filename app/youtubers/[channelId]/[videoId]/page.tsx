@@ -1,10 +1,8 @@
-import { ChevronLeft, ExternalLink } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllChannels, getChannel } from '@/app/actions/handleYTData';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
-import ButtonNewTab from '@/components/Button/ButtonNewTab';
-import YouTubeIcon from '@/components/Icons/YouTubeIcon';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 import { siteConfig } from '@/config/site';
 import { buttonVariants } from '@/src/components/ui/button';
@@ -87,19 +85,19 @@ export default async function YouTubeVideoPage({
 
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
-      <div className="flex w-full flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
-        <h1 className="text-4xl font-bold laptop:text-5xl">
-          채널 영상 목록
-        </h1>
-        <ButtonNewTab
-          href={`https://www.youtube.com/channel/${channelId}`}
-          className="flex w-fit items-center gap-2 text-lg font-medium text-primary hover:underline tablet:text-xl laptop:text-2xl"
-        >
-          <YouTubeIcon className="flex size-7 items-center justify-center tablet:size-8" />
-          {channelTitle}
-          <ExternalLink size={20} className="text-primary tablet:hidden" />
-          <ExternalLink size={24} className="text-primary mobile_only:hidden" />
-        </ButtonNewTab>
+      <div className="flex w-full flex-col items-start justify-center gap-y-4 tablet:gap-y-6">
+        <aside className="shrink-0">
+          <Link
+            href={`/youtubers/${channelId}`}
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              'relative inline-flex text-base',
+            )}
+          >
+            <ChevronLeft className="mr-2 size-4" />
+            {`${channelTitle} 채널로 돌아가기`}
+          </Link>
+        </aside>
         <BreadcrumbContainer
           itemsInput={[
             [
@@ -108,22 +106,10 @@ export default async function YouTubeVideoPage({
             ],
             { url: `/youtubers/${channelId}/${video.id}`, label: video.snippet.title.trim() },
           ]}
-          className="mt-4 flex w-full justify-center"
         />
-        <div className="mt-4 flex w-full justify-center tablet:mt-0 tablet:justify-start">
-          <aside className="shrink-0">
-            <Link
-              href={`/youtubers/${channelId}`}
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                'relative inline-flex text-base',
-              )}
-            >
-              <ChevronLeft className="mr-2 size-4" />
-              {`${channelTitle} 채널로 돌아가기`}
-            </Link>
-          </aside>
-        </div>
+        <h1 className="text-ellipsis text-3xl font-bold tablet:text-4xl laptop:text-5xl">
+          {video.snippet.title}
+        </h1>
       </div>
       <YouTubeModalContent videoData={video} />
     </main>
