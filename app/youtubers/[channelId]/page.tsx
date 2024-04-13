@@ -1,7 +1,10 @@
 import { compareDesc } from 'date-fns';
+import { ExternalLink } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getAllChannels, getChannel } from '@/app/actions/handleYTData';
 import Blog from '@/components/Blog/Blog';
+import ButtonNewTab from '@/components/Button/ButtonNewTab';
+import YouTubeIcon from '@/components/Icons/YouTubeIcon';
 import { siteConfig } from '@/config/site';
 import type { YouTubeVideoItem } from '@/src/types';
 import { absoluteUrl } from '@/src/util/utils';
@@ -90,9 +93,20 @@ export default async function YouTuberRootPage({
     <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
       {videos.length > 0 ? (
         <>
-          <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
-            {`${channelTitle} - 영상 목록`}
-          </h1>
+          <div className="flex flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
+            <h1 className="text-4xl font-bold laptop:text-5xl">
+              채널 영상 목록
+            </h1>
+            <ButtonNewTab
+              href={`https://www.youtube.com/channel/${channelId}`}
+              className="flex w-fit items-center gap-2 text-lg font-medium text-primary hover:underline tablet:text-xl laptop:text-2xl"
+            >
+              <YouTubeIcon className="flex size-7 items-center justify-center tablet:size-8" />
+              {channelTitle}
+              <ExternalLink size={20} className="text-primary tablet:hidden" />
+              <ExternalLink size={24} className="text-primary mobile_only:hidden" />
+            </ButtonNewTab>
+          </div>
           <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {videos.map((video: YouTubeVideoItem, index: number) => (
               <Blog
