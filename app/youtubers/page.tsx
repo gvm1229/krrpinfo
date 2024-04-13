@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { getAllChannels } from '@/app/actions/handleYTData';
 // import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
+import YouTubeChannelCard from '@/components/Card/YouTubeChannelCard';
 import { siteConfig } from '@/config/site';
 
 export const metadata = {
@@ -21,19 +21,21 @@ export default async function YouTubersRootPage() {
   const channels = await getAllChannels();
 
   return (
-    <main className="container relative flex h-full flex-col items-center gap-12">
-      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 laptop:grid-cols-3">
+    <main className="container relative flex h-full flex-col items-center gap-y-8">
+      <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
+        유튜버 목록
+      </h1>
+      <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
         {channels.map((channel: {
           channelId: string;
           channelTitle: string;
         }) => (
-          <Link
+          <YouTubeChannelCard
             key={channel.channelId}
-            href={`/youtubers/${channel.channelId}`}
-            className="flex size-28 items-center justify-center bg-secondary p-4 font-bold"
-          >
-            {channel.channelTitle}
-          </Link>
+            channelId={channel.channelId}
+            title={channel.channelTitle}
+            description="sample description"
+          />
         ))}
       </div>
       {/* <YouTubeDataInput /> */}
