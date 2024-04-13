@@ -1,13 +1,16 @@
 import { compareDesc } from 'date-fns';
-import { ExternalLink } from 'lucide-react';
+import { ChevronLeft, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllChannels, getChannel } from '@/app/actions/handleYTData';
 import Blog from '@/components/Blog/Blog';
+import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';
 import { siteConfig } from '@/config/site';
+import { buttonVariants } from '@/src/components/ui/button';
 import type { YouTubeVideoItem } from '@/src/types';
-import { absoluteUrl } from '@/src/util/utils';
+import { absoluteUrl, cn } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
 async function getChannelFromParams(params: { channelId: string }) {
@@ -93,7 +96,7 @@ export default async function YouTuberRootPage({
     <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
       {videos.length > 0 ? (
         <>
-          <div className="flex flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
+          <div className="flex w-full flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
             <h1 className="text-4xl font-bold laptop:text-5xl">
               채널 영상 목록
             </h1>
@@ -106,6 +109,27 @@ export default async function YouTuberRootPage({
               <ExternalLink size={20} className="text-primary tablet:hidden" />
               <ExternalLink size={24} className="text-primary mobile_only:hidden" />
             </ButtonNewTab>
+            <BreadcrumbContainer
+              itemsInput={[
+                { url: '/youtubers', label: '유튜브 채널' },
+                { url: `/youtubers/${channelId}`, label: channelTitle },
+              ]}
+              className="mt-4 flex w-full justify-center"
+            />
+            <div className="mt-4 flex w-full justify-center tablet:mt-0 tablet:justify-start">
+              <aside className="shrink-0">
+                <Link
+                  href="/youtubers"
+                  className={cn(
+                    buttonVariants({ variant: 'ghost' }),
+                    'relative inline-flex text-base',
+                  )}
+                >
+                  <ChevronLeft className="mr-2 size-4" />
+                  유튜브 채널 목록으로 돌아가기
+                </Link>
+              </aside>
+            </div>
           </div>
           <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {videos.map((video: YouTubeVideoItem, index: number) => (
