@@ -1,4 +1,5 @@
 import React from 'react';
+import TruncateText from '@/components/Text/TruncateText';
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -64,7 +65,9 @@ const BreadcrumbContainer = ({
                               href={item.url}
                               className="text-base text-primary tablet:text-lg"
                             >
-                              {item.label.slice(0, 10) + (item.label.length > 10 ? '...' : '')}
+                              <TruncateText
+                                text={item.label}
+                              />
                             </BreadcrumbLink>
                           </DropdownMenuItem>
                         ))}
@@ -82,7 +85,9 @@ const BreadcrumbContainer = ({
                     href={item.url}
                     className="text-base text-primary tablet:text-lg"
                   >
-                    {item.label.slice(0, 10) + (item.label.length > 10 ? '...' : '')}
+                    <TruncateText
+                      text={item.label}
+                    />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 {index < items.length - 1 && <BreadcrumbSeparator />}
