@@ -22,7 +22,7 @@ export default async function YouTubersRootPage() {
 
   return (
     <main className="container relative flex h-full flex-col items-center gap-y-12 laptop:gap-y-16">
-      <h1 className="text-3xl font-bold tablet:text-4xl laptop:text-5xl">
+      <h1 className="text-4xl font-bold laptop:text-5xl">
         유튜버 목록
       </h1>
       <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
