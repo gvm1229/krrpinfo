@@ -120,7 +120,7 @@ const seasonsData = [
         bgToColor: 'to-pink-300',
       },
       {
-        src: '/assets/images/한섭/펑키버드반전.webp',
+        src: '/assets/images/한섭/펑키버드세피아.webp',
         title: '한섭 독자운영.. 미상',
         description: '한섭 독자운영.. 미상',
         targetEndDate: '5/31/2024',
@@ -186,16 +186,22 @@ const FeaturedBento = ({ className }) => {
 const Links = ({ className }: { className?: string }) => {
   const links = [
     {
-      thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
+      thumbnail: '/assets/images/한섭/S25_시즌배너.webp',
       tags: ['넥슨 공식 매체'],
       title: '진행 중인 & 진행 예정인 이벤트',
-      hyperlink: 'https://kartrush.nexon.com/2024/event_240215-launching',
+      hyperlink: 'https://kartrush.nexon.com/2024/event_240411-launching',
     },
     {
       thumbnail: '/assets/images/links/썸네일공지사항.jpg',
       tags: ['넥슨 공식 매체'],
       title: '일반 공지사항',
       hyperlink: 'https://forum.nexon.com/kartrush/board_list?board=839',
+    },
+    {
+      thumbnail: '/assets/images/links/콘텐츠.webp',
+      tags: ['넥슨 공식 매체'],
+      title: 'GM 소식',
+      hyperlink: 'https://forum.nexon.com/kartrush/board_list?board=833',
     },
     {
       thumbnail: '/assets/images/links/썸네일이벤트.png',
