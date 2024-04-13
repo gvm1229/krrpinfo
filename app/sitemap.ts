@@ -1,5 +1,4 @@
 import { compareDesc } from 'date-fns';
-import { getAllChannels } from '@/app/actions/handleYTData';
 import { env } from '@/env.mjs';
 import type { MetadataRoute } from 'next';
 import { allPosts } from 'contentlayer/generated';
@@ -19,17 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'daily' as Changefreq,
     priority: 0.8,
   }));
-
-  let allYTVideos = [];
-
-  getAllChannels().then((allChannels) => {
-    allYTVideos = allChannels.flatMap((channel) => channel.allVideos.map((video) => ({
-      url: `${rootPath}/youtubers/${channel.channelId}/${video.id}`,
-      lastModified: new Date().toISOString(),
-      changeFrequency: 'daily' as Changefreq,
-      priority: 0.8,
-    })));
-  });
 
   return [
     {
@@ -51,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-    ...allYTVideos,
     {
       url: 'https://kartrushplus.info/redeem',
       lastModified: new Date(),
