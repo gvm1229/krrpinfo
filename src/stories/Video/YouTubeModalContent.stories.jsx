@@ -20,7 +20,7 @@ const Template = (args) => (
     defaultTheme="system"
     enableSystem
   >
-    <div className="container relative flex h-screen w-screen items-center justify-center">
+    <div className="container relative flex h-screen w-screen flex-col items-center justify-center">
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
@@ -146,5 +146,5 @@ const video = {
 export const Default = Template.bind({});
 Default.args = {
   videoData: video,
-  className: 'max-h-[80vh]',
+  className: 'max-h-[50vh] h-full',
 };
