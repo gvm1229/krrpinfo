@@ -1,6 +1,6 @@
 'use server';
 
-import type { YouTubeVideoItem, YouTubeChannel, TimeStamp } from '@/src/types';
+import type { YouTubeChannel, YouTubeVideoItem } from '@/src/types';
 import mongoClient from '@/src/util/db';
 
 // YouTube Channel functions
@@ -32,8 +32,7 @@ export async function getAllChannels(): Promise<YouTubeChannel[]> {
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    const result = await db.collection('channels').find().toArray();
-    return result;
+    return db.collection('channels').find().toArray();
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve all channels: ${error}`);
@@ -50,8 +49,7 @@ export async function getChannel(id: string): Promise<YouTubeChannel | null> {
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    const result = await db.collection('channels').findOne({ channelId: id });
-    return result;
+    return db.collection('channels').findOne({ channelId: id });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve individual channel: ${error}`);
@@ -190,12 +188,11 @@ export async function editVideo(channelId: string, videoId: string, newData: You
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    await db
-      .collection('channels')
-      .updateOne({ channelId }, { $pull: { allVideos: { id: videoId } } });
-    await db
-      .collection('channels')
-      .updateOne({ channelId }, { $push: { allVideos: newData } });
+    // from allVideos, only edit the entry that matches both the channelId and videoId, and replace it with newData
+    await db.collection('channels').updateOne(
+      { channelId, 'allVideos.videoId': videoId },
+      { $set: { 'allVideos.$': newData } },
+    );
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to edit video: ${error}`);
@@ -211,14 +208,12 @@ export async function editVideo(channelId: string, videoId: string, newData: You
  * @return {YouTubeVideoItem} The video data with appended timestamps
  */
 export async function appendTimestamps(videoData: YouTubeVideoItem): Promise<YouTubeVideoItem> {
-  const timestamps: TimeStamp[] = [
+  videoData.timestamps = [
     {
       title: 'Start',
       seconds: 0,
     },
   ];
-
-  videoData.timestamps = timestamps;
 
   return videoData;
 }
