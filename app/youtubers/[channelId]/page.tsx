@@ -93,7 +93,7 @@ export default async function YouTuberRootPage({
   ));
 
   return (
-    <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
+    <div className="container relative flex flex-col items-center">
       {videos.length > 0 ? (
         <>
           <div className="flex w-full flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
@@ -116,22 +116,10 @@ export default async function YouTuberRootPage({
               ]}
               className="mt-4 flex w-full justify-center"
             />
-            <div className="mt-4 flex w-full justify-center tablet:mt-0 tablet:justify-start">
-              <aside className="shrink-0">
-                <Link
-                  href="/youtubers"
-                  className={cn(
-                    buttonVariants({ variant: 'ghost' }),
-                    'relative inline-flex text-base',
-                  )}
-                >
-                  <ChevronLeft className="mr-2 size-4" />
-                  유튜브 채널 목록으로 돌아가기
-                </Link>
-              </aside>
-            </div>
           </div>
-          <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
+          <div
+            className="relative grid w-full grid-cols-1 gap-8 pt-8 tablet:grid-cols-2 laptop:grid-cols-3 laptop:pt-16"
+          >
             {videos.map((video: YouTubeVideoItem, index: number) => (
               <Blog
                 key={video.id}
@@ -145,6 +133,18 @@ export default async function YouTuberRootPage({
               />
             ))}
           </div>
+          <footer className="mt-8 flex w-full items-center justify-center border-t pt-8 tablet:hidden">
+            <Link
+              href="/youtubers"
+              className={cn(
+                buttonVariants({ variant: 'ghost' }),
+                'relative inline-flex text-base',
+              )}
+            >
+              <ChevronLeft className="mr-2 size-4" />
+              유튜브 채널 목록으로 돌아가기
+            </Link>
+          </footer>
         </>
       ) : (
         <p className="text-center text-2xl font-bold tablet:text-3xl laptop:text-4xl">
