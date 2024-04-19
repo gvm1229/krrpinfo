@@ -1,17 +1,17 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllChannels, getChannel } from '@/app/actions/handleYTData';
+import { getAllChannels, getVideo } from '@/app/actions/handleYTData';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
+import YouTubeTimeStampInput from '@/components/Video/YouTubeTimeStampInput';
 import { siteConfig } from '@/config/site';
 import { buttonVariants } from '@/src/components/ui/button';
 import { absoluteUrl, cn } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
 async function getVideoFromParams(params: { channelId: string; videoId: string }) {
-  const channel = await getChannel(params.channelId);
-  const video = channel.allVideos.find((video) => video.id === params.videoId);
+  const video = await getVideo(params.channelId, params.videoId);
   if (!video) return null;
   return video;
 }
@@ -112,6 +112,9 @@ export default async function YouTubeVideoPage({
         </h1>
       </div>
       <YouTubeModalContent videoData={video} />
+      <YouTubeTimeStampInput
+        videoData={video}
+      />
     </main>
   );
 }
