@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import type { TimeStamp, YouTubeVideoItem } from '@/src/types';
+import type { YouTubeVideoItem } from '@/src/types';
 import { cn, convertSecondsToTime } from '@/src/util/utils';
-import YouTubeTimeStampInput from './YouTubeTimeStampInput';
 
 interface YouTubeModalContentProps {
   videoData: YouTubeVideoItem;
@@ -16,9 +15,8 @@ const YouTubeModalContent = ({
   videoData,
   className,
 }: YouTubeModalContentProps) => {
-  const { timestamps: timeStampsInit } = videoData;
+  const { timestamps } = videoData;
 
-  const [timeStamps, setTimeStamps] = useState<TimeStamp[]>(timeStampsInit);
   const [isWindow, setIsWindow] = useState<boolean>(false);
 
   const playerRef = useRef(null);
@@ -34,12 +32,12 @@ const YouTubeModalContent = ({
   };
 
   const isWithinInterval = (indexInput: number) => {
-    const currentTimeStamp = timeStamps[indexInput].seconds;
+    const currentTimeStamp = timestamps[indexInput].seconds;
 
-    if (indexInput === timeStamps.length - 1)
+    if (indexInput === timestamps.length - 1)
       return currentTimeStamp <= currentTime;
 
-    const nextTimeStamp = timeStamps[indexInput + 1].seconds;
+    const nextTimeStamp = timestamps[indexInput + 1].seconds;
 
     return currentTimeStamp <= currentTime && currentTime < nextTimeStamp;
   };
@@ -108,35 +106,31 @@ const YouTubeModalContent = ({
             <h1 className="text-lg font-medium tablet:text-xl">챕터</h1>
           </div>
           <ScrollArea className="flex h-48 flex-col overflow-hidden laptop:h-[43vh] laptop:min-w-80">
-            {timeStamps.map((timeStamp, idx) => (
+            {videoData.timestamps.map((timestamp, idx) => (
               <button
-                key={timeStamp.title}
+                key={timestamp.title}
                 className={cn(
                   'flex w-full flex-col items-start px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 tablet:p-4',
                   isWithinInterval(idx) && 'bg-zinc-100 dark:bg-zinc-800',
                 )}
                 onClick={() => {
-                  playerRef.current?.seekTo(timeStamp.seconds);
-                  setCurrentTime(timeStamp.seconds);
+                  playerRef.current?.seekTo(timestamp.seconds);
+                  setCurrentTime(timestamp.seconds);
                 }}
               >
                 <h1 className="text-base font-medium tablet:text-lg">
-                  {timeStamp.title}
+                  {timestamp.title}
                 </h1>
                 <p
                   className="mt-2 rounded-md bg-blue-300/35 px-1.5 py-0.5 text-left text-sm font-semibold text-blue-600 dark:bg-blue-500/35 dark:text-blue-500 tablet:text-base"
                 >
-                  {convertSecondsToTime(timeStamp.seconds)}
+                  {convertSecondsToTime(timestamp.seconds)}
                 </p>
               </button>
             ))}
           </ScrollArea>
         </div>
       </main>
-      <YouTubeTimeStampInput
-        timeStamps={timeStamps}
-        setTimeStamps={setTimeStamps}
-      />
     </>
   );
 };

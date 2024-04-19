@@ -59,7 +59,7 @@ export type YouTubeChannel = {
   allVideos: YouTubeVideoItem[];
 };
 
-export type TimeStamp = {
+export type Timestamp = {
   title: string;
   seconds: number;
 };
