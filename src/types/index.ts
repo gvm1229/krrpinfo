@@ -1,6 +1,34 @@
 /* eslint-disable no-undef */
 
 // YouTube API types
+export type YouTubeChannelResponse = {
+  kind: string;
+  etag: string;
+  pageInfo: PageInfo;
+  items: YouTubeChannelItem[];
+};
+
+export type YouTubeChannelItem = {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: YouTubeChannelSnippet;
+};
+
+export type YouTubeChannelSnippet = {
+  title: string;
+  description: string;
+  customUrl: string;
+  publishedAt: string;
+  thumbnails: {
+    default: ThumbnailDetail;
+    medium: ThumbnailDetail;
+    high: ThumbnailDetail;
+  };
+  localized: Localized;
+  country: string;
+};
+
 export type YouTubeVideoListResponse = {
   kind: string;
   etag: string;
@@ -60,6 +88,10 @@ export type YouTubeChannel = {
   channelId: string;
   channelTitle: string;
   allVideos: YouTubeVideoItem[];
+  channelDescription?: string;
+  customUrl?: string;
+  thumbnail?: ThumbnailDetail;
+  subscribers?: number;
 };
 
 export type Timestamp = {
@@ -68,8 +100,8 @@ export type Timestamp = {
 };
 
 export const categories = [
-  'current season',
-  'upcoming season',
-  'last season',
-  'tips',
+  '현재 시즌',
+  '향후 시즌',
+  '지난 시즌',
+  '팁',
 ] as const;

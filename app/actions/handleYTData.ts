@@ -2,6 +2,7 @@
 
 import type { YouTubeChannel, YouTubeVideoItem } from '@/src/types';
 import mongoClient from '@/src/util/db';
+import { getYouTubeChannelData, getYouTubeChannelSubscribers } from './fetchYouTube';
 
 // YouTube Channel functions
 
@@ -66,7 +67,18 @@ export async function insertOneChannel(data: YouTubeChannel) {
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    await db.collection('channels').insertOne(data);
+    const channelRes = await getYouTubeChannelData(data.channelId);
+    const subscriberCount = await getYouTubeChannelSubscribers(data.channelId);
+
+    const finalData = {
+      ...data,
+      channelDescription: 'Sample Description',
+      customUrl: channelRes.snippet.customUrl,
+      thumbnail: channelRes.snippet.thumbnails.high,
+      subscribers: subscriberCount as number,
+    } as YouTubeChannel;
+
+    await db.collection('channels').insertOne(finalData);
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to insert channel: ${error}`);

@@ -1,15 +1,45 @@
 'use server';
 
 import { env } from '@/env.mjs';
-import type { YouTubeVideoItem, YouTubeVideoListResponse } from '@/src/types';
+import type {
+  YouTubeChannelItem, YouTubeChannelResponse, YouTubeVideoItem, YouTubeVideoListResponse,
+} from '@/src/types';
+
+/**
+ * Retrieves YouTube channel data based on the provided ID.
+ *
+ * @param {string} id - The ID of the YouTube channel.
+ * @return {Promise<YouTubeChannelItem>} The retrieved YouTube channel data.
+ */
+export async function getYouTubeChannelData(id: string): Promise<YouTubeChannelItem> {
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${id}&key=${env.YOUTUBE_API_KEY}`);
+
+    const data = (await res.json()) as YouTubeChannelResponse;
+
+    return data.items[0];
+  } catch (err) {
+    throw new Error(`Error fetching YouTube Channel Data: ${err}`);
+  }
+}
+
+export async function getYouTubeChannelSubscribers(id: string): Promise<number> {
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${id}&key=${env.YOUTUBE_API_KEY}`);
+    const data = (await res.json());
+    return data.items[0].statistics.subscriberCount;
+  } catch (err) {
+    throw new Error(`Error fetching YouTube Channel Data: ${err}`);
+  }
+}
 
 /**
  * Retrieves YouTube video data from the provided URL.
  *
  * @param {string} url - The URL of the YouTube video.
- * @return {YouTubeVideo} The first YouTube video item from the response data.
+ * @return {Promise<YouTubeVideoItem>} The retrieved YouTube video data.
  */
-export async function getYoutubeData(url: string): Promise<YouTubeVideoItem> {
+export async function getYouTubeVideoData(url: string): Promise<YouTubeVideoItem> {
   try {
     const id = filteredUrlId(url);
 
@@ -24,7 +54,7 @@ export async function getYoutubeData(url: string): Promise<YouTubeVideoItem> {
 
     return data.items[0];
   } catch (err) {
-    throw new Error(`Error fetching YT Data: ${err}`);
+    throw new Error(`Error fetching YouTube Video Data: ${err}`);
   }
 }
 
