@@ -42,14 +42,14 @@ export async function getAllChannels(): Promise<YouTubeChannel[]> {
 /**
  * Retrieves a YouTube channel from the 'channels' collection in the 'youtubers' database based on the provided channel ID.
  *
- * @param {string} id - The unique identifier of the YouTube channel to retrieve.
- * @return {Promise<YouTubeChannel | null>} The retrieved YouTube channel or null if not found.
+ * @param {string} channelId - The unique identifier of the YouTube channel to retrieve.
+ * @return {Promise<YouTubeChannel>} The retrieved YouTube channel.
  */
-export async function getChannel(id: string): Promise<YouTubeChannel | null> {
+export async function getChannel(channelId: string): Promise<YouTubeChannel | null> {
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    return db.collection('channels').findOne({ channelId: id });
+    return db.collection('channels').findOne({ channelId });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve individual channel: ${error}`);
@@ -76,17 +76,17 @@ export async function insertOneChannel(data: YouTubeChannel) {
 /**
  * Edit a YouTube channel in the 'channels' collection of the 'youtubers' database.
  *
- * @param {string} id - The ID (YouTube ID, not MongoDB ObjectId) of the channel to be edited
- * @param {YouTubeChannel} newData - The updated data for the channel
+ * @param {string} channelId - The ID (YouTube ID, not MongoDB ObjectId) of the channel to be edited
+ * @param {YouTubeChannel} newChannelData - The updated data for the channel
  * return nothing as this function just performs an action
  */
-export async function editChannel(id: string, newData: YouTubeChannel) {
+export async function editChannel(channelId: string, newChannelData: YouTubeChannel) {
   const db = (await mongoClient()).db('youtubers');
 
   try {
     await db
       .collection('channels')
-      .updateOne({ channelId: id }, { $set: newData });
+      .updateOne({ channelId }, { $set: newChannelData });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to edit channel: ${error}`);
@@ -108,11 +108,9 @@ export async function checkIfVideoExists(channelId: string, videoId: string): Pr
   if (!isExistingChannel)
     return false;
 
-  const db = (await mongoClient()).db('youtubers');
-
   try {
-    const channel: YouTubeChannel = await db.collection('channels').findOne({ channelId });
-    return channel.allVideos.some((video: YouTubeVideoItem) => video.id === videoId);
+    const allVideos = await getAllVideos(channelId);
+    return allVideos.some((video: YouTubeVideoItem) => video.id === videoId);
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to check if video exists: ${error}`);
@@ -140,16 +138,14 @@ export async function getAllVideos(channelId: string): Promise<YouTubeVideoItem[
 /**
  * Retrieves a specific video based on the channelId and videoId provided.
  *
- * @param {string} channelId - The ID of the YouTube channel
- * @param {string} videoId - The ID of the YouTube video
- * @return {Promise<YouTubeVideoItem | null>} The YouTube video item if found, otherwise null
+ * @param {string} channelId - The ID of the YouTube channel.
+ * @param {string} videoId - The ID of the YouTube video.
+ * @return {Promise<YouTubeVideoItem>} The YouTube video item if found.
  */
 export async function getVideo(channelId: string, videoId: string): Promise<YouTubeVideoItem | null> {
-  const db = (await mongoClient()).db('youtubers');
-
   try {
-    const channel: YouTubeChannel = await db.collection('channels').findOne({ channelId });
-    return channel.allVideos.find((video: YouTubeVideoItem) => video.id === videoId);
+    const allVideos = await getAllVideos(channelId);
+    return allVideos.find((video: YouTubeVideoItem) => video.id === videoId);
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve individual video: ${error}`);
@@ -181,18 +177,20 @@ export async function insertOneVideo(channelId: string, videoData: YouTubeVideoI
  *
  * @param {string} channelId - The ID of the channel
  * @param {string} videoId - The ID of the video to be edited
- * @param {YouTubeVideoItem} newData - The updated video data
+ * @param {YouTubeVideoItem} newVideoData - The updated video data
  * return nothing as this function just performs an action
  */
-export async function editVideo(channelId: string, videoId: string, newData: YouTubeVideoItem) {
+export async function editVideo(channelId: string, videoId: string, newVideoData: YouTubeVideoItem) {
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    // from allVideos, only edit the entry that matches both the channelId and videoId, and replace it with newData
-    await db.collection('channels').updateOne(
-      { channelId, 'allVideos.videoId': videoId },
-      { $set: { 'allVideos.$': newData } },
-    );
+    const allVideos = await getAllVideos(channelId);
+    const allVideosExcept = allVideos.filter((video: YouTubeVideoItem) => video.id !== videoId);
+
+    // from allVideos, only edit the entry that matches both the channelId and videoId, and replace it with newVideoData
+    await db
+      .collection('channels')
+      .updateOne({ channelId }, { $set: { allVideos: [...allVideosExcept, newVideoData] } });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to edit video: ${error}`);
@@ -208,12 +206,13 @@ export async function editVideo(channelId: string, videoId: string, newData: You
  * @return {YouTubeVideoItem} The video data with appended timestamps
  */
 export async function appendTimestamps(videoData: YouTubeVideoItem): Promise<YouTubeVideoItem> {
-  videoData.timestamps = [
-    {
-      title: 'Start',
-      seconds: 0,
-    },
-  ];
-
-  return videoData;
+  return {
+    ...videoData,
+    timestamps: [
+      {
+        title: 'Start',
+        seconds: 0,
+      },
+    ],
+  };
 }
