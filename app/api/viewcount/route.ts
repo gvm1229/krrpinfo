@@ -30,12 +30,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
 
+    const viewRefreshMinutes = 60;
     const isNewView = await redis.set(
       ['deduplicate', hash, slug].join(':'),
       true,
       {
         nx: true,
-        ex: 60 * 60,
+        ex: viewRefreshMinutes * 60,
       },
     );
     if (!isNewView) return new NextResponse(null, { status: 202 });

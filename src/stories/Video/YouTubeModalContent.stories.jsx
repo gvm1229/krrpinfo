@@ -1,11 +1,11 @@
 import React from 'react';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
-import { YouTubeModal } from '@/components/Video/YouTubeModal';
+import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
 
 export default {
-  title: 'Components/Video/YouTubeModal',
-  component: YouTubeModal,
+  title: 'Components/Video/YouTubeModalContent',
+  component: YouTubeModalContent,
   argTypes: {
     // Define default argTypes here
   },
@@ -20,13 +20,11 @@ const Template = (args) => (
     defaultTheme="system"
     enableSystem
   >
-    <div className="container relative flex h-screen w-screen items-center justify-center">
+    <div className="container relative flex h-screen w-screen flex-col items-center justify-center">
       <div className="absolute right-4 top-4">
         <ModeToggle />
       </div>
-      <div className="mx-auto max-w-96">
-        <YouTubeModal {...args} />
-      </div>
+      <YouTubeModalContent {...args} />
     </div>
   </ThemeProvider>
 );
@@ -97,9 +95,56 @@ const video = {
     },
     defaultAudioLanguage: 'en',
   },
+  timestamps: [
+    {
+      title: 'Start',
+      seconds: 0,
+    },
+    {
+      title: 'Snake',
+      seconds: 6.847,
+    },
+    {
+      title: 'Sloth',
+      seconds: 12.764,
+    },
+    {
+      title: 'Ants',
+      seconds: 27.311,
+    },
+    {
+      title: 'Frog',
+      seconds: 34,
+    },
+    {
+      title: 'Snake 2',
+      seconds: 42.532,
+    },
+    {
+      title: 'Turtle',
+      seconds: 56.452,
+    },
+    {
+      title: 'Lizard',
+      seconds: 61.934,
+    },
+    {
+      title: 'Snake 3',
+      seconds: 72.353,
+    },
+    {
+      title: 'Frog 2',
+      seconds: 81.904,
+    },
+    {
+      title: 'Parrot',
+      seconds: 90.273,
+    },
+  ],
 };
 
 export const Default = Template.bind({});
 Default.args = {
   videoData: video,
+  className: 'max-h-[50vh] h-full',
 };

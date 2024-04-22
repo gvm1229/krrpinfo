@@ -2,7 +2,6 @@
 
 // Error components must be Client Components
 
-import { Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import {
@@ -53,13 +52,12 @@ export default function YtError({
         </CardFooter> */}
             <Button
               onClick={() => {
-                router.push('/');
+                router.push('/youtubers');
                 router.refresh();
               }}
               className="flex items-center gap-3 text-lg tablet:h-[3.25rem] tablet:text-xl"
             >
-              <Home className="size-4 tablet:size-6" />
-              홈 화면으로 돌아가기
+              유튜버 목록 화면으로 돌아가기
             </Button>
           </CardFooter>
         </Card>

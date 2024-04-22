@@ -1,5 +1,4 @@
 import { compareDesc } from 'date-fns';
-import { allYoutubers } from '@/content/youtubers';
 import { env } from '@/env.mjs';
 import type { MetadataRoute } from 'next';
 import { allPosts } from 'contentlayer/generated';
@@ -20,18 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const allYTVideos = Object.keys(allYoutubers).flatMap((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
-    url: `${rootPath}/youtubers/${channelId}/${video.id}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: 'daily' as Changefreq,
-    priority: 0.8,
-  })));
-
   return [
     {
       url: 'https://kartrushplus.info',
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'daily',
       priority: 1,
     },
     {
@@ -47,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-    ...allYTVideos,
     {
       url: 'https://kartrushplus.info/redeem',
       lastModified: new Date(),

@@ -70,3 +70,7 @@ export function dynamicViewport(gridNums: number[]) {
     `${calcViewWidth(gridNums[2])}vw`,
   ].join(', ');
 }
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

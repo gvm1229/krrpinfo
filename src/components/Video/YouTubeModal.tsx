@@ -1,9 +1,9 @@
 import { ExternalLink } from 'lucide-react';
-import type { YouTubeVideoItem } from '@/app/actions/youtubeFetch';
 import { ImageWrapper } from '@/components/Blog/Blog';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';
 import Tag from '@/components/Tag/Tag';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,10 +11,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
+  DialogClose,
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import type { YouTubeVideoItem } from '@/src/types';
 import { formatDate } from '@/src/util/utils';
-import YouTubeModalContent from './YouTubeModalContent';
 
 interface YouTubeModalProps {
   videoData: YouTubeVideoItem;
@@ -58,11 +60,10 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="max-h-[90vh] max-w-[90vw] gap-0 overflow-hidden rounded-md bg-primary-foreground p-4">
+      <DialogContent className="max-w-[50vw] gap-0 rounded-md bg-primary-foreground p-4">
         <DialogHeader className="justify-start p-4 text-left">
           <DialogTitle className="text-2xl font-bold tablet:text-3xl">
-            {/* {videoData.snippet.title} */}
-            Sample title
+            {videoData.snippet.title}
           </DialogTitle>
           <DialogDescription className="text-base font-medium tablet:text-lg">
             Sample description
@@ -74,15 +75,12 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
             >
               <YouTubeIcon className="flex size-7 items-center justify-center" />
               {/* {videoData.snippet.channelTitle} */}
-              Sample author
+              {videoData.snippet.channelTitle}
               <ExternalLink size={20} className="text-primary" />
             </ButtonNewTab>
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="size-full max-h-[60vh] p-4">
-          <YouTubeModalContent videoId={videoData.id} />
-        </ScrollArea>
-        <ScrollArea className="size-full max-h-[20vh] p-4">
+        <ScrollArea className="size-full max-h-[40vh] p-4">
           <p className="whitespace-pre-wrap text-lg font-medium">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
@@ -121,9 +119,13 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
             tincidunt.
           </p>
         </ScrollArea>
-        {/* <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter> */}
+        <DialogFooter className="justify-start">
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

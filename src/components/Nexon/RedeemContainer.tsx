@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import InputComponent from './InputComponent';
+import InputComponent from '@/components/Data/InputComponent';
+import ResponseDisplay from '@/components/Data/ResponseDisplay';
 import RedeemButton from './RedeemButton';
-import ResponseDisplay from './ResponseDisplay';
 
 const RedeemContainer = () => {
   const [npaCode, setNpaCode] = useState('');

@@ -1,13 +1,17 @@
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { getAllChannels, getVideo } from '@/app/actions/handleYTData';
+import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
+import YouTubeTimeStampInput from '@/components/Video/YouTubeTimeStampInput';
 import { siteConfig } from '@/config/site';
-import { allYoutubers } from '@/content/youtubers';
-import { absoluteUrl } from '@/src/util/utils';
+import { buttonVariants } from '@/src/components/ui/button';
+import { absoluteUrl, cn } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
 async function getVideoFromParams(params: { channelId: string; videoId: string }) {
-  const channel = allYoutubers[params.channelId];
-  const video = channel.allVideos.find((video) => video.id === params.videoId);
+  const video = await getVideo(params.channelId, params.videoId);
   if (!video) return null;
   return video;
 }
@@ -61,8 +65,9 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return Object.keys(allYoutubers).flatMap((channelId) => allYoutubers[channelId].allVideos.map((video) => ({
-    channelId,
+  const allChannels = await getAllChannels();
+  return allChannels.flatMap((channel) => channel.allVideos.map((video) => ({
+    channelId: channel.channelId,
     videoId: video.id,
   })));
 }
@@ -75,9 +80,41 @@ export default async function YouTubeVideoPage({
   const video = await getVideoFromParams(params);
   if (!video) notFound();
 
+  const { channelId } = params;
+  const channelTitle = video.snippet.channelTitle;
+
   return (
     <main className="container relative flex h-full flex-col items-center gap-12">
-      <YouTubeModalContent videoId={params.videoId} />
+      <div className="flex w-full flex-col items-start justify-center gap-y-4 tablet:gap-y-6">
+        <aside className="shrink-0">
+          <Link
+            href={`/youtubers/${channelId}`}
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              'relative inline-flex text-base',
+            )}
+          >
+            <ChevronLeft className="mr-2 size-4" />
+            {`${channelTitle} 채널로 돌아가기`}
+          </Link>
+        </aside>
+        <BreadcrumbContainer
+          itemsInput={[
+            [
+              { url: '/youtubers', label: '유튜브 채널' },
+              { url: `/youtubers/${channelId}`, label: channelTitle },
+            ],
+            { url: `/youtubers/${channelId}/${video.id}`, label: video.snippet.title.trim() },
+          ]}
+        />
+        <h1 className="text-ellipsis text-3xl font-bold tablet:text-4xl laptop:text-5xl">
+          {video.snippet.title}
+        </h1>
+      </div>
+      <YouTubeModalContent videoData={video} />
+      <YouTubeTimeStampInput
+        videoData={video}
+      />
     </main>
   );
 }
