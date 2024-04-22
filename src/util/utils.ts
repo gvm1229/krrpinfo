@@ -74,3 +74,28 @@ export function dynamicViewport(gridNums: number[]) {
 export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function commaNumbers(num: number) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export function truncateNumbers(num: number): string {
+  // 40600 -> 4.06만
+  // 4060 -> 4.06천
+
+  let suffix = '';
+  let divider = 1;
+
+  if (num > 10000) {
+    suffix = '만';
+    divider = 10000;
+  } else if (num > 1000) {
+    suffix = '천';
+    divider = 1000;
+  }
+
+  // divide num by 1000, and only leave 2 floating points at max.
+  const formattedNum = (num / divider).toLocaleString('ko-KR', { maximumFractionDigits: 2 });
+
+  return `${formattedNum}${suffix}`;
+}
