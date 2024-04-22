@@ -143,7 +143,7 @@ function TextDataWrapper({
       )}
       <div className="group mt-4 space-y-2 text-left">
         <div
-          className={`flex items-center justify-between ${toNavigate && 'pb-2'}`}
+          className="flex items-center justify-between pb-2"
         >
           <p
             id="date"
@@ -218,6 +218,7 @@ export function ImageWrapper({
         src={src}
         alt={alt}
         wrapperClassName="rounded-md shadow-md dark:shadow-zinc-600"
+        imageClassName="scale-103"
         aspectRatio="aspect-video"
         gridNums={gridNums}
         isPriority={isPriority}
