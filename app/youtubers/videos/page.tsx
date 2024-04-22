@@ -45,11 +45,11 @@ export default async function YouTubersRootPage() {
   const nonZeroCategoryKeys = Object.keys(categorizedAllVideos).filter((key) => categorizedAllVideos[key].length > 0);
 
   return (
-    <main className="container relative flex h-full flex-col items-center gap-y-12 laptop:gap-y-16">
+    <main className="container relative flex h-full flex-col items-center">
       <h1 className="text-4xl font-bold laptop:text-5xl">
         추천 영상 종합 목록
       </h1>
-      <Tabs defaultValue={nonZeroCategoryKeys[0]} className="w-full">
+      <Tabs defaultValue={nonZeroCategoryKeys[0]} className="mt-8 w-full laptop:mt-16">
         <TabsList className="flex size-full">
           {categories.map((category) => (
             <>
