@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getYoutubeData } from '@/app/actions/fetchYouTube';
+import { getYouTubeVideoData } from '@/app/actions/fetchYouTube';
 import {
   appendTimestamps, checkIfChannelExists, checkIfVideoExists, insertOneChannel, insertOneVideo,
 } from '@/app/actions/handleYTData';
@@ -57,11 +57,11 @@ const YouTubeDataInput = () => {
   const [ytUrl, setYtUrl] = useState('');
   const [videoData, setVideoData] = useState<YouTubeVideoItem>(null);
   const [response, setResponse] = useState<ResponseProps>(null);
-  const [selectedCategory, setSelectedCategory] = useState<VideoCategory>('current season');
+  const [selectedCategory, setSelectedCategory] = useState<VideoCategory>('현재 시즌');
 
   const handleFetch = () => {
     try {
-      getYoutubeData(ytUrl)
+      getYouTubeVideoData(ytUrl)
         .then((data) => setVideoData(data));
     } catch (error) {
       setResponse({ success: false, message: error });
@@ -78,7 +78,7 @@ const YouTubeDataInput = () => {
           insertOneChannel({
             channelId,
             channelTitle: videoData.snippet.channelTitle,
-            allVideos: [dataToInsert],
+            allVideos: [{ ...dataToInsert, category: selectedCategory }],
           });
           setResponse({ success: true, message: `Success, new channel ${videoData.snippet.channelTitle} (${channelId}) created with 1 video` });
         });
