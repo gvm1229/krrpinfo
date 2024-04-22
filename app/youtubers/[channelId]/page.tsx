@@ -100,11 +100,13 @@ export default async function YouTuberRootPage({
   ));
 
   const categorizedVideos = {
-    'current season': videos.filter((video) => video.category === 'current season'),
-    'upcoming season': videos.filter((video) => video.category === 'upcoming season'),
-    'last season': videos.filter((video) => video.category === 'last season'),
-    tips: videos.filter((video) => video.category === 'tips'),
+    '현재 시즌': videos.filter((video) => video.category === '현재 시즌'),
+    '향후 시즌': videos.filter((video) => video.category === '향후 시즌'),
+    '지난 시즌': videos.filter((video) => video.category === '지난 시즌'),
+    팁: videos.filter((video) => video.category === '팁'),
   };
+
+  const nonZeroCategoryKeys = Object.keys(categorizedVideos).filter((key) => categorizedVideos[key].length > 0);
 
   return (
     <div className="container relative flex flex-col items-center">
@@ -112,7 +114,7 @@ export default async function YouTuberRootPage({
         <>
           <div className="flex w-full flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
             <h1 className="text-4xl font-bold laptop:text-5xl">
-              채널 영상 목록
+              추천 영상 목록
             </h1>
             <ButtonNewTab
               href={`https://www.youtube.com/channel/${channelId}`}
@@ -125,55 +127,67 @@ export default async function YouTuberRootPage({
             </ButtonNewTab>
             <BreadcrumbContainer
               itemsInput={[
-                { url: '/youtubers', label: '유튜브 채널' },
+                { url: '/youtubers', label: '유튜브 채널 목록' },
                 { url: `/youtubers/${channelId}`, label: channelTitle },
               ]}
               className="mt-4 flex w-full justify-center"
             />
           </div>
-          <Tabs defaultValue="account" className="mt-8 w-full">
-            <TabsList className="flex">
+          <Tabs defaultValue={nonZeroCategoryKeys[0]} className="mt-8 w-full">
+            <TabsList className="flex size-full">
               {categories.map((category) => (
-                <TabsTrigger
-                  key={category}
-                  value={category}
-                  className="truncate"
-                >
-                  {capitalizeFirstLetter(category)}
-                </TabsTrigger>
+                <>
+                  {
+                    categorizedVideos[category].length > 0 && (
+                      <TabsTrigger
+                        key={category}
+                        value={category}
+                        className="h-10 w-full truncate text-base font-medium tablet:h-12 tablet:text-lg laptop:text-xl"
+                      >
+                        {capitalizeFirstLetter(category)}
+                      </TabsTrigger>
+                    )
+                  }
+                </>
               ))}
             </TabsList>
             {categories.map((category) => (
-              <TabsContent
-                key={category}
-                value={category}
-              >
-                {categorizedVideos[category].length > 0 ? (
-                  <div
-                    className="relative grid w-full grid-cols-1 gap-8 pt-8 tablet:grid-cols-2 laptop:grid-cols-3 laptop:pt-16"
-                  >
-                    {categorizedVideos[category].map((video: YouTubeVideoItem, index: number) => (
-                      <Blog
-                        key={video.id}
-                        toNavigate={`${channelId}/${video.id}`}
-                        thumbnail={video.snippet.thumbnails.maxres.url}
-                        isImagePriority={index < 6}
-                        title={video.snippet.title}
-                        description={channelTitle}
-                        date={video.snippet.publishedAt}
-                        tags={[]}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <p className="mt-8 text-center text-2xl font-bold tablet:text-3xl laptop:mt-12 laptop:text-4xl">
-                    현재 카테고리에 해당하는 영상이 없습니다.
-                  </p>
-                )}
-              </TabsContent>
+              <>
+                {
+                  categorizedVideos[category].length > 0 && (
+                    <TabsContent
+                      key={category}
+                      value={category}
+                    >
+                      {categorizedVideos[category].length > 0 ? (
+                        <div
+                          className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-12 laptop:grid-cols-3"
+                        >
+                          {categorizedVideos[category].map((video: YouTubeVideoItem, index: number) => (
+                            <Blog
+                              key={video.id}
+                              hyperlink={`https://www.youtube.com/watch?v=${video.id}`}
+                              thumbnail={video.snippet.thumbnails.maxres.url}
+                              isImagePriority={index < 6}
+                              title={video.snippet.title}
+                              description={channelTitle}
+                              date={video.snippet.publishedAt}
+                              tags={[]}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="py-20 text-center text-2xl font-bold tablet:text-3xl laptop:py-28 laptop:text-4xl">
+                          현재 카테고리에 해당하는 영상이 없습니다.
+                        </p>
+                      )}
+                    </TabsContent>
+                  )
+                }
+              </>
             ))}
           </Tabs>
-          <footer className="mt-8 flex w-full items-center justify-center border-t pt-8 tablet:hidden">
+          <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
             <Link
               href="/youtubers"
               className={cn(
