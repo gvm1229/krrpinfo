@@ -6,7 +6,7 @@
 
 [![React](https://img.shields.io/badge/React-18.2.0-gray?labelColor=222222&style=for-the-badge&logo=React&link=https://react.dev/)](https://react.dev/)
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.2.0-gray?labelColor=d4d4d8&style=for-the-badge&logo=Next.js&logoColor=black&link=https://nextjs.org/)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2.2-gray?labelColor=d4d4d8&style=for-the-badge&logo=Next.js&logoColor=black&link=https://nextjs.org/)](https://nextjs.org/)
 
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.3-gray?labelColor=06B6D4&style=for-the-badge&logo=Tailwind+CSS&logoColor=white&link=https://tailwindcss.com/)](https://tailwindcss.com/)
 
