@@ -58,7 +58,7 @@ const YouTubeTimestampInput: React.FC<EditableTimestampProps> = ({ videoData }) 
   const handleSave = () => {
     const newVideoItem: YouTubeVideoItem = {
       ...videoData,
-      timestamps: localTimestamps,
+      timestamps: localTimestamps.sort((a, b) => a.seconds - b.seconds),
     };
 
     editVideo(videoData.snippet.channelId, videoData.id, newVideoItem);
