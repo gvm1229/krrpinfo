@@ -122,9 +122,7 @@ function TextDataWrapper({
   className,
 }: TextDataWrapperProps) {
   return (
-    <div
-      className={cn('relative rounded-lg focus:outline-none', width, className)}
-    >
+    <div className={cn('rounded-lg focus:outline-none', width, className)}>
       {toNavigate || hyperlink ? (
         <NavigateComponent href={toNavigate || hyperlink}>
           <ImageWrapper
@@ -132,7 +130,7 @@ function TextDataWrapper({
             gridNums={gridNums}
             isPriority={isPriority}
             isHyperlink={!!hyperlink}
-            width={width}
+            className={width}
           />
         </NavigateComponent>
       ) : (
@@ -140,12 +138,12 @@ function TextDataWrapper({
           src={thumbnail}
           gridNums={gridNums}
           isPriority={isPriority}
-          width={width}
+          className={width}
         />
       )}
       <div className="group mt-4 space-y-2 text-left">
         <div
-          className={`flex items-center justify-between ${toNavigate && 'pb-2'}`}
+          className="flex items-center justify-between pb-2"
         >
           <p
             id="date"
@@ -164,11 +162,13 @@ function TextDataWrapper({
           )}
         </div>
         {toNavigate || hyperlink ? (
-          <NavigateComponent
-            href={toNavigate || hyperlink}
-            className="truncate text-2xl font-bold text-primary hover:underline"
-          >
-            {title}
+          <NavigateComponent href={toNavigate || hyperlink}>
+            <h1
+              id="title"
+              className="truncate text-2xl font-bold text-primary hover:underline"
+            >
+              {title}
+            </h1>
           </NavigateComponent>
         ) : (
           <h1
@@ -183,7 +183,7 @@ function TextDataWrapper({
             {description}
           </p>
         )}
-        <Tag tagInput={tags} />
+        <Tag tagInput={tags} isEllipsisEnabled />
       </div>
     </div>
   );
@@ -195,19 +195,19 @@ interface ImageWrapperProps {
   gridNums: number[];
   isPriority: boolean;
   isHyperlink?: boolean;
-  width: string;
+  className?: string;
 }
 
-function ImageWrapper({
+export function ImageWrapper({
   src,
   alt = 'blog-thumbnail',
   gridNums,
   isPriority,
   isHyperlink,
-  width,
+  className,
 }: ImageWrapperProps) {
   return (
-    <div className={`relative aspect-video rounded-md ${width}`}>
+    <div className={cn('relative aspect-video rounded-md', className)}>
       <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
       {isHyperlink && (
         <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
@@ -218,6 +218,8 @@ function ImageWrapper({
         src={src}
         alt={alt}
         wrapperClassName="rounded-md shadow-md dark:shadow-zinc-600"
+        imageClassName="scale-103"
+        aspectRatio="aspect-video"
         gridNums={gridNums}
         isPriority={isPriority}
       />

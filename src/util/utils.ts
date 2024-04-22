@@ -16,6 +16,34 @@ export function formatDate(input: string | number | Date): string {
   return date.toLocaleDateString();
 }
 
+// utility function that converts the seconds into HH:MM:SS format
+export function convertSecondsToTime(seconds: number, truncate: boolean = true) {
+  const roundedSeconds = Math.round(seconds);
+
+  // if 'truncate' is true, then the format should be only M:SS for seconds less than 10 minutes
+  // if 'truncate' is true, then the format should be only MM:SS for seconds less than 1 hour.
+  // if 'truncate' is true, then the format should be only H:MM:SS for seconds greater than 1 hour but less than 10 hours.
+  // if 'truncate' is true, then the format should be only HH:MM:SS for seconds greater than 10 hours.
+  if (truncate) {
+    if (roundedSeconds < 3600) {
+      const minutes = Math.floor(roundedSeconds / 60);
+      const remainingSeconds = roundedSeconds % 60;
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    } if (roundedSeconds < 36000) {
+      const hours = Math.floor(roundedSeconds / 3600);
+      const minutes = Math.floor((roundedSeconds % 3600) / 60);
+      const remainingSeconds = roundedSeconds % 60;
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+  }
+
+  const hours = Math.floor(roundedSeconds / 3600);
+  const minutes = Math.floor((roundedSeconds % 3600) / 60);
+  const remainingSeconds = roundedSeconds % 60;
+  const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  return formattedTime;
+}
+
 export function calcStdImageWidth(
   widthInput: number,
   heightInput: number,
@@ -41,4 +69,49 @@ export function dynamicViewport(gridNums: number[]) {
     `(max-width: 1240px) ${calcViewWidth(gridNums[1])}vw`,
     `${calcViewWidth(gridNums[2])}vw`,
   ].join(', ');
+}
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function commaNumbers(num: number) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export function truncateNumbers(num: number): string {
+  // 40600 -> 4.06만
+  // 4060 -> 4.06천
+
+  let suffix = '';
+  let divider = 1;
+
+  if (num > 10000) {
+    suffix = '만';
+    divider = 10000;
+  } else if (num > 1000) {
+    suffix = '천';
+    divider = 1000;
+  }
+
+  // divide num by 1000, and only leave 2 floating points at max.
+  const formattedNum = (num / divider).toLocaleString('ko-KR', { maximumFractionDigits: 2 });
+
+  return `${formattedNum}${suffix}`;
+}
+
+/**
+ * Returns the fallback index for the given array and input index.
+ *
+ * @param {never[]} arrInput - The input array.
+ * @param {number} idxInput - The input index.
+ * @return {number} The fallback index.
+ */
+export function fallBackIndex(arrInput: unknown[], idxInput: number): number {
+  if (idxInput >= arrInput.length)
+    return arrInput.length - 1;
+  if (idxInput < 0)
+    return 0;
+
+  return idxInput;
 }

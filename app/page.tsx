@@ -19,7 +19,7 @@ const seasonsData = [
     seasons: [
       {
         title: '중섭 현재: S29',
-        description: '블리자드',
+        description: '블리자드?',
         targetEndDate: '3/26/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-cyan-600',
@@ -27,8 +27,16 @@ const seasonsData = [
       },
       {
         title: '중섭 현재: S30',
-        description: '붐힐',
+        description: '붐힐?',
         targetEndDate: '5/27/2024',
+        countdownUntilEnd: true,
+        bgFromColor: 'from-indigo-600',
+        bgToColor: 'to-indigo-300',
+      },
+      {
+        title: '중섭 현재: S31',
+        description: '???',
+        targetEndDate: '7/28/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-indigo-600',
         bgToColor: 'to-indigo-300',
@@ -50,18 +58,27 @@ const seasonsData = [
       },
       {
         seasonNum: 25,
-        // alt: 'S25타이틀',
-        title: 'S25',
-        description: '노르테유2',
-        targetEndDate: '6/20/2024',
+        src: '/assets/images/한섭/S25_타이틀.webp',
+        alt: 'S25타이틀',
+        targetEndDate: '6/12/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-purple-600',
         bgToColor: 'to-purple-300',
+      },
+      {
+        seasonNum: 26,
+        // src: '/assets/images/한섭/S26_타이틀.webp',
+        alt: 'S26타이틀',
+        targetEndDate: '8/14/2024',
+        countdownUntilEnd: true,
+        bgFromColor: 'from-blue-600',
+        bgToColor: 'to-blue-300',
       },
     ],
   },
   {
     // 출시니까 정확한 출시일 입력할 것
+    // 시즌 시작일과 동일
     key: '다음 행운의 별자리 카트',
     seasons: [
       {
@@ -76,17 +93,34 @@ const seasonsData = [
         src: '/assets/images/S25/행운의별자리아이템카트.webp',
         title: '홍련',
         description: '홍련',
-        targetEndDate: '4/17/2024',
+        targetEndDate: '4/18/2024',
         countdownUntilEnd: false,
         bgFromColor: 'from-red-600',
         bgToColor: 'to-red-300',
+      },
+      {
+        title: '카멜롯 무언가',
+        description: '카멜롯 무언가',
+        targetEndDate: '6/13/2024',
+        countdownUntilEnd: false,
+        bgFromColor: 'from-blue-600',
+        bgToColor: 'to-blue-300',
       },
     ],
   },
   {
     // 출시니까 정확한 출시일 입력할 것
+    // 9주 인터벌, 플펫 바로 전주
     key: '다음 골드 기어 뒤집기 카트',
     seasons: [
+      {
+        title: '히드라',
+        description: '히드라',
+        targetEndDate: '1/19/2024',
+        countdownUntilEnd: false,
+        bgFromColor: 'from-cyan-600',
+        bgToColor: 'to-cyan-300',
+      },
       {
         title: '호루스',
         description: '호루스',
@@ -99,7 +133,16 @@ const seasonsData = [
         src: '/assets/images/S25/골드기어아이템카트.webp',
         title: '노르테유 탐사선',
         description: '노르테유 탐사선',
-        targetEndDate: '5/25/2024',
+        targetEndDate: '5/24/2024',
+        countdownUntilEnd: false,
+        bgFromColor: 'from-yellow-600',
+        bgToColor: 'to-yellow-300',
+      },
+      {
+        src: '/assets/images/S25/골드기어아이템카트.webp',
+        title: '노르테유 탐사선',
+        description: '노르테유 탐사선',
+        targetEndDate: '7/26/2024',
         countdownUntilEnd: false,
         bgFromColor: 'from-yellow-600',
         bgToColor: 'to-yellow-300',
@@ -108,6 +151,7 @@ const seasonsData = [
   },
   {
     // 출시니까 정확한 출시일 입력할 것
+    // 9주 인터벌, 골기 바로 다음주
     key: '다음 행운의 별자리 플라잉펫',
     seasons: [
       {
@@ -120,10 +164,19 @@ const seasonsData = [
         bgToColor: 'to-pink-300',
       },
       {
-        src: '/assets/images/한섭/펑키버드반전.webp',
+        src: '/assets/images/한섭/펑키버드세피아.webp',
         title: '한섭 독자운영.. 미상',
         description: '한섭 독자운영.. 미상',
         targetEndDate: '5/31/2024',
+        countdownUntilEnd: false,
+        bgFromColor: 'from-zinc-600',
+        bgToColor: 'to-zinc-300',
+      },
+      {
+        src: '/assets/images/한섭/펑키버드세피아.webp',
+        title: '한섭 독자운영.. 미상',
+        description: '한섭 독자운영.. 미상',
+        targetEndDate: '8/2/2024',
         countdownUntilEnd: false,
         bgFromColor: 'from-zinc-600',
         bgToColor: 'to-zinc-300',
@@ -144,9 +197,9 @@ const seasonsData = [
         bgToColor: 'to-emerald-300',
       },
       {
-        title: '로얄 나이트 세트?',
-        description: '로얄 나이트 세트?',
-        targetEndDate: '9/1/2024',
+        title: '한섭 독자운영.. 미상',
+        description: '한섭 독자운영.. 미상',
+        targetEndDate: '6/1/2024',
         countdownUntilEnd: false,
         bgFromColor: 'from-emerald-600',
         bgToColor: 'to-emerald-300',
@@ -186,16 +239,22 @@ const FeaturedBento = ({ className }) => {
 const Links = ({ className }: { className?: string }) => {
   const links = [
     {
-      thumbnail: '/assets/images/한섭/S24_시즌배너.webp',
+      thumbnail: '/assets/images/한섭/S25_시즌배너.webp',
       tags: ['넥슨 공식 매체'],
       title: '진행 중인 & 진행 예정인 이벤트',
-      hyperlink: 'https://kartrush.nexon.com/2024/event_240215-launching',
+      hyperlink: 'https://kartrush.nexon.com/2024/event_240411-launching',
     },
     {
       thumbnail: '/assets/images/links/썸네일공지사항.jpg',
       tags: ['넥슨 공식 매체'],
       title: '일반 공지사항',
       hyperlink: 'https://forum.nexon.com/kartrush/board_list?board=839',
+    },
+    {
+      thumbnail: '/assets/images/links/콘텐츠.webp',
+      tags: ['넥슨 공식 매체'],
+      title: 'GM 소식',
+      hyperlink: 'https://forum.nexon.com/kartrush/board_list?board=833',
     },
     {
       thumbnail: '/assets/images/links/썸네일이벤트.png',

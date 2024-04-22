@@ -12,19 +12,23 @@ import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
+import type { ResolvingMetadata } from 'next';
 import { allPosts } from 'contentlayer/generated';
 import '@/src/styles/mdx.css';
 
 export const revalidate = 60;
 const redis = Redis.fromEnv();
 
-async function getPostFromParams(params) {
+async function getPostFromParams(params: { slug: string }) {
   const post = allPosts.find((post) => post.slugAsParams === params.slug);
   if (!post) return null;
   return post;
 }
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata,
+) {
   const post = await getPostFromParams(params);
 
   if (!post) return {};
@@ -52,7 +56,7 @@ export async function generateMetadata({ params }, parent) {
       title: post.title,
       description: post.description,
       type: 'article',
-      authors: ['Megiii'],
+      authors: ['Megi'],
       url: absoluteUrl(post.slug),
       images: [
         {
@@ -68,6 +72,7 @@ export async function generateMetadata({ params }, parent) {
       title: post.title,
       description: post.description,
       images: [post.thumbnail],
+      creator: 'Megi',
     },
     metadataBase: new URL(`${siteConfig.url}${post.slug}`),
     alternates: {
@@ -131,9 +136,7 @@ export default async function PostPage({
           <p className="text-base font-medium text-muted-foreground tablet:text-lg">
             {formatDate(post.date)}
           </p>
-          <h1 className="text-2xl font-bold tablet:text-5xl">
-            {post.title}
-          </h1>
+          <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
               {post.description}

@@ -15,6 +15,18 @@ export const navContents: NavItem[] = [
     title: '쿠폰 리딤',
     href: '/redeem',
   },
+  {
+    title: '추천 유튜버 목록',
+    href: '/youtubers',
+    label: 'New',
+    items: [
+      {
+        title: '영상 별로 모아보기',
+        href: '/youtubers/videos',
+        label: 'New',
+      },
+    ],
+  },
   // {
   //   title: 'Karts',
   //   href: '/karts',

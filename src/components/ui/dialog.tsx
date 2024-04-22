@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/no-unnecessary-arbitrary-value */
+
 'use client';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';

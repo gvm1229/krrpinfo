@@ -10,6 +10,7 @@ import { SiteFooter } from '@/components/Footer/SiteFooter';
 import { SiteHeader } from '@/components/Header/SiteHeader';
 import ViewReporter from '@/components/View/ViewReporter';
 import { siteConfig } from '@/config/site';
+import ClientLayout from '@/src/components/Layout/ClientLayout';
 
 export const metadata = {
   title: {
@@ -82,7 +83,8 @@ export const metadata = {
     //   },
     // ],
     icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    shortcut: '/apple-touch-icon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
   metadataBase: new URL(siteConfig.url),
@@ -117,16 +119,18 @@ function render(
 ) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="relative h-screen min-h-svh bg-background antialiased">
+      <body className="relative min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-svh flex-col">
-            <SiteHeader userAgent={userAgent} />
-            <main className="relative flex-1 py-8 tablet:py-12">
-              {children}
-            </main>
-            <SiteFooter totalViews={totalViews} />
-            <ScrollToTopButton />
-          </div>
+          <ClientLayout>
+            <div className="relative flex min-h-svh flex-col">
+              <SiteHeader userAgent={userAgent} />
+              <main className="relative flex-1 py-8 tablet:py-12">
+                {children}
+              </main>
+              <SiteFooter totalViews={totalViews} />
+              <ScrollToTopButton />
+            </div>
+          </ClientLayout>
         </ThemeProvider>
         <ViewReporter slug={totalViewSlug} path="/" />
         <Analytics />
