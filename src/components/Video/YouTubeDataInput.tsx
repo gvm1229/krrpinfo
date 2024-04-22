@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getYoutubeData } from '@/app/actions/fetchYouTube';
 import {
   appendTimestamps, checkIfChannelExists, checkIfVideoExists, insertOneChannel, insertOneVideo,
@@ -103,10 +103,6 @@ const YouTubeDataInput = () => {
       });
     });
   };
-
-  useEffect(() => {
-    console.log('selectedCategory', selectedCategory);
-  }, [selectedCategory]);
 
   return (
     <div className="flex w-full flex-col items-center gap-y-4">
