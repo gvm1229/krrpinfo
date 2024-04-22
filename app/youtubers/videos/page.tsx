@@ -13,7 +13,7 @@ import {
 import { siteConfig } from '@/config/site';
 import { categories } from '@/src/types';
 import type { YouTubeChannel, YouTubeVideoItem } from '@/src/types';
-import { cn } from '@/src/util/utils';
+import { cn, fallBackIndex } from '@/src/util/utils';
 
 export const metadata = {
   title: '추천 유튜버 목록',
@@ -29,7 +29,13 @@ export const metadata = {
 
 export const revalidate = 60;
 
-export default async function YouTubersRootPage() {
+export default async function YouTubersRootPage({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | undefined };
+}) {
+  const overrideIndex = searchParams?.idx ? parseInt(searchParams?.idx, 10) : 0;
+
   const channels = await getAllChannels();
   const flatAllVideos = channels.flatMap((channel: YouTubeChannel) => channel.allVideos);
   const combinedAllVideos = flatAllVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
@@ -49,7 +55,7 @@ export default async function YouTubersRootPage() {
       <h1 className="text-4xl font-bold laptop:text-5xl">
         추천 영상 종합 목록
       </h1>
-      <Tabs defaultValue={nonZeroCategoryKeys[0]} className="mt-8 w-full laptop:mt-16">
+      <Tabs defaultValue={nonZeroCategoryKeys[fallBackIndex(nonZeroCategoryKeys, overrideIndex)]} className="mt-8 w-full laptop:mt-16">
         <TabsList className="flex size-full">
           {categories.map((category) => (
             <>

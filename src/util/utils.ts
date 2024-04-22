@@ -99,3 +99,19 @@ export function truncateNumbers(num: number): string {
 
   return `${formattedNum}${suffix}`;
 }
+
+/**
+ * Returns the fallback index for the given array and input index.
+ *
+ * @param {never[]} arrInput - The input array.
+ * @param {number} idxInput - The input index.
+ * @return {number} The fallback index.
+ */
+export function fallBackIndex(arrInput: unknown[], idxInput: number): number {
+  if (idxInput >= arrInput.length)
+    return arrInput.length - 1;
+  if (idxInput < 0)
+    return 0;
+
+  return idxInput;
+}
