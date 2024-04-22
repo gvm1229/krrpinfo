@@ -16,7 +16,7 @@ import type { YouTubeChannel, YouTubeVideoItem } from '@/src/types';
 import { cn, fallBackIndex } from '@/src/util/utils';
 
 export const metadata = {
-  title: '추천 유튜버 목록',
+  title: '추천 영상 종합 목록',
   metadataBase: new URL(`${siteConfig.url}/youtubers`),
   alternates: {
     canonical: '/',

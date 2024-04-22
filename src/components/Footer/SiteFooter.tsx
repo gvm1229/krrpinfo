@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import ViewCounter from '@/components//View/ViewCounter';
+import Player from '@/components/Audio/Player';
 import KakaoTalkIcon from '@/components/Icons/KakaoTalkIcon';
 import { buttonVariants } from '@/components/ui/button';
 import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
@@ -86,6 +87,7 @@ export function SiteFooter({
           . All rights reserved.
         </p>
       </div>
+      <Player />
     </footer>
   );
 }
