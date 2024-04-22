@@ -1,0 +1,118 @@
+import { compareDesc } from 'date-fns';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
+import { getAllChannels } from '@/app/actions/handleYTData';
+import Blog from '@/components/Blog/Blog';
+import { buttonVariants } from '@/components/ui/button';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs';
+import { siteConfig } from '@/config/site';
+import { categories } from '@/src/types';
+import type { YouTubeChannel, YouTubeVideoItem } from '@/src/types';
+import { cn } from '@/src/util/utils';
+
+export const metadata = {
+  title: '추천 유튜버 목록',
+  metadataBase: new URL(`${siteConfig.url}/youtubers`),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ko-KR': '/ko-KR',
+      // 'en-US': '/en-US',
+    },
+  },
+};
+
+export const revalidate = 60;
+
+export default async function YouTubersRootPage() {
+  const channels = await getAllChannels();
+  const flatAllVideos = channels.flatMap((channel: YouTubeChannel) => channel.allVideos);
+  const combinedAllVideos = flatAllVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
+    new Date(a.snippet.publishedAt),
+    new Date(b.snippet.publishedAt),
+  ));
+  const categorizedAllVideos = {
+    '현재 시즌': combinedAllVideos.filter((video) => video.category === '현재 시즌'),
+    '향후 시즌': combinedAllVideos.filter((video) => video.category === '향후 시즌'),
+    '지난 시즌': combinedAllVideos.filter((video) => video.category === '지난 시즌'),
+    팁: combinedAllVideos.filter((video) => video.category === '팁'),
+  };
+  const nonZeroCategoryKeys = Object.keys(categorizedAllVideos).filter((key) => categorizedAllVideos[key].length > 0);
+
+  return (
+    <main className="container relative flex h-full flex-col items-center gap-y-12 laptop:gap-y-16">
+      <h1 className="text-4xl font-bold laptop:text-5xl">
+        추천 영상 종합 목록
+      </h1>
+      <Tabs defaultValue={nonZeroCategoryKeys[0]} className="w-full">
+        <TabsList className="flex size-full">
+          {categories.map((category) => (
+            <>
+              {
+                categorizedAllVideos[category].length > 0 && (
+                  <TabsTrigger
+                    key={category}
+                    value={category}
+                    className="h-10 w-full truncate text-base font-medium tablet:h-12 tablet:text-lg laptop:text-xl"
+                  >
+                    {category}
+                  </TabsTrigger>
+                )
+              }
+            </>
+          ))}
+        </TabsList>
+        {categories.map((category) => (
+          <>
+            {categorizedAllVideos[category].length > 0 && (
+              <TabsContent
+                key={category}
+                value={category}
+              >
+                {categorizedAllVideos[category].length > 0 ? (
+                  <div
+                    className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-12 laptop:grid-cols-3"
+                  >
+                    {categorizedAllVideos[category].map((video: YouTubeVideoItem, index: number) => (
+                      <Blog
+                        key={video.id}
+                        hyperlink={`https://www.youtube.com/watch?v=${video.id}`}
+                        thumbnail={video.snippet.thumbnails.maxres.url}
+                        isImagePriority={index < 6}
+                        title={video.snippet.title}
+                        description={video.snippet.channelTitle}
+                        date={video.snippet.publishedAt}
+                        tags={[]}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-20 text-center text-2xl font-bold tablet:text-3xl laptop:py-28 laptop:text-4xl">
+                    현재 카테고리에 해당하는 영상이 없습니다.
+                  </p>
+                )}
+              </TabsContent>
+            )}
+          </>
+        ))}
+      </Tabs>
+      <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
+        <Link
+          href="/youtubers"
+          className={cn(
+            buttonVariants({ variant: 'default' }),
+            'relative inline-flex text-base',
+          )}
+        >
+          <ChevronLeft className="mr-2 size-4" />
+          채널 별로 모아보기
+        </Link>
+      </footer>
+    </main>
+  );
+}

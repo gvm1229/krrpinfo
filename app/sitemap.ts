@@ -40,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: 'https://kartrushplus.info/youtubers/videos',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
       url: 'https://kartrushplus.info/redeem',
       lastModified: new Date(),
       changeFrequency: 'always',

@@ -1,8 +1,12 @@
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 import { getAllChannels } from '@/app/actions/handleYTData';
 import YouTubeChannelCard from '@/components/Card/YouTubeChannelCard';
 // import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
+import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import type { YouTubeChannel } from '@/src/types';
+import { cn } from '@/src/util/utils';
 
 export const metadata = {
   title: '추천 유튜버 목록',
@@ -35,6 +39,18 @@ export default async function YouTubersRootPage() {
         ))}
       </div>
       {/* <YouTubeDataInput /> */}
+      <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
+        <Link
+          href="/youtubers/videos"
+          className={cn(
+            buttonVariants({ variant: 'default' }),
+            'relative inline-flex text-base',
+          )}
+        >
+          영상 별로 모아보기
+          <ChevronRight className="ml-2 size-4" />
+        </Link>
+      </footer>
     </main>
   );
 }
