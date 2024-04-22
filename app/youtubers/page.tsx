@@ -1,6 +1,6 @@
 import { getAllChannels } from '@/app/actions/handleYTData';
 import YouTubeChannelCard from '@/components/Card/YouTubeChannelCard';
-import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
+// import YouTubeDataInput from '@/components/Video/YouTubeDataInput';
 import { siteConfig } from '@/config/site';
 
 export const metadata = {
@@ -38,7 +38,7 @@ export default async function YouTubersRootPage() {
           />
         ))}
       </div>
-      <YouTubeDataInput />
+      {/* <YouTubeDataInput /> */}
     </main>
   );
 }
