@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getAllChannels, getVideo } from '@/app/actions/handleYTData';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import YouTubeModalContent from '@/components/Video/YouTubeModalContent';
-import YouTubeTimeStampInput from '@/components/Video/YouTubeTimeStampInput';
+// import YouTubeTimeStampInput from '@/components/Video/YouTubeTimeStampInput';
 import { siteConfig } from '@/config/site';
 import { buttonVariants } from '@/src/components/ui/button';
 import { absoluteUrl, cn } from '@/src/util/utils';
@@ -112,9 +112,9 @@ export default async function YouTubeVideoPage({
         </h1>
       </div>
       <YouTubeModalContent videoData={video} />
-      <YouTubeTimeStampInput
+      {/* <YouTubeTimeStampInput
         videoData={video}
-      />
+      /> */}
     </main>
   );
 }
