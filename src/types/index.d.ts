@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // YouTube API types
 export type YouTubeVideoListResponse = {
   kind: string;
