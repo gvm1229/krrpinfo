@@ -13,7 +13,7 @@ export type YouTubeVideoItem = {
   etag: string;
   id: string;
   snippet: Snippet;
-  timestamps?: TimeStamp[];
+  timestamps?: Timestamp[];
   category?: typeof categories[number];
 };
 
@@ -62,7 +62,7 @@ export type YouTubeChannel = {
   allVideos: YouTubeVideoItem[];
 };
 
-export type TimeStamp = {
+export type Timestamp = {
   title: string;
   seconds: number;
 };
