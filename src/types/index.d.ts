@@ -14,6 +14,7 @@ export type YouTubeVideoItem = {
   id: string;
   snippet: Snippet;
   timestamps?: TimeStamp[];
+  category?: 'current season' | 'upcoming season' | 'last season' | 'tips';
 };
 
 export type Snippet = {

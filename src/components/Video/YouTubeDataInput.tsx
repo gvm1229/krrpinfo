@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getYoutubeData } from '@/app/actions/fetchYouTube';
 import {
   appendTimestamps, checkIfChannelExists, checkIfVideoExists, insertOneChannel, insertOneVideo,
@@ -8,8 +8,50 @@ import {
 import InputComponent from '@/components/Data/InputComponent';
 import ResponseDisplay from '@/components/Data/ResponseDisplay';
 import { buttonVariants } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import type { YouTubeVideoItem } from '@/src/types';
-import { cn } from '@/src/util/utils';
+import { capitalizeFirstLetter, cn } from '@/src/util/utils';
+
+// Extract the type of the category property from YouTubeVideoItem
+type VideoCategory = YouTubeVideoItem['category'];
+
+const CategorySelect = ({
+  selectedCategory,
+  setSelectedCategory,
+}: {
+  selectedCategory: VideoCategory
+  setSelectedCategory: (value: VideoCategory) => void
+}) => {
+  // Use VideoCategory in an array context
+  const categories: VideoCategory[] = ['current season', 'upcoming season', 'last season', 'tips'];
+
+  return (
+    <Select
+      value={selectedCategory}
+      onValueChange={setSelectedCategory}
+    >
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select video category" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Category</SelectLabel>
+          {categories.map((value) => (
+            <SelectItem key={value} value={value}>{capitalizeFirstLetter(value)}</SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+};
 
 interface ResponseProps {
   success: boolean
@@ -20,6 +62,7 @@ const YouTubeDataInput = () => {
   const [ytUrl, setYtUrl] = useState('');
   const [videoData, setVideoData] = useState<YouTubeVideoItem>(null);
   const [response, setResponse] = useState<ResponseProps>(null);
+  const [selectedCategory, setSelectedCategory] = useState<VideoCategory>('current season');
 
   const handleFetch = () => {
     try {
@@ -54,12 +97,16 @@ const YouTubeDataInput = () => {
         }
 
         appendTimestamps(videoData).then((dataToInsert) => {
-          insertOneVideo(channelId, dataToInsert);
+          insertOneVideo(channelId, { ...dataToInsert, category: selectedCategory });
           setResponse({ success: true, message: `Success, pushed video to ${videoData.snippet.channelTitle} (${channelId})` });
         });
       });
     });
   };
+
+  useEffect(() => {
+    console.log('selectedCategory', selectedCategory);
+  }, [selectedCategory]);
 
   return (
     <div className="flex w-full flex-col items-center gap-y-4">
@@ -87,9 +134,18 @@ const YouTubeDataInput = () => {
       <pre className="max-h-96 w-full overflow-auto bg-zinc-900 p-4">
         {JSON.stringify(videoData, null, 2)}
       </pre>
+      <CategorySelect
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       <button
-        className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
+        className={cn(
+          buttonVariants({ variant: 'secondary' }),
+          'w-full',
+          (!response?.success || videoData == null) && 'cursor-not-allowed',
+        )}
         onClick={handleSubmit}
+        disabled={!(response?.success && videoData !== null)}
       >
         Add to DB
       </button>
