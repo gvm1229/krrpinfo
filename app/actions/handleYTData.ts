@@ -135,6 +135,11 @@ export async function getAllVideos(channelId: string): Promise<YouTubeVideoItem[
   }
 }
 
+export async function getVideosByCategory(channelId: string, category: string): Promise<YouTubeVideoItem[]> {
+  const allVideos = await getAllVideos(channelId);
+  return allVideos.filter((video: YouTubeVideoItem) => video.category === category);
+}
+
 /**
  * Retrieves a specific video based on the channelId and videoId provided.
  *

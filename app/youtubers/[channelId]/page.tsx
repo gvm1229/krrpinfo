@@ -7,10 +7,17 @@ import Blog from '@/components/Blog/Blog';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs';
 import { siteConfig } from '@/config/site';
 import { buttonVariants } from '@/src/components/ui/button';
 import type { YouTubeVideoItem } from '@/src/types';
-import { absoluteUrl, cn } from '@/src/util/utils';
+import { categories } from '@/src/types';
+import { absoluteUrl, capitalizeFirstLetter, cn } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
 
 async function getChannelFromParams(params: { channelId: string }) {
@@ -92,6 +99,13 @@ export default async function YouTuberRootPage({
     new Date(b.snippet.publishedAt),
   ));
 
+  const categorizedVideos = {
+    'current season': videos.filter((video) => video.category === 'current season'),
+    'upcoming season': videos.filter((video) => video.category === 'upcoming season'),
+    'last season': videos.filter((video) => video.category === 'last season'),
+    tips: videos.filter((video) => video.category === 'tips'),
+  };
+
   return (
     <div className="container relative flex flex-col items-center">
       {videos.length > 0 ? (
@@ -117,22 +131,48 @@ export default async function YouTuberRootPage({
               className="mt-4 flex w-full justify-center"
             />
           </div>
-          <div
-            className="relative grid w-full grid-cols-1 gap-8 pt-8 tablet:grid-cols-2 laptop:grid-cols-3 laptop:pt-16"
-          >
-            {videos.map((video: YouTubeVideoItem, index: number) => (
-              <Blog
-                key={video.id}
-                toNavigate={`${channelId}/${video.id}`}
-                thumbnail={video.snippet.thumbnails.maxres.url}
-                isImagePriority={index < 6}
-                title={video.snippet.title}
-                description={channelTitle}
-                date={video.snippet.publishedAt}
-                tags={[]}
-              />
+          <Tabs defaultValue="account" className="mt-8 w-full">
+            <TabsList className="flex">
+              {categories.map((category) => (
+                <TabsTrigger
+                  key={category}
+                  value={category}
+                  className="truncate"
+                >
+                  {capitalizeFirstLetter(category)}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {categories.map((category) => (
+              <TabsContent
+                key={category}
+                value={category}
+              >
+                {categorizedVideos[category].length > 0 ? (
+                  <div
+                    className="relative grid w-full grid-cols-1 gap-8 pt-8 tablet:grid-cols-2 laptop:grid-cols-3 laptop:pt-16"
+                  >
+                    {categorizedVideos[category].map((video: YouTubeVideoItem, index: number) => (
+                      <Blog
+                        key={video.id}
+                        toNavigate={`${channelId}/${video.id}`}
+                        thumbnail={video.snippet.thumbnails.maxres.url}
+                        isImagePriority={index < 6}
+                        title={video.snippet.title}
+                        description={channelTitle}
+                        date={video.snippet.publishedAt}
+                        tags={[]}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="mt-8 text-center text-2xl font-bold tablet:text-3xl laptop:mt-12 laptop:text-4xl">
+                    현재 카테고리에 해당하는 영상이 없습니다.
+                  </p>
+                )}
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
           <footer className="mt-8 flex w-full items-center justify-center border-t pt-8 tablet:hidden">
             <Link
               href="/youtubers"

@@ -18,9 +18,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { YouTubeVideoItem } from '@/src/types';
+import { categories } from '@/src/types';
 import { capitalizeFirstLetter, cn } from '@/src/util/utils';
 
-// Extract the type of the category property from YouTubeVideoItem
 type VideoCategory = YouTubeVideoItem['category'];
 
 const CategorySelect = ({
@@ -29,29 +29,24 @@ const CategorySelect = ({
 }: {
   selectedCategory: VideoCategory
   setSelectedCategory: (value: VideoCategory) => void
-}) => {
-  // Use VideoCategory in an array context
-  const categories: VideoCategory[] = ['current season', 'upcoming season', 'last season', 'tips'];
-
-  return (
-    <Select
-      value={selectedCategory}
-      onValueChange={setSelectedCategory}
-    >
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select video category" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Category</SelectLabel>
-          {categories.map((value) => (
-            <SelectItem key={value} value={value}>{capitalizeFirstLetter(value)}</SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  );
-};
+}) => (
+  <Select
+    value={selectedCategory}
+    onValueChange={setSelectedCategory}
+  >
+    <SelectTrigger className="w-full">
+      <SelectValue placeholder="Select video category" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectLabel>Category</SelectLabel>
+        {categories.map((value) => (
+          <SelectItem key={value} value={value}>{capitalizeFirstLetter(value)}</SelectItem>
+        ))}
+      </SelectGroup>
+    </SelectContent>
+  </Select>
+);
 
 interface ResponseProps {
   success: boolean

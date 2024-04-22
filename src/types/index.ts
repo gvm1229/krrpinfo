@@ -14,7 +14,7 @@ export type YouTubeVideoItem = {
   id: string;
   snippet: Snippet;
   timestamps?: TimeStamp[];
-  category?: 'current season' | 'upcoming season' | 'last season' | 'tips';
+  category?: typeof categories[number];
 };
 
 export type Snippet = {
@@ -62,7 +62,14 @@ export type YouTubeChannel = {
   allVideos: YouTubeVideoItem[];
 };
 
-export type Timestamp = {
+export type TimeStamp = {
   title: string;
   seconds: number;
 };
+
+export const categories = [
+  'current season',
+  'upcoming season',
+  'last season',
+  'tips',
+] as const;
