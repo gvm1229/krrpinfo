@@ -166,7 +166,7 @@ export default async function YouTuberRootPage({
                           <Blog
                             key={video.id}
                             hyperlink={`https://www.youtube.com/watch?v=${video.id}`}
-                            thumbnail={video.snippet.thumbnails.maxres.url}
+                            thumbnail={video.snippet.thumbnails.maxres.url ?? video.snippet.thumbnails.high.url}
                             isImagePriority={index < 6}
                             title={video.snippet.title}
                             description={channelTitle}
