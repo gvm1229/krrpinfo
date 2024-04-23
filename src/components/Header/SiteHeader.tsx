@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CommandMenu } from '@/components/Command/CommandMenu';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 import { navContents } from '@/config/navBar';
@@ -22,25 +21,16 @@ export function SiteHeader({
           className,
         )}
       >
-        <div className="flex h-20 w-full items-center justify-between gap-x-4 tablet:hidden">
+        <div className="flex h-20 w-full items-center justify-between gap-x-4 tablet:gap-0">
           {/* mobile view */}
-          <React.Suspense
-            fallback={(
-              <h1 className="bg-blue-400 p-2">Toggle Menu</h1>
-            )}
-          >
-            <MobileNav />
-          </React.Suspense>
-          <div className="w-full flex-1">
-            <CommandMenu userAgent={userAgent} />
-          </div>
-          <ModeToggle />
-        </div>
-        <div className="hidden h-20 w-full items-center justify-between gap-0 tablet:flex">
+          <MobileNav />
           {/* tablet & desktop view */}
           <MainNav items={navContents} />
-          <div className="flex w-auto flex-none items-center gap-x-2">
-            <CommandMenu userAgent={userAgent} />
+          <div className="contents tablet:flex tablet:w-auto tablet:flex-none tablet:gap-x-2">
+            {/* mobile view */}
+            <div className="mobile_only:w-full mobile_only:flex-1">
+              <CommandMenu userAgent={userAgent} />
+            </div>
             <ModeToggle />
           </div>
         </div>

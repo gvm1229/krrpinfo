@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import TruncateText from '@/components/Text/TruncateText';
 import {
@@ -61,13 +62,15 @@ const BreadcrumbContainer = ({
                           label: string;
                         }) => (
                           <DropdownMenuItem key={item.label}>
-                            <BreadcrumbLink
-                              href={item.url}
-                              className="text-base text-primary tablet:text-lg"
-                            >
-                              <TruncateText
-                                text={item.label}
-                              />
+                            <BreadcrumbLink asChild>
+                              <Link
+                                href={item.url}
+                                className="text-base text-primary tablet:text-lg"
+                              >
+                                <TruncateText
+                                  text={item.label}
+                                />
+                              </Link>
                             </BreadcrumbLink>
                           </DropdownMenuItem>
                         ))}
@@ -81,13 +84,15 @@ const BreadcrumbContainer = ({
             return (
               <React.Fragment key={item.label}>
                 <BreadcrumbItem>
-                  <BreadcrumbLink
-                    href={item.url}
-                    className="text-base text-primary tablet:text-lg"
-                  >
-                    <TruncateText
-                      text={item.label}
-                    />
+                  <BreadcrumbLink asChild>
+                    <Link
+                      href={item.url}
+                      className="text-base text-primary tablet:text-lg"
+                    >
+                      <TruncateText
+                        text={item.label}
+                      />
+                    </Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 {index < items.length - 1 && <BreadcrumbSeparator />}
