@@ -3,7 +3,6 @@ import { ChevronLeft, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllChannels, getChannel } from '@/app/actions/handleYTData';
-import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import YouTubeIcon from '@/components/Icons/YouTubeIcon';
 import { siteConfig } from '@/config/site';
@@ -89,7 +88,7 @@ export default async function YouTuberRootPage({
 
   const overrideIndex = searchParams?.idx ? parseInt(searchParams?.idx, 10) : 0;
 
-  const { channelId, channelTitle } = channel;
+  const { channelId, channelTitle, channelDescription } = channel;
 
   const videos = channel.allVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
     new Date(a.snippet.publishedAt),
@@ -113,26 +112,20 @@ export default async function YouTuberRootPage({
             </h1>
             <ButtonNewTab
               href={`https://www.youtube.com/channel/${channelId}`}
-              className="flex w-fit items-center gap-2 text-lg font-medium text-primary hover:underline tablet:text-xl laptop:text-2xl"
+              className="flex w-fit items-center gap-2 text-xl font-medium text-primary hover:underline laptop:text-2xl"
             >
               <YouTubeIcon className="flex size-7 items-center justify-center tablet:size-8" />
               {channelTitle}
               <ExternalLink size={20} className="text-primary tablet:hidden" />
               <ExternalLink size={24} className="text-primary mobile_only:hidden" />
             </ButtonNewTab>
-            <BreadcrumbContainer
-              itemsInput={[
-                { url: '/youtubers', label: '유튜브 채널 목록' },
-                { url: `/youtubers/${channelId}`, label: channelTitle },
-              ]}
-              className="mt-4 flex w-full justify-center"
-            />
+            <p className="text-center text-lg text-muted-foreground tablet:text-xl">{channelDescription}</p>
           </div>
           <YouTubeVideoTabs
             categorizedVideos={categorizedVideos}
             nonZeroCategoryKeys={nonZeroCategoryKeys}
             overrideIndex={overrideIndex}
-            className="mt-8"
+            className="mt-8 laptop:mt-16"
           />
           <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
             <Link
