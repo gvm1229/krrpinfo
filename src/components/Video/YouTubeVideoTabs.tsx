@@ -9,27 +9,29 @@ import {
 } from '@/components/ui/tabs';
 import type { YouTubeVideoItem } from '@/src/types';
 import { categories } from '@/src/types';
-import { fallBackIndex } from '@/src/util/utils';
+import { cn, fallBackIndex } from '@/src/util/utils';
 
 const YouTubeVideoTabs = ({
-  categorizedAllVideos,
+  categorizedVideos,
   nonZeroCategoryKeys,
   overrideIndex,
+  className,
 }: {
-  categorizedAllVideos: {
+  categorizedVideos: {
     [key: string]: YouTubeVideoItem[];
   };
   nonZeroCategoryKeys: string[];
   overrideIndex: number;
+  className?: string;
 }) => (
   <Tabs
     defaultValue={nonZeroCategoryKeys[fallBackIndex(nonZeroCategoryKeys, overrideIndex)]}
-    className="mt-8 w-full laptop:mt-16"
+    className={cn('w-full', className)}
   >
     <TabsList className="flex size-full">
       {categories.map((category) => (
         <>
-          {categorizedAllVideos[category].length > 0 && (
+          {categorizedVideos[category].length > 0 && (
             <TabsTrigger
               key={category}
               value={category}
@@ -53,14 +55,14 @@ const YouTubeVideoTabs = ({
     </TabsList>
     {categories.map((category) => (
       <>
-        {categorizedAllVideos[category].length > 0 && (
+        {categorizedVideos[category].length > 0 && (
           <TabsContent
             key={category}
             value={category}
           >
-            {categorizedAllVideos[category].length > 0 ? (
+            {categorizedVideos[category].length > 0 ? (
               <div className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-12 laptop:grid-cols-3">
-                {categorizedAllVideos[category].map((video: YouTubeVideoItem, index: number) => (
+                {categorizedVideos[category].map((video: YouTubeVideoItem, index: number) => (
                   <Blog
                     key={video.id}
                     hyperlink={`https://www.youtube.com/watch?v=${video.id}`}

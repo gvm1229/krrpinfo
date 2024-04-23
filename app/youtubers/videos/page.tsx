@@ -49,9 +49,10 @@ export default async function YouTubeVideosRootPage({
         추천 영상 종합 목록
       </h1>
       <YouTubeVideoTabs
-        categorizedAllVideos={categorizedAllVideos}
+        categorizedVideos={categorizedAllVideos}
         nonZeroCategoryKeys={nonZeroCategoryKeys}
         overrideIndex={overrideIndex}
+        className="mt-8 laptop:mt-16"
       />
       <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
         <Link
