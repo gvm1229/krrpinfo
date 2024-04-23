@@ -29,7 +29,7 @@ export const metadata = {
 
 export const revalidate = 60;
 
-export default async function YouTubersRootPage({
+export default async function YouTubeVideosRootPage({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | undefined };
@@ -55,7 +55,10 @@ export default async function YouTubersRootPage({
       <h1 className="text-4xl font-bold laptop:text-5xl">
         추천 영상 종합 목록
       </h1>
-      <Tabs defaultValue={nonZeroCategoryKeys[fallBackIndex(nonZeroCategoryKeys, overrideIndex)]} className="mt-8 w-full laptop:mt-16">
+      <Tabs
+        defaultValue={nonZeroCategoryKeys[fallBackIndex(nonZeroCategoryKeys, overrideIndex)]}
+        className="mt-8 w-full laptop:mt-16"
+      >
         <TabsList className="flex size-full">
           {categories.map((category) => (
             <>
@@ -81,14 +84,12 @@ export default async function YouTubersRootPage({
                 value={category}
               >
                 {categorizedAllVideos[category].length > 0 ? (
-                  <div
-                    className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-12 laptop:grid-cols-3"
-                  >
+                  <div className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-12 laptop:grid-cols-3">
                     {categorizedAllVideos[category].map((video: YouTubeVideoItem, index: number) => (
                       <Blog
                         key={video.id}
                         hyperlink={`https://www.youtube.com/watch?v=${video.id}`}
-                        thumbnail={video.snippet.thumbnails.maxres.url}
+                        thumbnail={video.snippet.thumbnails.maxres.url ?? video.snippet.thumbnails.high.url}
                         isImagePriority={index < 6}
                         title={video.snippet.title}
                         description={video.snippet.channelTitle}
