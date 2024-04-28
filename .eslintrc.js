@@ -122,6 +122,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-shadow': 0,
+    '@typescript-eslint/quotes': ['error', 'single'],
     '@typescript-eslint/indent': [
       'error',
       2,
@@ -134,7 +135,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     curly: ['error', 'multi'],
-    indent: ['error', 2],
+    // indent: ['error', 2],
 
     // --- OTHERS --- //
     'global-require': 0,
