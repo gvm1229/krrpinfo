@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
@@ -17,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import type { CheckedState } from '@radix-ui/react-checkbox';
 
 const formSchema = z.object({
   // npaCode: alphanumerical, exactly 13 characters
@@ -34,6 +36,9 @@ const formSchema = z.object({
 });
 
 const RedeemContainer = () => {
+  // const [isRemember, setIsRemember] = React.useState<CheckedState>('indeterminate');
+  const [isRemember, setIsRemember] = React.useState<CheckedState>(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +46,10 @@ const RedeemContainer = () => {
       // couponCode: '',
     },
   });
+
+  // function handleCheckboxToggle() {
+  //   setIsRemember((prevIsRemember) => (prevIsRemember === 'indeterminate' ? false : 'indeterminate'));
+  // }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -56,18 +65,48 @@ const RedeemContainer = () => {
           name="npaCode"
           render={({ field }) => (
             <FormItem className="space-y-4">
-              <FormLabel className="text-3xl font-bold">회원 번호</FormLabel>
-              <FormControl className="py-4">
-                <Input
-                  placeholder="13자리 회원 번호를 입력해주세요."
-                  className="h-fit px-5 py-4 text-lg"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="text-xl font-bold" />
+              <FormLabel className="text-3xl font-bold">
+                회원 번호
+              </FormLabel>
+              <div className="flex flex-col gap-4 tablet:flex-row tablet:items-center">
+                <FormControl>
+                  <Input
+                    placeholder="13자리 회원 번호를 입력해주세요."
+                    className="h-fit px-5 py-4 text-lg"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-xl font-bold tablet:hidden" />
+                <div className="flex items-center space-x-2 tablet:hidden">
+                  <Checkbox
+                    id="terms"
+                    checked={isRemember}
+                    // onCheckedChange={handleCheckboxToggle}
+                    onCheckedChange={setIsRemember}
+                  />
+                  <Label
+                    htmlFor="terms"
+                    className="text-lg"
+                  >
+                    회원번호 기억하기
+                  </Label>
+                </div>
+                <Button
+                  type="submit"
+                  className="size-full bg-blue-600 text-lg font-semibold text-white hover:bg-blue-500 tablet:max-w-48 tablet:py-4"
+                >
+                  회원 번호 제출
+                </Button>
+              </div>
+              <FormMessage className="hidden text-xl font-bold tablet:block" />
               {/* remember checkbox */}
-              <div className="flex items-center space-x-2">
-                <Checkbox id="terms" />
+              <div className="hidden items-center space-x-2 tablet:flex">
+                <Checkbox
+                  id="terms"
+                  checked={isRemember}
+                  // onCheckedChange={handleCheckboxToggle}
+                  onCheckedChange={setIsRemember}
+                />
                 <Label
                   htmlFor="terms"
                   className="text-lg"
@@ -75,8 +114,8 @@ const RedeemContainer = () => {
                   회원번호 기억하기
                 </Label>
               </div>
-              <FormDescription className="text-xl font-medium text-primary">
-                {'회원 번호 안내: 우측 설정 메뉴 터치 > [계정 관리] 메뉴 선택 후 회원 번호'}
+              <FormDescription className="pt-4 text-xl font-medium text-primary">
+                {'안내: 게임 내 우측 상단의 설정 메뉴 터치 > [계정 관리] 메뉴 선택 후 회원 번호 복사'}
               </FormDescription>
               <ResponsiveImage
                 src="/assets/images/links/npaCodeStepsKr.webp"
@@ -85,12 +124,7 @@ const RedeemContainer = () => {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="w-full bg-blue-600 text-lg font-semibold text-white hover:bg-blue-500"
-        >
-          회원 번호 제출
-        </Button>
+
       </form>
     </Form>
   );
