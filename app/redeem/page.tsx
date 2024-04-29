@@ -1,5 +1,5 @@
 import RedeemContainer from '@/components/Nexon/RedeemContainer';
-// import RedeemCard from '@/components/Redeem/RedeemCard';
+import RedeemCard from '@/components/Redeem/RedeemCard';
 import { siteConfig } from '@/config/site';
 
 export const metadata = {
@@ -20,9 +20,9 @@ export default async function RedeemRootPage() {
       <h1 className="text-4xl font-bold laptop:text-5xl">
         쿠폰 리딤
       </h1>
-      <div className="mx-auto w-full max-w-5xl space-y-8">
+      <div className="flex w-full flex-col gap-8 tablet:grid tablet:grid-cols-2 tablet:gap-16">
         <RedeemContainer />
-        {/* <RedeemCard /> */}
+        <RedeemCard />
       </div>
     </main>
   );

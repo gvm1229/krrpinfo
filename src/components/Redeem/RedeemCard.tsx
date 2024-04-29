@@ -56,7 +56,7 @@ export default function Component({
       </div>
       <div className="space-y-4">
         {data.filter(({ expireTime }) => new Date(expireTime) > new Date()).map(({ title, code, expireTime }) => (
-          <>
+          <div key={title}>
             <p
               className="mb-4 rounded-t-md text-base font-medium"
               suppressHydrationWarning
@@ -77,7 +77,7 @@ export default function Component({
                 </Button>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>
