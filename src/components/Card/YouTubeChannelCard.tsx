@@ -21,7 +21,7 @@ export default function YouTubeChannelCard({
   channelData: YouTubeChannel
 }) {
   return (
-    <Card className="size-full">
+    <Card>
       <CardContent className="flex items-start gap-4 p-4">
         <Avatar className="size-24">
           <AvatarImage src={channelData.thumbnail.url} alt={channelData.customUrl} />
