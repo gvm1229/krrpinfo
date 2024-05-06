@@ -72,7 +72,7 @@ const RedeemContainer = () => {
                 <FormControl>
                   <Input
                     placeholder="13자리 회원 번호를 입력해주세요."
-                    className="h-fit px-5 py-4 text-lg"
+                    className="h-fit text-lg"
                     {...field}
                   />
                 </FormControl>
@@ -93,7 +93,7 @@ const RedeemContainer = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="size-full bg-blue-600 text-lg font-semibold text-white hover:bg-blue-500 tablet:max-w-48 tablet:py-4"
+                  className="bg-blue-600 text-lg font-semibold text-white hover:bg-blue-500 tablet:max-w-48 tablet:py-4"
                 >
                   회원 번호 제출
                 </Button>
