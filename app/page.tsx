@@ -19,7 +19,7 @@ const seasonsData = [
     seasons: [
       {
         title: '중섭 현재: S29',
-        description: '블리자드?',
+        description: '아이스2',
         targetEndDate: '3/26/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-cyan-600',
@@ -27,8 +27,8 @@ const seasonsData = [
       },
       {
         title: '중섭 현재: S30',
-        description: '붐힐?',
-        targetEndDate: '5/27/2024',
+        description: '이탈리아',
+        targetEndDate: '5/21/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-indigo-600',
         bgToColor: 'to-indigo-300',
