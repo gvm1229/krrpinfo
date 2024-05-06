@@ -12,17 +12,17 @@ export default function Component({
   // expire time in YY/MM/DD HH:MM:SS
   const data = [
     {
-      title: 'RRReward 1',
+      title: 'Reward 1',
       code: 'DAKTDBWZTYR',
       expireTime: '2024-05-10T23:59:59',
     },
     {
-      title: 'RRReward 2',
+      title: 'Reward 2',
       code: 'AT3DSWTYBKD',
       expireTime: '2024-05-11T23:59:59',
     },
     {
-      title: 'RRReward 3',
+      title: 'Reward 3',
       code: '5TKAUAWAGBJR',
       expireTime: '2024-05-12T23:59:59',
     },
