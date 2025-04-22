@@ -1,3 +1,4 @@
+import { siteConfig } from '@/config/site';
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
@@ -7,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/dashboard/',
     },
-    host: 'https://kartrushplus.info',
-    sitemap: 'https://kartrushplus.info/sitemap.xml',
+    host: `${siteConfig.url}`,
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

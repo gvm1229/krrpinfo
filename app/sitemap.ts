@@ -1,4 +1,5 @@
 import { compareDesc } from 'date-fns';
+import { siteConfig } from '@/config/site';
 import { env } from '@/env.mjs';
 import type { MetadataRoute } from 'next';
 import { allPosts } from 'contentlayer/generated';
@@ -6,7 +7,7 @@ import { allPosts } from 'contentlayer/generated';
 export type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const rootPath = env.NEXT_PUBLIC_APP_URL || 'https://kartrushplus.info';
+  const rootPath = env.NEXT_PUBLIC_APP_URL || `${siteConfig.url}`;
 
   const posts = allPosts
     .filter((post) => post.published)
@@ -21,32 +22,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: 'https://kartrushplus.info',
+      url: `${siteConfig.url}`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: 'https://kartrushplus.info/posts',
+      url: `${siteConfig.url}/posts`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     ...postsRoutes,
     {
-      url: 'https://kartrushplus.info/youtubers',
+      url: `'${siteConfig.url}/youtubers`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: 'https://kartrushplus.info/youtubers/videos',
+      url: `${siteConfig.url}/youtubers/videos`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: 'https://kartrushplus.info/redeem',
+      url: `${siteConfig.url}/redeem`,
       lastModified: new Date(),
       changeFrequency: 'always',
       priority: 0.9,
