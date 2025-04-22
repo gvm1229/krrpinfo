@@ -13,18 +13,23 @@ export default function Component({
   const data = [
     {
       title: 'Reward 1',
-      code: 'DAKTDBWZTYR',
-      expireTime: '2024-05-10T23:59:59',
+      code: '우리러플이탄생1445일',
+      expireTime: '2024-04-28T23:59:59',
     },
     {
       title: 'Reward 2',
-      code: 'AT3DSWTYBKD',
-      expireTime: '2024-05-11T23:59:59',
+      code: '카러플이만난3200만명',
+      expireTime: '2024-05-05T23:59:59',
     },
     {
       title: 'Reward 3',
-      code: '5TKAUAWAGBJR',
+      code: '외쳐요카러플4EVER',
       expireTime: '2024-05-12T23:59:59',
+    },
+    {
+      title: 'Reward 4',
+      code: '중요한건잊지않는마음',
+      expireTime: '2024-05-19T23:59:59',
     },
   ];
 
@@ -51,7 +56,7 @@ export default function Component({
         <button
           className="text-zinc-600 dark:text-zinc-400"
         >
-          <RotateCw className="text-zinc-600 dark:text-zinc-400" />
+          <RotateCw className="text-zinc-600 dark:text-zinc-400 " />
         </button>
       </div>
       <div className="space-y-4">

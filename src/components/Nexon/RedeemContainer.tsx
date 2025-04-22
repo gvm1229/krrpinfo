@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -117,9 +118,15 @@ const RedeemContainer = () => {
               <FormDescription className="pt-4 text-xl font-medium text-primary">
                 {'안내: 게임 내 우측 상단의 설정 메뉴 터치 > [계정 관리] 메뉴 선택 후 회원 번호 복사'}
               </FormDescription>
+              <Link
+                href="/posts/redeem-how-to"
+                className="text-xl font-medium text-blue-600 underline"
+              >
+                방법 더 자세히 알아보기
+              </Link>
               <ResponsiveImage
                 src="/assets/images/links/npaCodeStepsKr.webp"
-                gridNums={[1, 1, 1]}
+                gridNums={[1, 2, 3]}
               />
             </FormItem>
           )}
