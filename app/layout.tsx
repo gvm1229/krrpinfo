@@ -125,9 +125,7 @@ function render(
           <ClientLayout>
             <div className="relative flex min-h-svh flex-col">
               <SiteHeader userAgent={userAgent} />
-              <main className="relative flex-1 py-8 tablet:py-12">
-                {children}
-              </main>
+              <main className="relative flex-1 py-8 tablet:py-12">{children}</main>
               <SiteFooter totalViews={totalViews} />
               <ScrollToTopButton />
             </div>
@@ -142,15 +140,13 @@ function render(
 }
 
 export default async function RootLayout({ children }) {
-  const userAgent: string = headers().get('user-agent');
+  const userAgent: string = (await headers()).get('user-agent');
 
-  if (process.env.NODE_ENV === 'development')
-    return render(userAgent, children);
+  if (process.env.NODE_ENV === 'development') return render(userAgent, children);
 
   const totalViewSlug = 'krrpinfo:total-views';
-  const totalViews = (await redis.get<number>(
-    ['pageviews', 'projects', totalViewSlug].join(':'),
-  )) ?? 0;
+  const totalViews =
+    (await redis.get<number>(['pageviews', 'projects', totalViewSlug].join(':'))) ?? 0;
 
   return render(userAgent, children, totalViewSlug, totalViews);
 }

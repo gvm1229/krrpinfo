@@ -13,7 +13,7 @@ import { siteConfig } from '@/config/site';
 import { getTableOfContents } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
-import { allPosts } from 'contentlayer/generated';
+import { allPosts } from 'contentlayer2/generated';
 import '@/src/styles/mdx.css';
 
 export const revalidate = 60;
@@ -26,10 +26,10 @@ async function getPostFromParams(params: { slug: string }) {
 }
 
 export async function generateMetadata(
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
   parent: ResolvingMetadata,
 ) {
-  const post = await getPostFromParams(params);
+  const post = await getPostFromParams(await params);
 
   if (!post) return {};
 
@@ -93,24 +93,19 @@ export async function generateStaticParams() {
 
 async function getViewCount(slug: string) {
   if (process.env.NODE_ENV === 'production') {
-    const views = await redis.get<number>(
-      ['pageviews', 'projects', 'posts', slug].join(':'),
-    );
+    const views = await redis.get<number>(['pageviews', 'projects', 'posts', slug].join(':'));
     return views ?? 0;
   }
   return 1234; // Default view count for development
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = await getPostFromParams(params);
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getPostFromParams({ slug });
   if (!post) notFound();
 
   const toc = await getTableOfContents(post.body.raw);
-  const views = await getViewCount(params.slug);
+  const views = await getViewCount(slug);
 
   return (
     <div className="container flex mobile_only:flex-col tablet:gap-x-16">
@@ -118,10 +113,7 @@ export default async function PostPage({
         <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
           <Link
             href="/posts"
-            className={cn(
-              buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-base',
-            )}
+            className={cn(buttonVariants({ variant: 'ghost' }), 'relative inline-flex text-base')}
           >
             <ChevronLeft className="mr-2 size-4" />
             포스트 목록으로 돌아가기
@@ -130,9 +122,7 @@ export default async function PostPage({
       </aside>
       <main className="space-y-6 tablet:mt-1 tablet:flex-1">
         <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
-          <BreadcrumbContainer
-            itemsInput={[{ url: '/posts', label: '포스트' }]}
-          />
+          <BreadcrumbContainer itemsInput={[{ url: '/posts', label: '포스트' }]} />
           <p className="text-base font-medium text-muted-foreground tablet:text-lg">
             {formatDate(post.date)}
           </p>
@@ -156,21 +146,12 @@ export default async function PostPage({
         <div className="block border-b pb-6 text-sm tablet:hidden">
           <DashboardTableOfContents toc={toc} />
         </div>
-        <StaticImage
-          src={post.thumbnail}
-          alt="thumbnail"
-          width={1920}
-          height={1080}
-          isPriority
-        />
+        <StaticImage src={post.thumbnail} alt="thumbnail" width={1920} height={1080} isPriority />
         <Mdx code={post.body.code} />
         <footer className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
           <Link
             href="/posts"
-            className={cn(
-              buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-base',
-            )}
+            className={cn(buttonVariants({ variant: 'ghost' }), 'relative inline-flex text-base')}
           >
             <ChevronLeft className="mr-2 size-4" />
             포스트 목록으로 돌아가기
@@ -182,10 +163,7 @@ export default async function PostPage({
           <DashboardTableOfContents toc={toc} />
         </div>
       </aside>
-      <ViewReporter
-        slug={`posts:${params.slug}`}
-        path={`/posts/${params.slug}`}
-      />
+      <ViewReporter slug={`posts:${slug}`} path={`/posts/${slug}`} />
     </div>
   );
 }

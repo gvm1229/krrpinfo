@@ -68,7 +68,7 @@ const Countdown = ({ seasons, className }: CountdownProps) => {
   return (
     <main
       className={cn(
-        `aspect-square shrink-0 rounded-xl bg-gradient-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor}`,
+        `aspect-square shrink-0 rounded-xl bg-linear-to-tr p-3 ${currentSeason.bgFromColor} ${currentSeason.bgToColor}`,
         className,
       )}
     >
@@ -111,10 +111,7 @@ const Countdown = ({ seasons, className }: CountdownProps) => {
           >
             {formatRemainingDays(remainingDays)}
           </h1>
-          <p
-            className="text-left text-base font-medium text-white/90"
-            suppressHydrationWarning
-          >
+          <p className="text-left text-base font-medium text-white/90" suppressHydrationWarning>
             {`(${formatDate(currentSeason.targetEndDate)})`}
           </p>
         </div>

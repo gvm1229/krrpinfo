@@ -4,17 +4,11 @@ import React from 'react';
 import { cn } from '@/src/util/utils';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  href?: string
-  disabled?: boolean
+  href?: string;
+  disabled?: boolean;
 }
 
-export function MdxCard({
-  href,
-  className,
-  children,
-  disabled,
-  ...props
-}: CardProps) {
+export function MdxCard({ href, className, children, disabled, ...props }: CardProps) {
   return (
     <div
       className={cn(
@@ -25,7 +19,7 @@ export function MdxCard({
       {...props}
     >
       <div className="flex flex-col justify-between space-y-4">
-        <div className="space-y-2 [&>h3]:!mt-0 [&>h4]:!mt-0 [&>p]:text-muted-foreground">
+        <div className="space-y-2 [&>h3]:mt-0! [&>h4]:mt-0! [&>p]:text-muted-foreground">
           {children}
         </div>
       </div>

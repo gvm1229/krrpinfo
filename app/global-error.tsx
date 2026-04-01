@@ -10,13 +10,7 @@ import ScrollToTopButton from '@/components/Button/ScrollToTopButton';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/components/Footer/SiteFooter';
 import { SiteHeader } from '@/components/Header/SiteHeader';
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
 import { Button } from '@/src/components/ui/button';
 
@@ -60,9 +54,7 @@ function ErrorBody({
       <div className="absolute inset-0 mx-8 flex items-center justify-center">
         <Card className="flex w-full flex-col items-center justify-center">
           <CardHeader className="space-y-2 text-center tablet:space-y-4 tablet:pt-12">
-            <CardTitle className="text-4xl tablet:text-6xl laptop:text-7xl">
-              오류
-            </CardTitle>
+            <CardTitle className="text-4xl tablet:text-6xl laptop:text-7xl">오류</CardTitle>
             <h1 className="text-2xl font-medium tracking-tight tablet:text-3xl laptop:text-4xl">
               무언가가 잘못되었습니다!
             </h1>
@@ -76,10 +68,9 @@ function ErrorBody({
                 router.push('/');
                 router.refresh();
               }}
-              className="flex items-center gap-3 text-lg tablet:h-[3.25rem] tablet:text-xl"
+              className="flex items-center gap-3 text-lg tablet:h-13 tablet:text-xl"
             >
-              <Home className="size-4 tablet:size-6" />
-              홈 화면으로 돌아가기
+              <Home className="size-4 tablet:size-6" />홈 화면으로 돌아가기
             </Button>
           </CardFooter>
         </Card>

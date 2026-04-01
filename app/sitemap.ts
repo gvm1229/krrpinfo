@@ -2,7 +2,7 @@ import { compareDesc } from 'date-fns';
 import { siteConfig } from '@/config/site';
 import { env } from '@/env.mjs';
 import type { MetadataRoute } from 'next';
-import { allPosts } from 'contentlayer/generated';
+import { allPosts } from 'contentlayer2/generated';
 
 export type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 

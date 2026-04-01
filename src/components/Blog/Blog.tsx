@@ -122,7 +122,7 @@ function TextDataWrapper({
   className,
 }: TextDataWrapperProps) {
   return (
-    <div className={cn('rounded-lg focus:outline-none', width, className)}>
+    <div className={cn('rounded-lg focus:outline-hidden', width, className)}>
       {toNavigate || hyperlink ? (
         <NavigateComponent href={toNavigate || hyperlink}>
           <ImageWrapper
@@ -142,13 +142,8 @@ function TextDataWrapper({
         />
       )}
       <div className="group mt-4 space-y-2 text-left">
-        <div
-          className="flex items-center justify-between pb-2"
-        >
-          <p
-            id="date"
-            className="text-sm font-medium text-zinc-600 dark:text-zinc-300"
-          >
+        <div className="flex items-center justify-between pb-2">
+          <p id="date" className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
             {formatDate(date ?? new Date())}
           </p>
           {views > 0 && (
@@ -163,25 +158,17 @@ function TextDataWrapper({
         </div>
         {toNavigate || hyperlink ? (
           <NavigateComponent href={toNavigate || hyperlink}>
-            <h1
-              id="title"
-              className="truncate text-2xl font-bold text-primary hover:underline"
-            >
+            <h1 id="title" className="truncate text-2xl font-bold text-primary hover:underline">
               {title}
             </h1>
           </NavigateComponent>
         ) : (
-          <h1
-            id="title"
-            className="truncate text-2xl font-bold text-primary hover:underline"
-          >
+          <h1 id="title" className="truncate text-2xl font-bold text-primary hover:underline">
             {title}
           </h1>
         )}
         {description && (
-          <p className="truncate font-medium text-zinc-600 dark:text-zinc-200">
-            {description}
-          </p>
+          <p className="truncate font-medium text-zinc-600 dark:text-zinc-200">{description}</p>
         )}
         <Tag tagInput={tags} isEllipsisEnabled />
       </div>
