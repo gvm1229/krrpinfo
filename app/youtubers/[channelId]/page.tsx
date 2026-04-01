@@ -19,10 +19,11 @@ async function getChannelFromParams(params: { channelId: string }) {
 }
 
 export async function generateMetadata(
-  { params }: { params: { channelId: string } },
+  { params }: { params: Promise<{ channelId: string }> },
   parent: ResolvingMetadata,
 ) {
-  const channel = await getChannelFromParams(params);
+  const resolvedParams = await params;
+  const channel = await getChannelFromParams(resolvedParams);
 
   if (!channel) return {};
 
@@ -41,7 +42,7 @@ export async function generateMetadata(
       },
       {
         name: channelTitle,
-        url: `https://www.youtube.com/channel/${params.channelId}`,
+        url: `https://www.youtube.com/channel/${resolvedParams.channelId}`,
       },
     ],
     openGraph: {
@@ -80,36 +81,37 @@ export default async function YouTuberRootPage({
   params,
   searchParams,
 }: {
-  params: { channelId: string };
-  searchParams?: { [key: string]: string | undefined };
+  params: Promise<{ channelId: string }>;
+  searchParams?: Promise<{ [key: string]: string | undefined }>;
 }) {
-  const channel = await getChannelFromParams(params);
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const channel = await getChannelFromParams(resolvedParams);
   if (!channel) notFound();
 
-  const overrideIndex = searchParams?.idx ? parseInt(searchParams?.idx, 10) : 0;
+  const overrideIndex = resolvedSearchParams?.idx ? parseInt(resolvedSearchParams?.idx, 10) : 0;
 
   const { channelId, channelTitle, channelDescription } = channel;
 
-  const videos = channel.allVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) => compareDesc(
-    new Date(a.snippet.publishedAt),
-    new Date(b.snippet.publishedAt),
-  ));
+  const videos = channel.allVideos.sort((a: YouTubeVideoItem, b: YouTubeVideoItem) =>
+    compareDesc(new Date(a.snippet.publishedAt), new Date(b.snippet.publishedAt)),
+  );
   const categorizedVideos = {
     '현재 시즌': videos.filter((video) => video.category === '현재 시즌'),
     '향후 시즌': videos.filter((video) => video.category === '향후 시즌'),
     '지난 시즌': videos.filter((video) => video.category === '지난 시즌'),
     팁: videos.filter((video) => video.category === '팁'),
   };
-  const nonZeroCategoryKeys = Object.keys(categorizedVideos).filter((key) => categorizedVideos[key].length > 0);
+  const nonZeroCategoryKeys = Object.keys(categorizedVideos).filter(
+    (key) => categorizedVideos[key].length > 0,
+  );
 
   return (
     <div className="container relative flex flex-col items-center">
       {videos.length > 0 ? (
         <>
           <div className="flex w-full flex-col items-center justify-center gap-y-4 tablet:gap-y-6">
-            <h1 className="text-4xl font-bold laptop:text-5xl">
-              추천 영상 목록
-            </h1>
+            <h1 className="text-4xl font-bold laptop:text-5xl">추천 영상 목록</h1>
             <ButtonNewTab
               href={`https://www.youtube.com/channel/${channelId}`}
               className="flex w-fit items-center gap-2 text-xl font-medium text-primary hover:underline laptop:text-2xl"
@@ -119,7 +121,9 @@ export default async function YouTuberRootPage({
               <ExternalLink size={20} className="text-primary tablet:hidden" />
               <ExternalLink size={24} className="text-primary mobile_only:hidden" />
             </ButtonNewTab>
-            <p className="text-center text-lg text-muted-foreground tablet:text-xl">{channelDescription}</p>
+            <p className="text-center text-lg text-muted-foreground tablet:text-xl">
+              {channelDescription}
+            </p>
           </div>
           <YouTubeVideoTabs
             categorizedVideos={categorizedVideos}
@@ -130,10 +134,7 @@ export default async function YouTuberRootPage({
           <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
             <Link
               href="/youtubers"
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                'relative inline-flex text-base',
-              )}
+              className={cn(buttonVariants({ variant: 'ghost' }), 'relative inline-flex text-base')}
             >
               <ChevronLeft className="mr-2 size-4" />
               유튜브 채널 목록으로 돌아가기

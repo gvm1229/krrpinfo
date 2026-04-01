@@ -4,13 +4,13 @@ Commit the current unstaged changes following these rules strictly:
 
 1. **No Co-Authored-By**: Never include a Co-Authored-By line in the commit message.
 
-2. **Commit message format**: Read the last two commits by the user (not by another collaborator, Claude or any bot) via `git log` and match their style exactly. Typically this is:
+2. **Commit message format**: Read the last two commits by the user (not by another collaborator, Claude or any bot) via `git log` and match their style exactly. Commit messages must be prefixed with a gitmoji emoji as declared in `commitlint.config.js` (which extends the `gitmoji` convention). Typically the format is:
 
-    ```
-    <type>: <Korean description> (<version>)
-    ```
+   ```
+   <emoji> <type>(<scope>): <Korean description> (<version>)
+   ```
 
-    Where `<type>` is `feat`, `fix`, `refactor`, etc.
+   Where `<emoji>` is a gitmoji (e.g. ✨, 🐛, ♻️, ⬆️) and `<type>` is `feat`, `fix`, `refactor`, etc.
 
 3. **Version bump**: Increment the patch version in `package.json` to match the commit message version only IF there are any code changes. If the commit is purely about docs or deleting files, then the version change must not occur. If the git unstaged changes already includes a `package.json` with its version updated, then the version change must not occur.
 

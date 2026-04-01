@@ -1,16 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  turbopack: {},
   webpack: (config) => {
     config.infrastructureLogging = {
       level: 'error',
     };
     return config;
   },
-  pageExtensions: [
-    'js', 'jsx', 'mdx', 'ts', 'tsx',
-  ],
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
       {
@@ -27,22 +25,12 @@ const nextConfig = {
       },
     ],
   },
-  // experimental: {
-  //   typedRoutes: true,
-  // },
-  // typescript: {
-  //   // !! WARN !!
-  //   // Dangerously allow production builds to successfully complete even if
-  //   // your project has type errors.
-  //   // !! WARN !!
-  //   ignoreBuildErrors: true,
-  // },
 };
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const { withContentlayer } = require('next-contentlayer');
+const { withContentlayer } = require('next-contentlayer2');
 
 module.exports = withBundleAnalyzer(withContentlayer(nextConfig));

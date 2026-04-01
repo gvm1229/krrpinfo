@@ -2,8 +2,8 @@ import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
-import type { Post } from 'contentlayer/generated';
-import { allPosts } from 'contentlayer/generated';
+import type { Post } from 'contentlayer2/generated';
+import { allPosts } from 'contentlayer2/generated';
 
 export const metadata = {
   title: '포스트 목록',
@@ -26,9 +26,7 @@ function renderPosts(posts: Post[], views = {}) {
     <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
       {posts.length > 0 ? (
         <>
-          <h1 className="text-4xl font-bold laptop:text-5xl">
-            포스트 목록
-          </h1>
+          <h1 className="text-4xl font-bold laptop:text-5xl">포스트 목록</h1>
           <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {posts.map((post, index) => (
               <Blog
