@@ -50,10 +50,7 @@ const components = {
     <a className={cn('font-medium underline underline-offset-4', className)} {...props} />
   ),
   p: ({ className, ...props }) => (
-    <p
-      className={cn('leading-relaxed tablet:text-xl [&:not(:first-child)]:mt-6', className)}
-      {...props}
-    />
+    <p className={cn('leading-relaxed tablet:text-xl not-first:mt-6', className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
@@ -64,7 +61,7 @@ const components = {
   li: ({ className, ...props }) => <li className={cn('mt-2', className)} {...props} />,
   blockquote: ({ className, ...props }) => (
     <blockquote
-      className={cn('mt-6 border-l-2 pl-6 italic [&>*]:text-muted-foreground', className)}
+      className={cn('mt-6 border-l-2 pl-6 italic *:text-muted-foreground', className)}
       {...props}
     />
   ),
@@ -84,7 +81,7 @@ const components = {
   th: ({ className, ...props }) => (
     <th
       className={cn(
-        'border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right',
         className,
       )}
       {...props}
@@ -93,7 +90,7 @@ const components = {
   td: ({ className, ...props }) => (
     <td
       className={cn(
-        'border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right',
         className,
       )}
       {...props}

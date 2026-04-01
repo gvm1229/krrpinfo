@@ -1,6 +1,6 @@
 {
   "name": "krrpinfo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "license": "MIT",
   "author": {
@@ -53,6 +53,7 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@t3-oss/env-nextjs": "^0.12.0",
+    "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.16",
     "@upstash/redis": "^1.35.0",
     "@vercel/analytics": "^1.5.0",
@@ -83,7 +84,7 @@
     "remark": "^15.0.1",
     "remark-gfm": "3.0.1",
     "tailwind-merge": "^3.3.0",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.25.0"
   },
@@ -101,7 +102,6 @@
     "@storybook/test": "^8.6.18",
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",
-    "autoprefixer": "^10.4.21",
     "commitizen": "^4.3.1",
     "commitlint-config-gitmoji": "^2.3.1",
     "concurrently": "^9.1.0",

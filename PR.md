@@ -10,3 +10,11 @@
 - Storybook, Radix UI, lucide-react 등 주요 의존성 업데이트
 - Next.js 15+ 비동기 API 대응 (headers, params, searchParams)
 - react-day-picker v9 API 대응
+
+## ⬆️ Tailwind CSS v4 업그레이드
+
+- Tailwind CSS 3.4 → 4.2.2
+- PostCSS 설정 마이그레이션 (@tailwindcss/postcss)
+- autoprefixer 제거 (Tailwind v4 내장)
+- ESLint → Prettier 전환
+- mdx.css @reference 지시문 추가

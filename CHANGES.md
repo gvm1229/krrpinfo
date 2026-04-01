@@ -13,3 +13,11 @@
 - next-themes v0.4 타입 import 경로 수정
 - request.ip 제거 대응 (Next.js 16)
 - revalidatePath 렌더 내 호출 제거 (Next.js 16)
+
+## 0.1.2
+
+- Tailwind CSS 3.4 → 4.2.2 업그레이드
+- PostCSS 설정 마이그레이션 (@tailwindcss/postcss)
+- autoprefixer 제거 (Tailwind v4 내장)
+- ESLint → Prettier 전환
+- mdx.css @reference 지시문 추가 (Tailwind v4 대응)

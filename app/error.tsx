@@ -5,13 +5,7 @@
 import { Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
 import { Button } from '@/src/components/ui/button';
 
@@ -19,7 +13,7 @@ export default function Error({
   error,
   // reset,
 }: {
-  error: Error & { digest?: string }
+  error: Error & { digest?: string };
   // reset: () => void
 }) {
   const router = useRouter();
@@ -44,7 +38,7 @@ export default function Error({
               // Attempt to recover by trying to re-render the segment
               () => reset()
             }
-            className="text-lg tablet:h-[3.25rem] tablet:text-xl"
+            className="text-lg tablet:h-13 tablet:text-xl"
           >
             Try again
           </Button>
@@ -54,10 +48,9 @@ export default function Error({
                 router.push('/');
                 router.refresh();
               }}
-              className="flex items-center gap-3 text-lg tablet:h-[3.25rem] tablet:text-xl"
+              className="flex items-center gap-3 text-lg tablet:h-13 tablet:text-xl"
             >
-              <Home className="size-4 tablet:size-6" />
-              홈 화면으로 돌아가기
+              <Home className="size-4 tablet:size-6" />홈 화면으로 돌아가기
             </Button>
           </CardFooter>
         </Card>

@@ -27,7 +27,7 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
     <Dialog>
       <DialogTrigger asChild>
         {/* Blog as Trigger only */}
-        <div className="pointer-events-none relative focus:outline-none">
+        <div className="pointer-events-none relative focus:outline-hidden">
           <ImageWrapper
             src={videoData.snippet.thumbnails.maxres.url ?? videoData.snippet.thumbnails.high.url}
             alt="youtube thumbnail"
@@ -38,10 +38,7 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
           />
           <div className="group mt-4 space-y-2 text-left">
             <div className="flex items-center justify-between">
-              <p
-                id="date"
-                className="text-sm font-medium text-zinc-600 dark:text-zinc-300"
-              >
+              <p id="date" className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
                 {formatDate(videoData.snippet.publishedAt ?? new Date())}
               </p>
             </div>
@@ -82,41 +79,32 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
         </DialogHeader>
         <ScrollArea className="size-full max-h-[40vh] p-4">
           <p className="whitespace-pre-wrap text-lg font-medium">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
-            libero nunc consequat interdum varius sit amet mattis. Praesent
-            semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget magna
-            fermentum iaculis eu. Viverra adipiscing at in tellus integer
-            feugiat scelerisque. Urna duis convallis convallis tellus id
-            interdum velit laoreet. Sed velit dignissim sodales ut. Amet risus
-            nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
-            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut
-            faucibus pulvinar elementum integer enim neque volutpat ac
-            tincidunt.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Proin libero nunc consequat interdum varius
+            sit amet mattis. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget
+            magna fermentum iaculis eu. Viverra adipiscing at in tellus integer feugiat scelerisque.
+            Urna duis convallis convallis tellus id interdum velit laoreet. Sed velit dignissim
+            sodales ut. Amet risus nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
+            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut faucibus pulvinar
+            elementum integer enim neque volutpat ac tincidunt.
             {'\n\n'}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
-            libero nunc consequat interdum varius sit amet mattis. Praesent
-            semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget magna
-            fermentum iaculis eu. Viverra adipiscing at in tellus integer
-            feugiat scelerisque. Urna duis convallis convallis tellus id
-            interdum velit laoreet. Sed velit dignissim sodales ut. Amet risus
-            nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
-            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut
-            faucibus pulvinar elementum integer enim neque volutpat ac
-            tincidunt.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Proin libero nunc consequat interdum varius
+            sit amet mattis. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget
+            magna fermentum iaculis eu. Viverra adipiscing at in tellus integer feugiat scelerisque.
+            Urna duis convallis convallis tellus id interdum velit laoreet. Sed velit dignissim
+            sodales ut. Amet risus nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
+            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut faucibus pulvinar
+            elementum integer enim neque volutpat ac tincidunt.
             {'\n\n'}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
-            libero nunc consequat interdum varius sit amet mattis. Praesent
-            semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget magna
-            fermentum iaculis eu. Viverra adipiscing at in tellus integer
-            feugiat scelerisque. Urna duis convallis convallis tellus id
-            interdum velit laoreet. Sed velit dignissim sodales ut. Amet risus
-            nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
-            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut
-            faucibus pulvinar elementum integer enim neque volutpat ac
-            tincidunt.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Proin libero nunc consequat interdum varius
+            sit amet mattis. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit. Eget
+            magna fermentum iaculis eu. Viverra adipiscing at in tellus integer feugiat scelerisque.
+            Urna duis convallis convallis tellus id interdum velit laoreet. Sed velit dignissim
+            sodales ut. Amet risus nullam eget felis eget nunc. Tellus orci ac auctor augue mauris
+            augue. In cursus turpis massa tincidunt dui ut ornare lectus sit. Ut faucibus pulvinar
+            elementum integer enim neque volutpat ac tincidunt.
           </p>
         </ScrollArea>
         <DialogFooter className="justify-start">
