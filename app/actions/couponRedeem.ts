@@ -162,7 +162,7 @@ export async function handleUnified(npaCode: string, coupon: string): Promise<Un
         if (redeemResponseData.result && responseData.info) // 안전을 위해 둘 다
           return {
             success: true,
-            message: `{${responseData.info[0].name}} 에게 {${coupon}} 쿠폰 사용 성공`,
+            message: `[${responseData.info[0].name}] 에게 [${coupon}] 쿠폰 사용 성공`,
           };
         return {
           success: false,
@@ -188,7 +188,7 @@ export async function handleUnified(npaCode: string, coupon: string): Promise<Un
     // console.error('[Unified] Error fetching user:', error);
     return {
       success: false,
-      message: `Error: fetch failed: ${error}`,
+      message: `오류: ${error}`,
     };
   }
 }

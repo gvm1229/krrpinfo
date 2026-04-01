@@ -31,10 +31,9 @@ const ResponsiveImage = ({
       quality={quality ?? 75}
       width={0}
       height={0}
-      style={{ width: '100%', height: 'auto' }}
       sizes={dynamicViewport(gridNums)}
       priority={isPriority}
-      className={cn(`relative ${objectFit}`, imageClassName)}
+      className={cn(`relative size-full ${objectFit}`, imageClassName)}
     />
   </div>
 );

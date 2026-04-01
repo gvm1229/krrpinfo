@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/command';
 import { navContents } from '@/config/navBar';
 import { cn } from '@/src/util/utils';
-import { allPosts } from 'contentlayer/generated';
+import { allPosts } from 'contentlayer2/generated';
 
 interface CommandMenuProps {
   userAgent: string;
@@ -39,10 +39,10 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
     const down = (e: KeyboardEvent) => {
       if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
         if (
-          (e.target instanceof HTMLElement && e.target.isContentEditable)
-          || e.target instanceof HTMLInputElement
-          || e.target instanceof HTMLTextAreaElement
-          || e.target instanceof HTMLSelectElement
+          (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+          e.target instanceof HTMLInputElement ||
+          e.target instanceof HTMLTextAreaElement ||
+          e.target instanceof HTMLSelectElement
         )
           return;
 

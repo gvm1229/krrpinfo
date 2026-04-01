@@ -17,10 +17,10 @@ async function getVideoFromParams(params: { channelId: string; videoId: string }
 }
 
 export async function generateMetadata(
-  { params }: { params: { channelId: string; videoId: string } },
+  { params }: { params: Promise<{ channelId: string; videoId: string }> },
   parent: ResolvingMetadata,
 ) {
-  const video = await getVideoFromParams(params);
+  const video = await getVideoFromParams(await params);
 
   if (!video) return {};
 
@@ -66,21 +66,24 @@ export async function generateMetadata(
 
 export async function generateStaticParams() {
   const allChannels = await getAllChannels();
-  return allChannels.flatMap((channel) => channel.allVideos.map((video) => ({
-    channelId: channel.channelId,
-    videoId: video.id,
-  })));
+  return allChannels.flatMap((channel) =>
+    channel.allVideos.map((video) => ({
+      channelId: channel.channelId,
+      videoId: video.id,
+    })),
+  );
 }
 
 export default async function YouTubeVideoPage({
   params,
 }: {
-  params: { channelId: string; videoId: string };
+  params: Promise<{ channelId: string; videoId: string }>;
 }) {
-  const video = await getVideoFromParams(params);
+  const resolvedParams = await params;
+  const video = await getVideoFromParams(resolvedParams);
   if (!video) notFound();
 
-  const { channelId } = params;
+  const { channelId } = resolvedParams;
   const channelTitle = video.snippet.channelTitle;
 
   return (
@@ -89,10 +92,7 @@ export default async function YouTubeVideoPage({
         <aside className="shrink-0">
           <Link
             href={`/youtubers/${channelId}`}
-            className={cn(
-              buttonVariants({ variant: 'ghost' }),
-              'relative inline-flex text-base',
-            )}
+            className={cn(buttonVariants({ variant: 'ghost' }), 'relative inline-flex text-base')}
           >
             <ChevronLeft className="mr-2 size-4" />
             {`${channelTitle} 채널로 돌아가기`}

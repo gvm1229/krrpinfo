@@ -1,6 +1,5 @@
 import { Redis } from '@upstash/redis';
 import { compareDesc } from 'date-fns';
-import { revalidatePath } from 'next/cache';
 import Blog from '@/components/Blog/Blog';
 import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
@@ -8,8 +7,8 @@ import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
 import Countdown from '@/src/components/Countdown/Countdown';
 import { Badge } from '@/src/components/ui/badge';
 import { cn } from '@/src/util/utils';
-import type { Post } from 'contentlayer/generated';
-import { allPosts } from 'contentlayer/generated';
+import type { Post } from 'contentlayer2/generated';
+import { allPosts } from 'contentlayer2/generated';
 
 // Define the seasons data outside the component to keep the component clean
 const seasonsData = [
@@ -19,7 +18,7 @@ const seasonsData = [
     seasons: [
       {
         title: '중섭 현재: S29',
-        description: '블리자드?',
+        description: '아이스2',
         targetEndDate: '3/26/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-cyan-600',
@@ -27,8 +26,8 @@ const seasonsData = [
       },
       {
         title: '중섭 현재: S30',
-        description: '붐힐?',
-        targetEndDate: '5/27/2024',
+        description: '이탈리아',
+        targetEndDate: '5/21/2024',
         countdownUntilEnd: true,
         bgFromColor: 'from-indigo-600',
         bgToColor: 'to-indigo-300',
@@ -208,33 +207,26 @@ const seasonsData = [
   },
 ];
 
-const FeaturedBento = ({ className }) => {
-  revalidatePath('/');
-
-  return (
-    <div
-      className={cn(
-        'relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6',
-        className,
-      )}
-    >
-      {seasonsData.map((season) => (
-        <div
-          key={season.key}
-          className="relative col-span-1 row-span-1 flex h-full flex-1 flex-col items-center self-center"
-        >
-          <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs text-white hover:bg-blue-600 tablet:text-sm">
-            {season.key}
-          </Badge>
-          <Countdown
-            className="relative aspect-auto size-full flex-1"
-            seasons={season.seasons}
-          />
-        </div>
-      ))}
-    </div>
-  );
-};
+const FeaturedBento = ({ className }) => (
+  <div
+    className={cn(
+      'relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6',
+      className,
+    )}
+  >
+    {seasonsData.map((season) => (
+      <div
+        key={season.key}
+        className="relative col-span-1 row-span-1 flex h-full flex-1 flex-col items-center self-center"
+      >
+        <Badge className="z-10 -mb-2 border-none bg-blue-600 text-xs text-white hover:bg-blue-600 tablet:text-sm">
+          {season.key}
+        </Badge>
+        <Countdown className="relative aspect-auto size-full flex-1" seasons={season.seasons} />
+      </div>
+    ))}
+  </div>
+);
 
 const Links = ({ className }: { className?: string }) => {
   const links = [
@@ -291,14 +283,9 @@ const Links = ({ className }: { className?: string }) => {
   return (
     <div
       id="links_wrapper"
-      className={cn(
-        'space-y-8 overflow-hidden bg-muted py-8 laptop:space-y-12',
-        className,
-      )}
+      className={cn('space-y-8 overflow-hidden bg-muted py-8 laptop:space-y-12', className)}
     >
-      <h1 className="text-center text-3xl font-bold laptop:text-4xl">
-        유용한 링크
-      </h1>
+      <h1 className="text-center text-3xl font-bold laptop:text-4xl">유용한 링크</h1>
       <div className="container tablet:hidden">
         <CarouselContainerSM linksInput={links} />
       </div>
@@ -314,13 +301,8 @@ const redis = Redis.fromEnv();
 
 function renderPosts(className: string, posts: Post[], views = {}) {
   return (
-    <div
-      id="posts_wrapper"
-      className={cn('space-y-8 laptop:space-y-12', className)}
-    >
-      <h1 className="text-center text-3xl font-bold laptop:text-4xl">
-        최신 포스트 목록
-      </h1>
+    <div id="posts_wrapper" className={cn('space-y-8 laptop:space-y-12', className)}>
+      <h1 className="text-center text-3xl font-bold laptop:text-4xl">최신 포스트 목록</h1>
       <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 laptop:grid-cols-3">
         {posts.slice(0, 6).map((post) => (
           <Blog
@@ -341,8 +323,7 @@ async function Posts({ className }: { className?: string }) {
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
-  if (process.env.NODE_ENV === 'development')
-    return renderPosts(className, posts);
+  if (process.env.NODE_ENV === 'development') return renderPosts(className, posts);
 
   const views = (
     await redis.mget<number[]>(

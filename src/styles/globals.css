@@ -1,8 +1,30 @@
-@import url("./fonts/pretendardvariable-dynamic-subset.css");
+@import url('./fonts/pretendardvariable-dynamic-subset.css') layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility no-focus {
+  @apply shadow-none! outline-hidden! ring-0! ring-offset-0! focus:shadow-none! focus:ring-0! focus:ring-offset-0!;
+}
 
 @layer base {
   :root {
@@ -59,7 +81,7 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 85.7% 97.3%;
 
     --border: 240 3.7% 15.9%;
@@ -77,11 +99,5 @@
 
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer components {
-  .no-focus {
-    @apply shadow-none outline-none ring-0 ring-offset-0 focus:shadow-none focus:ring-0 focus:ring-offset-0 !important;
   }
 }

@@ -3,13 +3,7 @@ import React from 'react';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { ModeToggle } from '@/components/DarkMode/theme-toggle';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default {
   title: 'App/Error',
@@ -23,11 +17,7 @@ export default {
 };
 
 export const Template = () => (
-  <ThemeProvider
-    attribute="class"
-    defaultTheme="system"
-    enableSystem
-  >
+  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
     <div className="container relative flex h-screen w-screen items-center justify-center">
       <div className="absolute right-4 top-4">
         <ModeToggle />
@@ -45,11 +35,8 @@ export const Template = () => (
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex justify-center tablet:pb-12">
-              <Button
-                className="flex items-center gap-3 text-lg tablet:h-[3.25rem] tablet:text-xl"
-              >
-                <Home className="size-4 tablet:size-6" />
-                홈 화면으로 돌아가기
+              <Button className="flex items-center gap-3 text-lg tablet:h-13 tablet:text-xl">
+                <Home className="size-4 tablet:size-6" />홈 화면으로 돌아가기
               </Button>
             </CardFooter>
           </Card>
