@@ -13,10 +13,11 @@ export const env = createEnv({
     // NEXTAUTH_SECRET: z.string().min(1),
     NEXT_PUBLIC_APP_URL: z.string().min(1),
     MONGODB_URL: z.string().min(1),
-    UPSTASH_REDIS_REST_URL: z.string().min(1),
-    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     YOUTUBE_API_KEY: z.string().min(1),
     NEXON_API_KEY: z.string().min(1),
+    NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
@@ -25,6 +26,8 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
+    NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -35,9 +38,10 @@ export const env = createEnv({
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     MONGODB_URL: process.env.MONGODB_URL,
-    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
-    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
     NEXON_API_KEY: process.env.NEXON_API_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
   },
 });

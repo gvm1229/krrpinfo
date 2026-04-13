@@ -31,6 +31,4 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const { withContentlayer } = require('next-contentlayer2');
-
-module.exports = withBundleAnalyzer(withContentlayer(nextConfig));
+module.exports = withBundleAnalyzer(nextConfig);
