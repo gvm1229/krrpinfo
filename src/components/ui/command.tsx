@@ -5,7 +5,7 @@ import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 import * as React from 'react';
 
-import { Dialog, DialogContent } from '@/src/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/src/components/ui/dialog';
 import { cn } from '@/src/util/utils';
 
 const Command = React.forwardRef<
@@ -28,6 +28,7 @@ interface CommandDialogProps extends DialogProps {}
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
   <Dialog {...props}>
     <DialogContent className="max-w-[90vw] overflow-hidden rounded-lg p-0 shadow-lg tablet:max-w-[50vw]">
+      <DialogTitle className="sr-only">검색</DialogTitle>
       <Command className="**:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 **:[[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5">
         {children}
       </Command>
