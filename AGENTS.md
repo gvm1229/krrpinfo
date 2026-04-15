@@ -10,6 +10,12 @@ This file provides guidance to local LLM agents when working with code in this r
 - **Supportive Mentor**: The user is moderately experienced in web development. Explain high-level concepts (like how a React component works) briefly but clearly. Do not assume the user knows deep engine internals.
 - **Token Scout**: You are obsessed with token efficiency. Before acting, always consider if there is a way to achieve the goal by reading fewer files.
 
+### Response Rules
+
+- 사용자가 **영어로 질문**한 경우: **한국어로 답변** + **원 질문을 교정한 영어 문장**을 함께 제공
+- 원격 환경에서 한글 입력이 불가할 때 영어로 보내는 사용자 보조 (영어 학습 목적도 겸함)
+- 형식: 답변 끝에 한 줄 `> Corrected English: "..."` 추가
+
 ### Chat
 
 - **Language**: Answer everything in Korean.
@@ -27,18 +33,24 @@ This file provides guidance to local LLM agents when working with code in this r
 - **Dead Code**: If your changes make imports/variables/functions unused, remove them. Mention pre-existing dead code but do not delete it unless asked.
 - **Comments**: No "deprecated" markers or "logic moved" comments. Delete unused code immediately.
 - **File Separation**: Find suitable existing files or create new ones if logic doesn't fit.
+- **TypeScript — `any` 금지**: implicit/explicit `any` 지양. `unknown` + narrowing 또는 정확한 타입 명시. (현재 `tsconfig.json` `strict: false` — 점진적 strict 전환 plan은 `PLAN_STRICT.md` 참조.)
+- **TypeScript — `type` 선호**: `interface` vs `type` 일관성 — `type` 우선 사용. declaration merging이 필요한 경우만 `interface`.
 
 ### Implementation Specifics
 
 - **Tailwind CSS**: Use Tailwind CSS for all styling unless there's a specific reason not to.
 - **Button styles**: Every buttons like for example, "add project", "edit", "delete" must have a style of a solid background color, white text, and rounded corners. The text inside those buttons must not shrink or grow, nor be transferred into the next line (nowrap).
+- **Components**: `const` 함수형 컴포넌트만 사용. Server Component 기본, client interactivity 필요 시 `"use client"` 명시.
+- **Branch strategy**: 프로덕션 = `release` 브랜치. 작은 작업은 작업 브랜치(`clean-up` 등)에서 직접 commit, **큰 task는 별도 feature branch** (`feat/<name>`, `fix/<name>` 등) 생성 후 PR.
 
 ## Documentation Requirements
 
 - Add brief docstrings in Korean for newly created functions.
-- Concisely document what changes you have done in the docs/CHANGES.md file. This is to keep track of changes at a glance.
-- Automatically increment the 3rd version number (patch version) in `package.json` whenever there is a change.
-- Only update the 1st (major) and 2nd (minor) version numbers if explicitly requested by the user.
+- **Daily log**: 변경 사항은 `docs/logs/YYYYMMDD-{title}.md` 파일에 일일 단위로 기록 (commit type별 그룹). 자세한 format은 `.claude/commands/docs.md` 참조.
+- **Version bump**: 코드 변경이 있을 때만 `package.json`의 patch (3번째) 버전 자동 증가. docs only commit은 버전 변경하지 않음 (`.claude/commands/ship.md` 참조).
+- **Major/minor 버전**: 사용자가 명시적으로 요청한 경우에만 갱신.
+- **PR template**: `.github/PULL_REQUEST_TEMPLATE.md` 형식 사용 (`gh pr create` 시 자동 적용). 작업 브랜치 진행 중 누적 메모는 `PR.md` (root, untracked).
+- **Commit / release directive**: `.claude/commands/ship.md` (commit) / `.claude/commands/docs.md` (문서 업데이트) / `.claude/commands/release.md` (minor 버전 release) 참조.
 
 ### Comment Formatting Constraints
 
@@ -188,7 +200,12 @@ A "where to find what" map. Paths are relative to repo root.
 ### Docs & ops
 
 - `AGENTS.md` — agent guidelines (this file)
-- `CHANGES.md` (root), `PR.md`, `README.md` — repo change log, branch PR notes, overview
+- `README.md` — repo overview
+- `PLAN_STRICT.md` — TypeScript `strict: true` 점진적 전환 plan
+- `docs/logs/YYYYMMDD-{title}.md` — daily change log (CHANGES.md를 대체하는 source of truth)
+- `PR.md` (root, gitignored) — 진행 중 작업 브랜치 누적 메모 (local-only)
+- `.github/PULL_REQUEST_TEMPLATE.md` — `gh pr create` PR template
 - `.claude/commands/ship.md` — definitive commit directive
-- `.claude/commands/docs.md` — documentation update directive (CHANGES / PR / AGENTS structure)
+- `.claude/commands/docs.md` — documentation update directive (daily log / PR.md / AGENTS structure)
+- `.claude/commands/release.md` — minor 버전 release directive
 - `scripts/` — one-off maintenance scripts
