@@ -1,5 +1,11 @@
 # Changes
 
+## Unreleased
+
+- AGENTS.md 끝부분에 프로젝트 구조 map 섹션 추가 (routes / src / config / assets / docs)
+- `.claude/commands/ship.md` 추가 (definitive commit directive)
+- `.claude/commands/docs.md` 추가 (documentation update directive, 프로젝트 convention 적용)
+
 ## 0.1.1
 
 - Next.js 14.2 → 16.2.2 업그레이드 (Turbopack 기본 활성화)

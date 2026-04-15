@@ -45,21 +45,21 @@ This file provides guidance to local LLM agents when working with code in this r
 All non-code comments must be in Korean, and be literal about variable names and function names instead of translating them. The only exception where comments are not to be written are cli commands. When writing or modifying code, you MUST adhere strictly to the following rules for comments:
 
 1. **Format Restrictions:**
-    - Use ONLY single-line `//` syntax for all comments.
-    - Absolutely NO docstrings or multi-line comments (Do not use `/** ... */`, `/*! ... */`, `///`, or `/* ... */`).
+   - Use ONLY single-line `//` syntax for all comments.
+   - Absolutely NO docstrings or multi-line comments (Do not use `/** ... */`, `/*! ... */`, `///`, or `/* ... */`).
 
 2. **Brevity & Tone:**
-    - Keep comments exceedingly plain, minimal, and straight to the point.
-    - Do NOT over-explain. Only comment on the core logic.
+   - Keep comments exceedingly plain, minimal, and straight to the point.
+   - Do NOT over-explain. Only comment on the core logic.
 
 3. **Korean Language Rules:**
-    - Write comments in Korean, but NEVER use full, polite, or formal sentence structures ending in verbs (e.g., do NOT use "~합니다", "~해요", "~이다", "~함").
-    - Instead, all comments must end minimally with a noun or noun phrase (e.g., "~ 실행", "~ 추가", "~ 파싱").
-    - Any word that are not commonly used in Korean should be written in English. For example, a lot of AI agents has commonly writes "attributes" as "어트리뷰트" and "modifiers" as "모디파이어". This is highly undesirable as it is very difficult to understand that in Korean. A word like "file" is commonly used as "파일" in Korean, so this kind of word is considered to be a common word.
-    - Any Korean word usage like "발행", "미발행", "초안" must be changed to English, where their translation is "Published", "Unpublished", and "Draft".
+   - Write comments in Korean, but NEVER use full, polite, or formal sentence structures ending in verbs (e.g., do NOT use "~합니다", "~해요", "~이다", "~함").
+   - Instead, all comments must end minimally with a noun or noun phrase (e.g., "~ 실행", "~ 추가", "~ 파싱").
+   - Any word that are not commonly used in Korean should be written in English. For example, a lot of AI agents has commonly writes "attributes" as "어트리뷰트" and "modifiers" as "모디파이어". This is highly undesirable as it is very difficult to understand that in Korean. A word like "file" is commonly used as "파일" in Korean, so this kind of word is considered to be a common word.
+   - Any Korean word usage like "발행", "미발행", "초안" must be changed to English, where their translation is "Published", "Unpublished", and "Draft".
 
 4. **Punctuation:**
-    - Do NOT use any end punctuation. No periods (`.`), exclamation marks (`!`), or anything else at the end of the comment line.
+   - Do NOT use any end punctuation. No periods (`.`), exclamation marks (`!`), or anything else at the end of the comment line.
 
 **Examples:**
 
@@ -147,3 +147,48 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## Project Structure
+
+A "where to find what" map. Paths are relative to repo root.
+
+### Routes — `app/` (Next.js App Router)
+
+- `app/layout.tsx`, `app/page.tsx` — root layout & landing page
+- `app/posts/page.tsx`, `app/posts/[slug]/page.tsx` — blog index & per-post page
+- `app/redeem/page.tsx` — Nexon coupon redeem page
+- `app/youtubers/page.tsx`, `app/youtubers/[channelId]/page.tsx`, `app/youtubers/[channelId]/_[videoId]/`, `app/youtubers/videos/page.tsx` — YouTuber listing, channel detail, video detail
+- `app/actions/` — server actions: `couponRedeem.ts`, `fetchYouTube.ts`, `handleYTData.ts`, `revalidate.ts`
+- `app/api/` — route handlers (currently empty placeholder)
+- `app/sitemap.ts`, `app/robots.ts`, `app/error.tsx`, `app/global-error.tsx`, `app/not-found.tsx` — SEO & error boundaries
+
+### Source — `src/`
+
+- `src/components/ui/` — shadcn primitives (`button`, `input`, `form`, `dialog`, `popover`, `tabs`, ...)
+- `src/components/<Domain>/` — feature-grouped components: `Blog`, `Redeem`, `Nexon`, `Header`, `Footer`, `Card`, `Carousel`, `Calendar`, `Command`, `BentoBox`, `Markdown`, `Image`, `Video`, `Audio`, `Icons`, `Layout`, `Tag`, `Text`, `Tooltip`, `Breadcrumb`, `Button`, `Countdown`, `DarkMode`, `Data`, `Placeholder`
+- `src/lib/` — `supabase.ts` (server client), `queries.ts`, `markdown.tsx`
+- `src/api/fetchKRPData.ts` — KartRider Rush+ data fetcher
+- `src/hooks/` — shared hooks (`use-mounted`, `use-lock-body`)
+- `src/util/` — pure utils: `utils.ts` (cn helper), `localStorage.ts`, `db.ts`, `toc.ts`
+- `src/types/` — shared TypeScript types (`index.ts`, `post.ts`)
+- `src/styles/` — `globals.css`, `mdx.css`, `fonts/`
+
+### Config & build
+
+- `config/site.ts`, `config/navBar.ts` — site metadata & nav definition
+- `env.mjs` — typed env validation (`@t3-oss/env-nextjs`)
+- `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`
+- Path aliases (tsconfig): `@/*` → repo root, `@/components/*` → `src/components/*`
+
+### Static assets — `public/`
+
+- `public/assets/images/<S##>/`, `public/assets/gifs/<S##>/` — season-grouped game assets (e.g. `S24`, `S25`, ... `S28`)
+- `public/assets/images/links/` — UI step images
+
+### Docs & ops
+
+- `AGENTS.md` — agent guidelines (this file)
+- `CHANGES.md` (root), `PR.md`, `README.md` — repo change log, branch PR notes, overview
+- `.claude/commands/ship.md` — definitive commit directive
+- `.claude/commands/docs.md` — documentation update directive (CHANGES / PR / AGENTS structure)
+- `scripts/` — one-off maintenance scripts

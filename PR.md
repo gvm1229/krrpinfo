@@ -1,5 +1,11 @@
 # PR: clean-up branch
 
+## 📝 AGENTS.md 프로젝트 구조 map & ship/docs directives
+
+- AGENTS.md 끝부분에 프로젝트 구조 map 섹션 추가 (routes / src / config / assets / docs)
+- `.claude/commands/ship.md` 추가 — 향후 commit directive 기준
+- `.claude/commands/docs.md` 추가 — 문서 (CHANGES / PR / AGENTS structure) 갱신 directive
+
 ## 🔥 Storybook & 조회수 기능 제거
 
 - Storybook 완전 제거 (9 devDeps, 22 파일, ~1,137줄)
