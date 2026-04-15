@@ -17,6 +17,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  // youtubers page feature flag gate
+  const showYoutubers = process.env.NEXT_PUBLIC_SHOW_YOUTUBERS === 'true';
+
   return [
     {
       url: `${siteConfig.url}`,
@@ -31,18 +34,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     ...postsRoutes,
-    {
-      url: `'${siteConfig.url}/youtubers`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${siteConfig.url}/youtubers/videos`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
+    ...(showYoutubers
+      ? [
+          {
+            url: `${siteConfig.url}/youtubers`,
+            lastModified: new Date(),
+            changeFrequency: 'daily' as Changefreq,
+            priority: 0.9,
+          },
+          {
+            url: `${siteConfig.url}/youtubers/videos`,
+            lastModified: new Date(),
+            changeFrequency: 'daily' as Changefreq,
+            priority: 0.9,
+          },
+        ]
+      : []),
     {
       url: `${siteConfig.url}/redeem`,
       lastModified: new Date(),
