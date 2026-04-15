@@ -1,5 +1,12 @@
 # PR: clean-up branch
 
+## ✨ Redeem 회원번호 저장/수정/취소 button flow
+
+- "회원번호 기억하기" checkbox 제거 → 저장/수정/취소 button flow 도입
+- 저장 시 localStorage (`krrpinfo:npaCode`) 영속화, input disabled (greyed)
+- 수정 mode → 취소(직전 값 복원) / 저장 두 button 노출
+- 페이지 재진입 시 localStorage 값 자동 복원
+
 ## 📝 AGENTS.md 프로젝트 구조 map & ship/docs directives
 
 - AGENTS.md 끝부분에 프로젝트 구조 map 섹션 추가 (routes / src / config / assets / docs)
