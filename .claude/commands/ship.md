@@ -4,22 +4,59 @@ Commit the current unstaged changes following these rules strictly:
 
 1. **No Co-Authored-By**: Never include a Co-Authored-By line in the commit message.
 
-2. **Commit message format**: Read the last two commits by the user (not by another collaborator, Claude or any bot) via `git log` and match their style exactly. Typically this is:
+2. **Commit message format**: Read the last two commits by the user (not by another collaborator, Claude or any bot) via `git log` and match their style exactly. The canonical project format is:
 
    ```
-   <type>: <Korean description> (<version>)
+   <emoji> <type>(<scope>): <Korean description> (<version>)
    ```
 
-   Where `<type>` is `feat`, `fix`, `refactor`, etc.
+   The `(<version>)` suffix is **mandatory only when version bumps** (see rule 3). Use gitmoji prefix to match existing history (e.g., `✨ feat`, `🐛 fix`, `📝 docs`, `♻️ refactor`, `🔥 delete`, `⬆️ feat(deps)`).
+
+   **Commit type table** (Conventional Commits spec — pick the most accurate type; if multiple apply, pick the dominant one based on the _intent_ of the change, not the file count):
+
+   | 타입       | 설명                                           | 사용 예                                                         |
+   | ---------- | ---------------------------------------------- | --------------------------------------------------------------- |
+   | `feat`     | 새로운 기능 추가                               | UI 컴포넌트 신규, API endpoint 추가, server action 추가         |
+   | `fix`      | 버그 수정                                      | rendering bug, regression, broken navigation                    |
+   | `docs`     | 문서만 변경 (코드 변경 없음)                   | README, AGENTS.md, docs/logs/, JSDoc, MDX 콘텐츠                |
+   | `style`    | 코드 의미에 영향 없는 변경                     | 포맷팅, 세미콜론, prettier auto-fix only                        |
+   | `refactor` | 기능 추가/버그 수정 아닌 코드 구조 변경        | 함수 분리, 변수명 변경, 타입 정리                               |
+   | `perf`     | 성능 개선                                      | bundle size 감소, query 최적화, render 회수 감소                |
+   | `test`     | 테스트 추가/수정 (테스트만 변경)               | unit, E2E, fixture 추가/변경                                    |
+   | `chore`    | 빌드·설정·도구 등 보조 작업 (코드 동작 무영향) | dependency 업데이트, CI workflow, .claude/commands, lint config |
+   | `revert`   | 이전 커밋 되돌리기                             | `git revert` 결과                                               |
+
+   **타입 선택 가이드**:
+   - 코드 변경 없이 문서만 → `docs`. **단**, AGENTS.md/commands 같은 _agent 동작에 영향을 주는_ 메타-문서는 `chore`로 분류 가능 (project tooling에 더 가깝다고 판단되면).
+   - bug 수정 + 테스트 추가가 같은 PR이면 → `fix` (테스트는 부수적).
+   - refactor 중 발견한 사소한 bug를 함께 고쳤다면 → `fix` (의도가 최종적으로 bug 수정이었으므로).
+   - 모호하면 사용자에게 확인.
+
+   **Title rules:**
+   - 명령형 현재 시제 (e.g., "추가", "수정" — not "추가했음" or "수정 중").
+   - 첫 글자 소문자 (`feat:` 뒤 첫 단어).
+   - 끝에 마침표/느낌표 등 punctuation 없음.
+   - 한글로 작성. 단, 파일명·고유명사·기술 용어는 영어 원문 유지 (예: `✨ feat(redeem): RedeemContainer에 localStorage 영속화 추가 (0.1.4)`).
+
+2a. **Commit grouping**: 여러 무관한 변경을 하나의 commit에 묶지 말 것. 기능별·관심사별로 분리해 commit. 한 번에 4개 이상의 무관한 파일이 staged 상태면, 분리 가능 여부를 검토하고 필요하면 user에게 확인.
+
+2b. **Path quoting**: Next.js dynamic segment `[slug]`, `[channelId]`, route group `(group)` 등은 shell metacharacter이므로 `git add` 시 반드시 큰따옴표로 감쌀 것:
+
+    ```bash
+    git add "app/posts/[slug]/page.tsx"
+    git add "app/youtubers/[channelId]/page.tsx"
+    ```
+
+    Unquoted path는 shell glob expansion 실패 + 추가 retry로 토큰 낭비.
 
 3. **Version bump**: Increment the patch version in `package.json` to match the commit message version only IF there are any code changes. If the commit is purely about docs or deleting files, then the version change must not occur. If the git unstaged changes already includes a `package.json` with its version updated, then the version change must not occur.
 
-4. **Update PR.md**: If the current branch is anything other than the `main` branch, add a concise entry to `PR.md` describing what changed. Match the existing section style.
+4. **Update PR.md**: If the current branch is anything other than `main` or `release`, add a concise entry to `PR.md` describing what changed. Match the existing section style.
 
-5. **Update CHANGES.md**: Add a concise entry to `CHANGES.md` describing what changed. Match the existing section style.
+5. **Add daily log entry**: Append (or create) a `docs/logs/YYYYMMDD-{title}.md` file describing the commit. Group by commit type. Include version if bumped. See `.claude/commands/docs.md` for full format.
 
 6. **Commit only, do NOT push**: Stage relevant files, commit, and stop. Do not run `git push` unless explicitly prompted by the user.
 
-7. **Run tests**: If there are any code changes, verify tests pass before committing. If they fail, fix or report. If the commit is purely about docs or deleting files, then the test must not be done.
+7. **Run tests**: If there are any code changes, verify lint + types (`pnpm exec prettier --check <files>` + `npx tsc --noEmit`) pass before committing. If they fail, fix or report. If the commit is purely about docs or deleting files, then the test must not be done.
 
 $ARGUMENTS

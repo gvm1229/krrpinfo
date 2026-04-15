@@ -2,15 +2,38 @@
 
 Update project documentation to reflect recent code changes. Run the following steps **in order**, skipping any step that has nothing to do.
 
-## Step 1: Update CHANGES.md
+## Step 1: Add or update today's daily log
 
 1. Run `git log --oneline -20` and `git diff HEAD~5 --stat` to identify recent changes not yet documented.
-2. Read the top of `CHANGES.md` (root) to find the latest documented version.
-3. If there are undocumented commits since that version, add a new version entry following the existing style:
-   - Increment the patch version from the latest entry (e.g., `0.1.3` -> `0.1.4`)
-   - Use the format: `## <version>` with bullet list of Korean summaries
-   - List changed concerns/files with brief descriptions
-4. If CHANGES.md is already up to date, say so and move on.
+2. List existing log files: `ls docs/logs/` to find the latest documented date.
+3. If there are undocumented commits since that date, add a new log file (or append to today's existing one):
+   - Path: `docs/logs/YYYYMMDD-{title}.md` (kebab-case Korean/English title, e.g. `20260415-redeem-flow-cleanup.md`)
+   - Top of file format:
+
+     ```markdown
+     # <YYYY-MM-DD> — <one-line summary>
+
+     > version: <0.x.y> (if bumped this day)
+
+     ## ✨ feat
+
+     - ...
+
+     ## 🐛 fix
+
+     - ...
+
+     ## 📝 docs
+
+     - ...
+     ```
+
+   - Group by commit type (use the same emoji+type used in commit messages).
+   - List concerns/files with brief Korean descriptions.
+
+4. If today's log is already up to date, say so and move on.
+
+**Convention**: `docs/logs/` is the **source of truth** for change history (one file per day). The root `CHANGES.md` does not exist — historical entries live under `docs/logs/`.
 
 ## Step 2: Update PR.md (non-main, non-release branches only)
 
