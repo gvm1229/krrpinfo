@@ -220,6 +220,7 @@ export async function renderMarkdown(content: string): Promise<string> {
       ],
     });
 
+    // @ts-expect-error -- react-dom/server type 선언 누락 우회
     const { renderToString } = await import('react-dom/server');
     const html = renderToString(<MDXContent components={components} />);
     return html;

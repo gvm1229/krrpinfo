@@ -110,8 +110,8 @@ export const viewport = {
 
 export const revalidate = 60;
 
-export default async function RootLayout({ children }) {
-  const userAgent: string = (await headers()).get('user-agent');
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const userAgent: string = (await headers()).get('user-agent') ?? '';
   const posts = await getPostsForSearch();
 
   return (

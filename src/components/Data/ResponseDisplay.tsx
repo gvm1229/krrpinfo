@@ -2,10 +2,10 @@
 
 interface ResponseDisplayProps {
   response: {
-    success: boolean
-    message: string
-  }
-  className?: string
+    success: boolean;
+    message: string;
+  } | null;
+  className?: string;
 }
 
 const ResponseDisplay = ({ response, className }: ResponseDisplayProps) => (

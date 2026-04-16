@@ -31,7 +31,7 @@ export default async function PostRootPage() {
                 toNavigate={`/posts/${post.slug}`}
                 isImagePriority={index < 6}
                 title={post.title}
-                description={post.description}
+                description={post.description ?? undefined}
                 date={post.pub_date}
                 thumbnail={post.thumbnail}
                 tags={post.tags ?? []}

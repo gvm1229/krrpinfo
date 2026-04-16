@@ -11,31 +11,26 @@ interface YouTubeModalContentProps {
   className?: string;
 }
 
-const YouTubeModalContent = ({
-  videoData,
-  className,
-}: YouTubeModalContentProps) => {
+const YouTubeModalContent = ({ videoData, className }: YouTubeModalContentProps) => {
   const { timestamps } = videoData;
 
   const [isWindow, setIsWindow] = useState<boolean>(false);
 
-  const playerRef = useRef(null);
+  const playerRef = useRef<ReactPlayer>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [playing, setPlaying] = useState(true);
 
   const updateCurrentTime = () => {
-    setCurrentTime(
-      playerRef.current.getCurrentTime()
-        ? playerRef.current.getCurrentTime().toFixed(3)
-        : 0,
-    );
+    if (!playerRef.current) return;
+    const time = playerRef.current.getCurrentTime();
+    setCurrentTime(time ? parseFloat(time.toFixed(3)) : 0);
   };
 
   const isWithinInterval = (indexInput: number) => {
+    if (!timestamps) return false;
     const currentTimeStamp = timestamps[indexInput].seconds;
 
-    if (indexInput === timestamps.length - 1)
-      return currentTimeStamp <= currentTime;
+    if (indexInput === timestamps.length - 1) return currentTimeStamp <= currentTime;
 
     const nextTimeStamp = timestamps[indexInput + 1].seconds;
 
@@ -99,14 +94,12 @@ const YouTubeModalContent = ({
             />
           )}
         </div>
-        <div
-          className="relative flex flex-col overflow-hidden rounded-lg border-2 border-zinc-400 dark:border-zinc-600 laptop:min-w-80"
-        >
+        <div className="relative flex flex-col overflow-hidden rounded-lg border-2 border-zinc-400 dark:border-zinc-600 laptop:min-w-80">
           <div className="p-4 dark:bg-zinc-600">
             <h1 className="text-lg font-medium tablet:text-xl">챕터</h1>
           </div>
           <ScrollArea className="flex h-48 flex-col overflow-hidden laptop:h-[43vh] laptop:min-w-80">
-            {videoData.timestamps.map((timestamp, idx) => (
+            {videoData.timestamps?.map((timestamp, idx) => (
               <button
                 key={timestamp.title}
                 className={cn(
@@ -118,12 +111,8 @@ const YouTubeModalContent = ({
                   setCurrentTime(timestamp.seconds);
                 }}
               >
-                <h1 className="text-base font-medium tablet:text-lg">
-                  {timestamp.title}
-                </h1>
-                <p
-                  className="mt-2 rounded-md bg-blue-300/35 px-1.5 py-0.5 text-left text-sm font-semibold text-blue-600 dark:bg-blue-500/35 dark:text-blue-500 tablet:text-base"
-                >
+                <h1 className="text-base font-medium tablet:text-lg">{timestamp.title}</h1>
+                <p className="mt-2 rounded-md bg-blue-300/35 px-1.5 py-0.5 text-left text-sm font-semibold text-blue-600 dark:bg-blue-500/35 dark:text-blue-500 tablet:text-base">
                   {convertSecondsToTime(timestamp.seconds)}
                 </p>
               </button>

@@ -64,7 +64,7 @@ export async function handleUserLookup(payload: UserLookUpPayload) {
         body: JSON.stringify(payload),
       },
     );
-    return await response.json() as UserLookUpResponse;
+    return (await response.json()) as UserLookUpResponse;
   } catch (error) {
     // console.error('Error fetching user:', error);
     throw new Error(`Error fetching user: ${error}`);
@@ -125,7 +125,7 @@ export async function handleRedeem(payload: RedeemPayload) {
         body: JSON.stringify(payload),
       },
     );
-    return await response.json() as RedeemResponse;
+    return (await response.json()) as RedeemResponse;
   } catch (error) {
     // console.error('Error fetching coupon:', error);
     throw new Error(`Error fetching coupon: ${error}`);
@@ -133,8 +133,8 @@ export async function handleRedeem(payload: RedeemPayload) {
 }
 
 interface UnifiedResponse {
-  success: boolean
-  message: string
+  success: boolean;
+  message: string;
 }
 
 export async function handleUnified(npaCode: string, coupon: string): Promise<UnifiedResponse> {
@@ -147,7 +147,7 @@ export async function handleUnified(npaCode: string, coupon: string): Promise<Un
     const payload = { npaCode, coupon, region };
     const responseData = await handleUserLookup(payload);
     // console.log('Unified responseData', responseData);
-    if (responseData.result)
+    if (responseData.result && responseData.info)
       try {
         const redeemPayload = {
           coupon,
@@ -159,16 +159,15 @@ export async function handleUnified(npaCode: string, coupon: string): Promise<Un
         };
         const redeemResponseData = await handleRedeem(redeemPayload);
         // console.log('Unified redeemResponseData', redeemResponseData);
-        if (redeemResponseData.result && responseData.info) // 안전을 위해 둘 다
+        if (redeemResponseData.result && responseData.info)
+          // 안전을 위해 둘 다
           return {
             success: true,
             message: `[${responseData.info[0].name}] 에게 [${coupon}] 쿠폰 사용 성공`,
           };
         return {
           success: false,
-          message:
-            reformatMessage(redeemResponseData.message)
-            ?? '이미 사용된 쿠폰 / 잘못된 입력',
+          message: reformatMessage(redeemResponseData.message) ?? '이미 사용된 쿠폰 / 잘못된 입력',
         };
       } catch (error) {
         // console.error('[Unified] Error fetching coupon:', error);
@@ -180,9 +179,7 @@ export async function handleUnified(npaCode: string, coupon: string): Promise<Un
     else
       return {
         success: false,
-        message:
-          reformatMessage(responseData.message)
-          ?? '이미 사용된 쿠폰 / 잘못된 입력',
+        message: reformatMessage(responseData.message) ?? '이미 사용된 쿠폰 / 잘못된 입력',
       };
   } catch (error) {
     // console.error('[Unified] Error fetching user:', error);

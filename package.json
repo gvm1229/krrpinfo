@@ -1,6 +1,6 @@
 {
   "name": "krrpinfo",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "license": "MIT",
   "author": {
@@ -89,6 +89,7 @@
     "@next/bundle-analyzer": "^16.2.2",
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",
+    "@types/react-scroll": "^1.8.10",
     "commitizen": "^4.3.1",
     "commitlint-config-gitmoji": "^2.3.1",
     "cz-emoji-conventional": "^1.1.0",
