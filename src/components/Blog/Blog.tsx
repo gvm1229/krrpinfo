@@ -1,3 +1,4 @@
+import React from 'react';
 import { LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
@@ -85,20 +86,20 @@ export default function Blog({
   );
 }
 
-interface TextDataWrapperProps {
-  width: string;
-  thumbnail: string;
+type TextDataWrapperProps = {
+  width?: string;
+  thumbnail?: string;
   tags: string[];
-  date: string;
+  date?: string;
   title: string;
-  description: string;
+  description?: string;
   gridNums: number[];
   isPriority: boolean;
-  NavigateComponent?: typeof Link | typeof ButtonNewTab;
+  NavigateComponent?: React.ElementType;
   toNavigate?: string;
   hyperlink?: string;
-  className: string;
-}
+  className?: string;
+};
 
 function TextDataWrapper({
   width,
@@ -116,10 +117,10 @@ function TextDataWrapper({
 }: TextDataWrapperProps) {
   return (
     <div className={cn('rounded-lg focus:outline-hidden', width, className)}>
-      {toNavigate || hyperlink ? (
-        <NavigateComponent href={toNavigate || hyperlink}>
+      {NavigateComponent && (toNavigate || hyperlink) ? (
+        <NavigateComponent href={toNavigate ?? hyperlink ?? ''}>
           <ImageWrapper
-            src={thumbnail}
+            src={thumbnail ?? ''}
             gridNums={gridNums}
             isPriority={isPriority}
             isHyperlink={!!hyperlink}
@@ -128,7 +129,7 @@ function TextDataWrapper({
         </NavigateComponent>
       ) : (
         <ImageWrapper
-          src={thumbnail}
+          src={thumbnail ?? ''}
           gridNums={gridNums}
           isPriority={isPriority}
           className={width}
@@ -140,8 +141,8 @@ function TextDataWrapper({
             {formatDate(date ?? new Date())}
           </p>
         </div>
-        {toNavigate || hyperlink ? (
-          <NavigateComponent href={toNavigate || hyperlink}>
+        {NavigateComponent && (toNavigate || hyperlink) ? (
+          <NavigateComponent href={toNavigate ?? hyperlink ?? ''}>
             <h1 id="title" className="truncate text-2xl font-bold text-primary hover:underline">
               {title}
             </h1>

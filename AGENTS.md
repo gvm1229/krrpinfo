@@ -189,7 +189,7 @@ A "where to find what" map. Paths are relative to repo root.
 
 - `config/site.ts`, `config/navBar.ts` — site metadata & nav definition
 - `env.mjs` — typed env validation (`@t3-oss/env-nextjs`)
-- `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`
+- `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`, `proxy.ts`
 - Path aliases (tsconfig): `@/*` → repo root, `@/components/*` → `src/components/*`
 
 ### Static assets — `public/`

@@ -204,7 +204,7 @@ const seasonsData = [
   },
 ];
 
-const FeaturedBento = ({ className }) => (
+const FeaturedBento = ({ className }: { className?: string }) => (
   <div
     className={cn(
       'relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6',
@@ -308,7 +308,7 @@ async function Posts({ className }: { className?: string }) {
             toNavigate={`/posts/${post.slug}`}
             isImagePriority={false}
             title={post.title}
-            description={post.description}
+            description={post.description ?? undefined}
             date={post.pub_date}
             thumbnail={post.thumbnail}
             tags={post.tags ?? []}

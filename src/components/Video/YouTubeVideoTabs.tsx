@@ -1,12 +1,7 @@
 'use client';
 
 import Blog from '@/components/Blog/Blog';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { YouTubeVideoItem } from '@/src/types';
 import { categories } from '@/src/types';
 import { cn, fallBackIndex } from '@/src/util/utils';
@@ -41,9 +36,8 @@ const YouTubeVideoTabs = ({
 
                 // if categoryIndex === 0, then eliminate the query string
                 if (categoryIndex === 0)
-                  window.history.pushState(null, '', `${window.location.pathname}`);
-                else // else, push the query string with the correct index
-                  window.history.pushState(null, '', `?idx=${categoryIndex}`);
+                  window.history.pushState(null, '', `${window.location.pathname}`); // else, push the query string with the correct index
+                else window.history.pushState(null, '', `?idx=${categoryIndex}`);
               }}
               className="h-10 w-full truncate text-base font-medium tablet:h-12 tablet:text-lg laptop:text-xl"
             >
@@ -56,17 +50,16 @@ const YouTubeVideoTabs = ({
     {categories.map((category) => (
       <>
         {categorizedVideos[category].length > 0 && (
-          <TabsContent
-            key={category}
-            value={category}
-          >
+          <TabsContent key={category} value={category}>
             {categorizedVideos[category].length > 0 ? (
               <div className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-12 laptop:grid-cols-3">
                 {categorizedVideos[category].map((video: YouTubeVideoItem, index: number) => (
                   <Blog
                     key={video.id}
                     hyperlink={`https://www.youtube.com/watch?v=${video.id}`}
-                    thumbnail={video.snippet.thumbnails.maxres.url ?? video.snippet.thumbnails.high.url}
+                    thumbnail={
+                      video.snippet.thumbnails.maxres?.url ?? video.snippet.thumbnails.high.url
+                    }
                     isImagePriority={index < 6}
                     title={video.snippet.title}
                     description={video.snippet.channelTitle}

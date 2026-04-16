@@ -34,7 +34,7 @@ export async function generateMetadata(
   return {
     title: mutualTitle,
     description: channelTitle,
-    keywords: [...(await parent).keywords, channelTitle],
+    keywords: [...((await parent).keywords ?? []), channelTitle],
     authors: [
       {
         name: 'Megi',
@@ -51,13 +51,13 @@ export async function generateMetadata(
       type: 'article',
       authors: ['Megiii', channelTitle],
       url: absoluteUrl(channelTitle),
-      images: (await parent).openGraph.images,
+      images: (await parent).openGraph?.images,
     },
     twitter: {
       card: 'summary_large_image',
       title: mutualTitle,
       description: channelTitle,
-      images: (await parent).twitter.images,
+      images: (await parent).twitter?.images,
     },
     metadataBase: new URL(`${siteConfig.url}/${channelTitle}`),
     alternates: {
@@ -103,7 +103,7 @@ export default async function YouTuberRootPage({
     팁: videos.filter((video) => video.category === '팁'),
   };
   const nonZeroCategoryKeys = Object.keys(categorizedVideos).filter(
-    (key) => categorizedVideos[key].length > 0,
+    (key) => categorizedVideos[key as keyof typeof categorizedVideos].length > 0,
   );
 
   return (

@@ -32,8 +32,8 @@ export async function generateMetadata(
     title: post.title,
     description: post.description,
     keywords: post.keywords
-      ? [...(await parent).keywords, ...post.keywords]
-      : [...(await parent).keywords],
+      ? [...((await parent).keywords ?? []), ...post.keywords]
+      : [...((await parent).keywords ?? [])],
     authors: [
       {
         name: 'Megi',
