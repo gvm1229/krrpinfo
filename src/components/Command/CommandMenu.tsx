@@ -20,7 +20,7 @@ interface CommandMenuProps {
   posts?: { title: string; slug: string; description: string | null; tags: string[] }[];
 }
 
-export function CommandMenu({ userAgent, posts = [] }: CommandMenuProps) {
+export function CommandMenu({ userAgent = '', posts = [] }: CommandMenuProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
