@@ -1,4 +1,4 @@
-import { EyeIcon, LinkIcon } from 'lucide-react';
+import { LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
@@ -16,7 +16,6 @@ interface BlogProps {
   hyperlink?: string;
   gridNums?: number[];
   isImagePriority?: boolean;
-  views?: number;
   className?: string;
 }
 
@@ -31,7 +30,6 @@ export default function Blog({
   hyperlink,
   gridNums = [1, 2, 3],
   isImagePriority = false,
-  views = 0,
   className,
 }: BlogProps) {
   // When redirect link is present
@@ -48,7 +46,6 @@ export default function Blog({
         isPriority={isImagePriority}
         NavigateComponent={Link}
         toNavigate={toNavigate}
-        views={views}
         className={className}
       />
     );
@@ -67,7 +64,6 @@ export default function Blog({
         isPriority={isImagePriority}
         NavigateComponent={ButtonNewTab}
         hyperlink={hyperlink}
-        views={views}
         className={className}
       />
     );
@@ -84,7 +80,6 @@ export default function Blog({
       gridNums={gridNums}
       isPriority={isImagePriority}
       NavigateComponent={ButtonNewTab}
-      views={views}
       className={className}
     />
   );
@@ -102,7 +97,6 @@ interface TextDataWrapperProps {
   NavigateComponent?: typeof Link | typeof ButtonNewTab;
   toNavigate?: string;
   hyperlink?: string;
-  views: number;
   className: string;
 }
 
@@ -118,7 +112,6 @@ function TextDataWrapper({
   NavigateComponent,
   toNavigate,
   hyperlink,
-  views,
   className,
 }: TextDataWrapperProps) {
   return (
@@ -146,15 +139,6 @@ function TextDataWrapper({
           <p id="date" className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
             {formatDate(date ?? new Date())}
           </p>
-          {views > 0 && (
-            <p
-              id="views"
-              className="flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400"
-            >
-              <EyeIcon className="size-5" />
-              {views}
-            </p>
-          )}
         </div>
         {toNavigate || hyperlink ? (
           <NavigateComponent href={toNavigate || hyperlink}>

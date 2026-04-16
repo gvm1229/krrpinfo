@@ -26,11 +26,11 @@ export default function GlobalError({
       <body className="relative h-screen min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-svh flex-col">
-            <SiteHeader userAgent="" />
+            <SiteHeader userAgent="" posts={[]} />
             <main className="relative flex-1 py-8 tablet:py-12">
               <ErrorBody error={error} />
             </main>
-            <SiteFooter totalViews={-1} />
+            <SiteFooter />
             <ScrollToTopButton />
           </div>
         </ThemeProvider>

@@ -1,4 +1,3 @@
-import { Redis } from '@upstash/redis';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/src/styles/globals.css';
@@ -8,8 +7,8 @@ import ScrollToTopButton from '@/components/Button/ScrollToTopButton';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
 import { SiteFooter } from '@/components/Footer/SiteFooter';
 import { SiteHeader } from '@/components/Header/SiteHeader';
-import ViewReporter from '@/components/View/ViewReporter';
 import { siteConfig } from '@/config/site';
+import { getPostsForSearch } from '@/src/lib/queries';
 import ClientLayout from '@/src/components/Layout/ClientLayout';
 
 export const metadata = {
@@ -110,43 +109,27 @@ export const viewport = {
 };
 
 export const revalidate = 60;
-const redis = Redis.fromEnv();
 
-function render(
-  userAgent: string,
-  children: React.ReactNode,
-  totalViewSlug: string = '',
-  totalViews: number = 1234,
-) {
+export default async function RootLayout({ children }) {
+  const userAgent: string = (await headers()).get('user-agent');
+  const posts = await getPostsForSearch();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="relative min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ClientLayout>
             <div className="relative flex min-h-svh flex-col">
-              <SiteHeader userAgent={userAgent} />
+              <SiteHeader userAgent={userAgent} posts={posts} />
               <main className="relative flex-1 py-8 tablet:py-12">{children}</main>
-              <SiteFooter totalViews={totalViews} />
+              <SiteFooter />
               <ScrollToTopButton />
             </div>
           </ClientLayout>
         </ThemeProvider>
-        <ViewReporter slug={totalViewSlug} path="/" />
         <Analytics />
         <SpeedInsights />
       </body>
     </html>
   );
-}
-
-export default async function RootLayout({ children }) {
-  const userAgent: string = (await headers()).get('user-agent');
-
-  if (process.env.NODE_ENV === 'development') return render(userAgent, children);
-
-  const totalViewSlug = 'krrpinfo:total-views';
-  const totalViews =
-    (await redis.get<number>(['pageviews', 'projects', totalViewSlug].join(':'))) ?? 0;
-
-  return render(userAgent, children, totalViewSlug, totalViews);
 }
