@@ -1,6 +1,6 @@
 {
   "name": "krrpinfo",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "license": "MIT",
   "author": {
@@ -80,6 +80,7 @@
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.2.2",
     "tailwindcss-animate": "^1.0.7",
+    "unist-util-visit": "^5.1.0",
     "zod": "^3.25.0"
   },
   "devDependencies": {
