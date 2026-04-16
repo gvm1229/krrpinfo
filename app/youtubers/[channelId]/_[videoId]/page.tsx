@@ -25,13 +25,19 @@ export async function generateMetadata(
   if (!video) return {};
 
   const snippet = video.snippet;
+  const parentMetadata = await parent;
+  const parentKeywords = Array.isArray(parentMetadata.keywords)
+    ? parentMetadata.keywords
+    : parentMetadata.keywords
+      ? [parentMetadata.keywords]
+      : [];
 
   return {
     title: snippet.title,
     description: snippet.channelTitle,
     keywords: snippet.tags
-      ? [...(await parent).keywords, ...snippet.tags, snippet.channelTitle]
-      : [...(await parent).keywords, snippet.channelTitle],
+      ? [...parentKeywords, ...snippet.tags, snippet.channelTitle]
+      : [...parentKeywords, snippet.channelTitle],
     openGraph: {
       title: snippet.title,
       description: snippet.channelTitle,

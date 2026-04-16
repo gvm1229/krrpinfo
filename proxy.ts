@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-// youtubers page feature flag gate
-export function middleware(request: NextRequest) {
+// youtubers 노출 gate
+export function proxy(request: NextRequest) {
   if (process.env.NEXT_PUBLIC_SHOW_YOUTUBERS !== 'true') {
     return new NextResponse(null, { status: 404 });
   }

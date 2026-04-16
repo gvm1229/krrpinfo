@@ -1,6 +1,6 @@
-# 2026-04-16 — TypeScript strict: true 전환
+# 2026-04-16 — TypeScript strict 전환 및 build warning fix
 
-> version: 0.1.7
+> version: 0.1.9
 
 ## ♻️ refactor(typescript)
 
@@ -23,3 +23,14 @@
 ## 🔧 chore(deps)
 
 - `@types/react-scroll` devDependency 추가
+
+## 🐛 fix(metadata)
+
+- `app/youtubers/[channelId]/_[videoId]/page.tsx` — `parent.keywords`를 배열로 정규화 후 `snippet.tags` 병합
+- Next.js metadata `keywords`의 `string | string[] | null` union 대응으로 production build type error 해소
+
+## 🐛 fix(proxy)
+
+- `middleware.ts` → `proxy.ts` rename
+- export 함수명 `middleware` → `proxy` 변경
+- Next.js 16.2.3 build warning 제거
