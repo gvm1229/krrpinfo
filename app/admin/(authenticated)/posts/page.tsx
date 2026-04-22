@@ -8,6 +8,9 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+const TH = 'px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500';
+const COLS = ['Title', 'Slug', 'Date', 'Status', 'Edit'] as const;
+
 // 포스트 관리 목록 (owner 전용 — auth gate 는 (authenticated)/layout.tsx 에 위임)
 export default async function AdminPostsPage() {
   const posts = await getAllPostsForAdmin();
@@ -19,21 +22,11 @@ export default async function AdminPostsPage() {
         <table className="w-full text-sm">
           <thead className="border-b bg-zinc-50 dark:bg-zinc-900">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
-                Title
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
-                Slug
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
-                Date
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
-                Status
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
-                Edit
-              </th>
+              {COLS.map((col) => (
+                <th key={col} className={TH}>
+                  {col}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="divide-y">
