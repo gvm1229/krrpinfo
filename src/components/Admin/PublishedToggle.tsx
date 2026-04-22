@@ -1,6 +1,6 @@
 'use client';
 import { useTransition } from 'react';
-import { togglePublished } from '@/app/admin/posts/actions';
+import { togglePublished } from '@/app/admin/(authenticated)/posts/actions';
 
 type Props = {
   slug: string;

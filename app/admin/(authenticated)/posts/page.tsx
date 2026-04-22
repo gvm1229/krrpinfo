@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { auth, isOwner } from '@/src/auth';
 import { getAllPostsForAdmin } from '@/src/lib/queries';
 import { PublishedToggle } from '@/components/Admin/PublishedToggle';
 import { formatDate } from '@/src/util/utils';
@@ -10,17 +8,13 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-// 포스트 관리 목록 페이지 (owner 전용)
+// 포스트 관리 목록 (owner 전용 — auth gate 는 (authenticated)/layout.tsx 에 위임)
 export default async function AdminPostsPage() {
-  // 방어적 재검증 — proxy 통과해도 owner email 명시 확인
-  const session = await auth();
-  if (!isOwner(session)) redirect('/admin/login');
-
   const posts = await getAllPostsForAdmin();
 
   return (
-    <main className="mx-auto max-w-5xl py-8">
-      <h1 className="mb-6 text-xl font-semibold">Posts</h1>
+    <div className="space-y-6">
+      <h1 className="text-2xl font-semibold">Posts</h1>
       <div className="overflow-x-auto rounded-lg border">
         <table className="w-full text-sm">
           <thead className="border-b bg-zinc-50 dark:bg-zinc-900">
@@ -64,6 +58,6 @@ export default async function AdminPostsPage() {
           </tbody>
         </table>
       </div>
-    </main>
+    </div>
   );
 }

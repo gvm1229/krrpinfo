@@ -37,7 +37,7 @@ vi.mock('next/cache', () => ({
 
 import { auth } from '@/src/auth';
 import { revalidatePath } from 'next/cache';
-import { togglePublished } from '@/app/admin/posts/actions';
+import { togglePublished } from '@/app/admin/(authenticated)/posts/actions';
 
 const mockAuth = vi.mocked(auth);
 const mockRevalidatePath = vi.mocked(revalidatePath);

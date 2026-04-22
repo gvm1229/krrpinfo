@@ -27,25 +27,17 @@ export default async function YouTubersRootPage() {
 
   return (
     <main className="container relative flex h-full flex-col items-center">
-      <h1 className="text-4xl font-bold laptop:text-5xl">
-        추천 유튜버 목록
-      </h1>
+      <h1 className="text-4xl font-bold laptop:text-5xl">추천 유튜버 목록</h1>
       <div className="relative mt-8 grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:mt-16 laptop:grid-cols-3">
         {channels.map((channel: YouTubeChannel) => (
-          <YouTubeChannelCard
-            key={channel.channelId}
-            channelData={channel}
-          />
+          <YouTubeChannelCard key={channel.channelId} channelData={channel} />
         ))}
       </div>
       {/* <YouTubeDataInput /> */}
       <footer className="mt-8 flex w-full items-center justify-center border-t pt-8">
         <Link
           href="/youtubers/videos"
-          className={cn(
-            buttonVariants({ variant: 'default' }),
-            'relative inline-flex text-base',
-          )}
+          className={cn(buttonVariants({ variant: 'default' }), 'relative inline-flex text-base')}
         >
           영상 별로 모아보기
           <ChevronRight className="ml-2 size-4" />
