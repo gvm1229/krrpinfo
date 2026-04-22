@@ -57,6 +57,31 @@
     --ring: 240 5% 64.9%;
 
     --radius: 0.5rem;
+
+    /* 시즌 토큰 — S25 아레스 (light default) */
+    --s-1: #7c3aed;
+    --s-2: #ec4899;
+    --s-3: #fbcfe8;
+    --s-4: #fdf2f8;
+    --s-5: #1f1147;
+
+    /* 브랜드 블루 */
+    --brand-blue: #2563eb;
+    --brand-blue-hover: #3b82f6;
+    --brand-blue-dark: #60a5fa;
+
+    /* 카카오 노란색 */
+    --kakao-yellow: #fde047;
+
+    /* 타임라인 태그 필 8색 */
+    --tag-gold: #eab308;
+    --tag-green: #10b981;
+    --tag-blue: #2563eb;
+    --tag-sky: #0ea5e9;
+    --tag-red: #ef4444;
+    --tag-yellow: #f59e0b;
+    --tag-purple: #a855f7;
+    --tag-orange: #f97316;
   }
 
   .dark {
@@ -89,6 +114,10 @@
     --ring: 240 4.9% 83.9%;
 
     --radius: 0.5rem;
+
+    /* dark 모드 시즌 surface/ink 반전 (대비 보장) */
+    --s-4: #1f1147;
+    --s-5: #fdf2f8;
   }
 }
 

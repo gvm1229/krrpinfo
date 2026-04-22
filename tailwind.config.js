@@ -3,11 +3,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
-  content: [
-    './app/**/*.{js,jsx,ts,tsx}',
-    './src/**/*.{js,jsx,ts,tsx}',
-    './content/**/*.{md,mdx}',
-  ],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}', './content/**/*.{md,mdx}'],
   prefix: '',
   theme: {
     container: {
@@ -51,6 +47,35 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        // 시즌 토큰
+        season: {
+          1: 'var(--s-1)',
+          2: 'var(--s-2)',
+          3: 'var(--s-3)',
+          4: 'var(--s-4)',
+          5: 'var(--s-5)',
+        },
+        // 브랜드 블루
+        brand: {
+          blue: 'var(--brand-blue)',
+          'blue-hover': 'var(--brand-blue-hover)',
+          'blue-dark': 'var(--brand-blue-dark)',
+        },
+        // 카카오 노란색
+        kakao: {
+          yellow: 'var(--kakao-yellow)',
+        },
+        // 타임라인 태그 필 8색
+        tag: {
+          gold: 'var(--tag-gold)',
+          green: 'var(--tag-green)',
+          blue: 'var(--tag-blue)',
+          sky: 'var(--tag-sky)',
+          red: 'var(--tag-red)',
+          yellow: 'var(--tag-yellow)',
+          purple: 'var(--tag-purple)',
+          orange: 'var(--tag-orange)',
         },
       },
       borderRadius: {
