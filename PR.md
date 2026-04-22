@@ -66,6 +66,12 @@
 
 - `.github/workflows/test.yml` — develop/release 대상 PR + develop push 트리거, `pnpm test:coverage` 실행, `~/.cache/mongodb-binaries` 캐싱
 
+## 🚧 Admin route 보호
+
+- `proxy.ts` (Next.js 16 file convention) — `/admin/*` 경로 (단, `/admin/login`, `/admin/auth-error` 제외) 접근 시 `auth()` 로 세션 검증, 없으면 `/admin/login` redirect
+- `app/admin/page.tsx` — owner 전용 dashboard placeholder. server component 내부에서도 `auth()` 재검증 후 user email 표시 + Sign Out 버튼
+- `app/admin/login/page.tsx` — 이미 인증된 owner 는 `/admin` 으로 redirect
+
 ## 🔒 Owner-only auth
 
 - `env.mjs` 에 `AUTH_OWNER_EMAIL` (z.string().email()) 추가

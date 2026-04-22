@@ -107,6 +107,23 @@
 - `pnpm test:coverage` → 29 tests pass, statements/branches/functions/lines 100%
 - `pnpm build` → `/admin/login`, `/admin/auth-error`, `/api/auth/[...nextauth]` 모두 route 등록
 
+## 🚧 feat(admin) — admin route 보호 (0.1.11 추가)
+
+방문자가 `/admin` 직접 입력해도 로그인 없이는 접근 불가하도록 두 layer 방어:
+
+1. **proxy.ts** — Next.js 16 file convention (deprecated `middleware.ts` 의 후속). `/admin/:path*` matcher 에서 `auth()` 세션 검증. 미로그인 시 `/admin/login` 으로 redirect. `/admin/login`, `/admin/auth-error` 는 public 화이트리스트.
+2. **server component 재검증** — `app/admin/page.tsx` 내부에서도 `auth()` 호출 후 `redirect('/admin/login')` (proxy 우회 케이스 방어).
+
+신규/변경:
+
+- `proxy.ts` — `/admin/:path*` matcher 추가 + auth() 게이트. 기존 `/youtubers` gate 유지.
+- `app/admin/page.tsx` — owner 전용 dashboard. user email 표시 + Sign Out form
+- `app/admin/login/page.tsx` — 이미 인증된 owner 는 `/admin` 으로 redirect
+
+진입 방법: owner 가 직접 `/admin/login` URL 입력 → Google 로그인 → `/admin` 자동 이동. 외부 어디에도 노출 링크 없음.
+
+검증: `pnpm build` 통과 (`/admin`, `/admin/login`, `/admin/auth-error` route 등록), `pnpm test` 29/29 pass.
+
 ## 후속 작업 (별도 PR)
 
 - 사인인 UI / `useSession` 사용처 구현
