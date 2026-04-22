@@ -171,15 +171,18 @@ A "where to find what" map. Paths are relative to repo root.
 - `app/posts/page.tsx`, `app/posts/[slug]/page.tsx` — blog index & per-post page
 - `app/redeem/page.tsx` — Nexon coupon redeem page
 - `app/youtubers/page.tsx`, `app/youtubers/[channelId]/page.tsx`, `app/youtubers/[channelId]/_[videoId]/`, `app/youtubers/videos/page.tsx` — YouTuber listing, channel detail, video detail
+- `app/admin/page.tsx`, `app/admin/login/page.tsx`, `app/admin/auth-error/page.tsx` — owner 전용 비공개 라우트 (sitemap/robots 미노출, `proxy.ts` 게이트)
 - `app/actions/` — server actions: `couponRedeem.ts`, `fetchYouTube.ts`, `handleYTData.ts`, `revalidate.ts`
-- `app/api/` — route handlers (currently empty placeholder)
+- `app/api/auth/[...nextauth]/route.ts` — NextAuth v5 핸들러 (Google + MongoDBAdapter)
 - `app/sitemap.ts`, `app/robots.ts`, `app/error.tsx`, `app/global-error.tsx`, `app/not-found.tsx` — SEO & error boundaries
 
 ### Source — `src/`
 
 - `src/components/ui/` — shadcn primitives (`button`, `input`, `form`, `dialog`, `popover`, `tabs`, ...)
 - `src/components/<Domain>/` — feature-grouped components: `Blog`, `Redeem`, `Nexon`, `Header`, `Footer`, `Card`, `Carousel`, `Calendar`, `Command`, `BentoBox`, `Markdown`, `Image`, `Video`, `Audio`, `Icons`, `Layout`, `Tag`, `Text`, `Tooltip`, `Breadcrumb`, `Button`, `Countdown`, `DarkMode`, `Data`, `Placeholder`
-- `src/lib/` — `supabase.ts` (server client), `queries.ts`, `markdown.tsx`
+- `src/lib/` — `queries.ts` (MongoDB posts 쿼리), `markdown.tsx`
+- `src/auth.ts` — NextAuth v5 설정 (Google provider, MongoDBAdapter, owner-only `signIn` callback, `pages.signIn` 비공개 경로)
+- `src/__tests__/` — Vitest 단위/통합 테스트. `helpers/mongo-memory.ts`, `util/db.test.ts`, `lib/queries.test.ts`, `auth.test.ts`, `scripts/restore-posts.test.ts`
 - `src/api/fetchKRPData.ts` — KartRider Rush+ data fetcher
 - `src/hooks/` — shared hooks (`use-mounted`, `use-lock-body`)
 - `src/util/` — pure utils: `utils.ts` (cn helper), `localStorage.ts`, `db.ts`, `toc.ts`
@@ -190,7 +193,7 @@ A "where to find what" map. Paths are relative to repo root.
 
 - `config/site.ts`, `config/navBar.ts` — site metadata & nav definition
 - `env.mjs` — typed env validation (`@t3-oss/env-nextjs`)
-- `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`, `proxy.ts`
+- `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`, `proxy.ts`, `vitest.config.ts`
 - Path aliases (tsconfig): `@/*` → repo root, `@/components/*` → `src/components/*`
 
 ### Static assets — `public/`
@@ -206,7 +209,9 @@ A "where to find what" map. Paths are relative to repo root.
 - `docs/logs/YYYYMMDD-{title}.md` — daily change log (CHANGES.md를 대체하는 source of truth)
 - `PR.md` (root, gitignored) — 진행 중 작업 브랜치 누적 메모 (local-only)
 - `.github/PULL_REQUEST_TEMPLATE.md` — `gh pr create` PR template
+- `.github/workflows/test.yml` — Vitest CI (PR to develop/release, push to develop, mongodb-binary 캐싱)
+- `USER_TASKS.md` (root, gitignored) — 사용자 수동 작업 메모 (Vercel env, OAuth 등록 등)
 - `.claude/commands/ship.md` — definitive commit directive
 - `.claude/commands/docs.md` — documentation update directive (daily log / PR.md / AGENTS structure)
 - `.claude/commands/release.md` — minor 버전 release directive
-- `scripts/` — one-off maintenance scripts
+- `scripts/restore-posts.ts` — Supabase JSON dump → MongoDB upsert (일회성, `pnpm restore:posts`)

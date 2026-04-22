@@ -124,8 +124,21 @@
 
 검증: `pnpm build` 통과 (`/admin`, `/admin/login`, `/admin/auth-error` route 등록), `pnpm test` 29/29 pass.
 
+## 🐛 fix(ci)
+
+- `.github/workflows/test.yml` — `pnpm/action-setup@v4` 의 `with.version: 10` 입력이 `package.json` `packageManager: "pnpm@10.33.0"` 와 충돌하여 `ERR_PNPM_BAD_PM_VERSION` 발생. `version` 입력 제거하여 `packageManager` 단일 출처로 통일.
+
+## 📝 docs(readme)
+
+- README tech stack 최신화: React 18.2 → 19.2.4, Next.js 14.2 → 16.2.3, Tailwind 3.4 → 4.2, MDX 3.0 → 3.1.1, MongoDB driver 6.5 → 6.14, Yarn → pnpm 10.33, TypeScript 5.4 → 5.8
+- Storybook 항목 삭제 (이전 PR 에서 제거됨)
+- 신규 항목: NextAuth v5 (Google + MongoDBAdapter), Vitest 4.1
+- Auth/Testing 섹션 신설 — owner-only 정책 + CI 안내
+- `remark-gfm` 제약 버전 4.0.1 로 업데이트
+
 ## 후속 작업 (별도 PR)
 
 - 사인인 UI / `useSession` 사용처 구현
 - Google Cloud Console redirect URI 등록 (manual)
-- (선택) `/admin/*` 보호 — 인증 없는 접근 시 `auth()` 미들웨어로 리디렉션
+- Vercel 환경변수 등록 (`AUTH_SECRET`, `AUTH_GOOGLE_*`, `AUTH_OWNER_EMAIL`) — `USER_TASKS.md` 참조
+- Dependabot critical alert #143 별도 fix

@@ -82,6 +82,16 @@
 - `app/robots.ts` — `/admin/`, `/api/auth/` disallow 추가
 - 테스트 5건 추가 (signIn allow/reject/missing/profile-fallback + pages 라우팅) — 총 29 tests, 100% coverage 유지
 
+## 🐛 CI fix
+
+- `pnpm/action-setup@v4` 의 `with.version: 10` 와 `package.json` `packageManager: "pnpm@10.33.0"` 충돌 (`ERR_PNPM_BAD_PM_VERSION`) 해소 — `version` 입력 제거
+
+## 📝 README
+
+- tech stack 최신화 (React 19 / Next 16 / Tailwind 4 / MongoDB / NextAuth / Vitest)
+- Yarn / Storybook 항목 제거, pnpm + Vitest 신규 항목 추가
+- Auth / Testing 섹션 신설 (owner-only 정책 + CI 안내)
+
 ## 🔧 Version
 
 - `package.json` `0.1.9` → `0.1.10` → `0.1.11`
