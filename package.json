@@ -34,7 +34,10 @@
     "postinstall": "husky",
     "shadcn": "pnpm dlx shadcn-ui@latest add",
     "commit": "git cz",
-    "restore:posts": "pnpm dlx tsx --env-file=.env.local scripts/restore-posts.ts"
+    "restore:posts": "pnpm dlx tsx --env-file=.env.local scripts/restore-posts.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.2",
@@ -92,15 +95,19 @@
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",
     "@types/react-scroll": "^1.8.10",
+    "@vitest/coverage-v8": "^4.1.5",
     "commitizen": "^4.3.1",
     "commitlint-config-gitmoji": "^2.3.1",
     "cz-emoji-conventional": "^1.1.0",
     "husky": "^9.1.0",
     "lint-staged": "^15.5.0",
+    "mongodb-memory-server": "^11.0.1",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.5"
   },
   "config": {
     "commitizen": {
