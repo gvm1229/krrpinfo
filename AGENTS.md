@@ -15,6 +15,7 @@ This file provides guidance to local LLM agents when working with code in this r
 - 사용자가 **영어로 질문**한 경우: **한국어로 답변** + **원 질문을 교정한 영어 문장**을 함께 제공
 - 원격 환경에서 한글 입력이 불가할 때 영어로 보내는 사용자 보조 (영어 학습 목적도 겸함)
 - 형식: 답변 끝에 한 줄 `> Corrected English: "..."` 추가
+- **Discord 수신 acknowledgement**: 사용자가 Discord 채널을 통해 메시지를 전송한 경우, task 착수 전 먼저 간단한 acknowledgement 응답 (예: "received", "확인", "got it") 을 Discord 채널로 reply. 이후 task 진행.
 
 ### Chat
 
