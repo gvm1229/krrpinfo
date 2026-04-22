@@ -18,6 +18,10 @@ export const navContents: NavItem[] = [
     title: '쿠폰 리딤',
     href: '/redeem',
   },
+  {
+    title: '시즌 미래시',
+    href: '/seasons',
+  },
   ...(showYoutubers
     ? [
         {

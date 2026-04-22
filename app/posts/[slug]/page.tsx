@@ -101,15 +101,17 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <p className="text-base font-medium text-muted-foreground tablet:text-lg">
             {formatDate(post.pub_date)}
           </p>
-          <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
-          {isOwner(session) && (
-            <Link
-              href={`/admin/posts?edit=${slug}`}
-              className="text-sm text-zinc-500 hover:text-blue-600"
-            >
-              Edit
-            </Link>
-          )}
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
+            {isOwner(session) && (
+              <Link
+                href={`/admin/posts?edit=${slug}`}
+                className={cn(buttonVariants({ size: 'sm' }), 'shrink-0')}
+              >
+                Edit
+              </Link>
+            )}
+          </div>
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
               {post.description}
