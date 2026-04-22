@@ -205,7 +205,7 @@ A "where to find what" map. Paths are relative to repo root.
 
 - `AGENTS.md` — agent guidelines (this file)
 - `README.md` — repo overview
-- `docs/plan/PLAN_*.md` — 후속 작업 가이드 (예: `PLAN_STRICT.md` TypeScript strict 전환, `PLAN_OWNER_FEATURES.md` owner-only 기능 패턴, `PLAN_DESIGN_OVERHAUL.md` UI 개편)
+- `docs/plans/PLAN_*.md` — 후속 작업 가이드 (예: `PLAN_STRICT.md` TypeScript strict 전환, `PLAN_OWNER_FEATURES.md` owner-only 기능 패턴, `PLAN_DESIGN_OVERHAUL.md` UI 개편)
 - `docs/logs/YYYYMMDD-{title}.md` — daily change log (CHANGES.md를 대체하는 source of truth)
 - `PR.md` (root, gitignored) — 진행 중 작업 브랜치 누적 메모 (local-only)
 - `.github/PULL_REQUEST_TEMPLATE.md` — `gh pr create` PR template
