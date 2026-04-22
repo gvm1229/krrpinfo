@@ -3,7 +3,6 @@ import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
 import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
 import Countdown from '@/src/components/Countdown/Countdown';
-import Timeline from '@/src/components/Timeline/Timeline';
 import { Badge } from '@/src/components/ui/badge';
 import { cn } from '@/src/util/utils';
 import { getAllPosts } from '@/src/lib/queries';
@@ -333,8 +332,6 @@ export default function Home() {
         />
         <FeaturedBento className="container mt-8" />
       </div>
-      {/* 미래시 타임라인 — hero 직하 마운트 */}
-      <Timeline />
       <Links />
       <Posts className="container" />
     </main>

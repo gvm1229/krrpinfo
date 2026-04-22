@@ -1,7 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { auth } from '@/src/auth';
+import { auth, isOwner } from '@/src/auth';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import StaticImage from '@/components/Image/StaticImage';
 import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
