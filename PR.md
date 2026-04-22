@@ -50,10 +50,28 @@
   - 잘못된 slug → Invalid slug
   - owner → updateOne 정확한 인자 + revalidatePath 4회
 
+## 🚀 Admin shell + dashboard tiles (Phase 5)
+
+- Next.js route group 으로 frontend chrome 와 admin shell 완전 분리:
+  - `app/(site)/layout.tsx` — SiteHeader / SiteFooter / ScrollToTop
+  - `app/admin/(authenticated)/layout.tsx` — admin sidebar + topbar (Sign Out)
+  - `/admin/login`, `/admin/auth-error` 는 group 밖 — 두 chrome 모두 미상속
+- `/admin` Dashboard — 4 tile (전체 포스트 / 게시됨 / 드래프트 / 최근 업데이트)
+- `/admin/posts` — 기존 테이블 layout shell 안으로 정돈
+- `/admin/config` — placeholder (nav/footer/features/cache 예정 항목)
+- `/admin/seasons` — placeholder + Phase 4 prerequisite 안내 banner
+- `app/not-found.tsx` — server component 로 변환 ('use client' + metadata 충돌 해소)
+
+## 🎨 Phase 6 minimum polish
+
+- Footer KakaoTalk CTA → `bg-kakao-yellow` 토큰
+- Home hero `<section>` → `bg-season-4/40` (light) / `dark:bg-season-4/5`
+
 ## 🔧 Version
 
-- `package.json` `0.1.11` → `0.1.12`
-- `docs/logs/20260422-design-and-owner-ui.md` 신규 작성
+- `package.json` `0.1.11` → `0.1.12` → `0.1.13`
+- `docs/logs/20260422-design-and-owner-ui.md`
+- `docs/logs/20260423-admin-shell-and-polish.md`
 
 ## 사용자 후속 작업
 
