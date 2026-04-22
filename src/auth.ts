@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth';
+import type { Session } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { clientPromise } from '@/src/util/db';
@@ -27,3 +28,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 });
+
+// owner 이메일 명시 검증 — defense in depth (signIn callback 변경 대비)
+export function isOwner(session: Session | null): boolean {
+  return session?.user?.email === env.AUTH_OWNER_EMAIL;
+}

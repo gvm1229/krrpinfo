@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { auth } from '@/src/auth';
+import { auth, isOwner } from '@/src/auth';
 
 // Next.js 16 proxy 는 항상 Node runtime — MongoDB adapter 호환
 const PUBLIC_ADMIN_PATHS = new Set(['/admin/login', '/admin/auth-error']);
@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest) {
   // 1. /admin/* 보호 — login/auth-error 제외하고 owner 세션 필수
   if (pathname.startsWith('/admin') && !PUBLIC_ADMIN_PATHS.has(pathname)) {
     const session = await auth();
-    if (!session) {
+    if (!isOwner(session)) {
       const loginUrl = new URL('/admin/login', request.url);
       return NextResponse.redirect(loginUrl);
     }
