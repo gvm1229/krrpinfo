@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { getYouTubeVideoData } from '@/app/actions/fetchYouTube';
 import {
-  appendTimestamps, checkIfChannelExists, checkIfVideoExists, insertOneChannel, insertOneVideo,
+  appendTimestamps,
+  checkIfChannelExists,
+  checkIfVideoExists,
+  insertOneChannel,
+  insertOneVideo,
 } from '@/app/actions/handleYTData';
 import InputComponent from '@/components/Data/InputComponent';
 import ResponseDisplay from '@/components/Data/ResponseDisplay';
@@ -27,13 +31,10 @@ const CategorySelect = ({
   selectedCategory,
   setSelectedCategory,
 }: {
-  selectedCategory: VideoCategory
-  setSelectedCategory: (value: VideoCategory) => void
+  selectedCategory: VideoCategory;
+  setSelectedCategory: (value: string) => void;
 }) => (
-  <Select
-    value={selectedCategory}
-    onValueChange={setSelectedCategory}
-  >
+  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
     <SelectTrigger className="w-full">
       <SelectValue placeholder="Select video category" />
     </SelectTrigger>
@@ -41,7 +42,9 @@ const CategorySelect = ({
       <SelectGroup>
         <SelectLabel>Category</SelectLabel>
         {categories.map((value) => (
-          <SelectItem key={value} value={value}>{capitalizeFirstLetter(value)}</SelectItem>
+          <SelectItem key={value} value={value}>
+            {capitalizeFirstLetter(value)}
+          </SelectItem>
         ))}
       </SelectGroup>
     </SelectContent>
@@ -49,26 +52,29 @@ const CategorySelect = ({
 );
 
 interface ResponseProps {
-  success: boolean
-  message: string
+  success: boolean;
+  message: string;
 }
 
 const YouTubeDataInput = () => {
   const [ytUrl, setYtUrl] = useState('');
-  const [videoData, setVideoData] = useState<YouTubeVideoItem>(null);
-  const [response, setResponse] = useState<ResponseProps>(null);
+  const [videoData, setVideoData] = useState<YouTubeVideoItem | null>(null);
+  const [response, setResponse] = useState<ResponseProps | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<VideoCategory>('현재 시즌');
 
   const handleFetch = () => {
     try {
-      getYouTubeVideoData(ytUrl)
-        .then((data) => setVideoData(data));
+      getYouTubeVideoData(ytUrl).then((data) => setVideoData(data));
     } catch (error) {
-      setResponse({ success: false, message: error });
+      setResponse({
+        success: false,
+        message: error instanceof Error ? error.message : String(error),
+      });
     }
   };
 
   const handleSubmit = async () => {
+    if (!videoData) return;
     const channelId = videoData.snippet.channelId;
     const videoId = videoData.id;
 
@@ -80,7 +86,10 @@ const YouTubeDataInput = () => {
             channelTitle: videoData.snippet.channelTitle,
             allVideos: [{ ...dataToInsert, category: selectedCategory }],
           });
-          setResponse({ success: true, message: `Success, new channel ${videoData.snippet.channelTitle} (${channelId}) created with 1 video` });
+          setResponse({
+            success: true,
+            message: `Success, new channel ${videoData.snippet.channelTitle} (${channelId}) created with 1 video`,
+          });
         });
         return;
       }
@@ -93,7 +102,10 @@ const YouTubeDataInput = () => {
 
         appendTimestamps(videoData).then((dataToInsert) => {
           insertOneVideo(channelId, { ...dataToInsert, category: selectedCategory });
-          setResponse({ success: true, message: `Success, pushed video to ${videoData.snippet.channelTitle} (${channelId})` });
+          setResponse({
+            success: true,
+            message: `Success, pushed video to ${videoData.snippet.channelTitle} (${channelId})`,
+          });
         });
       });
     });
@@ -101,11 +113,7 @@ const YouTubeDataInput = () => {
 
   return (
     <div className="flex w-full flex-col items-center gap-y-4">
-      <InputComponent
-        label="YouTube Video URL Input"
-        value={ytUrl}
-        onChange={setYtUrl}
-      />
+      <InputComponent label="YouTube Video URL Input" value={ytUrl} onChange={setYtUrl} />
       <button
         className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
         onClick={handleFetch}
@@ -114,10 +122,21 @@ const YouTubeDataInput = () => {
       </button>
       <button
         className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
-        onClick={() => checkIfVideoExists(videoData.snippet.channelId, videoData.id).then((result) => {
-          if (result) setResponse({ success: false, message: `In channel ${videoData.snippet.channelTitle}, Video already exists` });
-          else setResponse({ success: true, message: `In channel ${videoData.snippet.channelTitle}, Video does not exist` });
-        })}
+        onClick={() => {
+          if (!videoData) return;
+          checkIfVideoExists(videoData.snippet.channelId, videoData.id).then((result) => {
+            if (result)
+              setResponse({
+                success: false,
+                message: `In channel ${videoData.snippet.channelTitle}, Video already exists`,
+              });
+            else
+              setResponse({
+                success: true,
+                message: `In channel ${videoData.snippet.channelTitle}, Video does not exist`,
+              });
+          });
+        }}
       >
         Check exist
       </button>
@@ -127,7 +146,7 @@ const YouTubeDataInput = () => {
       </pre>
       <CategorySelect
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        setSelectedCategory={(value) => setSelectedCategory(value as VideoCategory)}
       />
       <button
         className={cn(
@@ -140,9 +159,7 @@ const YouTubeDataInput = () => {
       >
         Add to DB
       </button>
-      <ResponseDisplay
-        response={response}
-      />
+      <ResponseDisplay response={response} />
     </div>
   );
 };

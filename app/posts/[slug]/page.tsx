@@ -1,51 +1,39 @@
-import { Redis } from '@upstash/redis';
-import { ChevronLeft, EyeIcon } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import StaticImage from '@/components/Image/StaticImage';
 import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
-import { Mdx } from '@/components/Markdown/mdx-components';
 import Tag from '@/components/Tag/Tag';
-import ViewReporter from '@/components/View/ViewReporter';
 import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
-import { getTableOfContents } from '@/src/util/toc';
+import { getPost, getPostMeta, getAllPostSlugs } from '@/src/lib/queries';
+import { getCachedMarkdown } from '@/src/lib/markdown';
+import { getTableOfContentsFromHtml } from '@/src/util/toc';
 import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
 import type { ResolvingMetadata } from 'next';
-import { allPosts } from 'contentlayer2/generated';
 import '@/src/styles/mdx.css';
 
 export const revalidate = 60;
-const redis = Redis.fromEnv();
 
-async function getPostFromParams(params: { slug: string }) {
-  const post = allPosts.find((post) => post.slugAsParams === params.slug);
-  if (!post) return null;
-  return post;
+export async function generateStaticParams() {
+  return getAllPostSlugs();
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> },
   parent: ResolvingMetadata,
 ) {
-  const post = await getPostFromParams(await params);
+  const post = await getPostMeta((await params).slug);
 
   if (!post) return {};
-
-  // const url = env.NEXT_PUBLIC_APP_URL;
-
-  // const ogUrl = new URL(`${url}/api/og`);
-  // ogUrl.searchParams.set('heading', post.title);
-  // ogUrl.searchParams.set('type', 'Blog Post');
-  // ogUrl.searchParams.set('mode', 'dark');
 
   return {
     title: post.title,
     description: post.description,
     keywords: post.keywords
-      ? [...(await parent).keywords, ...post.keywords]
-      : [...(await parent).keywords],
+      ? [...((await parent).keywords ?? []), ...post.keywords]
+      : [...((await parent).keywords ?? [])],
     authors: [
       {
         name: 'Megi',
@@ -57,7 +45,7 @@ export async function generateMetadata(
       description: post.description,
       type: 'article',
       authors: ['Megi'],
-      url: absoluteUrl(post.slug),
+      url: absoluteUrl(`/posts/${post.slug}`),
       images: [
         {
           url: post.thumbnail,
@@ -74,7 +62,7 @@ export async function generateMetadata(
       images: [post.thumbnail],
       creator: 'Megi',
     },
-    metadataBase: new URL(`${siteConfig.url}${post.slug}`),
+    metadataBase: new URL(`${siteConfig.url}/posts/${post.slug}`),
     alternates: {
       canonical: '/',
       languages: {
@@ -85,27 +73,13 @@ export async function generateMetadata(
   };
 }
 
-export async function generateStaticParams() {
-  return allPosts.map((post) => ({
-    slug: post.slugAsParams.split('/').toString(),
-  }));
-}
-
-async function getViewCount(slug: string) {
-  if (process.env.NODE_ENV === 'production') {
-    const views = await redis.get<number>(['pageviews', 'projects', 'posts', slug].join(':'));
-    return views ?? 0;
-  }
-  return 1234; // Default view count for development
-}
-
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPostFromParams({ slug });
+  const post = await getPost(slug);
   if (!post) notFound();
 
-  const toc = await getTableOfContents(post.body.raw);
-  const views = await getViewCount(slug);
+  const contentHtml = await getCachedMarkdown(slug, post.content);
+  const toc = getTableOfContentsFromHtml(contentHtml);
 
   return (
     <div className="container flex mobile_only:flex-col tablet:gap-x-16">
@@ -124,7 +98,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
           <BreadcrumbContainer itemsInput={[{ url: '/posts', label: '포스트' }]} />
           <p className="text-base font-medium text-muted-foreground tablet:text-lg">
-            {formatDate(post.date)}
+            {formatDate(post.pub_date)}
           </p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
           {post.description && (
@@ -132,22 +106,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               {post.description}
             </p>
           )}
-          <div className="flex items-center justify-between">
-            <Tag tagInput={post.tags} />
-            <p
-              id="views"
-              className="flex items-center gap-2 text-base font-medium text-muted-foreground tablet:text-lg"
-            >
-              <EyeIcon className="size-6" />
-              {views}
-            </p>
-          </div>
+          <Tag tagInput={post.tags} />
         </header>
         <div className="block border-b pb-6 text-sm tablet:hidden">
           <DashboardTableOfContents toc={toc} />
         </div>
         <StaticImage src={post.thumbnail} alt="thumbnail" width={1920} height={1080} isPriority />
-        <Mdx code={post.body.code} />
+        <div className="mdx" dangerouslySetInnerHTML={{ __html: contentHtml }} />
         <footer className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
           <Link
             href="/posts"
@@ -163,7 +128,6 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <DashboardTableOfContents toc={toc} />
         </div>
       </aside>
-      <ViewReporter slug={`posts:${slug}`} path={`/posts/${slug}`} />
     </div>
   );
 }

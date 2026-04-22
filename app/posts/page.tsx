@@ -1,9 +1,6 @@
-import { Redis } from '@upstash/redis';
-import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
 import { siteConfig } from '@/config/site';
-import type { Post } from 'contentlayer2/generated';
-import { allPosts } from 'contentlayer2/generated';
+import { getAllPosts } from '@/src/lib/queries';
 
 export const metadata = {
   title: '포스트 목록',
@@ -18,10 +15,10 @@ export const metadata = {
 };
 
 export const revalidate = 60;
-const redis = Redis.fromEnv();
 
-// Extracted rendering of posts to a reusable function
-function renderPosts(posts: Post[], views = {}) {
+export default async function PostRootPage() {
+  const posts = await getAllPosts();
+
   return (
     <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
       {posts.length > 0 ? (
@@ -30,11 +27,14 @@ function renderPosts(posts: Post[], views = {}) {
           <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
             {posts.map((post, index) => (
               <Blog
-                key={post._id}
-                toNavigate={post.slug}
+                key={post.id}
+                toNavigate={`/posts/${post.slug}`}
                 isImagePriority={index < 6}
-                views={views[post.slugAsParams] ?? 1234} // Default views for development or if missing in production
-                {...post}
+                title={post.title}
+                description={post.description ?? undefined}
+                date={post.pub_date}
+                thumbnail={post.thumbnail}
+                tags={post.tags ?? []}
               />
             ))}
           </div>
@@ -46,26 +46,4 @@ function renderPosts(posts: Post[], views = {}) {
       )}
     </div>
   );
-}
-
-export default async function PostRootPage() {
-  const posts = allPosts
-    .filter((post) => post.published)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
-
-  if (process.env.NODE_ENV === 'development') return renderPosts(posts);
-
-  const views = (
-    await redis.mget<number[]>(
-      ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),
-    )
-  ).reduce(
-    (acc, v, i) => {
-      acc[allPosts[i].slugAsParams] = v ?? 0;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
-
-  return renderPosts(posts, views);
 }

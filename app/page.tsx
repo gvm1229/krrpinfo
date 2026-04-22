@@ -1,5 +1,3 @@
-import { Redis } from '@upstash/redis';
-import { compareDesc } from 'date-fns';
 import Blog from '@/components/Blog/Blog';
 import BlogFeatured from '@/src/components/Blog/BlogFeatured';
 import CarouselContainerMD from '@/src/components/Carousel/CarouselContainerMD';
@@ -7,8 +5,7 @@ import CarouselContainerSM from '@/src/components/Carousel/CarouselContainerSM';
 import Countdown from '@/src/components/Countdown/Countdown';
 import { Badge } from '@/src/components/ui/badge';
 import { cn } from '@/src/util/utils';
-import type { Post } from 'contentlayer2/generated';
-import { allPosts } from 'contentlayer2/generated';
+import { getAllPosts } from '@/src/lib/queries';
 
 // Define the seasons data outside the component to keep the component clean
 const seasonsData = [
@@ -207,7 +204,7 @@ const seasonsData = [
   },
 ];
 
-const FeaturedBento = ({ className }) => (
+const FeaturedBento = ({ className }: { className?: string }) => (
   <div
     className={cn(
       'relative grid size-full grid-cols-2 content-center gap-x-4 gap-y-8 tablet:grid-cols-3 tablet:gap-x-8 laptop:grid-cols-6',
@@ -297,47 +294,29 @@ const Links = ({ className }: { className?: string }) => {
 };
 
 export const revalidate = 60;
-const redis = Redis.fromEnv();
 
-function renderPosts(className: string, posts: Post[], views = {}) {
+async function Posts({ className }: { className?: string }) {
+  const posts = await getAllPosts();
+
   return (
     <div id="posts_wrapper" className={cn('space-y-8 laptop:space-y-12', className)}>
       <h1 className="text-center text-3xl font-bold laptop:text-4xl">최신 포스트 목록</h1>
       <div className="relative grid size-full grid-cols-1 content-center gap-y-8 tablet:grid-cols-2 tablet:gap-8 laptop:grid-cols-3">
         {posts.slice(0, 6).map((post) => (
           <Blog
-            key={post._id}
-            toNavigate={post.slug}
+            key={post.id}
+            toNavigate={`/posts/${post.slug}`}
             isImagePriority={false}
-            views={views[post.slugAsParams] ?? 1234} // Default views for development or if missing in production
-            {...post}
+            title={post.title}
+            description={post.description ?? undefined}
+            date={post.pub_date}
+            thumbnail={post.thumbnail}
+            tags={post.tags ?? []}
           />
         ))}
       </div>
     </div>
   );
-}
-
-async function Posts({ className }: { className?: string }) {
-  const posts = allPosts
-    .filter((post) => post.published)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
-
-  if (process.env.NODE_ENV === 'development') return renderPosts(className, posts);
-
-  const views = (
-    await redis.mget<number[]>(
-      ...allPosts.map((p) => ['pageviews', 'projects', 'posts', p.slugAsParams].join(':')),
-    )
-  ).reduce(
-    (acc, v, i) => {
-      acc[allPosts[i].slugAsParams] = v ?? 0;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
-
-  return renderPosts(className, posts, views);
 }
 
 export default function Home() {

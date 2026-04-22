@@ -1,4 +1,5 @@
-import { EyeIcon, LinkIcon } from 'lucide-react';
+import React from 'react';
+import { LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import ButtonNewTab from '@/components/Button/ButtonNewTab';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
@@ -16,7 +17,6 @@ interface BlogProps {
   hyperlink?: string;
   gridNums?: number[];
   isImagePriority?: boolean;
-  views?: number;
   className?: string;
 }
 
@@ -31,7 +31,6 @@ export default function Blog({
   hyperlink,
   gridNums = [1, 2, 3],
   isImagePriority = false,
-  views = 0,
   className,
 }: BlogProps) {
   // When redirect link is present
@@ -48,7 +47,6 @@ export default function Blog({
         isPriority={isImagePriority}
         NavigateComponent={Link}
         toNavigate={toNavigate}
-        views={views}
         className={className}
       />
     );
@@ -67,7 +65,6 @@ export default function Blog({
         isPriority={isImagePriority}
         NavigateComponent={ButtonNewTab}
         hyperlink={hyperlink}
-        views={views}
         className={className}
       />
     );
@@ -84,27 +81,25 @@ export default function Blog({
       gridNums={gridNums}
       isPriority={isImagePriority}
       NavigateComponent={ButtonNewTab}
-      views={views}
       className={className}
     />
   );
 }
 
-interface TextDataWrapperProps {
-  width: string;
-  thumbnail: string;
+type TextDataWrapperProps = {
+  width?: string;
+  thumbnail?: string;
   tags: string[];
-  date: string;
+  date?: string;
   title: string;
-  description: string;
+  description?: string;
   gridNums: number[];
   isPriority: boolean;
-  NavigateComponent?: typeof Link | typeof ButtonNewTab;
+  NavigateComponent?: React.ElementType;
   toNavigate?: string;
   hyperlink?: string;
-  views: number;
-  className: string;
-}
+  className?: string;
+};
 
 function TextDataWrapper({
   width,
@@ -118,15 +113,14 @@ function TextDataWrapper({
   NavigateComponent,
   toNavigate,
   hyperlink,
-  views,
   className,
 }: TextDataWrapperProps) {
   return (
     <div className={cn('rounded-lg focus:outline-hidden', width, className)}>
-      {toNavigate || hyperlink ? (
-        <NavigateComponent href={toNavigate || hyperlink}>
+      {NavigateComponent && (toNavigate || hyperlink) ? (
+        <NavigateComponent href={toNavigate ?? hyperlink ?? ''}>
           <ImageWrapper
-            src={thumbnail}
+            src={thumbnail ?? ''}
             gridNums={gridNums}
             isPriority={isPriority}
             isHyperlink={!!hyperlink}
@@ -135,7 +129,7 @@ function TextDataWrapper({
         </NavigateComponent>
       ) : (
         <ImageWrapper
-          src={thumbnail}
+          src={thumbnail ?? ''}
           gridNums={gridNums}
           isPriority={isPriority}
           className={width}
@@ -146,18 +140,9 @@ function TextDataWrapper({
           <p id="date" className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
             {formatDate(date ?? new Date())}
           </p>
-          {views > 0 && (
-            <p
-              id="views"
-              className="flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400"
-            >
-              <EyeIcon className="size-5" />
-              {views}
-            </p>
-          )}
         </div>
-        {toNavigate || hyperlink ? (
-          <NavigateComponent href={toNavigate || hyperlink}>
+        {NavigateComponent && (toNavigate || hyperlink) ? (
+          <NavigateComponent href={toNavigate ?? hyperlink ?? ''}>
             <h1 id="title" className="truncate text-2xl font-bold text-primary hover:underline">
               {title}
             </h1>

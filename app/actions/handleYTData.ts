@@ -33,7 +33,7 @@ export async function getAllChannels(): Promise<YouTubeChannel[]> {
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    return db.collection('channels').find().toArray();
+    return db.collection<YouTubeChannel>('channels').find().toArray();
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve all channels: ${error}`);
@@ -50,7 +50,7 @@ export async function getChannel(channelId: string): Promise<YouTubeChannel | nu
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    return db.collection('channels').findOne({ channelId });
+    return db.collection<YouTubeChannel>('channels').findOne({ channelId });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve individual channel: ${error}`);
@@ -96,9 +96,7 @@ export async function editChannel(channelId: string, newChannelData: YouTubeChan
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    await db
-      .collection('channels')
-      .updateOne({ channelId }, { $set: newChannelData });
+    await db.collection('channels').updateOne({ channelId }, { $set: newChannelData });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to edit channel: ${error}`);
@@ -117,8 +115,7 @@ export async function editChannel(channelId: string, newChannelData: YouTubeChan
 export async function checkIfVideoExists(channelId: string, videoId: string): Promise<boolean> {
   const isExistingChannel = await checkIfChannelExists(channelId);
 
-  if (!isExistingChannel)
-    return false;
+  if (!isExistingChannel) return false;
 
   try {
     const allVideos = await getAllVideos(channelId);
@@ -139,7 +136,8 @@ export async function getAllVideos(channelId: string): Promise<YouTubeVideoItem[
   const db = (await mongoClient()).db('youtubers');
 
   try {
-    const channel: YouTubeChannel = await db.collection('channels').findOne({ channelId });
+    const channel = await db.collection<YouTubeChannel>('channels').findOne({ channelId });
+    if (!channel) throw new Error(`Channel not found: ${channelId}`);
     return channel.allVideos;
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
@@ -147,7 +145,10 @@ export async function getAllVideos(channelId: string): Promise<YouTubeVideoItem[
   }
 }
 
-export async function getVideosByCategory(channelId: string, category: string): Promise<YouTubeVideoItem[]> {
+export async function getVideosByCategory(
+  channelId: string,
+  category: string,
+): Promise<YouTubeVideoItem[]> {
   const allVideos = await getAllVideos(channelId);
   return allVideos.filter((video: YouTubeVideoItem) => video.category === category);
 }
@@ -159,10 +160,13 @@ export async function getVideosByCategory(channelId: string, category: string): 
  * @param {string} videoId - The ID of the YouTube video.
  * @return {Promise<YouTubeVideoItem>} The YouTube video item if found.
  */
-export async function getVideo(channelId: string, videoId: string): Promise<YouTubeVideoItem | null> {
+export async function getVideo(
+  channelId: string,
+  videoId: string,
+): Promise<YouTubeVideoItem | null> {
   try {
     const allVideos = await getAllVideos(channelId);
-    return allVideos.find((video: YouTubeVideoItem) => video.id === videoId);
+    return allVideos.find((video: YouTubeVideoItem) => video.id === videoId) ?? null;
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to retrieve individual video: ${error}`);
@@ -181,8 +185,8 @@ export async function insertOneVideo(channelId: string, videoData: YouTubeVideoI
 
   try {
     await db
-      .collection('channels')
-      .updateOne({ channelId }, { $push: { allVideos: videoData } });
+      .collection<YouTubeChannel>('channels')
+      .updateOne({ channelId }, { $push: { allVideos: videoData } as never });
   } catch (error) {
     // Handle the error, you can log it or throw a custom error
     throw new Error(`Failed to insert video: ${error}`);
@@ -197,7 +201,11 @@ export async function insertOneVideo(channelId: string, videoData: YouTubeVideoI
  * @param {YouTubeVideoItem} newVideoData - The updated video data
  * return nothing as this function just performs an action
  */
-export async function editVideo(channelId: string, videoId: string, newVideoData: YouTubeVideoItem) {
+export async function editVideo(
+  channelId: string,
+  videoId: string,
+  newVideoData: YouTubeVideoItem,
+) {
   const db = (await mongoClient()).db('youtubers');
 
   try {

@@ -14,6 +14,7 @@ const Calendar1 = ({ className }: CalendarProps) => {
   return (
     <Calendar
       mode="single"
+      required
       selected={date}
       onSelect={setDate}
       className={cn('rounded-md border', className)}

@@ -32,7 +32,7 @@ export function SimpleLinkCardMD({
         className,
       )}
     >
-      <ButtonNewTab href={hyperlink}>
+      <ButtonNewTab href={hyperlink ?? ''}>
         <div className="relative aspect-video">
           <div className="absolute inset-0 z-10 bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
           <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
@@ -47,7 +47,7 @@ export function SimpleLinkCardMD({
         </div>
       </ButtonNewTab>
       <CardContent className="p-4">
-        <ButtonNewTab href={hyperlink}>
+        <ButtonNewTab href={hyperlink ?? ''}>
           <CardTitle className="truncate text-lg font-bold hover:underline">{title}</CardTitle>
         </ButtonNewTab>
         <Tag
@@ -71,7 +71,7 @@ export function SimpleLinkCardSM({
   className,
 }: SimpleLinkCardProps) {
   return (
-    <ButtonNewTab href={hyperlink} className={cn('w-full', className)}>
+    <ButtonNewTab href={hyperlink ?? ''} className={cn('w-full', className)}>
       {/* mobile only */}
       <Card className="group flex size-full overflow-hidden rounded-lg shadow-sm dark:shadow-zinc-600 dark:hover:bg-zinc-900">
         <div className="relative w-36">

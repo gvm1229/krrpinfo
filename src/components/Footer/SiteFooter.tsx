@@ -1,23 +1,13 @@
 import Image from 'next/image';
-import ViewCounter from '@/components//View/ViewCounter';
 import Player from '@/components/Audio/Player';
 import KakaoTalkIcon from '@/components/Icons/KakaoTalkIcon';
 import { buttonVariants } from '@/components/ui/button';
 import qrc from '@/public/assets/images/qrcode/qrc-xl-c.png';
 import { cn } from '@/src/util/utils';
 
-export function SiteFooter({
-  className,
-  totalViews,
-}: {
-  className?: string;
-  totalViews: number;
-}) {
+export function SiteFooter({ className }: { className?: string }) {
   return (
-    <footer
-      id="footer"
-      className={cn('border-t bg-background py-4 tablet:py-8', className)}
-    >
+    <footer id="footer" className={cn('border-t bg-background py-4 tablet:py-8', className)}>
       <div className="container flex flex-col items-start space-y-2 tablet:flex-row tablet:items-center tablet:justify-between desktop:space-y-0">
         <div className="space-y-2 desktop:space-y-4">
           {/* contact */}
@@ -39,15 +29,12 @@ export function SiteFooter({
               카카오톡 오픈프로필 (Megiii)
             </a>
           </div>
-          {/* qr code & visitor count */}
-          <div className="flex flex-col items-start justify-center gap-2 desktop:hidden">
-            <div className="flex items-center gap-2">
-              <p className="font-medium tablet:text-lg">공유용 QR 코드:</p>
-              <div className="size-10 tablet:size-12">
-                <Image src={qrc} alt="QR Code" />
-              </div>
+          {/* qr code */}
+          <div className="flex items-center gap-2 desktop:hidden">
+            <p className="font-medium tablet:text-lg">공유용 QR 코드:</p>
+            <div className="size-10 tablet:size-12">
+              <Image src={qrc} alt="QR Code" />
             </div>
-            <ViewCounter view={totalViews} />
           </div>
           {/* copyright */}
           <p className="hidden text-left leading-loose tablet:block">
@@ -63,15 +50,11 @@ export function SiteFooter({
             . All rights reserved.
           </p>
         </div>
-        <div className="hidden flex-col items-start justify-center gap-2 desktop:flex desktop:flex-col desktop:items-end desktop:justify-end desktop:gap-2">
-          {/* qr code */}
-          <div className="flex items-center gap-2">
-            <p className="font-medium desktop:text-lg">공유용 QR 코드:</p>
-            <div className="size-10 desktop:size-12">
-              <Image src={qrc} alt="QR Code" />
-            </div>
+        <div className="hidden items-center gap-2 desktop:flex">
+          <p className="font-medium desktop:text-lg">공유용 QR 코드:</p>
+          <div className="size-10 desktop:size-12">
+            <Image src={qrc} alt="QR Code" />
           </div>
-          <ViewCounter view={totalViews} />
         </div>
         {/* copyright */}
         <p className="text-text-center block leading-loose tablet:hidden">

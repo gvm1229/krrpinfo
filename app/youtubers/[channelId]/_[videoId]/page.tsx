@@ -25,13 +25,19 @@ export async function generateMetadata(
   if (!video) return {};
 
   const snippet = video.snippet;
+  const parentMetadata = await parent;
+  const parentKeywords = Array.isArray(parentMetadata.keywords)
+    ? parentMetadata.keywords
+    : parentMetadata.keywords
+      ? [parentMetadata.keywords]
+      : [];
 
   return {
     title: snippet.title,
     description: snippet.channelTitle,
     keywords: snippet.tags
-      ? [...(await parent).keywords, ...snippet.tags, snippet.channelTitle]
-      : [...(await parent).keywords, snippet.channelTitle],
+      ? [...parentKeywords, ...snippet.tags, snippet.channelTitle]
+      : [...parentKeywords, snippet.channelTitle],
     openGraph: {
       title: snippet.title,
       description: snippet.channelTitle,
@@ -40,7 +46,7 @@ export async function generateMetadata(
       url: absoluteUrl(video.id),
       images: [
         {
-          url: snippet.thumbnails.maxres.url ?? snippet.thumbnails.high.url,
+          url: snippet.thumbnails.maxres?.url ?? snippet.thumbnails.high.url,
           width: 1200,
           height: 630,
           alt: snippet.title,
@@ -51,7 +57,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: snippet.title,
       description: snippet.channelTitle,
-      images: [snippet.thumbnails.maxres.url ?? snippet.thumbnails.high.url],
+      images: [snippet.thumbnails.maxres?.url ?? snippet.thumbnails.high.url],
     },
     metadataBase: new URL(`${siteConfig.url}${video.id}`),
     alternates: {

@@ -29,7 +29,7 @@ export function YouTubeModal({ videoData }: YouTubeModalProps) {
         {/* Blog as Trigger only */}
         <div className="pointer-events-none relative focus:outline-hidden">
           <ImageWrapper
-            src={videoData.snippet.thumbnails.maxres.url ?? videoData.snippet.thumbnails.high.url}
+            src={videoData.snippet.thumbnails.maxres?.url ?? videoData.snippet.thumbnails.high.url}
             alt="youtube thumbnail"
             gridNums={[1, 2, 3]}
             isPriority={false}

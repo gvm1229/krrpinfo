@@ -7,9 +7,11 @@ import { MobileNav } from './MobileNav';
 
 export function SiteHeader({
   userAgent,
+  posts = [],
   className,
 }: {
   userAgent: string;
+  posts?: { title: string; slug: string; description: string | null; tags: string[] }[];
   className?: string;
 }) {
   return (
@@ -29,7 +31,7 @@ export function SiteHeader({
           <div className="contents tablet:flex tablet:w-auto tablet:flex-none tablet:gap-x-2">
             {/* mobile view */}
             <div className="mobile_only:w-full mobile_only:flex-1">
-              <CommandMenu userAgent={userAgent} />
+              <CommandMenu userAgent={userAgent} posts={posts} />
             </div>
             <ModeToggle />
           </div>

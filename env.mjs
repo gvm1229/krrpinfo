@@ -7,16 +7,15 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    // This is optional because it's only used in development.
-    // See https://next-auth.js.org/deployment.
-    // NEXTAUTH_URL: z.string().url().optional(),
-    // NEXTAUTH_SECRET: z.string().min(1),
     NEXT_PUBLIC_APP_URL: z.string().min(1),
     MONGODB_URL: z.string().min(1),
-    UPSTASH_REDIS_REST_URL: z.string().min(1),
-    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     YOUTUBE_API_KEY: z.string().min(1),
     NEXON_API_KEY: z.string().min(1),
+    AUTH_SECRET: z.string().min(1),
+    AUTH_GOOGLE_ID: z.string().min(1),
+    AUTH_GOOGLE_SECRET: z.string().min(1),
+    AUTH_OWNER_EMAIL: z.string().email(),
+    NEXT_PUBLIC_SHOW_YOUTUBERS: z.enum(['true', 'false']).optional(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -25,6 +24,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
+    NEXT_PUBLIC_SHOW_YOUTUBERS: z.enum(['true', 'false']).optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -35,9 +35,12 @@ export const env = createEnv({
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     MONGODB_URL: process.env.MONGODB_URL,
-    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
-    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
     NEXON_API_KEY: process.env.NEXON_API_KEY,
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+    AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    AUTH_OWNER_EMAIL: process.env.AUTH_OWNER_EMAIL,
+    NEXT_PUBLIC_SHOW_YOUTUBERS: process.env.NEXT_PUBLIC_SHOW_YOUTUBERS,
   },
 });

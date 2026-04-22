@@ -16,12 +16,12 @@ type EditableTimestampProps = {
 const YouTubeTimestampInput: React.FC<EditableTimestampProps> = ({ videoData }) => {
   const { timestamps } = videoData;
 
-  const [localTimestamps, setLocalTimestamps] = useState<Timestamp[]>([...timestamps]);
+  const [localTimestamps, setLocalTimestamps] = useState<Timestamp[]>([...(timestamps ?? [])]);
   const [tempTimestamps, setTempTimestamps] = useState<Timestamp[]>([]);
   const [editMode, setEditMode] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-    setLocalTimestamps([...timestamps]);
+    setLocalTimestamps([...(timestamps ?? [])]);
   }, [timestamps]);
 
   const handleToggleEdit = (index: number, isSave: boolean = false) => {
@@ -40,11 +40,15 @@ const YouTubeTimestampInput: React.FC<EditableTimestampProps> = ({ videoData }) 
   };
 
   const handleTitleChange = (index: number, title: string) => {
-    setTempTimestamps((prev) => prev.map((timestamp, idx) => (idx === index ? { ...timestamp, title } : timestamp)));
+    setTempTimestamps((prev) =>
+      prev.map((timestamp, idx) => (idx === index ? { ...timestamp, title } : timestamp)),
+    );
   };
 
   const handleSecondsChange = (index: number, seconds: number) => {
-    setTempTimestamps((prev) => prev.map((timestamp, idx) => (idx === index ? { ...timestamp, seconds } : timestamp)));
+    setTempTimestamps((prev) =>
+      prev.map((timestamp, idx) => (idx === index ? { ...timestamp, seconds } : timestamp)),
+    );
   };
 
   const handleAddTimestamp = () => {
@@ -71,9 +75,7 @@ const YouTubeTimestampInput: React.FC<EditableTimestampProps> = ({ videoData }) 
           {localTimestamps.map((timestamp, idx) => (
             <li key={timestamp.title}>
               {editMode[idx] ? (
-                <div
-                  className="flex w-full flex-col items-start gap-2 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 tablet:p-4"
-                >
+                <div className="flex w-full flex-col items-start gap-2 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 tablet:p-4">
                   <div className="flex w-full items-center gap-2">
                     <h1 className="text-base font-medium tablet:text-lg">Title:</h1>
                     <input
@@ -110,12 +112,8 @@ const YouTubeTimestampInput: React.FC<EditableTimestampProps> = ({ videoData }) 
               ) : (
                 <div className="flex items-center justify-between hover:bg-zinc-100 dark:hover:bg-zinc-800">
                   <div className="flex w-full flex-col items-start gap-2 px-4 py-3 tablet:p-4">
-                    <h1 className="text-base font-medium tablet:text-lg">
-                      {timestamp.title}
-                    </h1>
-                    <p
-                      className="rounded-md bg-blue-300/35 px-1.5 py-0.5 text-left text-sm font-semibold text-blue-600 dark:bg-blue-500/35 dark:text-blue-500 tablet:text-base"
-                    >
+                    <h1 className="text-base font-medium tablet:text-lg">{timestamp.title}</h1>
+                    <p className="rounded-md bg-blue-300/35 px-1.5 py-0.5 text-left text-sm font-semibold text-blue-600 dark:bg-blue-500/35 dark:text-blue-500 tablet:text-base">
                       {convertSecondsToTime(timestamp.seconds)}
                     </p>
                   </div>
@@ -140,16 +138,10 @@ const YouTubeTimestampInput: React.FC<EditableTimestampProps> = ({ videoData }) 
         </ul>
       </ScrollArea>
       <div className="mt-4 flex justify-between gap-6">
-        <button
-          className={cn(buttonVariants(), 'w-full')}
-          onClick={handleAddTimestamp}
-        >
+        <button className={cn(buttonVariants(), 'w-full')} onClick={handleAddTimestamp}>
           + Add Item
         </button>
-        <button
-          className={cn(buttonVariants(), 'w-full')}
-          onClick={handleSave}
-        >
+        <button className={cn(buttonVariants(), 'w-full')} onClick={handleSave}>
           Save
         </button>
       </div>

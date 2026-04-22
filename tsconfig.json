@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
@@ -21,8 +21,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["./src/components/*"],
-      "contentlayer2/generated": ["./.contentlayer/generated"]
+      "@/components/*": ["./src/components/*"]
     },
     "target": "ES2017"
   },
@@ -33,7 +32,6 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    ".contentlayer/generated",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]

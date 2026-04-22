@@ -1,6 +1,5 @@
 'use client';
 
-import { compareDesc } from 'date-fns';
 import { Circle, File, Newspaper } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
@@ -15,23 +14,18 @@ import {
 } from '@/components/ui/command';
 import { navContents } from '@/config/navBar';
 import { cn } from '@/src/util/utils';
-import { allPosts } from 'contentlayer2/generated';
 
 interface CommandMenuProps {
   userAgent: string;
+  posts?: { title: string; slug: string; description: string | null; tags: string[] }[];
 }
 
-export function CommandMenu({ userAgent }: CommandMenuProps) {
+export function CommandMenu({ userAgent = '', posts = [] }: CommandMenuProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
-  const posts = allPosts
-    .filter((post) => post.published)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
-
   const isAppleDevice = () => {
     const appleDevices = ['Mac', 'iPhone', 'iPod', 'iPad'];
-    // determines if the userAgent string includes at least one of the Apple devices
     return appleDevices.some((device: string) => userAgent.includes(device));
   };
 
@@ -130,10 +124,10 @@ export function CommandMenu({ userAgent }: CommandMenuProps) {
           <CommandGroup heading="포스트">
             {posts.map((post) => (
               <CommandItem
-                key={post.slugAsParams}
+                key={post.slug}
                 value={post.title}
                 onSelect={() => {
-                  runCommand(() => router.push(post.slug as string));
+                  runCommand(() => router.push(`/posts/${post.slug}`));
                 }}
               >
                 <Newspaper className="mr-2 size-4" />

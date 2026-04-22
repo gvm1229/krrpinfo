@@ -42,7 +42,7 @@ export default async function YouTubeVideosRootPage({
     팁: combinedAllVideos.filter((video) => video.category === '팁'),
   };
   const nonZeroCategoryKeys = Object.keys(categorizedAllVideos).filter(
-    (key) => categorizedAllVideos[key].length > 0,
+    (key) => categorizedAllVideos[key as keyof typeof categorizedAllVideos].length > 0,
   );
 
   return (

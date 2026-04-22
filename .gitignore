@@ -1,3 +1,11 @@
+# My Docs
+/*.md
+!AGENTS.md
+!CLAUDE.md
+!README.md
+PROMPT_*.md
+prompt/
+
 # Agents
 .omc/**/*
 
@@ -34,6 +42,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Supabase / Mongo dumps
+/backup/
+
 # Yarn 3 files
 .pnp.*
 .yarn/*
@@ -51,6 +62,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# contentlayer
-.contentlayer
