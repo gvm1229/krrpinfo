@@ -12,8 +12,12 @@ export function absoluteUrl(path: string): string {
 }
 
 export function formatDate(input: string | number | Date): string {
+  // 로컬 타임존 기준으로 YYYY-MM-DD 형식 반환
   const date = new Date(input);
-  return date.toLocaleDateString();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 // utility function that converts the seconds into HH:MM:SS format
@@ -29,7 +33,8 @@ export function convertSecondsToTime(seconds: number, truncate: boolean = true) 
       const minutes = Math.floor(roundedSeconds / 60);
       const remainingSeconds = roundedSeconds % 60;
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-    } if (roundedSeconds < 36000) {
+    }
+    if (roundedSeconds < 36000) {
       const hours = Math.floor(roundedSeconds / 3600);
       const minutes = Math.floor((roundedSeconds % 3600) / 60);
       const remainingSeconds = roundedSeconds % 60;
@@ -108,10 +113,8 @@ export function truncateNumbers(num: number): string {
  * @return {number} The fallback index.
  */
 export function fallBackIndex(arrInput: unknown[], idxInput: number): number {
-  if (idxInput >= arrInput.length)
-    return arrInput.length - 1;
-  if (idxInput < 0)
-    return 0;
+  if (idxInput >= arrInput.length) return arrInput.length - 1;
+  if (idxInput < 0) return 0;
 
   return idxInput;
 }
