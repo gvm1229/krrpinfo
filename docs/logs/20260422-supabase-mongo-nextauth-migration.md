@@ -61,6 +61,30 @@
   - connection pool options
   - DB 명시 (`client.db('krrpinfo')`)
 
+## ✨ feat(test) — 동일 브랜치에 후속 추가
+
+테스트 인프라 0 → vitest 4.1 + mongodb-memory-server 도입.
+
+- devDependency: `vitest`, `@vitest/coverage-v8`, `vite-tsconfig-paths`, `mongodb-memory-server`
+- `vitest.config.ts` — node 환경, `src/__tests__/**/*.test.ts` glob, threshold lines/functions/statements 80% + branches 70%
+- npm scripts: `test`, `test:watch`, `test:coverage`
+- `scripts/restore-posts.ts` — `toArray`/`toDoc`/`restorePosts` pure 함수 추출, `import.meta.url` 가드 추가, `main()` v8 ignore (entrypoint glue)
+
+24 tests in `src/__tests__/`:
+
+- `util/db.test.ts` (3) — clientPromise dev singleton / prod fresh / default wrapper
+- `lib/queries.test.ts` (10) — mongodb-memory-server 통합. 모든 export 함수 + NoSQL injection 방어 + projection + 정렬 + Date 정규화
+- `auth.test.ts` (4) — vi.mock 으로 NextAuth 설정 객체 캡처
+- `scripts/restore-posts.test.ts` (7) — 순수 함수 + restorePosts upsert/idempotency + slug index
+- `helpers/mongo-memory.ts` — startMongo/stopMongo 라이프사이클
+
+검증: 24/24 pass (881ms), statements/branches/functions/lines 100%, `pnpm build` 회귀 없음.
+
+## 👷 ci
+
+- `.github/workflows/test.yml` — PR(develop/release) + push(develop) 트리거, `pnpm test:coverage` 실행
+- `actions/cache` 로 `~/.cache/mongodb-binaries` 캐싱하여 cold start 단축
+
 ## 후속 작업 (별도 PR)
 
 - 사인인 UI / `useSession` 사용처 구현

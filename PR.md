@@ -53,6 +53,19 @@
 
 - AGENTS.md 에 Discord 수신 acknowledgement 규칙 추가
 
+## ✨ Test infrastructure
+
+- 신규 의존성: `vitest@4.1`, `@vitest/coverage-v8`, `vite-tsconfig-paths`, `mongodb-memory-server`
+- `vitest.config.ts` — node 환경, `src/__tests__/**/*.test.ts` glob, v8 coverage threshold (lines/functions/statements 80%, branches 70%)
+- npm scripts: `test`, `test:watch`, `test:coverage`
+- `src/__tests__/` 24개 단위/통합 테스트 (db 3, queries 10, auth 4, restore-posts 7)
+- `src/__tests__/helpers/mongo-memory.ts` — mongodb-memory-server 라이프사이클 헬퍼
+- 결과: 24/24 pass, statements/branches/functions/lines 모두 100%
+
+## 👷 CI
+
+- `.github/workflows/test.yml` — develop/release 대상 PR + develop push 트리거, `pnpm test:coverage` 실행, `~/.cache/mongodb-binaries` 캐싱
+
 ## 🔧 Version
 
 - `package.json` `0.1.9` → `0.1.10`
