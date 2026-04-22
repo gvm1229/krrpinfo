@@ -21,7 +21,7 @@ export function SiteFooter({ className }: { className?: string }) {
               rel="noreferrer"
               className={cn(
                 buttonVariants(),
-                'flex gap-2 bg-yellow-300 font-bold text-black hover:bg-yellow-200',
+                'flex gap-2 bg-kakao-yellow font-bold text-black hover:bg-kakao-yellow/80',
               )}
             >
               {/* <MessageCircle fill="black" className="text-black" /> */}
