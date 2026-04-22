@@ -101,4 +101,4 @@
 
 - Google Cloud Console 에서 OAuth redirect URI 등록 (`/api/auth/callback/google`)
 - 필요 시 `src/auth.ts` 에 `callbacks.signIn` 추가하여 허용 이메일 화이트리스트 적용
-- 사인인 UI / `useSession` 등 사용자 진입점은 후속 PR
+- Sign-in UI / `useSession` 등 사용자 진입점은 후속 PR

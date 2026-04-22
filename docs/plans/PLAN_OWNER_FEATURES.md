@@ -33,7 +33,7 @@
 
 ---
 
-## 사인인 UI (sign-in entry points)
+## Sign-in UI (sign-in entry points)
 
 ### 결정사항: 추가 노출 금지
 
@@ -222,6 +222,6 @@ owner 한정 컴포넌트/액션 추가 시:
 
 ## 참고
 
-- NextAuth v5 docs: https://authjs.dev/getting-started
+- NextAuth v5 docs: <https://authjs.dev/getting-started>
 - 관련 commit: `2951e2b` (NextAuth 통합), `9fe8a67` (owner-only callback), `4d71190` (admin route 보호)
 - 일별 로그: `docs/logs/20260422-supabase-mongo-nextauth-migration.md`

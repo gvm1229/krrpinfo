@@ -138,7 +138,7 @@
 
 ## 후속 작업 (별도 PR)
 
-- 사인인 UI / `useSession` 사용처 구현
+- Sign-in UI / `useSession` 사용처 구현
 - Google Cloud Console redirect URI 등록 (manual)
 - Vercel 환경변수 등록 (`AUTH_SECRET`, `AUTH_GOOGLE_*`, `AUTH_OWNER_EMAIL`) — `USER_TASKS.md` 참조
 - Dependabot critical alert #143 별도 fix
