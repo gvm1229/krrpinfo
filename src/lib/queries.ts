@@ -58,6 +58,13 @@ export async function getAllPostSlugs(): Promise<Array<{ slug: string }>> {
   return docs.map((p) => ({ slug: p.slug }));
 }
 
+// admin 전용 — published/draft 구분 없이 전체 조회 (updated_at 내림차순)
+export async function getAllPostsForAdmin(): Promise<Post[]> {
+  const posts = await collection();
+  const docs = await posts.find({}).sort({ updated_at: -1 }).toArray();
+  return docs.map(toPost);
+}
+
 // CommandMenu 전용 경량 쿼리 (서버 정렬)
 export async function getPostsForSearch(): Promise<PostSearch[]> {
   const posts = await collection();

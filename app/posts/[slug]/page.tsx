@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { auth } from '@/src/auth';
 import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
 import StaticImage from '@/components/Image/StaticImage';
 import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
@@ -75,7 +76,7 @@ export async function generateMetadata(
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const [post, session] = await Promise.all([getPost(slug), auth()]);
   if (!post) notFound();
 
   const contentHtml = await getCachedMarkdown(slug, post.content);
@@ -101,6 +102,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             {formatDate(post.pub_date)}
           </p>
           <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
+          {isOwner(session) && (
+            <Link
+              href={`/admin/posts?edit=${slug}`}
+              className="text-sm text-zinc-500 hover:text-blue-600"
+            >
+              Edit
+            </Link>
+          )}
           {post.description && (
             <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
               {post.description}
