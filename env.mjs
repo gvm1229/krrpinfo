@@ -14,6 +14,7 @@ export const env = createEnv({
     AUTH_SECRET: z.string().min(1),
     AUTH_GOOGLE_ID: z.string().min(1),
     AUTH_GOOGLE_SECRET: z.string().min(1),
+    AUTH_OWNER_EMAIL: z.string().email(),
     NEXT_PUBLIC_SHOW_YOUTUBERS: z.enum(['true', 'false']).optional(),
   },
   /*
@@ -39,6 +40,7 @@ export const env = createEnv({
     AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    AUTH_OWNER_EMAIL: process.env.AUTH_OWNER_EMAIL,
     NEXT_PUBLIC_SHOW_YOUTUBERS: process.env.NEXT_PUBLIC_SHOW_YOUTUBERS,
   },
 });

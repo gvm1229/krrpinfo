@@ -20,9 +20,27 @@ vi.mock('@/env.mjs', () => ({
     AUTH_GOOGLE_ID: 'gid',
     AUTH_GOOGLE_SECRET: 'gsecret',
     AUTH_SECRET: 'asecret',
+    AUTH_OWNER_EMAIL: 'owner@example.com',
     MONGODB_URL: 'mongodb://test',
   },
 }));
+
+type CapturedConfig = {
+  providers: unknown[];
+  session: { strategy: string };
+  secret: string;
+  adapter: unknown;
+  pages: { signIn: string; error: string };
+  callbacks: {
+    signIn: (args: {
+      user?: { email?: string | null };
+      profile?: { email?: string | null };
+    }) => boolean | Promise<boolean>;
+  };
+};
+
+const captureConfig = (): CapturedConfig =>
+  nextAuthMock.mock.calls[0]?.[0] as unknown as CapturedConfig;
 
 beforeEach(() => {
   vi.resetModules();
@@ -49,23 +67,12 @@ describe('src/auth.ts', () => {
   it('passes Google provider with env credentials', async () => {
     await import('@/src/auth');
     expect(googleMock).toHaveBeenCalledWith({ clientId: 'gid', clientSecret: 'gsecret' });
-    const cfg = nextAuthMock.mock.calls[0]?.[0] as unknown as {
-      providers: unknown[];
-      session: { strategy: string };
-      secret: string;
-      adapter: unknown;
-    };
-    expect(cfg.providers).toHaveLength(1);
+    expect(captureConfig().providers).toHaveLength(1);
   });
 
   it('uses database session strategy', async () => {
     await import('@/src/auth');
-    const cfg = nextAuthMock.mock.calls[0]?.[0] as unknown as {
-      providers: unknown[];
-      session: { strategy: string };
-      secret: string;
-      adapter: unknown;
-    };
+    const cfg = captureConfig();
     expect(cfg.session).toEqual({ strategy: 'database' });
     expect(cfg.secret).toBe('asecret');
   });
@@ -73,12 +80,48 @@ describe('src/auth.ts', () => {
   it('wires MongoDBAdapter with clientPromise', async () => {
     await import('@/src/auth');
     expect(adapterMock).toHaveBeenCalledWith(fakeClientPromise);
-    const cfg = nextAuthMock.mock.calls[0]?.[0] as unknown as {
-      providers: unknown[];
-      session: { strategy: string };
-      secret: string;
-      adapter: unknown;
-    };
-    expect(cfg.adapter).toMatchObject({ _adapter: 'mongodb' });
+    expect(captureConfig().adapter).toMatchObject({ _adapter: 'mongodb' });
+  });
+
+  it('routes signIn UI to /admin/login and errors to /admin/auth-error', async () => {
+    await import('@/src/auth');
+    expect(captureConfig().pages).toEqual({
+      signIn: '/admin/login',
+      error: '/admin/auth-error',
+    });
+  });
+
+  it('signIn callback allows owner email', async () => {
+    await import('@/src/auth');
+    const result = await captureConfig().callbacks.signIn({
+      user: { email: 'owner@example.com' },
+    });
+    expect(result).toBe(true);
+  });
+
+  it('signIn callback rejects non-owner email', async () => {
+    await import('@/src/auth');
+    const result = await captureConfig().callbacks.signIn({
+      user: { email: 'attacker@example.com' },
+    });
+    expect(result).toBe(false);
+  });
+
+  it('signIn callback rejects when email missing', async () => {
+    await import('@/src/auth');
+    const result = await captureConfig().callbacks.signIn({
+      user: { email: null },
+      profile: { email: null },
+    });
+    expect(result).toBe(false);
+  });
+
+  it('signIn callback falls back to profile.email when user.email absent', async () => {
+    await import('@/src/auth');
+    const result = await captureConfig().callbacks.signIn({
+      user: {},
+      profile: { email: 'owner@example.com' },
+    });
+    expect(result).toBe(true);
   });
 });

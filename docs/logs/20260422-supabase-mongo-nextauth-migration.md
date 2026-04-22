@@ -85,8 +85,30 @@
 - `.github/workflows/test.yml` — PR(develop/release) + push(develop) 트리거, `pnpm test:coverage` 실행
 - `actions/cache` 로 `~/.cache/mongodb-binaries` 캐싱하여 cold start 단축
 
+## 🔒 feat(auth) — owner-only 제한 (0.1.11)
+
+방문자가 로그인 페이지조차 보지 못하도록 두 단계 방어 적용:
+
+1. **인증 보안 게이트** — `src/auth.ts` `callbacks.signIn` 에서 `env.AUTH_OWNER_EMAIL` 와 일치하는 이메일만 `true` 반환. owner 가 아니면 NextAuth 가 세션을 만들지 않음.
+2. **UI 은닉** — `pages.signIn = '/admin/login'`, `pages.error = '/admin/auth-error'` 로 기본 NextAuth UI (`/api/auth/signin`) 를 비공개 경로로 redirect. 두 페이지 모두 `metadata.robots: { index: false, follow: false }` 설정.
+
+신규/변경:
+
+- `env.mjs` — `AUTH_OWNER_EMAIL: z.string().email()` 서버 env 추가
+- `.env.example` — `AUTH_OWNER_EMAIL` 항목 + 주석
+- `src/auth.ts` — `pages` 와 `callbacks.signIn` 추가 (user.email → profile.email fallback)
+- `app/admin/login/page.tsx` — server action 기반 Google 로그인 버튼
+- `app/admin/auth-error/page.tsx` — 거부 안내 페이지
+- `app/robots.ts` — `disallow: ['/dashboard/', '/admin/', '/api/auth/']`
+- `src/__tests__/auth.test.ts` — 5 tests 추가 (allow owner, reject non-owner, reject missing email, profile fallback, pages 라우팅)
+
+검증:
+
+- `pnpm test:coverage` → 29 tests pass, statements/branches/functions/lines 100%
+- `pnpm build` → `/admin/login`, `/admin/auth-error`, `/api/auth/[...nextauth]` 모두 route 등록
+
 ## 후속 작업 (별도 PR)
 
 - 사인인 UI / `useSession` 사용처 구현
-- `callbacks.signIn` 화이트리스트 (필요 시)
 - Google Cloud Console redirect URI 등록 (manual)
+- (선택) `/admin/*` 보호 — 인증 없는 접근 시 `auth()` 미들웨어로 리디렉션

@@ -66,9 +66,19 @@
 
 - `.github/workflows/test.yml` — develop/release 대상 PR + develop push 트리거, `pnpm test:coverage` 실행, `~/.cache/mongodb-binaries` 캐싱
 
+## 🔒 Owner-only auth
+
+- `env.mjs` 에 `AUTH_OWNER_EMAIL` (z.string().email()) 추가
+- `src/auth.ts` `callbacks.signIn` 으로 단일 owner 이메일만 가입/로그인 허용 (`user.email` → `profile.email` fallback)
+- `pages.signIn = '/admin/login'`, `pages.error = '/admin/auth-error'` — NextAuth 기본 UI 노출 차단
+- `app/admin/login/page.tsx` — 서버 액션 기반 Google 로그인 버튼 (`metadata.robots: { index: false, follow: false }`)
+- `app/admin/auth-error/page.tsx` — 거부된 계정 안내
+- `app/robots.ts` — `/admin/`, `/api/auth/` disallow 추가
+- 테스트 5건 추가 (signIn allow/reject/missing/profile-fallback + pages 라우팅) — 총 29 tests, 100% coverage 유지
+
 ## 🔧 Version
 
-- `package.json` `0.1.9` → `0.1.10`
+- `package.json` `0.1.9` → `0.1.10` → `0.1.11`
 - `docs/logs/20260422-supabase-mongo-nextauth-migration.md` 신규 작성
 
 ## 사용자 후속 작업

@@ -14,4 +14,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   session: { strategy: 'database' },
   secret: env.AUTH_SECRET,
+  // 기본 NextAuth UI (/api/auth/signin) 노출 차단 — owner 만 아는 경로로 redirect
+  pages: {
+    signIn: '/admin/login',
+    error: '/admin/auth-error',
+  },
+  callbacks: {
+    // owner 단일 이메일만 가입/로그인 허용
+    signIn({ user, profile }) {
+      const email = user?.email ?? profile?.email;
+      return email === env.AUTH_OWNER_EMAIL;
+    },
+  },
 });
