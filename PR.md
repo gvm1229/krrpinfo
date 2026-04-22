@@ -1,32 +1,104 @@
-# PR: strict/full branch
+# PR: feat/mongo-nextauth branch
 
 ## Summary
 
-- `develop` 대비 TypeScript `strict: true` 전환으로 타입 안정성 강화
-- youtubers video metadata의 `keywords` 타입 처리 보강으로 Next.js production build 실패 해소
-- Next.js 16 deprecation 대응으로 `middleware` warning 제거
+- `develop` 대비 Supabase 의존성을 제거하고 MongoDB 단일 소스로 posts 데이터 통합
+- NextAuth v5 (beta) + Google OAuth + MongoDBAdapter 도입으로 인증 인프라 마련
+- 기존 Supabase posts dump 를 Mongo `krrpinfo` database 로 복원하는 일회성 스크립트 제공
 
 ## Changes
 
-## ♻️ TypeScript strict 전환
+## ⬆️ Dependency swap
 
-- `tsconfig.json` `strict: true` 활성화
-- `app/actions`, `app/posts`, `app/youtubers`, `src/components`, `src/util`, `src/lib` 전반의 null/undefined 타입 처리 정리
-- build 단계 TypeScript 오류를 코드 레벨에서 선제 차단
+- `@supabase/supabase-js` 제거
+- `next-auth@5.0.0-beta.31` + `@auth/mongodb-adapter@^3.11.2` 추가
+- `mongodb` 기존 사용 유지
 
-## 🐛 YouTubers metadata build fix
+## ♻️ Env schema
 
-- `app/youtubers/[channelId]/_[videoId]/page.tsx`에서 `parent.keywords`를 배열로 정규화
-- `snippet.tags` 유무와 관계없이 metadata `keywords`를 안전하게 병합
-- Next.js build type check에서 발생한 spread 오류 해소
+- `env.mjs` 와 `.env.example` 에서 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` 제거
+- `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` 추가
 
-## 🐛 Proxy migration
+## ♻️ MongoDB client
 
-- 루트 `middleware.ts`를 `proxy.ts`로 rename
-- export 함수명을 `proxy`로 변경해 Next.js 16 file convention에 맞춤
-- 기존 matcher와 feature flag 동작은 유지하면서 build warning만 제거
+- `src/util/db.ts` 에 `clientPromise` named export 추가 (NextAuth adapter 요구사항)
+- 기존 `mongoClient()` default export 는 `@deprecated` wrapper 로 호환 유지
+- `maxPoolSize`, `serverSelectionTimeoutMS`, `appName` 옵션 적용
 
-## 🔧 Version / docs
+## ♻️ Posts queries
 
-- `package.json` patch version `0.1.9` 반영
-- `docs/logs/20260416-strict-true-migration.md`에 metadata fix와 proxy migration 내역 반영
+- `src/lib/supabase.ts` 삭제, `src/lib/queries.ts` 를 mongodb driver 기반으로 재작성
+- `client.db('krrpinfo').collection<PostDoc>('posts')` 명시적 참조
+- `pub_date`/`created_at`/`updated_at` Date → ISO string 변환을 `toPost()` 로 일원화
+- `getPost`/`getPostMeta` 에 `String(slug)` 강제 변환 추가하여 NoSQL injection 방지
+- 모든 export 에 명시적 return type 선언
+
+## ✨ NextAuth v5 + MongoDBAdapter
+
+- `src/auth.ts` — Google provider + MongoDBAdapter + `session.strategy='database'`
+- `app/api/auth/[...nextauth]/route.ts` — `handlers` 분해 export
+
+## ✨ Restore script
+
+- `scripts/restore-posts.ts` — `backup/supabase-posts-*.json` → Mongo `krrpinfo.posts` upsert
+- `tags` string → `string[]` 정규화, `pub_date` 등 Date 변환
+- slug unique index 보장
+- `pnpm restore:posts` npm script 등록
+
+## 🙈 .gitignore
+
+- `/backup/` dump 디렉터리 exclusion 추가
+
+## 📝 docs
+
+- AGENTS.md 에 Discord 수신 acknowledgement 규칙 추가
+
+## ✨ Test infrastructure
+
+- 신규 의존성: `vitest@4.1`, `@vitest/coverage-v8`, `vite-tsconfig-paths`, `mongodb-memory-server`
+- `vitest.config.ts` — node 환경, `src/__tests__/**/*.test.ts` glob, v8 coverage threshold (lines/functions/statements 80%, branches 70%)
+- npm scripts: `test`, `test:watch`, `test:coverage`
+- `src/__tests__/` 24개 단위/통합 테스트 (db 3, queries 10, auth 4, restore-posts 7)
+- `src/__tests__/helpers/mongo-memory.ts` — mongodb-memory-server 라이프사이클 헬퍼
+- 결과: 24/24 pass, statements/branches/functions/lines 모두 100%
+
+## 👷 CI
+
+- `.github/workflows/test.yml` — develop/release 대상 PR + develop push 트리거, `pnpm test:coverage` 실행, `~/.cache/mongodb-binaries` 캐싱
+
+## 🚧 Admin route 보호
+
+- `proxy.ts` (Next.js 16 file convention) — `/admin/*` 경로 (단, `/admin/login`, `/admin/auth-error` 제외) 접근 시 `auth()` 로 세션 검증, 없으면 `/admin/login` redirect
+- `app/admin/page.tsx` — owner 전용 dashboard placeholder. server component 내부에서도 `auth()` 재검증 후 user email 표시 + Sign Out 버튼
+- `app/admin/login/page.tsx` — 이미 인증된 owner 는 `/admin` 으로 redirect
+
+## 🔒 Owner-only auth
+
+- `env.mjs` 에 `AUTH_OWNER_EMAIL` (z.string().email()) 추가
+- `src/auth.ts` `callbacks.signIn` 으로 단일 owner 이메일만 가입/로그인 허용 (`user.email` → `profile.email` fallback)
+- `pages.signIn = '/admin/login'`, `pages.error = '/admin/auth-error'` — NextAuth 기본 UI 노출 차단
+- `app/admin/login/page.tsx` — 서버 액션 기반 Google 로그인 버튼 (`metadata.robots: { index: false, follow: false }`)
+- `app/admin/auth-error/page.tsx` — 거부된 계정 안내
+- `app/robots.ts` — `/admin/`, `/api/auth/` disallow 추가
+- 테스트 5건 추가 (signIn allow/reject/missing/profile-fallback + pages 라우팅) — 총 29 tests, 100% coverage 유지
+
+## 🐛 CI fix
+
+- `pnpm/action-setup@v4` 의 `with.version: 10` 와 `package.json` `packageManager: "pnpm@10.33.0"` 충돌 (`ERR_PNPM_BAD_PM_VERSION`) 해소 — `version` 입력 제거
+
+## 📝 README
+
+- tech stack 최신화 (React 19 / Next 16 / Tailwind 4 / MongoDB / NextAuth / Vitest)
+- Yarn / Storybook 항목 제거, pnpm + Vitest 신규 항목 추가
+- Auth / Testing 섹션 신설 (owner-only 정책 + CI 안내)
+
+## 🔧 Version
+
+- `package.json` `0.1.9` → `0.1.10` → `0.1.11`
+- `docs/logs/20260422-supabase-mongo-nextauth-migration.md` 신규 작성
+
+## 사용자 후속 작업
+
+- Google Cloud Console 에서 OAuth redirect URI 등록 (`/api/auth/callback/google`)
+- 필요 시 `src/auth.ts` 에 `callbacks.signIn` 추가하여 허용 이메일 화이트리스트 적용
+- Sign-in UI / `useSession` 등 사용자 진입점은 후속 PR
