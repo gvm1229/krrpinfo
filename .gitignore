@@ -42,6 +42,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Supabase / Mongo dumps
+/backup/
+
 # Yarn 3 files
 .pnp.*
 .yarn/*
