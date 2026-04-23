@@ -40,7 +40,7 @@ export default async function AdminPostsPage() {
                 </td>
                 <td className="px-4 py-3">
                   <Link
-                    href={`/admin/posts?edit=${post.slug}`}
+                    href={`/admin/posts/${post.slug}/edit`}
                     className="text-xs text-blue-600 hover:underline dark:text-blue-400"
                   >
                     Edit

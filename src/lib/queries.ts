@@ -65,6 +65,13 @@ export async function getAllPostsForAdmin(): Promise<Post[]> {
   return docs.map(toPost);
 }
 
+// admin 편집용 — published 필터 없이 slug 단건 조회
+export const getPostByAnySlug = cache(async (slug: string): Promise<Post | null> => {
+  const posts = await collection();
+  const doc = await posts.findOne({ slug: String(slug) });
+  return doc ? toPost(doc) : null;
+});
+
 // CommandMenu 전용 경량 쿼리 (서버 정렬)
 export async function getPostsForSearch(): Promise<PostSearch[]> {
   const posts = await collection();

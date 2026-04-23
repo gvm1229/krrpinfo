@@ -66,6 +66,16 @@
 
 - Footer KakaoTalk CTA → `bg-kakao-yellow` 토큰
 - Home hero `<section>` → `bg-season-4/40` (light) / `dark:bg-season-4/5`
+- 포스트 상세 h1 → `tablet:text-title` (2.5rem, tailwind fontSize 토큰)
+
+## ✨ MDX post editor (0.1.14)
+
+- `/admin/posts/[slug]/edit` 신규 — owner 전용 textarea 기반 MDX 편집기
+- `saveEdit` server action — `isOwner` gate, slug `^[a-z0-9-]+$` 정규식, 필드 길이 / 태그 개수 가드, KST timezone 명시 pubDate, `updateOne` matchedCount 검증, revalidatePath 4경로 + redirect
+- `EditPostForm` client component — `useTransition` 기반
+- `getPostByAnySlug` 신규 query — published 필터 없이 draft 포함 조회 (editor 전용)
+- 모든 Edit 링크 → 실제 라우트로 wire-up
+- 10 tests (allow/reject/missing/profile-fallback/대문자 slug/필드 초과/태그 초과/matchedCount=0/빈 keywords/happy path)
 
 ## 🔧 Version
 

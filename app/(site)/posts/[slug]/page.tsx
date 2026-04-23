@@ -102,10 +102,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             {formatDate(post.pub_date)}
           </p>
           <div className="flex items-start justify-between gap-4">
-            <h1 className="text-2xl font-bold tablet:text-5xl">{post.title}</h1>
+            <h1 className="text-2xl font-bold tablet:text-title">{post.title}</h1>
             {isOwner(session) && (
               <Link
-                href={`/admin/posts?edit=${slug}`}
+                href={`/admin/posts/${slug}/edit`}
                 className={cn(buttonVariants({ size: 'sm' }), 'shrink-0')}
               >
                 Edit
