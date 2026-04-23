@@ -42,6 +42,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# TinyMCE self-hosted assets (run pnpm setup:tinymce to regenerate)
+/public/tinymce/
+
 # Supabase / Mongo dumps
 /backup/
 

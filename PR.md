@@ -68,6 +68,15 @@
 - Home hero `<section>` → `bg-season-4/40` (light) / `dark:bg-season-4/5`
 - 포스트 상세 h1 → `tablet:text-title` (2.5rem, tailwind fontSize 토큰)
 
+## ✨ TinyMCE 4 self-hosted editor (0.1.15)
+
+- `tinymce@^4.9.11` + `@tinymce/tinymce-react@^3.14` 신규 설치 (LGPL-2.1, no API key)
+- `public/tinymce/` 자산 self-host (gitignored, `pnpm setup:tinymce` 으로 재생성)
+- KEDITOR ko_KR lang + LICENSE 동봉
+- `EditPostForm` textarea → `<Editor>` (dynamic import, ssr:false). `onEditorChange` → state → form action 클로저 패턴
+- 6개 input 반복 패턴 → `<TextField>` helper 추출
+- toolbar: undo/redo / B I U S / forecolor backcolor / align / lists / link image hr / charmap emoticons codesample / removeformat / code fullscreen
+
 ## ✨ MDX post editor (0.1.14)
 
 - `/admin/posts/[slug]/edit` 신규 — owner 전용 textarea 기반 MDX 편집기
