@@ -1,15 +1,9 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/src/styles/globals.css';
-import { headers } from 'next/headers';
 import React from 'react';
-import ScrollToTopButton from '@/components/Button/ScrollToTopButton';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
-import { SiteFooter } from '@/components/Footer/SiteFooter';
-import { SiteHeader } from '@/components/Header/SiteHeader';
 import { siteConfig } from '@/config/site';
-import { getPostsForSearch } from '@/src/lib/queries';
-import ClientLayout from '@/src/components/Layout/ClientLayout';
 
 export const metadata = {
   title: {
@@ -110,22 +104,12 @@ export const viewport = {
 
 export const revalidate = 60;
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const userAgent: string = (await headers()).get('user-agent') ?? '';
-  const posts = await getPostsForSearch();
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="relative min-h-svh bg-background antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ClientLayout>
-            <div className="relative flex min-h-svh flex-col">
-              <SiteHeader userAgent={userAgent} posts={posts} />
-              <main className="relative flex-1 py-8 tablet:py-12">{children}</main>
-              <SiteFooter />
-              <ScrollToTopButton />
-            </div>
-          </ClientLayout>
+          {children}
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

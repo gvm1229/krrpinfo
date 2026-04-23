@@ -322,7 +322,8 @@ async function Posts({ className }: { className?: string }) {
 export default function Home() {
   return (
     <main className="relative h-full space-y-8 tablet:space-y-16">
-      <div>
+      {/* hero — var(--s-4) tinted surface */}
+      <section className="bg-season-4/40 py-8 dark:bg-season-4/5 tablet:py-12">
         <BlogFeatured
           lastEditDate="4/17/2024"
           thumbnail="/assets/images/S28/시즌배너.webp"
@@ -331,7 +332,7 @@ export default function Home() {
           className="container"
         />
         <FeaturedBento className="container mt-8" />
-      </div>
+      </section>
       <Links />
       <Posts className="container" />
     </main>

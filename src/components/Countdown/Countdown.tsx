@@ -3,7 +3,7 @@
 // import { useEffect } from 'react';
 // import revalidate from '@/app/actions/revalidate';
 import ResponsiveImage from '@/components/Image/ResponsiveImage';
-import { cn } from '@/src/util/utils';
+import { cn, formatDate } from '@/src/util/utils';
 
 interface CountdownProps {
   seasons: {
@@ -31,16 +31,6 @@ const Countdown = ({ seasons, className }: CountdownProps) => {
     const differenceInTime = targetDate.getTime() - currentDate.getTime();
     const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24)) + 1;
     return differenceInDays > 0 ? differenceInDays : 0; // Ensure remainingDays is not negative
-  };
-
-  // Function to format the date from 'MM/DD/YYYY' to 'YYYY/MM/DD'
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
-    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-
-    return `${year}/${month}/${day}`;
   };
 
   const formatRemainingDays = (remainingDaysInput: number): string => {
