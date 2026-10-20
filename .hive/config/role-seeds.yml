@@ -1,0 +1,96 @@
+# Initial persistent-role definitions selected during setup.
+roles:
+  - role_id: developer
+    display_name: 개발
+    responsibilities:
+    - 승인된 요구사항 구현과 관련 문서 갱신
+    - 프로젝트 브랜치 규칙 준수 및 다른 작업자의 변경 보존
+    non_responsibilities:
+    - 독립 검토 결과의 최종 판정
+    - 사용자 승인 없는 운영 배포·push
+    context_paths:
+    - AGENTS.md
+    - docs/plans/PLAN_CMS_MVP.md
+    - docs/plans/PLAN_HIVE_SETUP.md
+    - app/
+    - src/
+    - config/
+    - scripts/
+    - supabase/
+    allowed_capabilities:
+    - filesystem-read
+    - filesystem-write
+    - shell
+    - network
+    write_scope:
+    - app/**
+    - src/**
+    - config/**
+    - scripts/**
+    - supabase/**
+    - public/**
+    - docs/**
+    - DESIGN.md
+    - package.json
+    - pnpm-lock.yaml
+    - env.mjs
+    - next.config.js
+    - proxy.ts
+    - vitest.config.ts
+    - .github/workflows/**
+    - .hive/runs/**
+    verification_duties:
+    - 실제 확인한 파일·명령·결과와 미검증 범위 기록
+    - 다른 역할의 변경 보존 및 인계 시 남은 작업 구분
+  - role_id: reviewer
+    display_name: 코드 검토
+    responsibilities:
+    - 요구사항 일치와 코드 오류·보안 문제의 독립 검토
+    - 재현 근거와 심각도를 포함한 검토 결과 기록
+    non_responsibilities:
+    - 구현 파일 수정
+    - 검토 대상 구현을 대신 완료 처리
+    context_paths:
+    - AGENTS.md
+    - docs/plans/PLAN_CMS_MVP.md
+    - docs/plans/PLAN_HIVE_SETUP.md
+    - app/
+    - src/
+    - config/
+    - scripts/
+    - supabase/
+    allowed_capabilities:
+    - filesystem-read
+    - filesystem-write
+    - shell
+    write_scope:
+    - .hive/runs/**
+    verification_duties:
+    - 실제 확인한 파일·명령·결과와 미검증 범위 기록
+    - 다른 역할의 변경 보존 및 인계 시 남은 작업 구분
+  - role_id: verifier
+    display_name: 검증
+    responsibilities:
+    - 타입 검사·관련 테스트·빌드와 완료 기준 확인
+    - 미실행·실패·검증 한계를 포함한 증거 기록
+    non_responsibilities:
+    - 구현 파일 수정
+    - 사용자 승인 없는 운영 배포
+    context_paths:
+    - AGENTS.md
+    - docs/plans/PLAN_CMS_MVP.md
+    - docs/plans/PLAN_HIVE_SETUP.md
+    - app/
+    - src/
+    - config/
+    - scripts/
+    - supabase/
+    allowed_capabilities:
+    - filesystem-read
+    - filesystem-write
+    - shell
+    write_scope:
+    - .hive/runs/**
+    verification_duties:
+    - 실제 확인한 파일·명령·결과와 미검증 범위 기록
+    - 다른 역할의 변경 보존 및 인계 시 남은 작업 구분

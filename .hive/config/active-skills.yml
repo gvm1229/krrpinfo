@@ -1,0 +1,215 @@
+schema_version: 1
+skills:
+- name: adversarial-judge
+  source_type: built-in
+  content_digest: sha256:9b8641f4c858698cb8959ed311cc2bcefb7764e1465b6109ec4343c2dc27f215
+  side_effect_class: read-only
+  capabilities:
+  - filesystem-read
+  - run-state
+  - subagents
+  consent_digest: null
+- name: amend-directive
+  source_type: built-in
+  content_digest: sha256:8e9ad50eb58c10d535c7773e58d95a40b07e84da47a223fbd9655e15969ac15c
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - shell
+  consent_digest: null
+- name: code-polish
+  source_type: built-in
+  content_digest: sha256:834fe741e1125b76f457ba3b421e73567b3bdcee475ddaa1b16997677bea5f43
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - shell
+  consent_digest: null
+- name: humanize-kor
+  source_type: built-in
+  content_digest: sha256:b356691df025bb30def279528450be5c5c9085adf11457efcda87834ef452f67
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - shell
+  consent_digest: null
+- name: judge-evidence
+  source_type: built-in
+  content_digest: sha256:140dafda618921f8178a0bf8ab9ffa44607ca5ed0fc17079f5990c7bd0e79e77
+  side_effect_class: read-only
+  capabilities:
+  - filesystem-read
+  - run-state
+  consent_digest: null
+- name: knowledge-capture
+  source_type: built-in
+  content_digest: sha256:40d08d401f60962d70f8bb4fcb83b4f17b3b067d165e24db9f579cf364b63b2d
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - memory-write
+  - shell
+  consent_digest: null
+- name: knowledge-maintain
+  source_type: built-in
+  content_digest: sha256:64ed85e443785e97560031f6d64930836f3e349dd5b1b873e22376f76d6b0fd8
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - memory-read
+  - memory-write
+  - shell
+  consent_digest: null
+- name: knowledge-promote
+  source_type: built-in
+  content_digest: sha256:a96707ad90c399aff34475844384d26c1e8f6b6670a3c900b17790b4a264c9ca
+  side_effect_class: external-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - memory-read
+  - memory-write
+  - shell
+  consent_digest: null
+- name: knowledge-recall
+  source_type: built-in
+  content_digest: sha256:b1c993c5c9332596f2f71f0db2e40f42a434e210f71f4e8bb9f38da763c4b673
+  side_effect_class: read-only
+  capabilities:
+  - filesystem-read
+  - memory-read
+  - shell
+  consent_digest: null
+- name: knowledge-scan
+  source_type: built-in
+  content_digest: sha256:b8c3928df97c6f5e84f60b5a20ed9944c3ccd785cc408ffa5aa4a1db4d4b2aef
+  side_effect_class: external-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - memory-read
+  - memory-write
+  - shell
+  consent_digest: null
+- name: multi-goal
+  source_type: built-in
+  content_digest: sha256:78519d508ec6b8836c67e2e608c07398aa093bbd70fe0bf5ed69e77f824c7f94
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - run-state
+  - shell
+  - subagents
+  consent_digest: null
+- name: product-update
+  source_type: built-in
+  content_digest: sha256:4f701367ef653b5119ae2927d20e35986c498df23aee84d0e6f5adb5b8ee97b6
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - shell
+  consent_digest: null
+- name: project-refresh
+  source_type: built-in
+  content_digest: sha256:8c252fa5ef5c4c40647cc11127a404f0bac7c096648e8b3ca9f8af9655203067
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - shell
+  consent_digest: null
+- name: prompt-refine
+  source_type: built-in
+  content_digest: sha256:bbd9a76fed57e1276aa94266709d79f656eafebc98e58723c5f8286b979399ed
+  side_effect_class: none
+  capabilities: []
+  consent_digest: null
+- name: quick-answer
+  source_type: built-in
+  content_digest: sha256:03704e8e8a61ed6c8becc38910b83a555c75b109fc618ba20f20bac168089249
+  side_effect_class: none
+  capabilities: []
+  consent_digest: null
+- name: research-best-practices
+  source_type: built-in
+  content_digest: sha256:f413df87cfea8b938414550a9045463bda277780f9200ed45eda1d2b4f0822e6
+  side_effect_class: read-only
+  capabilities:
+  - filesystem-read
+  - network
+  - shell
+  consent_digest: null
+- name: run-checkpoint
+  source_type: built-in
+  content_digest: sha256:2892a1d16f2795a0a2629c5d9082410d29205b0b9f46a41707d3cf40e764f655
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - run-state
+  consent_digest: null
+- name: run-handoff
+  source_type: built-in
+  content_digest: sha256:f257a35ba81113d8ce3c0e6e219af4bcdc037cbca08c0083d34e1309958daacc
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - run-state
+  consent_digest: null
+- name: run-resume
+  source_type: built-in
+  content_digest: sha256:106c44df121b382a306e6725a31ceccb038915eb007b27b438ec587022895d40
+  side_effect_class: read-only
+  capabilities:
+  - filesystem-read
+  - run-state
+  consent_digest: null
+- name: ship
+  source_type: built-in
+  content_digest: sha256:4b37fb1da9359f17bdc4a066c0fdf0c03494067c01567f8eacf9a7ce0f6ece47
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - shell
+  consent_digest: null
+- name: team-execution
+  source_type: built-in
+  content_digest: sha256:2f2f92ac93c8f3a69c40af7ac346a206a330fc7937d7c567e9ce6fc9ea9d1188
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - run-state
+  - shell
+  - subagents
+  consent_digest: null
+- name: usage-guard
+  source_type: built-in
+  content_digest: sha256:471ec9acccabedb64e01dd136a36d6f65a5959ae7bfa46005f9253c7565fb4ef
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - run-state
+  - shell
+  consent_digest: null
+- name: verified-workflow
+  source_type: built-in
+  content_digest: sha256:b540e5ca68afee2e3947932e9b21bef1c5707cbde322d7c89cd287965609d5cf
+  side_effect_class: project-write
+  capabilities:
+  - filesystem-read
+  - filesystem-write
+  - run-state
+  - shell
+  - subagents
+  consent_digest: null

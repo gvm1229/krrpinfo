@@ -215,3 +215,58 @@ A "where to find what" map. Paths are relative to repo root.
 - `.claude/commands/docs.md` — documentation update directive (daily log / PR.md / AGENTS structure)
 - `.claude/commands/release.md` — minor 버전 release directive
 - `scripts/restore-posts.ts` — Supabase JSON dump → MongoDB upsert (일회성, `pnpm restore:posts`)
+
+<!-- AIGENT-HIVE:START -->
+# Aigent Hive
+
+Project: `krrpinfo`
+Profile: `general`
+Setup mode: `custom`
+Preference provenance: `project-custom`
+Interface language: `ko`
+Wiki: `enabled` (backend=`markdown`, language=`ko`)
+Persona: `custom`
+Primary host: `codex`
+Resolved orchestration owner: `host-native`
+Resolution evidence: `sha256:5e6158328dda5c78b9633e7e14b7f5effa2fe00fff9e80fdf515477b49512139`
+
+## Entry rules
+
+- Hive installation is optional for collaborators. Before any Hive command or command-backed
+  Skill, apply the availability gate in `.agents/directives/00-project-harness.md`.
+  Checked-in Hive files describe the project; they do not activate Hive on another computer.
+- Read canonical configuration from `.hive/config/harness.toml`.
+- Use the selected interface language for questions and responses unless the user explicitly
+  requests another language for the current response. Prompt language is a separate current-request
+  choice. A message written in another language does not by itself change this preference.
+- Unless the user explicitly requests another language for the current prompt, write that prompt in English.
+- Preserve user and third-party bytes outside the exact Hive marker and ownership manifest.
+- Never call a model-provider API, request provider credentials, or launch a model/subagent process
+  on Hive's behalf. The active host owns execution.
+- Simple questions use no project edit, plan, or unrelated Skill.
+
+## Conditional routes
+
+Load only the matching contract. In ordinary collaboration mode, keep common project rules,
+planning, editing discipline, and tests; skip Hive command-backed routes below:
+
+| Work | Contract |
+| --- | --- |
+| Material work, planning, continuation, closure, host ownership | `.agents/directives/00-project-harness.md` |
+| Knowledge lookup, capture, promotion, final memory gate | `.agents/directives/01-project-knowledge.md` |
+| Setup, projection refresh, update, migration, rollback | `.agents/directives/02-project-upgrade.md` |
+| Automated project edit or concurrent host session | `.agents/directives/03-session-coordination.md` |
+| Korean response, Korean document, or Korean rewriting | `.agents/directives/04-korean-language.md` |
+
+- For code edits or documentation restructuring, consult `.hive/directives/00-editing-discipline.md`.
+  Reuse unchanged guidance within the task. Its `# CLAUDE.md` heading is original text, not host scope.
+- In Hive-enabled mode, require exact path reservations before automated edits through the session
+  coordination directive. Ordinary collaboration does not claim a Hive reservation.
+- In Hive-enabled mode, require the installed session-bound `hive usage enforce` contract
+  immediately before automatic dispatch. Exit `0` is only preflight; dispatch still requires one authorized `hive run resume`
+  brief. A current-session disable bypasses sensing but never authorizes dispatch.
+- In Hive-enabled mode, require one bounded lookup on a Wiki-enabled turn before knowledge-dependent work and the
+  agent-reviewed memory gate before final response. Wiki disabled means no knowledge mutation.
+- Optional Skills and hooks require exact capability and digest approval. Unsupported capability
+  remains unsupported; no silent runtime switch or fallback orchestration.
+<!-- AIGENT-HIVE:END -->

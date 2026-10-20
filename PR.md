@@ -97,3 +97,9 @@
 - `/admin/posts?edit=...` 의 실제 편집 UI (MDX editor) 는 후속 PR. 현재는 placeholder 링크
 - PLAN_DESIGN_OVERHAUL Phase 4-6 (Cloudflare Images, season schema, PaletteExtractor, polish) 별도 PR — 본 브랜치 scope 외
 - Vercel 환경변수 점검 — 신규 env 변경 없음
+
+## 🛠 Aigent Hive 프로젝트 설정
+
+- Hive 0.13.0 사용자 지정 설정: 한국어 위키, daily-work 기본 23개, 개발·코드 검토·검증 역할
+- 프로젝트 지식의 전역 공유 없이 소스와 문서 범위만 설정, 잔여 사용량 10% 중지 기준 상속
+- CMS 미완료 작업은 스냅샷으로 보존, 설치 validate와 지식 lint 통과
