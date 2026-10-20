@@ -1,95 +1,65 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { Session } from 'next-auth';
-
-// 공유 mock — db updateOne spy 캡처용
-const updateOneMock = vi.fn().mockResolvedValue({});
-
-// 실제 src/auth 는 NextAuth side-effect 로 vitest 에서 로드 불가 — isOwner 동작만 inline 재구현
-vi.mock('@/src/auth', () => ({
-  auth: vi.fn(),
-  isOwner: (session: { user?: { email?: string | null } } | null) =>
-    session?.user?.email === 'owner@example.com',
-}));
-
-vi.mock('@/env.mjs', () => ({
-  env: {
-    AUTH_OWNER_EMAIL: 'owner@example.com',
-    AUTH_GOOGLE_ID: 'gid',
-    AUTH_GOOGLE_SECRET: 'gsecret',
-    AUTH_SECRET: 'asecret',
-    MONGODB_URL: 'mongodb://test',
-  },
-}));
-
-vi.mock('@/src/util/db', () => ({
-  clientPromise: Promise.resolve({
-    db: () => ({
-      collection: () => ({
-        updateOne: updateOneMock,
-      }),
-    }),
-  }),
-}));
-
-vi.mock('next/cache', () => ({
-  revalidatePath: vi.fn(),
-}));
-
-import { auth } from '@/src/auth';
-import { revalidatePath } from 'next/cache';
-import { togglePublished } from '@/app/admin/(authenticated)/posts/actions';
-
-const mockAuth = vi.mocked(auth as () => Promise<Session | null>);
-const mockRevalidatePath = vi.mocked(revalidatePath);
-
-const ownerSession: Session = {
-  user: { email: 'owner@example.com' },
-  expires: '2099-01-01T00:00:00Z',
-};
-
-const nonOwnerSession: Session = {
-  user: { email: 'attacker@example.com' },
-  expires: '2099-01-01T00:00:00Z',
-};
-
+import { createDatabaseMock } from '../helpers/cms-db';
+const { authMock, dbMock } = vi.hoisted(() => ({ authMock: vi.fn(), dbMock: vi.fn() }));
+vi.mock('@/src/auth', () => ({ auth: authMock }));
+vi.mock('@/src/cms/client', () => ({ database: () => dbMock() }));
+vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
+import { setEntryPublished, prepareUpload, completeUpload, deleteMedia } from '@/app/admin/actions';
+const id = '11111111-1111-4111-a111-111111111111';
 beforeEach(() => {
-  vi.clearAllMocks();
-  updateOneMock.mockClear();
+  process.env.AUTH_OWNER_ID = 'owner';
+  authMock.mockResolvedValue({ user: { id: 'owner' }, expires: '2099-01-01T00:00:00Z' });
+  dbMock.mockReturnValue(
+    createDatabaseMock({
+      cms_entries: [
+        {
+          id,
+          kind: 'copy',
+          slug: 'title',
+          title: '문구',
+          published: false,
+          position: 0,
+          data: { value: '내용' },
+        },
+      ],
+    }),
+  );
 });
-
-describe('togglePublished', () => {
-  it('세션 없음 — Unauthorized 에러', async () => {
-    mockAuth.mockResolvedValue(null);
-    await expect(togglePublished('test-slug', true)).rejects.toThrow('Unauthorized');
-    expect(updateOneMock).not.toHaveBeenCalled();
+describe('공개 전환과 업로드 권한', () => {
+  it('운영자 공개 전환 저장', async () => {
+    const db = dbMock();
+    await setEntryPublished(id, true);
+    expect(db.tables.cms_entries[0].published).toBe(true);
   });
-
-  it('비-owner 세션 — Unauthorized 에러', async () => {
-    mockAuth.mockResolvedValue(nonOwnerSession);
-    await expect(togglePublished('test-slug', true)).rejects.toThrow('Unauthorized');
-    expect(updateOneMock).not.toHaveBeenCalled();
+  it('미로그인과 만료 세션으로 공개 전환·업로드·삭제 차단', async () => {
+    for (const session of [
+      null,
+      { user: { id: 'other' }, expires: '2099-01-01T00:00:00Z' },
+      { user: { id: 'owner' }, expires: '2000-01-01T00:00:00Z' },
+    ]) {
+      authMock.mockResolvedValue(session);
+      await expect(setEntryPublished(id, true)).rejects.toThrow('Unauthorized');
+      await expect(prepareUpload({ name: 'x', contentType: 'image/png', size: 4 })).rejects.toThrow(
+        'Unauthorized',
+      );
+      await expect(completeUpload('bad')).rejects.toThrow('Unauthorized');
+      await expect(deleteMedia(id)).rejects.toThrow('Unauthorized');
+    }
   });
-
-  it('잘못된 slug — Invalid slug 에러', async () => {
-    mockAuth.mockResolvedValue(ownerSession);
-    await expect(togglePublished('bad slug!', true)).rejects.toThrow('Invalid slug');
-    expect(updateOneMock).not.toHaveBeenCalled();
+  it('업로드 형식과 크기 제한', async () => {
+    await expect(prepareUpload({ name: 'x', contentType: 'text/html', size: 4 })).rejects.toThrow();
+    await expect(
+      prepareUpload({ name: 'x', contentType: 'image/png', size: 21000000 }),
+    ).rejects.toThrow();
   });
-
-  it('owner 세션 — updateOne 호출 + revalidatePath 4회', async () => {
-    mockAuth.mockResolvedValue(ownerSession);
-
-    await togglePublished('test-slug', false);
-
-    expect(updateOneMock).toHaveBeenCalledTimes(1);
-    expect(updateOneMock).toHaveBeenCalledWith(
-      { slug: 'test-slug' },
-      expect.objectContaining({ $set: expect.objectContaining({ published: false }) }),
+  it('사용 중인 미디어 삭제 거부', async () => {
+    dbMock.mockReturnValue(
+      createDatabaseMock({
+        cms_media: [{ id, url: 'https://media.example.com/in-use', object_key: 'media/key' }],
+        cms_entries: [{ data: { image: 'https://media.example.com/in-use' } }],
+        cms_settings: [],
+      }),
     );
-    expect(mockRevalidatePath).toHaveBeenCalledTimes(4);
-    expect(mockRevalidatePath).toHaveBeenCalledWith('/');
-    expect(mockRevalidatePath).toHaveBeenCalledWith('/admin/posts');
-    expect(mockRevalidatePath).toHaveBeenCalledWith('/posts');
-    expect(mockRevalidatePath).toHaveBeenCalledWith('/posts/test-slug');
+    await expect(deleteMedia(id)).rejects.toThrow('사용 중인');
   });
 });

@@ -1,72 +1,100 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import React from 'react';
-import { auth, isOwner, signOut } from '@/src/auth';
-
-export const metadata = {
-  title: 'Admin',
-  robots: { index: false, follow: false },
+import {
+  LayoutDashboard,
+  FileText,
+  Film,
+  CalendarDays,
+  Clock,
+  Gift,
+  Menu,
+  Link2,
+  Tags,
+  Layers,
+  Type,
+  Settings,
+  Images,
+  LogOut,
+} from 'lucide-react';
+import { auth, signOut } from '@/src/auth';
+import { isOwner } from '@/src/cms/owner';
+import { kindLabels, type Kind } from '@/src/cms/schema';
+import '@/src/styles/admin.css';
+export const dynamic = 'force-dynamic';
+export const metadata = { title: '콘텐츠 관리', robots: { index: false, follow: false } };
+const icons = {
+  post: FileText,
+  video: Film,
+  season: CalendarDays,
+  timeline: CalendarDays,
+  countdown: Clock,
+  coupon: Gift,
+  navigation: Menu,
+  link: Link2,
+  category: Tags,
+  section: Layers,
+  copy: Type,
 };
-
-// admin shell — 인증된 owner 전용 sidebar + topbar layout
-export default async function AdminAuthenticatedLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // 단일 진입점 auth gate — 하위 페이지는 재검증 불필요
+// Strapi 구성에 맞춘 단일 운영자 관리 영역
+const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
   if (!isOwner(session)) redirect('/admin/login');
-
-  const navItems = [
-    { href: '/admin', label: 'Dashboard' },
-    { href: '/admin/posts', label: 'Posts' },
-    { href: '/admin/seasons', label: 'Seasons' },
-    { href: '/admin/config', label: 'Config' },
-  ];
-
   return (
-    <div className="flex min-h-svh">
-      {/* Sidebar */}
-      <aside className="hidden w-56 shrink-0 border-r bg-zinc-50 dark:bg-zinc-950 tablet:flex tablet:flex-col">
-        <div className="border-b p-4">
-          <Link href="/admin" className="text-base font-semibold">
-            krrpinfo Admin
+    <div className="cms-shell">
+      <aside className="cms-sidebar">
+        <Link href="/admin" className="flex items-center gap-3 px-5 py-6 font-semibold">
+          <span className="grid size-9 place-items-center rounded bg-[#4945ff] text-white">K</span>
+          콘텐츠 관리
+        </Link>
+        <nav className="space-y-1 px-3 pb-6" aria-label="관리 메뉴">
+          <Link className="cms-nav-link" href="/admin">
+            <LayoutDashboard size={18} />
+            대시보드
           </Link>
-        </div>
-        <nav className="flex-1 space-y-1 p-3">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block rounded-md px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              {item.label}
-            </Link>
-          ))}
+          <p className="px-3 pb-2 pt-6 text-sm text-muted-foreground">콘텐츠</p>
+          {(Object.keys(kindLabels) as Kind[]).map((kind) => {
+            const Icon = icons[kind];
+            return (
+              <Link key={kind} className="cms-nav-link" href={'/admin/content/' + kind}>
+                <Icon size={18} />
+                {kindLabels[kind]}
+              </Link>
+            );
+          })}
+          <p className="px-3 pb-2 pt-6 text-sm text-muted-foreground">라이브러리와 설정</p>
+          <Link href="/admin/media" className="cms-nav-link">
+            <Images size={18} />
+            미디어
+          </Link>
+          <Link href="/admin/config" className="cms-nav-link">
+            <Settings size={18} />
+            사이트 설정
+          </Link>
         </nav>
       </aside>
-      {/* Main */}
-      <div className="flex flex-1 flex-col">
-        {/* Topbar */}
-        <header className="flex items-center justify-between border-b px-6 py-3">
-          <span className="text-sm text-zinc-500">{session?.user?.email}</span>
-          <form
-            action={async () => {
-              'use server';
-              await signOut({ redirectTo: '/' });
-            }}
-          >
-            <button
-              type="submit"
-              className="rounded-md border px-3 py-1.5 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900"
+      <div className="min-w-0 flex-1">
+        <header className="cms-topbar">
+          <Link href="/" className="text-sm hover:underline">
+            사이트 보기
+          </Link>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground">{session?.user?.name}</span>
+            <form
+              action={async () => {
+                'use server';
+                await signOut({ redirectTo: '/admin/login' });
+              }}
             >
-              Sign Out
-            </button>
-          </form>
+              <button className="cms-button cms-secondary">
+                <LogOut size={15} />
+                로그아웃
+              </button>
+            </form>
+          </div>
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main className="mx-auto max-w-[1440px] p-5 tablet:p-10">{children}</main>
       </div>
     </div>
   );
-}
+};
+export default AdminLayout;

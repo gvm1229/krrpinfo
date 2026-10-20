@@ -1,43 +1,59 @@
-// owner 전용 admin 대시보드. layout.tsx 의 admin shell 안에서 렌더
-import { auth } from '@/src/auth';
-import { getAllPostsForAdmin } from '@/src/lib/queries';
-import { formatDate } from '@/src/util/utils';
-
-export const metadata = {
-  title: 'Admin',
-  robots: { index: false, follow: false },
-};
-
-export default async function AdminDashboardPage() {
-  const session = await auth();
-  const posts = await getAllPostsForAdmin();
-
-  const total = posts.length;
-  const published = posts.filter((p) => p.published).length;
-  const drafts = total - published;
-  const latest = posts[0]?.updated_at ? formatDate(posts[0].updated_at) : '—';
-
-  const tiles = [
-    { label: '전체 포스트', value: total },
-    { label: '게시됨', value: published },
-    { label: '드래프트', value: drafts },
-    { label: '최근 업데이트', value: latest },
-  ];
-
+import Link from 'next/link';
+import { adminEntries } from '@/src/cms/repository';
+import { kindLabels, type Kind } from '@/src/cms/schema';
+// 콘텐츠 현황과 최근 작업
+const Dashboard = async () => {
+  const entries = await adminEntries();
+  const kinds: Kind[] = ['post', 'video', 'season', 'coupon'];
   return (
-    <div className="space-y-6">
-      <header className="space-y-1">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <p className="text-sm text-zinc-500">로그인된 계정: {session?.user?.email}</p>
+    <div className="space-y-8">
+      <header>
+        <h1 className="text-3xl font-semibold">대시보드</h1>
+        <p className="mt-2 text-muted-foreground">
+          사이트 콘텐츠를 작성하고 공개 상태를 관리하세요.
+        </p>
       </header>
-      <div className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
-        {tiles.map((tile) => (
-          <div key={tile.label} className="rounded-lg border bg-white p-4 dark:bg-zinc-950">
-            <p className="text-xs uppercase tracking-wider text-zinc-500">{tile.label}</p>
-            <p className="mt-2 text-2xl font-semibold">{tile.value}</p>
-          </div>
-        ))}
-      </div>
+      <section className="cms-panel">
+        <h2 className="mb-5 text-lg font-semibold">콘텐츠 현황</h2>
+        <div className="grid grid-cols-2 gap-6 tablet:grid-cols-4">
+          {kinds.map((kind) => (
+            <Link
+              key={kind}
+              href={'/admin/content/' + kind}
+              className="space-y-2 hover:text-[#4945ff]"
+            >
+              <span className="text-sm">{kindLabels[kind]}</span>
+              <strong className="block text-3xl">
+                {entries.filter((entry) => entry.kind === kind).length}
+              </strong>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section className="cms-panel">
+        <h2 className="mb-5 text-lg font-semibold">최근 수정한 콘텐츠</h2>
+        <div className="divide-y">
+          {[...entries]
+            .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
+            .slice(0, 10)
+            .map((entry) => (
+              <Link
+                key={entry.id}
+                href={'/admin/content/' + entry.kind + '/' + entry.id}
+                className="flex items-center justify-between gap-4 py-4"
+              >
+                <span>{entry.title}</span>
+                <span className="text-xs text-muted-foreground">
+                  {kindLabels[entry.kind]} · {entry.published ? 'Published' : 'Draft'}
+                </span>
+              </Link>
+            ))}
+        </div>
+        {!entries.length && (
+          <p className="text-muted-foreground">콘텐츠 메뉴에서 첫 항목을 추가할 수 있습니다.</p>
+        )}
+      </section>
     </div>
   );
-}
+};
+export default Dashboard;
