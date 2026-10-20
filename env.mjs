@@ -2,45 +2,49 @@ import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
 export const env = createEnv({
-  /*
-   * Serverside Environment variables, not available on the client.
-   * Will throw if you access these variables on the client.
-   */
   server: {
-    NEXT_PUBLIC_APP_URL: z.string().min(1),
     MONGODB_URL: z.string().min(1),
     YOUTUBE_API_KEY: z.string().min(1),
-    NEXON_API_KEY: z.string().min(1),
-    AUTH_SECRET: z.string().min(1),
     AUTH_GOOGLE_ID: z.string().min(1),
     AUTH_GOOGLE_SECRET: z.string().min(1),
-    AUTH_OWNER_EMAIL: z.string().email(),
-    NEXT_PUBLIC_SHOW_YOUTUBERS: z.enum(['true', 'false']).optional(),
+    AUTH_OWNER_EMAIL: z.string().min(1),
+    SUPABASE_URL: z.string().url().optional(),
+    SUPABASE_SECRET_KEY: z.string().min(1).optional(),
+    DATABASE_URL: z.string().min(1).optional(),
+    AUTH_SECRET: z.string().min(32).optional(),
+    AUTH_OWNER_ID: z.string().min(1).optional(),
+    AUTH_PASSWORD_HASH: z.string().min(1).optional(),
+    NEXON_API_KEY: z.string().min(1),
+    R2_ACCOUNT_ID: z.string().optional(),
+    R2_ACCESS_KEY_ID: z.string().optional(),
+    R2_SECRET_ACCESS_KEY: z.string().optional(),
+    R2_BUCKET: z.string().optional(),
+    R2_PUBLIC_URL: z.string().url().optional(),
   },
-  /*
-   * Environment variables available on the client (and server).
-   *
-   * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
-   */
   client: {
-    NEXT_PUBLIC_APP_URL: z.string().min(1),
+    NEXT_PUBLIC_APP_URL: z.string().url(),
     NEXT_PUBLIC_SHOW_YOUTUBERS: z.enum(['true', 'false']).optional(),
   },
-  /*
-   * Due to how Next.js bundles environment variables on Edge and Client,
-   * we need to manually destructure them to make sure all are included in bundle.
-   *
-   * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
-   */
   runtimeEnv: {
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     MONGODB_URL: process.env.MONGODB_URL,
     YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
-    NEXON_API_KEY: process.env.NEXON_API_KEY,
-    AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
     AUTH_OWNER_EMAIL: process.env.AUTH_OWNER_EMAIL,
     NEXT_PUBLIC_SHOW_YOUTUBERS: process.env.NEXT_PUBLIC_SHOW_YOUTUBERS,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
+    DATABASE_URL: process.env.DATABASE_URL,
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_OWNER_ID: process.env.AUTH_OWNER_ID,
+    AUTH_PASSWORD_HASH: process.env.AUTH_PASSWORD_HASH,
+    NEXON_API_KEY: process.env.NEXON_API_KEY,
+    R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
+    R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
+    R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
+    R2_BUCKET: process.env.R2_BUCKET,
+    R2_PUBLIC_URL: process.env.R2_PUBLIC_URL,
   },
+  emptyStringAsUndefined: true,
 });

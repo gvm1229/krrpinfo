@@ -1,6 +1,6 @@
 {
   "name": "krrpinfo",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "private": true,
   "license": "MIT",
   "author": {
@@ -12,7 +12,7 @@
     "url": "https://github.com/gvm1229/krrpinfo"
   },
   "engines": {
-    "node": ">=18.x"
+    "node": ">=22"
   },
   "packageManager": "pnpm@10.33.0",
   "scripts": {
@@ -38,7 +38,9 @@
     "setup:tinymce": "rm -rf public/tinymce && mkdir -p public/tinymce/langs && cp -r node_modules/tinymce/* public/tinymce/ && cp 'C:/Users/hojin/Documents/KEDITOR-0.7.21/langs/ko_KR.min.js' public/tinymce/langs/ko_KR.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "cms:db:apply": "node --env-file-if-exists=.env.local --import tsx scripts/cms/db.ts",
+    "cms:password": "node --import tsx scripts/cms/password.ts"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.2",
@@ -89,7 +91,17 @@
     "tailwindcss-animate": "^1.0.7",
     "tinymce": "^4.9.11",
     "unist-util-visit": "^5.1.0",
-    "zod": "^3.25.0"
+    "zod": "^3.25.0",
+    "@aws-sdk/client-s3": "^3.1154.0",
+    "@aws-sdk/s3-request-presigner": "^3.1154.0",
+    "@supabase/supabase-js": "^2.118.0",
+    "codemirror5": "npm:codemirror@^5.65.21",
+    "markdown-it": "14.3.0",
+    "sanitize-html": "^2.18.1",
+    "slate": "0.94.1",
+    "slate-history": "0.93.0",
+    "slate-react": "0.98.4",
+    "styled-components": "^6.6.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -110,7 +122,13 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "typescript": "^5.8.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "@types/codemirror": "^5.60.18",
+    "@types/markdown-it": "^14.2.0",
+    "@types/pg": "^8.23.1",
+    "@types/sanitize-html": "^2.16.2",
+    "pg": "^8.23.1",
+    "tsx": "^4.23.15"
   },
   "config": {
     "commitizen": {
