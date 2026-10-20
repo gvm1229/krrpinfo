@@ -39,7 +39,7 @@ import { auth } from '@/src/auth';
 import { revalidatePath } from 'next/cache';
 import { togglePublished } from '@/app/admin/(authenticated)/posts/actions';
 
-const mockAuth = vi.mocked(auth);
+const mockAuth = vi.mocked(auth as () => Promise<Session | null>);
 const mockRevalidatePath = vi.mocked(revalidatePath);
 
 const ownerSession: Session = {

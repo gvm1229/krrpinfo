@@ -47,7 +47,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { saveEdit } from '@/app/admin/(authenticated)/posts/[slug]/edit/actions';
 
-const mockAuth = vi.mocked(auth);
+const mockAuth = vi.mocked(auth as () => Promise<Session | null>);
 const mockRevalidatePath = vi.mocked(revalidatePath);
 const mockRedirect = vi.mocked(redirect);
 
