@@ -7,8 +7,6 @@ export const proxy = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
   if (pathname.startsWith('/admin') && !publicAdminPaths.has(pathname) && !isOwner(await auth()))
     return NextResponse.redirect(new URL('/admin/login', request.url));
-  if (pathname.startsWith('/youtubers') && process.env.NEXT_PUBLIC_SHOW_YOUTUBERS !== 'true')
-    return new NextResponse(null, { status: 404 });
   return NextResponse.next();
 };
-export const config = { matcher: ['/admin/:path*', '/youtubers/:path*'] };
+export const config = { matcher: ['/admin/:path*'] };

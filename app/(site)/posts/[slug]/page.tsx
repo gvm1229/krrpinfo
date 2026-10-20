@@ -1,144 +1,82 @@
-import { ChevronLeft } from 'lucide-react';
+import { notFound as disabledPage } from 'next/navigation';
+import { siteSettings as pageSettings } from '@/src/cms/repository';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { auth, isOwner } from '@/src/auth';
-import BreadcrumbContainer from '@/components/Breadcrumb/BreadcrumbContainer';
-import StaticImage from '@/components/Image/StaticImage';
-import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
-import Tag from '@/components/Tag/Tag';
-import { buttonVariants } from '@/components/ui/button';
-import { siteConfig } from '@/config/site';
-import { getPost, getPostMeta, getAllPostSlugs } from '@/src/lib/queries';
-import { getCachedMarkdown } from '@/src/lib/markdown';
+import { auth } from '@/src/auth';
+import { isOwner } from '@/src/cms/owner';
+import { getPost } from '@/src/lib/queries';
+import { renderPostContent } from '@/src/cms/post-content';
+import { siteSettings } from '@/src/cms/repository';
+import { env } from '@/env.mjs';
 import { getTableOfContentsFromHtml } from '@/src/util/toc';
-import { absoluteUrl, cn, formatDate } from '@/src/util/utils';
-import type { ResolvingMetadata } from 'next';
+import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
+import { Copy } from '@/components/Text/PublicSite';
+import Tag from '@/components/Tag/Tag';
+import { formatDate } from '@/src/util/utils';
 import '@/src/styles/mdx.css';
-
-export const revalidate = 60;
-
-export async function generateStaticParams() {
-  return getAllPostSlugs();
-}
-
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> },
-  parent: ResolvingMetadata,
-) {
-  const post = await getPostMeta((await params).slug);
-
+export const dynamic = 'force-dynamic';
+// 공개 글만 검색 메타데이터에 반영
+export const generateMetadata = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  if ((await pageSettings()).postsEnabled !== 'true') return {};
+  const post = await getPost((await params).slug);
   if (!post) return {};
-
+  const settings = await siteSettings();
   return {
     title: post.title,
     description: post.description,
-    keywords: post.keywords
-      ? [...((await parent).keywords ?? []), ...post.keywords]
-      : [...((await parent).keywords ?? [])],
-    authors: [
-      {
-        name: 'Megi',
-        url: 'https://github.com/gvm1229',
-      },
-    ],
+    keywords: post.keywords,
+    alternates: { canonical: '/posts/' + post.slug },
+    authors: [{ name: settings.author, url: settings.authorUrl }],
     openGraph: {
-      title: post.title,
-      description: post.description,
       type: 'article',
-      authors: ['Megi'],
-      url: absoluteUrl(`/posts/${post.slug}`),
-      images: [
-        {
-          url: post.thumbnail,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [post.thumbnail],
-      creator: 'Megi',
-    },
-    metadataBase: new URL(`${siteConfig.url}/posts/${post.slug}`),
-    alternates: {
-      canonical: '/',
-      languages: {
-        'ko-KR': '/ko-KR',
-        // 'en-US': '/en-US',
-      },
+      url: env.NEXT_PUBLIC_APP_URL + '/posts/' + post.slug,
+      images: post.thumbnail ? [{ url: post.thumbnail }] : [],
     },
   };
-}
-
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+};
+// 공개 글 상세 화면
+const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  if ((await pageSettings()).postsEnabled !== 'true') disabledPage();
   const { slug } = await params;
-  const [post, session] = await Promise.all([getPost(slug), auth()]);
+  const post = await getPost(slug);
   if (!post) notFound();
-
-  const contentHtml = await getCachedMarkdown(slug, post.content);
-  const toc = getTableOfContentsFromHtml(contentHtml);
-
+  const [html, session] = await Promise.all([renderPostContent(post), auth()]);
+  const toc = getTableOfContentsFromHtml(html);
   return (
-    <div className="container flex mobile_only:flex-col tablet:gap-x-16">
-      <aside className="hidden tablet:block">
-        <div className="shrink-0 tablet:sticky tablet:top-16 tablet:-mt-10 tablet:max-h-[calc(var(--vh)-4rem)] tablet:overflow-y-auto tablet:pt-10">
-          <Link
-            href="/posts"
-            className={cn(buttonVariants({ variant: 'ghost' }), 'relative inline-flex text-base')}
-          >
-            <ChevronLeft className="mr-2 size-4" />
-            포스트 목록으로 돌아가기
-          </Link>
-        </div>
-      </aside>
-      <main className="space-y-6 tablet:mt-1 tablet:flex-1">
-        <header className="space-y-4 border-b pb-4 text-left tablet:space-y-6 tablet:pb-6">
-          <BreadcrumbContainer itemsInput={[{ url: '/posts', label: '포스트' }]} />
-          <p className="text-base font-medium text-muted-foreground tablet:text-lg">
-            {formatDate(post.pub_date)}
-          </p>
+    <div className="container flex flex-col gap-8 tablet:flex-row">
+      <main className="min-w-0 flex-1 space-y-6">
+        <Link href="/posts" className="text-brand-blue hover:underline">
+          <Copy id="posts.back" />
+        </Link>
+        <header className="space-y-4 border-b pb-5">
+          <p className="text-muted-foreground">{formatDate(post.pub_date)}</p>
           <div className="flex items-start justify-between gap-4">
             <h1 className="text-2xl font-bold tablet:text-title">{post.title}</h1>
             {isOwner(session) && (
               <Link
-                href={`/admin/posts/${slug}/edit`}
-                className={cn(buttonVariants({ size: 'sm' }), 'shrink-0')}
+                href={'/admin/posts/' + slug + '/edit'}
+                className="whitespace-nowrap rounded-md bg-brand-blue px-4 py-2 text-white"
               >
                 Edit
               </Link>
             )}
           </div>
-          {post.description && (
-            <p className="text-lg font-semibold text-muted-foreground tablet:text-xl">
-              {post.description}
-            </p>
-          )}
+          {post.description && <p className="text-lg text-muted-foreground">{post.description}</p>}
           <Tag tagInput={post.tags} />
         </header>
-        <div className="block border-b pb-6 text-sm tablet:hidden">
-          <DashboardTableOfContents toc={toc} />
-        </div>
-        <StaticImage src={post.thumbnail} alt="thumbnail" width={1920} height={1080} isPriority />
-        <div className="mdx" dangerouslySetInnerHTML={{ __html: contentHtml }} />
-        <footer className="flex w-full items-center justify-center border-t pt-8 tablet:hidden">
-          <Link
-            href="/posts"
-            className={cn(buttonVariants({ variant: 'ghost' }), 'relative inline-flex text-base')}
-          >
-            <ChevronLeft className="mr-2 size-4" />
-            포스트 목록으로 돌아가기
-          </Link>
-        </footer>
+        {post.thumbnail && (
+          <img src={post.thumbnail} alt={post.title} className="h-auto w-full rounded-lg" />
+        )}
+        <div className="mdx" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
-      <aside className="hidden text-sm tablet:block">
-        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] shrink-0 overflow-y-auto pt-10 tablet:min-w-48">
+      <aside className="hidden w-56 shrink-0 text-sm tablet:block">
+        <div className="sticky top-28">
           <DashboardTableOfContents toc={toc} />
         </div>
       </aside>
     </div>
   );
-}
+};
+export default PostPage;

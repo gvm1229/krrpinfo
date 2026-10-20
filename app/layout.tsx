@@ -1,119 +1,60 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import '@/src/styles/globals.css';
-import React from 'react';
 import { ThemeProvider } from '@/components/DarkMode/theme-provider';
-import { siteConfig } from '@/config/site';
-
-export const metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: [
-    'Kartrider Rush+',
-    'Kartrider Rush Plus',
-    '카트라이더 러쉬플러스',
-    '카러플',
-    '정보',
-    '정보통',
-    '공략',
-    '팁',
-  ],
-  authors: [
-    {
-      name: 'Megi',
-      url: 'https://github.com/gvm1229',
-    },
-  ],
-  creator: 'Megi',
-  openGraph: {
-    type: 'website',
-    locale: 'ko_KR',
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
+import { siteSettings } from '@/src/cms/repository';
+import { env } from '@/env.mjs';
+import '@/src/styles/globals.css';
+export const dynamic = 'force-dynamic';
+// CMS 사이트 메타데이터
+export const generateMetadata = async () => {
+  try {
+    const settings = await siteSettings();
+    return {
+      title: { default: settings.name, template: '%s | ' + settings.name },
+      description: settings.description,
+      keywords: settings.keywords
+        .split(',')
+        .map((value) => value.trim())
+        .filter(Boolean),
+      authors: [{ name: settings.author, url: settings.authorUrl }],
+      creator: settings.author,
+      openGraph: {
+        type: 'website',
+        locale: 'ko_KR',
+        url: env.NEXT_PUBLIC_APP_URL,
+        title: settings.name,
+        description: settings.description,
+        siteName: settings.name,
+        images: settings.ogImage
+          ? [{ url: settings.ogImage, width: 1200, height: 630, alt: settings.name }]
+          : [],
       },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
+      twitter: {
+        card: 'summary_large_image' as const,
+        title: settings.name,
+        description: settings.description,
+        images: settings.ogImage ? [settings.ogImage] : [],
       },
-    ],
-    creator: 'Megi',
-  },
-  // themeColor: [
-  //   { media: '(prefers-color-scheme: light)', color: 'white' },
-  //   { media: '(prefers-color-scheme: dark)', color: 'black' },
-  // ],
-  icons: {
-    // In case of Dark Mode icon switch
-    // icon: [
-    //   {
-    //     media: '(prefers-color-scheme: light)',
-    //     url: '/favicon.ico',
-    //     href: '/favicon.ico',
-    //   },
-    //   {
-    //     media: '(prefers-color-scheme: dark)',
-    //     url: '/favicon.ico',
-    //     href: '/favicon.ico',
-    //   },
-    // ],
-    icon: '/favicon.ico',
-    shortcut: '/apple-touch-icon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
-  metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'ko-KR': '/ko-KR',
-      // 'en-US': '/en-US',
-    },
-  },
-  verification: {
-    google: 'C7yAFuoHGn1yFWeweU6z9pwxdHNzwmYUAajFNjBfGNA',
-    naver: 'b41015a8ba8f731e92476553c4fa3dc48ad9f63c',
-  },
+      metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+      verification: {
+        google: settings.googleVerification,
+        other: { naver: settings.naverVerification },
+      },
+    };
+  } catch {
+    return {};
+  }
 };
-
-export const viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#020617' },
-  ],
-};
-
-export const revalidate = 60;
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="relative min-h-svh bg-background antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
-  );
-}
+// 공개 사이트와 관리자 공통 기반
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <html lang="ko" suppressHydrationWarning>
+    <body className="relative min-h-svh bg-background antialiased">
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
+      <Analytics />
+      <SpeedInsights />
+    </body>
+  </html>
+);
+export default RootLayout;

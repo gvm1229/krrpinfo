@@ -1,9 +1,7 @@
 'use client';
-
-import { Circle, File, Newspaper } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import * as React from 'react';
-import { Button } from '@/components/ui/button';
+import { Search, FileText } from 'lucide-react';
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,125 +10,74 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { navContents } from '@/config/navBar';
-import { cn } from '@/src/util/utils';
-
-interface CommandMenuProps {
+import { usePublicSite, useCopy } from '@/components/Text/PublicSite';
+import { text } from '@/src/cms/schema';
+// CMS 메뉴와 공개 글 검색
+export const CommandMenu = ({
+  posts = [],
+}: {
   userAgent: string;
   posts?: { title: string; slug: string; description: string | null; tags: string[] }[];
-}
-
-export function CommandMenu({ userAgent = '', posts = [] }: CommandMenuProps) {
+}) => {
+  const { navigation } = usePublicSite();
+  const t = useCopy();
+  const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
-
-  const isAppleDevice = () => {
-    const appleDevices = ['Mac', 'iPhone', 'iPod', 'iPad'];
-    return appleDevices.some((device: string) => userAgent.includes(device));
-  };
-
-  React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-        if (
-          (e.target instanceof HTMLElement && e.target.isContentEditable) ||
-          e.target instanceof HTMLInputElement ||
-          e.target instanceof HTMLTextAreaElement ||
-          e.target instanceof HTMLSelectElement
-        )
-          return;
-
-        e.preventDefault();
-        setOpen((open) => !open);
+  useEffect(() => {
+    const listener = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))
+      )
+        return;
+      if ((event.key === 'k' && (event.ctrlKey || event.metaKey)) || event.key === '/') {
+        event.preventDefault();
+        setOpen((current) => !current);
       }
     };
-
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener('keydown', listener);
+    return () => document.removeEventListener('keydown', listener);
   }, []);
-
-  const runCommand = React.useCallback((command: () => unknown) => {
+  const select = (url: string) => {
     setOpen(false);
-    command();
-  }, []);
-
+    router.push(url);
+  };
   return (
     <>
-      <Button
-        variant="outline"
-        className={cn(
-          'relative h-10 w-full shrink-0 justify-start rounded-[0.5rem] bg-background pr-12 text-sm font-medium text-muted-foreground shadow-none tablet:w-56 laptop:w-64',
-        )}
+      <button
+        type="button"
+        className="flex items-center gap-2 rounded-md bg-zinc-700 px-3 py-2 text-sm text-white"
         onClick={() => setOpen(true)}
+        aria-label={t('search.placeholder')}
       >
-        <span className="inline-flex">검색...</span>
-        <kbd className="pointer-events-none absolute right-[0.6rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 tablet:flex">
-          {isAppleDevice() ? (
-            <span suppressHydrationWarning className="text-sm">
-              ⌘
-            </span>
-          ) : (
-            <span suppressHydrationWarning className="text-xs">
-              {'Ctrl + '}
-            </span>
-          )}
-          K
-        </kbd>
-      </Button>
+        <Search size={17} />
+        <span className="hidden laptop:inline">{t('search.placeholder')}</span>
+      </button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="검색..." />
+        <CommandInput placeholder={t('search.placeholder')} />
         <CommandList>
-          <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-          <CommandGroup heading="헤더 링크">
-            {navContents
-              .filter((navItem) => !navItem.items)
-              .map((navItem) => (
-                <CommandItem
-                  key={navItem.href}
-                  value={navItem.title}
-                  onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string));
-                  }}
-                >
-                  <File className="mr-2 size-4" />
-                  {navItem.title}
-                </CommandItem>
-              ))}
-          </CommandGroup>
-          {navContents
-            .filter((navItem) => navItem.items)
-            .map((navItem) => (
-              <div key={navItem.title}>
-                {navItem?.items?.length && (
-                  <CommandGroup heading={navItem.title}>
-                    {navItem.items.map((navItem) => (
-                      <CommandItem
-                        key={navItem.href}
-                        value={navItem.title}
-                        onSelect={() => {
-                          runCommand(() => router.push(navItem.href as string));
-                        }}
-                      >
-                        <div className="mr-2 flex size-4 items-center justify-center">
-                          <Circle className="size-3" />
-                        </div>
-                        {navItem.title}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-              </div>
+          <CommandEmpty>{t('search.empty')}</CommandEmpty>
+          <CommandGroup heading={t('search.navigation')}>
+            {navigation.map((entry) => (
+              <CommandItem
+                key={entry.id}
+                value={entry.title}
+                onSelect={() => select(text(entry, 'href'))}
+              >
+                <FileText className="mr-2 size-4" />
+                {entry.title}
+              </CommandItem>
             ))}
-          <CommandGroup heading="포스트">
+          </CommandGroup>
+          <CommandGroup heading={t('search.posts')}>
             {posts.map((post) => (
               <CommandItem
                 key={post.slug}
                 value={post.title}
-                onSelect={() => {
-                  runCommand(() => router.push(`/posts/${post.slug}`));
-                }}
+                onSelect={() => select('/posts/' + post.slug)}
               >
-                <Newspaper className="mr-2 size-4" />
+                <FileText className="mr-2 size-4" />
                 {post.title}
               </CommandItem>
             ))}
@@ -139,4 +86,4 @@ export function CommandMenu({ userAgent = '', posts = [] }: CommandMenuProps) {
       </CommandDialog>
     </>
   );
-}
+};

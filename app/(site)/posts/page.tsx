@@ -1,49 +1,44 @@
+import { notFound as disabledPage } from 'next/navigation';
+import { siteSettings as pageSettings } from '@/src/cms/repository';
 import Blog from '@/components/Blog/Blog';
-import { siteConfig } from '@/config/site';
 import { getAllPosts } from '@/src/lib/queries';
-
-export const metadata = {
-  title: '포스트 목록',
-  metadataBase: new URL(`${siteConfig.url}/posts`),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'ko-KR': '/ko-KR',
-      // 'en-US': '/en-US',
-    },
-  },
+import { publicCopy } from '@/src/cms/repository';
+import { Copy } from '@/components/Text/PublicSite';
+// 관리자 문구로 목록 메타데이터 표시
+export const generateMetadata = async () => {
+  if ((await pageSettings()).postsEnabled !== 'true') return {};
+  return { title: (await publicCopy())['posts.title'], alternates: { canonical: '/posts' } };
 };
-
-export const revalidate = 60;
-
-export default async function PostRootPage() {
+// 공개 글 목록
+const PostsPage = async () => {
+  if ((await pageSettings()).postsEnabled !== 'true') disabledPage();
   const posts = await getAllPosts();
-
   return (
-    <div className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
-      {posts.length > 0 ? (
-        <>
-          <h1 className="text-4xl font-bold laptop:text-5xl">포스트 목록</h1>
-          <div className="relative grid w-full grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
-            {posts.map((post, index) => (
-              <Blog
-                key={post.id}
-                toNavigate={`/posts/${post.slug}`}
-                isImagePriority={index < 6}
-                title={post.title}
-                description={post.description ?? undefined}
-                date={post.pub_date}
-                thumbnail={post.thumbnail}
-                tags={post.tags ?? []}
-              />
-            ))}
-          </div>
-        </>
+    <main className="container space-y-10">
+      <h1 className="text-center text-4xl font-bold">
+        <Copy id="posts.title" />
+      </h1>
+      {posts.length ? (
+        <div className="grid grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
+          {posts.map((post, index) => (
+            <Blog
+              key={post.id}
+              toNavigate={'/posts/' + post.slug}
+              thumbnail={post.thumbnail}
+              title={post.title}
+              description={post.description ?? undefined}
+              date={post.pub_date}
+              tags={post.tags}
+              isImagePriority={index < 6}
+            />
+          ))}
+        </div>
       ) : (
-        <p className="text-center text-2xl font-bold tablet:text-3xl laptop:text-4xl">
-          작성된 포스트가 없습니다.
+        <p className="py-12 text-center">
+          <Copy id="posts.empty" />
         </p>
       )}
-    </div>
+    </main>
   );
-}
+};
+export default PostsPage;

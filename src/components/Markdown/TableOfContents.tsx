@@ -3,6 +3,7 @@
 'use client';
 
 import * as React from 'react';
+import { Copy } from '@/components/Text/PublicSite';
 
 import { useMounted } from '@/src/hooks/use-mounted';
 import type { TableOfContents } from '@/src/util/toc';
@@ -14,13 +15,14 @@ interface TocProps {
 
 export function DashboardTableOfContents({ toc }: TocProps) {
   const itemIds = React.useMemo(
-    () => (toc.items
-      ? toc.items
-        .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
-        .flat()
-        .filter(Boolean)
-        .map((id) => id?.split('#')[1])
-      : []),
+    () =>
+      toc.items
+        ? toc.items
+            .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
+            .flat()
+            .filter(Boolean)
+            .map((id) => id?.split('#')[1])
+        : [],
     [toc],
   );
   const activeHeading = useActiveItem(itemIds);
@@ -30,7 +32,9 @@ export function DashboardTableOfContents({ toc }: TocProps) {
 
   return mounted ? (
     <div className="space-y-2">
-      <p className="text-xl font-semibold tablet:text-2xl">목차</p>
+      <p className="text-xl font-semibold tablet:text-2xl">
+        <Copy id="posts.toc" />
+      </p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   ) : null;

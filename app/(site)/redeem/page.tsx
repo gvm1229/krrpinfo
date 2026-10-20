@@ -1,27 +1,27 @@
+import { notFound as disabledPage } from 'next/navigation';
+import { siteSettings as pageSettings } from '@/src/cms/repository';
 import RedeemContainer from '@/components/Nexon/RedeemContainer';
 import RedeemCard from '@/components/Redeem/RedeemCard';
-import { siteConfig } from '@/config/site';
-
-export const metadata = {
-  title: '쿠폰 리딤',
-  metadataBase: new URL(`${siteConfig.url}/redeem`),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'ko-KR': '/ko-KR',
-      // 'en-US': '/en-US',
-    },
-  },
+import { Copy } from '@/components/Text/PublicSite';
+import { publicCopy } from '@/src/cms/repository';
+// 쿠폰 목록 메타데이터
+export const generateMetadata = async () => {
+  if ((await pageSettings()).redeemEnabled !== 'true') return {};
+  return { title: (await publicCopy())['redeem.title'], alternates: { canonical: '/redeem' } };
 };
-
-export default async function RedeemRootPage() {
+// 기존 쿠폰 사용 기능과 CMS 쿠폰 목록 연결
+const RedeemPage = async () => {
+  if ((await pageSettings()).redeemEnabled !== 'true') disabledPage();
   return (
-    <main className="container relative flex flex-col items-center gap-y-12 laptop:gap-y-16">
-      <h1 className="text-4xl font-bold laptop:text-5xl">쿠폰 리딤</h1>
-      <div className="flex w-full flex-col gap-8 tablet:grid tablet:grid-cols-2 tablet:gap-16">
+    <main className="container space-y-12">
+      <h1 className="text-center text-4xl font-bold">
+        <Copy id="redeem.title" />
+      </h1>
+      <div className="grid gap-8 tablet:grid-cols-2">
         <RedeemContainer />
         <RedeemCard />
       </div>
     </main>
   );
-}
+};
+export default RedeemPage;

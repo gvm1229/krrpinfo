@@ -1,86 +1,62 @@
-// MongoDB 포스트 쿼리
 import { cache } from 'react';
-import { clientPromise } from '@/src/util/db';
+import { publishedEntries, adminEntries } from '@/src/cms/repository';
+import { text, list, type Entry } from '@/src/cms/schema';
 import type { Post } from '@/src/types/post';
-
-const DB_NAME = 'krrpinfo';
-
-type PostDoc = Omit<Post, 'pub_date' | 'created_at' | 'updated_at'> & {
-  pub_date: Date;
-  created_at: Date;
-  updated_at: Date;
-};
-
-type PostMeta = Pick<Post, 'title' | 'description' | 'thumbnail' | 'slug' | 'keywords'>;
-type PostSearch = Pick<Post, 'title' | 'slug' | 'description' | 'tags'>;
-
-const collection = async () => {
-  const client = await clientPromise;
-  return client.db(DB_NAME).collection<PostDoc>('posts');
-};
-
-const toPost = (doc: PostDoc): Post => ({
-  ...doc,
-  pub_date: doc.pub_date.toISOString(),
-  created_at: doc.created_at.toISOString(),
-  updated_at: doc.updated_at.toISOString(),
+// CMS 글을 기존 공개 화면 형식으로 연결
+export const toPost = (entry: Entry): Post => ({
+  id: text(entry, 'legacyId') || entry.id,
+  slug: entry.slug,
+  title: entry.title,
+  description: text(entry, 'description') || null,
+  pub_date: text(entry, 'pubTimestamp') || text(entry, 'pubDate') || entry.created_at,
+  thumbnail: text(entry, 'thumbnail'),
+  tags: list(text(entry, 'tags')),
+  keywords: list(text(entry, 'keywords')),
+  content: typeof entry.data.body === 'string' ? entry.data.body : JSON.stringify(entry.data.body),
+  content_format: text(entry, 'contentFormat') || 'legacy-mdx',
+  published: entry.published,
+  created_at: entry.created_at,
+  updated_at: entry.updated_at,
 });
-
-// request 단위 캐싱 (generateMetadata + page 중복 호출 제거)
-export const getPost = cache(async (slug: string): Promise<Post | null> => {
-  const posts = await collection();
-  // String() 강제 변환으로 NoSQL injection 방지
-  const doc = await posts.findOne({ slug: String(slug), published: true });
-  return doc ? toPost(doc) : null;
+// 공개 글 전체 조회
+export const getAllPosts = cache(
+  async (): Promise<Post[]> =>
+    (await publishedEntries('post'))
+      .map(toPost)
+      .sort((a, b) => b.pub_date.localeCompare(a.pub_date)),
+);
+// 공개 글 단건 조회
+export const getPost = cache(
+  async (slug: string): Promise<Post | null> =>
+    (await getAllPosts()).find((post) => post.slug === slug) ?? null,
+);
+// 공개 메타데이터 조회
+export const getPostMeta = cache(async (slug: string) => {
+  const post = await getPost(slug);
+  if (!post) return null;
+  return {
+    title: post.title,
+    description: post.description,
+    thumbnail: post.thumbnail,
+    slug: post.slug,
+    keywords: post.keywords,
+  };
 });
-
-// generateMetadata 전용 경량 쿼리
-export const getPostMeta = cache(async (slug: string): Promise<PostMeta | null> => {
-  const posts = await collection();
-  const doc = await posts.findOne(
-    { slug: String(slug), published: true },
-    { projection: { title: 1, description: 1, thumbnail: 1, slug: 1, keywords: 1, _id: 0 } },
-  );
-  return doc as PostMeta | null;
-});
-
-// published 포스트 전체 조회 (날짜 내림차순)
-export async function getAllPosts(): Promise<Post[]> {
-  const posts = await collection();
-  const docs = await posts.find({ published: true }).sort({ pub_date: -1 }).toArray();
-  return docs.map(toPost);
-}
-
-// generateStaticParams 전용
-export async function getAllPostSlugs(): Promise<Array<{ slug: string }>> {
-  const posts = await collection();
-  const docs = await posts.find({ published: true }, { projection: { slug: 1, _id: 0 } }).toArray();
-  return docs.map((p) => ({ slug: p.slug }));
-}
-
-// admin 전용 — published/draft 구분 없이 전체 조회 (updated_at 내림차순)
-export async function getAllPostsForAdmin(): Promise<Post[]> {
-  const posts = await collection();
-  const docs = await posts.find({}).sort({ updated_at: -1 }).toArray();
-  return docs.map(toPost);
-}
-
-// admin 편집용 — published 필터 없이 slug 단건 조회
-export const getPostByAnySlug = cache(async (slug: string): Promise<Post | null> => {
-  const posts = await collection();
-  const doc = await posts.findOne({ slug: String(slug) });
-  return doc ? toPost(doc) : null;
-});
-
-// CommandMenu 전용 경량 쿼리 (서버 정렬)
-export async function getPostsForSearch(): Promise<PostSearch[]> {
-  const posts = await collection();
-  const docs = await posts
-    .find(
-      { published: true },
-      { projection: { title: 1, slug: 1, description: 1, tags: 1, _id: 0 } },
-    )
-    .sort({ pub_date: -1 })
-    .toArray();
-  return docs as unknown as PostSearch[];
-}
+// 공개 글 주소 조회
+export const getAllPostSlugs = cache(async () =>
+  (await getAllPosts()).map((post) => ({ slug: post.slug })),
+);
+// 공개 검색용 글 조회
+export const getPostsForSearch = cache(async () =>
+  (await getAllPosts()).map(({ title, slug, description, tags }) => ({
+    title,
+    slug,
+    description,
+    tags,
+  })),
+);
+// 운영자 글 전체 조회
+export const getAllPostsForAdmin = async () => (await adminEntries('post')).map(toPost);
+// 운영자 글 단건 조회
+export const getPostByAnySlug = async (slug: string) =>
+  (await getAllPostsForAdmin()).find((post) => post.slug === slug) ?? null;

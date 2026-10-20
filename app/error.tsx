@@ -1,60 +1,18 @@
 'use client';
-
-// Error components must be Client Components
-
-import { Home } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { siteConfig } from '@/config/site';
-import { Button } from '@/src/components/ui/button';
-
-export default function Error({
-  error,
-  // reset,
-}: {
-  error: Error & { digest?: string };
-  // reset: () => void
-}) {
-  const router = useRouter();
-
+import { useEffect } from 'react';
+// 데이터 연결 실패 시 독립적으로 표시하는 복구 화면
+const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
+  useEffect(() => {
+    console.error('[error::ErrorPage] ' + (error.digest ?? 'request failed'));
+  }, [error]);
   return (
-    <>
-      <title>{`알 수 없는 오류 | ${siteConfig.name}`}</title>
-      <div className="absolute inset-0 mx-8 flex items-center justify-center">
-        <Card className="flex w-full flex-col items-center justify-center">
-          <CardHeader className="space-y-2 text-center tablet:space-y-4 tablet:pt-12">
-            <CardTitle className="text-4xl tablet:text-6xl laptop:text-7xl">오류</CardTitle>
-            <h1 className="text-2xl font-medium tracking-tight tablet:text-3xl laptop:text-4xl">
-              무언가가 잘못되었습니다!
-            </h1>
-            <CardDescription className="pt-2 text-base tablet:text-xl laptop:text-2xl">
-              {error.message}
-            </CardDescription>
-          </CardHeader>
-          <CardFooter className="flex justify-center tablet:pb-12">
-            {/* <Button
-            onClick={
-              // Attempt to recover by trying to re-render the segment
-              () => reset()
-            }
-            className="text-lg tablet:h-13 tablet:text-xl"
-          >
-            Try again
-          </Button>
-        </CardFooter> */}
-            <Button
-              onClick={() => {
-                router.push('/');
-                router.refresh();
-              }}
-              className="flex items-center gap-3 text-lg tablet:h-13 tablet:text-xl"
-            >
-              <Home className="size-4 tablet:size-6" />홈 화면으로 돌아가기
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    </>
+    <main className="mx-auto max-w-lg space-y-5 p-8">
+      <h1 className="text-2xl font-bold">화면을 불러오지 못했습니다.</h1>
+      <p>잠시 후 다시 시도해 주세요.</p>
+      <button className="rounded-md bg-blue-600 px-4 py-2 text-white" onClick={reset}>
+        다시 시도
+      </button>
+    </main>
   );
-}
+};
+export default ErrorPage;
