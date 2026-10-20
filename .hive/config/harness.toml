@@ -7,7 +7,7 @@ primary_host = "codex"
 external_capability_detection = "unknown"
 resolved_owner = "host-native"
 resolution_evidence_digest = "sha256:5e6158328dda5c78b9633e7e14b7f5effa2fe00fff9e80fdf515477b49512139"
-usage_stop_remaining_percent = 10
+usage_stop_remaining_percent = 30
 elevated_judge_quorum = "2/3"
 critical_judge_quorum = "3/3+human"
 

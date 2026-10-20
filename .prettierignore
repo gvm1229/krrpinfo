@@ -4,6 +4,7 @@
 /GEMINI.md
 /.hive/setup-answers.yml
 /.hive/config/skill-providers.json
+/.hive/config/project-overrides.json
 /.hive/directives/
 
 # AIGENT-HIVE:FORMAT:START

@@ -12,9 +12,6 @@ This file provides guidance to local LLM agents when working with code in this r
 
 ### Response Rules
 
-- 사용자가 **영어로 질문**한 경우: **한국어로 답변** + **원 질문을 교정한 영어 문장**을 함께 제공
-- 원격 환경에서 한글 입력이 불가할 때 영어로 보내는 사용자 보조 (영어 학습 목적도 겸함)
-- 형식: 답변 끝에 한 줄 `> Corrected English: "..."` 추가
 - **Discord 수신 acknowledgement**: 사용자가 Discord 채널을 통해 메시지를 전송한 경우, task 착수 전 먼저 간단한 acknowledgement 응답 (예: "received", "확인", "got it") 을 Discord 채널로 reply. 이후 task 진행.
 
 ### Chat
@@ -42,7 +39,7 @@ This file provides guidance to local LLM agents when working with code in this r
 - **Tailwind CSS**: Use Tailwind CSS for all styling unless there's a specific reason not to.
 - **Button styles**: Every buttons like for example, "add project", "edit", "delete" must have a style of a solid background color, white text, and rounded corners. The text inside those buttons must not shrink or grow, nor be transferred into the next line (nowrap).
 - **Components**: `const` 함수형 컴포넌트만 사용. Server Component 기본, client interactivity 필요 시 `"use client"` 명시.
-- **Branch strategy**: 프로덕션 = `release` 브랜치. 작은 작업은 작업 브랜치(`clean-up` 등)에서 직접 commit, **큰 task는 별도 feature branch** (`feat/<name>`, `fix/<name>` 등) 생성 후 PR.
+- **Branch strategy**: 프로덕션 = `release`, 개발 통합 = `develop`. 작업 브랜치는 커밋 타입과 같은 `feat/`, `fix/`, `docs/`, `style/`, `refactor/`, `perf/`, `test/`, `chore/`, `revert/` 중 작업 목적에 맞는 접두사와 짧은 kebab-case 이름 사용 (예: `feat/cms-mvp`, `fix/admin-login`). `codex/`, `claude/`, `agent/` 등 도구·제공자 이름 접두사와 접두사 없는 작업 브랜치 생성 금지. `release`와 `develop`은 고정 통합 브랜치 예외. 작은 작업은 해당 작업 브랜치에서 직접 commit, 큰 작업은 별도 작업 브랜치에서 구현 후 PR.
 
 ## Documentation Requirements
 
