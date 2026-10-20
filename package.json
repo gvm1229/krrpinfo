@@ -1,6 +1,6 @@
 {
   "name": "krrpinfo",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "private": true,
   "license": "MIT",
   "author": {
@@ -40,7 +40,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "cms:db:apply": "node --env-file-if-exists=.env.local --import tsx scripts/cms/db.ts",
-    "cms:password": "node --import tsx scripts/cms/password.ts"
+    "cms:password": "node --import tsx scripts/cms/password.ts",
+    "cms:migrate": "node --env-file-if-exists=.env.local --import tsx scripts/cms/migrate.ts"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.2",
