@@ -5,7 +5,10 @@
 - 1인용 CMS를 Next.js·Supabase·R2·NextAuth Credentials/JWT에 연결하고 Strapi의 Slate/CodeMirror 편집 기술과 선별 소스 적용
 - 콘텐츠·사이트 설정·공개 문구를 관리자에서 편집하고 공개 화면·검색·메타데이터·사이트맵에 반영
 - 완료한 TODO와 설정·문서를 단계별 커밋으로 보존, 최종 0.1.22에서 Windows 테스트 28개·타입·빌드 통과
-- 실제 R2 전송·서명 PUT·공개 조회·임시 파일 삭제와 CORS 사전 요청 확인. Session pooler와 공식 공개 CA로 실제 DB 인증·암호화·서버 인증서 검증 통과, 초기 SQL·실제 이전·로그인 검증 진행
+- Session pooler와 공식 CA로 실제 DB 인증·암호화·서버 인증서 검증 통과. 실제 초기 SQL·항목 144개·고유 미디어 30개 이전·재실행 시 수정값 보존·이미지 참조 31개 바이트 일치 확인
+- 실제 익명 DB 접근 거부·Draft 차단·Published 본문과 사이트맵 반영·R2 이미지 최적화 확인
+- 사용자가 직접 로그인한 Windows Chrome에서 Blocks 저장·재열기와 승인한 이미지의 실제 R2 업로드·등록·원본 바이트 일치 확인. Blocks 물리적 한글 조합·선택·붙여넣기·실행 취소는 사용자 정상 확인
+- Markdown 추가 시험의 형식 변경 확인창은 Chrome 도구 제한으로 사용자 클릭 대기. 실제 미디어 삭제 보호 시험/시험 데이터 정리와 Preview 배포는 승인 대기
 - 아래는 기반 UI 브랜치에서 이어받은 누적 기록이며 기존 MongoDB·Google·TinyMCE는 현재 CMS에서 제거
 
 ## 기존 UI 변경 누적 기록
