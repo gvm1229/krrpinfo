@@ -147,14 +147,19 @@ Hive 설치만 커밋 `2f3a258`에 보존했다. 이후 CLI로 이 프로젝트�
 ### 실제 연결 확인 추가
 
 - Windows·Codex에서 실제 R2의 임시 PNG 전송과 서명 주소를 통한 PUT 모두 HTTP 200. 크기·형식, 공개 주소의 원본 바이트 일치, 임시 파일 삭제까지 확인했다. 실제 콘텐츠의 업로드 완료 등록·사용 중 삭제 차단은 관리자 로그인과 DB 초기화 후 확인한다.
-- localhost:3000 출처의 CORS 사전 요청은 HTTP 403이며, 현재 키의 CORS 정책 조회도 AccessDenied이다. 기존 정책을 확인하거나 바꾸지 않았다. Cloudflare Dashboard의 사용자 설정이 필요하다.
+- 최초 localhost:3000 출처의 CORS 사전 요청은 HTTP 403이었다. 후속 요청은 HTTP 204와 해당 출처 허용을 확인했다. 이 작업에서 버킷 정책을 변경하지 않았으며 실제 관리자 업로드는 DB·로그인 설정 후 확인한다.
 - Supabase 서비스 키 형식과 API 응답을 확인했으나 CMS 테이블 조회는 PGRST205다. 초기 SQL과 실제 콘텐츠 이전은 아직 적용하지 않았다.
-- .env.local에 Supabase·R2 값은 있지만 DATABASE_URL·AUTH_SECRET·AUTH_OWNER_ID·AUTH_PASSWORD_HASH가 비어 있다. 비밀값은 출력하거나 Git에 추가하지 않았다.
+- .env.local의 AUTH_SECRET은 사용자 요청으로 난수 생성·저장했고 AUTH_OWNER_ID 등록을 확인했다. DATABASE_URL은 비어 있고 AUTH_PASSWORD_HASH는 지원하는 scrypt 형식이 아니어서 추가 설정이 필요하다. 비밀값은 출력하거나 Git에 추가하지 않았다.
+
+### 두 연결 주소의 역할
+
+- SUPABASE_URL: Supabase 클라이언트가 콘텐츠를 조회·저장하는 HTTPS Data API 주소. 서버 비밀키와 함께 사용한다.
+- DATABASE_URL: cms:db:apply가 초기 테이블과 함수를 만드는 SQL을 실행하기 위한 PostgreSQL 접속 주소. DB 사용자·비밀번호를 사용한다.
+- 두 주소는 같은 프로젝트를 가리키지만 접속 방식과 인증 정보가 다르다. 현재 환경의 PostgreSQL 접속은 Connect의 Session pooler 주소를 사용할 수 있다. [공식 연결 안내](https://supabase.com/docs/guides/database/connecting-to-postgres#pooler-session-mode)
 
 ### 남은 완료 기준
 
-- `awaiting-external-evidence`: `.env.example` 기준으로 위 네 DB·로그인 설정값을 로컬 환경에 등록해야 초기 SQL·실제 이전·관리자 변경 반영을 확인할 수 있다. 비밀값을 대화에 전달하지 않는다.
-- `awaiting-user-authority`: 현재 R2 키로 CORS 정책을 읽을 권한이 없어 Cloudflare Dashboard에서 localhost:3000의 PUT·Content-Type 허용 설정이 필요하다. 기존 정책을 보존하고 사용자 설정 뒤 브라우저 업로드를 다시 확인한다.
+- `awaiting-external-evidence`: DATABASE_URL 등록과 AUTH_PASSWORD_HASH의 scrypt 형식 수정 뒤 초기 SQL·실제 이전·관리자 변경 반영을 확인한다. 비밀값을 대화에 전달하지 않는다.
 - `awaiting-external-evidence`: 실제 한국어 IME의 조합·선택·붙여넣기·실행 취소와 이미지/YouTube/Markdown의 실제 운영 파일 연결을 확인한다. 도구를 통한 한글 입력은 물리적 IME 검증을 대신하지 않는다.
 - `awaiting-user-authority`: 실제 연결 검증 뒤 Vercel Preview 배포를 승인하면 Preview에서 변경 반영을 확인한다. 운영 배포·보호 브랜치 통합은 별도 승인 대상이다.
 
