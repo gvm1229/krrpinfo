@@ -4,6 +4,8 @@
 
 - 로컬 후속 수정 0.1.25: 기존 MDX 색칠기 지연 로드와 공개 날짜의 Asia/Seoul 표시. UTC 조건 테스트 32개·타입·빌드 통과, 기존 본문 초기 처리 지연 감소 확인. 수정본의 원격 CI·Preview 배포는 승인 전 미실행
 
+- 0734294의 0.1.23은 원격 Windows/Linux CI·Vercel Preview 로그인/저장/업로드/공개 반영 검증 완료. 기존 글 시간 제한과 날짜 오류가 남아 있어 전체 Preview 정상으로 판정하지 않음. 수정본 0.1.25의 push·재배포 승인은 별도 대기
+
 - 0.1.23 원격 push·Vercel Preview 배포 승인 완료. PLAN_CMS_PREVIEW_0_1_23.md에 기존 프로젝트 연결·Draft PR/CI·실제 배포 검증 범위 기록, 운영 배포·보호 브랜치 병합은 제외
 
 - 1인용 CMS를 Next.js·Supabase·R2·NextAuth Credentials/JWT에 연결하고 Strapi의 Slate/CodeMirror 편집 기술과 선별 소스 적용
