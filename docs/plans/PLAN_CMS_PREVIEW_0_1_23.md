@@ -28,7 +28,7 @@
 
 ## 현재 상태
 
-- 원격 브랜치: feat/cms-mvp, 배포 기준 커밋 0734294. [Draft PR #116](https://github.com/gvm1229/krrpinfo/pull/116), [원격 CI](https://github.com/gvm1229/krrpinfo/actions/runs/39565236970)의 Windows/Linux 검사 모두 통과
+- 원격 브랜치: feat/cms-mvp, 0.1.25 코드 기준 커밋 6e036f3. [Draft PR #116](https://github.com/gvm1229/krrpinfo/pull/116), [새 원격 CI](https://github.com/gvm1229/krrpinfo/actions/runs/39610952549)의 Windows/Linux 검사 모두 통과. 아래 0.1.23 기록 뒤 후속 재배포 결과 구분
 - 기존 Vercel krrpinfo 프로젝트에 연결했고 운영 브랜치는 release로 확인. feat/cms-mvp Preview 전용 환경변수 11개 등록, 운영 환경변수 메타데이터 불변 확인. 초기 SQL용 DATABASE_URL은 로컬에 유지
 - [Preview](https://krrpinfo-git-feat-cms-mvp-gvm1229s-projects.vercel.app) 재배포 Ready 확인. 기존 Vercel 로그인 보호 유지, 인증하지 않은 일반 HTTP 요청은 Vercel SSO로 이동
 - R2의 기존 localhost 출처·GET/PUT·Content-Type·ETag·3600초를 유지하고 Preview 별칭 출처만 추가. 두 출처의 실제 CORS 사전 요청 HTTP 204 확인
@@ -36,9 +36,8 @@
 - 실제 Preview 운영자 화면에서 Draft 작성·서명 업로드·완료 등록·저장·재열기·공개 전환 확인. R2 파일 크기/형식/원본 바이트 일치, Vercel 요청 로그에서 GET 404 → 200 → 404 확인
 - 시즌·쿠폰 화면·이전 유튜버 주소의 /videos 이동·robots 관리자 제외·사이트맵의 기존 글 포함/관리자 제외 확인. 공개 영상 33개 식별자가 DB와 모두 일치
 - 시험 글·새 미디어 사본만 백업 후 정리하고 기존 글 2개·영상 33개·미디어 30개와 나머지 DB 값 보존 확인
-- 두 번째 기존 글 /posts/prevent-roll-notice의 10초 제한과 한국 날짜 표시 오류를 발견해 아래 로컬 수정 완료. 현재 원격은 여전히 0.1.23이며 수정본 배포는 미실행
-- `agent-owned`: 승인 전 독립적으로 진행할 로컬 수정·검증 작업 없음
-- `awaiting-user-authority`: 623668c·43dfabc를 포함한 0.1.25 원격 push·Preview 배포 승인 필요. 승인 후 새 CI와 기존 글 초기 처리·한국 날짜를 실제 Preview에서 확인
+- 두 번째 기존 글 /posts/prevent-roll-notice의 10초 제한과 한국 날짜 표시 오류를 아래 0.1.25 재배포에서 수정·재검증 완료
+- `agent-owned`: 승인한 0.1.25 재배포와 실제 재검증 완료, 결과 문서의 별도 커밋과 원격 반영
 - `awaiting-user-authority`: 운영 배포·보호 브랜치 통합은 이번 작업 범위 밖
 
 참고: [Vercel 환경변수 CLI](https://vercel.com/docs/cli/env), [프로젝트 지침](../../.agents/directives/00-project-harness.md)
@@ -68,3 +67,22 @@
 - 일반 Node/tsx 단독 MDX 측정은 ESM 로딩 오류로 미실행. 실제 Next.js 프로덕션 서버로 대체해 측정했고 기존 신뢰 호스트 설정이 없는 로컬 프로덕션의 세션 확인은 검증 범위 밖
 - 전체 저장소 pnpm lint는 미실행이며 수정 파일 Prettier만 확인. 실제 Nexon 쿠폰 사용은 계정에 영향을 주는 범위여서 실행하지 않음
 - 승인 뒤 같은 feat/cms-mvp에 0.1.25를 push하고 새 원격 CI·자동 Preview 배포 완료를 확인한다. 기존 로그인 보호·운영 브랜치/설정은 유지하며, 이전 글과 날짜를 우선 재검증한다
+
+## 0.1.25 재배포 승인과 완료 기준
+
+- 사용자 승인: 0.1.25 push·Preview 재배포 허용. 운영 배포·보호 브랜치 병합·stable tag는 포함하지 않음
+- 6e036f3의 코드 변경을 원격 feat/cms-mvp에 push하고 같은 프로젝트의 자동 Preview 배포 확인
+- 새 Windows/Linux CI 통과, 새 배포 Ready, 기존 MDX 글 HTTP 200과 본문 보존, 한국 날짜 경계의 실제 화면 표시 확인
+- 시험 항목만 백업·정리하고 기존 데이터 보존 확인. 결과 문서는 별도 docs 커밋으로 기록하고 원격에 반영
+
+## 0.1.25 재배포 결과
+
+- 코드 기준 6e036f3, [새 원격 CI 39610952549](https://github.com/gvm1229/krrpinfo/actions/runs/39610952549) 완료. GitHub Windows/Linux에서 각각 테스트 32개·TypeScript·이전 명령 시작 검사 통과
+- Vercel Preview dpl_HMUu8Hhgo9it1EMWQF9zeuGuPYrE Ready, [고정 배포 주소](https://krrpinfo-3r81j6mcf-gvm1229s-projects.vercel.app). 기존 브랜치 별칭·로그인 보호 유지
+- Codex·Windows Chrome의 정상 로그인 경로에서 기존 MDX 글 본문·이미지 7개·2024-03-09 날짜 확인. 해당 배포의 GET 200·캐시 MISS로 기존 504 경로 해소 확인. 요청 로그에는 정확한 처리 시간이 없어 Vercel 밀리초 성능 수치는 주장하지 않음
+- 고유 시험 글은 기존 MDX 원문을 보존한 사본이며 UTC 2026-10-20T15:00:00Z를 한국 날짜 2026-10-21로 표시. GET 200·캐시 MISS 확인
+- 실제 운영자 목록에서 시험 글을 Draft로 변경, 공개 404와 요청 로그 GET 404 확인. 해당 글만 백업 후 정리하고 나머지 DB 값 전체 일치, 항목 144개·기존 글 2개·영상 33개·미디어 30개 유지
+- 새 배포의 해당 두 글 경로로 제한한 런타임 로그 조회 결과 0건. 정상 응답은 요청 로그와 실제 본문으로 입증하며 로그 부재만으로 모든 오류가 없다고 단정하지 않음
+- 증거: Git 제외 backup/cms-preview/ci-0.1.25.json·requests-0.1.25.jsonl·remote-0.1.25-original.json·remote-0.1.25-date.json·remote-0.1.25-data-report.json·remote-0.1.25.png
+- 이번 문서 커밋 관심사: 승인한 0.1.25 재배포와 실제 오류 재검증 완료 기록. 파일은 이 계획·PLAN_CMS_MVP.md·일일 기록·PR.md. 가까운 검증은 위 보고서와 전체 문서 diff이며 제품 코드·버전 변경이나 추가 로컬 테스트 없음
+- 제안 메시지: 📝 docs(cms): 0.1.25 Preview 재검증 완료 기록. 원격 반영 후 같은 코드의 최종 문서 커밋 CI·배포 상태도 확인

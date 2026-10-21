@@ -200,13 +200,21 @@ Hive 설치만 커밋 `2f3a258`에 보존했다. 이후 CLI로 이 프로젝트�
 - 기존 Vercel 프로젝트의 0.1.23 [Preview](https://krrpinfo-git-feat-cms-mvp-gvm1229s-projects.vercel.app)에서 실제 운영자 로그인·저장/재열기·공개 반영·R2 업로드/등록/원본 바이트 일치 확인. 요청 로그 GET 404 → 200 → 404로 Draft/Published/Draft 복원을 확인했다.
 - 기존 글 1개·영상 33개·시즌/쿠폰 화면·이전 주소 이동·robots/사이트맵은 확인했다. 다른 기존 글은 10초 시간 제한, 공개 표시 날짜는 하루 차이를 발견했으며 전체 Preview 정상으로 판단하지 않았다.
 - 운영 환경변수 메타데이터를 보존하고 브랜치 Preview 값 11개만 등록했다. 기존 Vercel 로그인 보호를 유지하고 R2 CORS에는 기존 localhost와 정확한 Preview 출처만 허용했다. 시험 글/새 사본 정리 뒤 기존 데이터 보존 확인.
-- 로컬 0.1.25는 코드 없는 기존 MDX의 Shiki 지연 로드와 Asia/Seoul 날짜 표시를 포함한다. UTC 조건 테스트 32개·타입·빌드·브라우저 JavaScript 39개의 현재 서버 비밀값 7종 문자열 대조 통과. 새 프로세스/고유 캐시 키의 기존 MDX 첫 조회 548ms, 한국 날짜와 본문 확인. 이 성능은 Windows 로컬 측정이며 Vercel 수정본은 미배포다.
+- 0.1.25는 코드 없는 기존 MDX의 Shiki 지연 로드와 Asia/Seoul 날짜 표시를 포함한다. UTC 조건 테스트 32개·타입·빌드·브라우저 JavaScript 39개의 현재 서버 비밀값 7종 문자열 대조 통과. 새 프로세스/고유 캐시 키의 기존 MDX 첫 조회 548ms, 한국 날짜와 본문 확인. 이 시간은 Windows 로컬 측정이며 아래 실제 Vercel 배포 확인과 구분한다.
 - 배포 세부 증거·시험 한계·후속 순서는 PLAN_CMS_PREVIEW_0_1_23.md와 Git 제외 backup/cms-preview/에 보존했다.
+
+### 0.1.25 재배포와 오류 재검증 완료
+
+- 사용자 승인으로 6e036f3까지 원격 push. [CI 39610952549](https://github.com/gvm1229/krrpinfo/actions/runs/39610952549)의 GitHub 호스팅 Windows/Linux에서 각각 테스트 32개·TypeScript·이전 명령 시작 검사 통과. 로컬의 비밀값이나 실제 DB를 사용하는 CI 시험은 아니다.
+- Vercel Preview 배포 dpl_HMUu8Hhgo9it1EMWQF9zeuGuPYrE Ready. Codex·Windows Chrome의 기존 정상 로그인으로 기존 글 /posts/prevent-roll-notice를 열어 본문·제목·날짜 2024-03-09·이미지 7개 표시 확인. 해당 새 배포의 요청 로그 GET 200·캐시 MISS 확인으로 이전 504 재현 경로 해소 확인. 부하 시험이나 모든 지역의 성능 보장은 아니다.
+- 원문을 복사한 고유 시험 항목에서 UTC 저장 시각 2026-10-20T15:00:00Z가 공개 화면의 한국 날짜 2026-10-21로 표시. 같은 새 배포 요청 로그 GET 200·캐시 MISS 확인.
+- 새 배포의 실제 운영자 화면에서 시험 항목을 Draft로 바꾼 뒤 공개 화면 404·요청 로그 GET 404 확인. 시험 항목만 백업 후 정리했고 나머지 DB 값 전체가 시험 전과 같다. 항목 144개·기존 글 2개·영상 33개·미디어 30개 유지.
+- 이번 재검증은 두 수정과 실제 운영자 변경/공개 차단 범위다. R2 업로드·두 편집기 물리적 한글 입력·전체 공개 화면은 앞선 0.1.23 확인 결과를 유지하며 모두 새로 반복했다고 주장하지 않는다.
 
 ### 남은 완료 기준
 
-- `agent-owned`: 승인 전 독립적으로 수행할 로컬 수정·검증 작업 없음. 0.1.25 수정은 로컬 커밋에 보존했고 원본과 시험 데이터 정리 결과도 확인했다.
-- `awaiting-user-authority`: 현재 0.1.23 배포 승인과 별도로 수정본 0.1.25의 원격 push·Preview 배포 승인이 필요하다. 운영 배포·보호 브랜치 통합은 별도 승인 대상이다.
-- `awaiting-external-evidence`: 승인 후 0.1.25 원격 Windows/Linux CI와 Preview의 기존 글 초기 처리·한국 날짜를 다시 확인한다. 기존 0.1.23 원격 통과 결과와 로컬 0.1.25 결과로 대신하지 않는다.
+- `agent-owned`: 승인한 0.1.25 Preview 구현·검증 작업 완료. 결과 문서는 별도 docs 커밋으로 원격에 반영한다.
+- `awaiting-user-authority`: 운영 배포·보호 브랜치 통합은 이번 Preview 승인 범위 밖이며 별도 승인 대상이다.
+- `awaiting-external-evidence`: 0.1.25 코드의 원격 검사와 실제 Preview 재검증에 남은 항목 없음.
 
-남은 승인 경계는 로컬 USER_TASKS.md에 기록했다. Preview 기본 동작은 확인했지만 수정본 재배포와 전체 운영 전환은 아직 완료하지 않았다.
+남은 운영 전환 승인 경계는 로컬 USER_TASKS.md에 기록했다. 승인한 Preview 재배포와 두 오류의 실제 확인을 완료했으며 운영 전환은 실행하지 않았다.
