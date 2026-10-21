@@ -2,6 +2,8 @@
 
 ## 현재 검토 범위
 
+- 로컬 후속 수정 0.1.24: 코드 없는 기존 MDX의 Shiki 전체 언어 초기화를 생략, 본문/코드 색상 보존·테스트 30개·타입·빌드 통과. 같은 본문의 로컬 첫 조회 9146ms → 423ms, 새 버전 Preview 배포는 승인 전 미실행
+
 - 0.1.23 원격 push·Vercel Preview 배포 승인 완료. PLAN_CMS_PREVIEW_0_1_23.md에 기존 프로젝트 연결·Draft PR/CI·실제 배포 검증 범위 기록, 운영 배포·보호 브랜치 병합은 제외
 
 - 1인용 CMS를 Next.js·Supabase·R2·NextAuth Credentials/JWT에 연결하고 Strapi의 Slate/CodeMirror 편집 기술과 선별 소스 적용
