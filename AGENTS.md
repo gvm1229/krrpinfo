@@ -167,28 +167,33 @@ A "where to find what" map. Paths are relative to repo root.
 - `app/layout.tsx`, `app/page.tsx` — root layout & landing page
 - `app/posts/page.tsx`, `app/posts/[slug]/page.tsx` — blog index & per-post page
 - `app/redeem/page.tsx` — Nexon coupon redeem page
-- `app/youtubers/page.tsx`, `app/youtubers/[channelId]/page.tsx`, `app/youtubers/[channelId]/_[videoId]/`, `app/youtubers/videos/page.tsx` — YouTuber listing, channel detail, video detail
+- `app/(site)/videos/page.tsx` — CMS 추천 영상, 이전 youtubers 주소는 이동 처리
 - `app/admin/page.tsx`, `app/admin/login/page.tsx`, `app/admin/auth-error/page.tsx` — owner 전용 비공개 라우트 (sitemap/robots 미노출, `proxy.ts` 게이트)
-- `app/actions/` — server actions: `couponRedeem.ts`, `fetchYouTube.ts`, `handleYTData.ts`, `revalidate.ts`
-- `app/api/auth/[...nextauth]/route.ts` — NextAuth v5 핸들러 (Google + MongoDBAdapter)
+- `app/actions/` — 쿠폰 관련 Server Actions, `app/admin/actions.ts` — CMS 변경
+- `app/api/auth/[...nextauth]/route.ts` — NextAuth v5 핸들러 (Credentials + JWT)
 - `app/sitemap.ts`, `app/robots.ts`, `app/error.tsx`, `app/global-error.tsx`, `app/not-found.tsx` — SEO & error boundaries
 
 ### Source — `src/`
+- `src/cms/` — 콘텐츠 스키마·Supabase 조회·R2·본문 표시·운영자 확인
+- `src/vendor/strapi/` — Community 소스 이식과 라이선스
+- `app/admin/actions.ts` — 운영자 콘텐츠·설정·미디어 Server Actions
+- `app/(site)/videos/page.tsx` — 추천 영상, 이전 youtubers 주소는 이동 처리
+- `DESIGN.md`, `PRODUCT.md` — 화면 기준과 제품 범위
 
 - `src/components/ui/` — shadcn primitives (`button`, `input`, `form`, `dialog`, `popover`, `tabs`, ...)
 - `src/components/<Domain>/` — feature-grouped components: `Blog`, `Redeem`, `Nexon`, `Header`, `Footer`, `Card`, `Carousel`, `Calendar`, `Command`, `BentoBox`, `Markdown`, `Image`, `Video`, `Audio`, `Icons`, `Layout`, `Tag`, `Text`, `Tooltip`, `Breadcrumb`, `Button`, `Countdown`, `DarkMode`, `Data`, `Placeholder`
-- `src/lib/` — `queries.ts` (MongoDB posts 쿼리), `markdown.tsx`
-- `src/auth.ts` — NextAuth v5 설정 (Google provider, MongoDBAdapter, owner-only `signIn` callback, `pages.signIn` 비공개 경로)
-- `src/__tests__/` — Vitest 단위/통합 테스트. `helpers/mongo-memory.ts`, `util/db.test.ts`, `lib/queries.test.ts`, `auth.test.ts`, `scripts/restore-posts.test.ts`
+- `src/lib/` — `queries.ts` (Supabase 공개 글 쿼리), `markdown.tsx`
+- `src/auth.ts` — NextAuth v5 자체 로그인·JWT, `src/cms/owner.ts` 운영자·세션 만료 검사
+- `src/__tests__/` — Vitest 단위/통합 테스트: 운영자 인증·콘텐츠 변경·공개 조회·본문·미디어 권한·이전 도구
 - `src/api/fetchKRPData.ts` — KartRider Rush+ data fetcher
 - `src/hooks/` — shared hooks (`use-mounted`, `use-lock-body`)
-- `src/util/` — pure utils: `utils.ts` (cn helper), `localStorage.ts`, `db.ts`, `toc.ts`
+- `src/util/` — pure utils: `utils.ts` (cn helper), `localStorage.ts`, `toc.ts`
 - `src/types/` — shared TypeScript types (`index.ts`, `post.ts`)
 - `src/styles/` — `globals.css`, `mdx.css`, `fonts/`
 
 ### Config & build
 
-- `config/site.ts`, `config/navBar.ts` — site metadata & nav definition
+- `config/site.ts` — 배포 주소, 사이트 정보와 메뉴는 CMS에서 조회
 - `env.mjs` — typed env validation (`@t3-oss/env-nextjs`)
 - `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`, `proxy.ts`, `vitest.config.ts`
 - Path aliases (tsconfig): `@/*` → repo root, `@/components/*` → `src/components/*`
@@ -206,12 +211,12 @@ A "where to find what" map. Paths are relative to repo root.
 - `docs/logs/YYYYMMDD-{title}.md` — daily change log (CHANGES.md를 대체하는 source of truth)
 - `PR.md` (root, gitignored) — 진행 중 작업 브랜치 누적 메모 (local-only)
 - `.github/PULL_REQUEST_TEMPLATE.md` — `gh pr create` PR template
-- `.github/workflows/test.yml` — Vitest CI (PR to develop/release, push to develop, mongodb-binary 캐싱)
+- `.github/workflows/test.yml` — Windows·Linux의 Vitest·TypeScript·이전 명령 시작 검사
 - `USER_TASKS.md` (root, gitignored) — 사용자 수동 작업 메모 (Vercel env, OAuth 등록 등)
 - `.claude/commands/ship.md` — definitive commit directive
 - `.claude/commands/docs.md` — documentation update directive (daily log / PR.md / AGENTS structure)
 - `.claude/commands/release.md` — minor 버전 release directive
-- `scripts/restore-posts.ts` — Supabase JSON dump → MongoDB upsert (일회성, `pnpm restore:posts`)
+- `scripts/cms/` — 초기 SQL 적용·비밀번호 해시·원문/미디어 이전 도구, `supabase/migrations/` — 초기 SQL
 
 <!-- AIGENT-HIVE:START -->
 # Aigent Hive

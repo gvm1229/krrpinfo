@@ -1,12 +1,34 @@
-# PR: feat/owner-ui-overhaul branch
+# PR: feat/cms-mvp branch
 
-## Summary
+## 현재 검토 범위
+
+- 1인용 CMS를 Next.js·Supabase·R2·NextAuth Credentials/JWT에 연결하고 Strapi의 Slate/CodeMirror 편집 기술과 선별 소스 적용
+- 콘텐츠·사이트 설정·공개 문구를 관리자에서 편집하고 공개 화면·검색·메타데이터·사이트맵에 반영
+- 완료한 TODO와 설정·문서를 단계별 커밋으로 보존, 최종 0.1.22에서 Windows 테스트 28개·타입·빌드 통과
+- 실제 R2 전송·서명 PUT·공개 조회·임시 파일 삭제 확인. DB/로그인 설정과 CORS 사용자 설정 후 실제 이전·브라우저 검증 재개
+- 아래는 기반 UI 브랜치에서 이어받은 누적 기록이며 기존 MongoDB·Google·TinyMCE는 현재 CMS에서 제거
+
+## 기존 UI 변경 누적 기록
 
 - `develop` 대비 PLAN_DESIGN_OVERHAUL Phase 1+2+3 (디자인 토큰, 날짜 포맷 통일, Timeline 컴포넌트) 구현
 - PLAN_OWNER_FEATURES 백로그의 `/admin/posts` 목록 / published toggle / Edit 링크 owner-only 추가
 - 모든 admin 인증 boundary 에 `isOwner()` 명시 검증 도입 (defense in depth)
 
+## 📝 CMS 구현 기반 검토 (2026-10-21)
+
+- MongoDB·NextAuth 브랜치는 PR #109로 develop에 병합됐으며 현재 브랜치에도 포함. 원격 확인 시 develop 대비 13개 추가 커밋, 추가 병합 불필요
+- `docs/plans/PLAN_CMS_MVP.md`에 운영자 제한·공개 글 필터 유지, Supabase·NextAuth 자체 로그인·NextAuth JWT 전환 범위 기록. Google 로그인은 제거 대상으로 확정
+- Codex 로컬·Windows에서 현재 브랜치의 테스트 47개 통과. TypeScript 검사는 테스트 파일 두 곳에서 오류 14개로 실패
+- Windows 복원 스크립트 진입 조건 문제 재현. 실제 로그인·운영 DB·Vercel 배포 동작은 미검증
+- 조사 문서만 변경, 코드·데이터·브랜치 병합·배포 미실행
+- 병합 상태 재확인 후 로컬 `feat/mongo-nextauth` 삭제 완료. 현재 `feat/owner-ui-overhaul`과 원격 브랜치 유지
+- 역할을 마친 별도 브랜치 검토 문서 삭제. 기존 오류와 검증 기록은 일일 기록으로 보존하고 사용자 승인에 따라 타입 오류 정리·MongoDB 의존성 제거·공개 범위 및 권한 제한 테스트를 CMS 계획에 반영
+
 ## Changes
+
+## 📝 응답 지침 정리
+
+- `AGENTS.md`의 영어 질문 교정문 자동 추가 규칙과 관련 설명 제거
 
 ## ✨ Design tokens (P1)
 
@@ -102,4 +124,37 @@
 
 - Hive 0.13.0 사용자 지정 설정: 한국어 위키, daily-work 기본 23개, 개발·코드 검토·검증 역할
 - 프로젝트 지식의 전역 공유 없이 소스와 문서 범위만 설정, 잔여 사용량 10% 중지 기준 상속
+- 작업 브랜치 feat/cms-mvp로 변경, AGENTS.md에 커밋 타입 접두사 규칙 추가
 - CMS 미완료 작업은 스냅샷으로 보존, 설치 validate와 지식 lint 통과
+
+## 2026-10-21 CMS MVP 재개
+
+- Hive 설치만 2f3a258에 커밋. 이후 프로젝트 사용량 보호 기준을 CLI로 잔여 30%에 설정·현재 세션 확인
+- Supabase·R2·자체 로그인, Strapi와 같은 Slate/CodeMirror 기술과 선별 Community 소스, 콘텐츠/설정/미디어 관리자 구현
+- 공개 메뉴·홈·글·영상·시즌·쿠폰·문구·메타데이터·검색·사이트맵을 CMS에 연결. MongoDB·Google·TinyMCE·채널 화면·배경음악 제거
+- DESIGN.md·PRODUCT.md·CMS_DATA_MAP.md·초기 SQL·중복과 기존 수정값을 보존하는 이전 명령 추가
+- Windows 테스트 28개·타입·빌드 통과. 임시 Linux PostgreSQL에서 SQL·권한과 브라우저 Draft 차단/공개 저장 반영 확인. Linux 이전 CLI 시작/오류 종료 통과
+- 실제 Supabase·R2·Preview·물리적 한국어 IME는 설정/외부 검증 대기. 계획 실행 결과와 USER_TASKS.md에 구분
+- 최초 Hive ship에서는 CMS 변경을 제외했고, 이후 사용자의 단계별 ship 요청으로 TODO별 커밋에 보존. 원격 push·배포는 미실행
+
+- 단계 A: 사용량 30%와 작업 지침 보존 · 0dc230e
+
+- 단계 B: MVP 계획과 디자인 기준 보존 · 36e19d0
+
+- 단계 C: 기존 작업 브랜치 비교 기록 보존 · 629c73a
+
+- 단계 D: 인증 모의 함수 타입 오류 수정 (0.1.15) · b56b150
+
+- 단계 E: Supabase와 R2 기반 데이터 계층 추가 (0.1.16) · ad2209a
+
+- 단계 F: 기존 콘텐츠와 미디어 이전 도구 추가 (0.1.17) · 1214e02
+
+- 단계 G: Slate와 CodeMirror 본문 편집기 추가 (0.1.18) · 9dec421
+
+- 단계 H: 자체 로그인과 콘텐츠 관리 화면 연결 (0.1.19) · a13d7e0
+
+- 단계 I: 공개 콘텐츠와 운영 설정을 CMS에 연결 (0.1.20) · 7349efe
+
+- 단계 J: MongoDB와 이전 미디어 의존성 정리 (0.1.21) · 6a95ef4
+
+- 단계 K: 보안 회귀 검사와 두 운영체제 CI 추가 (0.1.22) · 91bdd15
