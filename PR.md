@@ -2,6 +2,8 @@
 
 ## 현재 검토 범위
 
+- 0.1.23 원격 push·Vercel Preview 배포 승인 완료. PLAN_CMS_PREVIEW_0_1_23.md에 기존 프로젝트 연결·Draft PR/CI·실제 배포 검증 범위 기록, 운영 배포·보호 브랜치 병합은 제외
+
 - 1인용 CMS를 Next.js·Supabase·R2·NextAuth Credentials/JWT에 연결하고 Strapi의 Slate/CodeMirror 편집 기술과 선별 소스 적용
 - 콘텐츠·사이트 설정·공개 문구를 관리자에서 편집하고 공개 화면·검색·메타데이터·사이트맵에 반영
 - 완료한 TODO와 설정·문서를 단계별 커밋으로 보존, 최종 0.1.22에서 Windows 테스트 28개·타입·빌드 통과
