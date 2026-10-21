@@ -243,15 +243,15 @@ export const EntryForm = ({
                   className="cms-input max-w-40"
                   value={format}
                   onChange={(event) => {
+                    const nextFormat = event.currentTarget.value;
                     if (
                       !window.confirm('본문 형식을 바꾸면 입력한 본문이 지워집니다. 바꾸시겠어요?')
                     )
                       return;
                     setData((previous) => ({
                       ...previous,
-                      contentFormat: event.target.value,
-                      body:
-                        event.target.value === 'blocks' ? (emptyDocument() as unknown as Json) : '',
+                      contentFormat: nextFormat,
+                      body: nextFormat === 'blocks' ? (emptyDocument() as unknown as Json) : '',
                     }));
                   }}
                 >
