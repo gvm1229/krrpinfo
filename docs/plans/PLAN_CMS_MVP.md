@@ -149,7 +149,8 @@ Hive 설치만 커밋 `2f3a258`에 보존했다. 이후 CLI로 이 프로젝트�
 - Windows·Codex에서 실제 R2의 임시 PNG 전송과 서명 주소를 통한 PUT 모두 HTTP 200. 크기·형식, 공개 주소의 원본 바이트 일치, 임시 파일 삭제까지 확인했다. 실제 콘텐츠의 업로드 완료 등록·사용 중 삭제 차단은 관리자 로그인과 DB 초기화 후 확인한다.
 - 최초 localhost:3000 출처의 CORS 사전 요청은 HTTP 403이었다. 후속 요청은 HTTP 204와 해당 출처 허용을 확인했다. 이 작업에서 버킷 정책을 변경하지 않았으며 실제 관리자 업로드는 DB·로그인 설정 후 확인한다.
 - Supabase 서비스 키 형식과 API 응답을 확인했으나 CMS 테이블 조회는 PGRST205다. 초기 SQL과 실제 콘텐츠 이전은 아직 적용하지 않았다.
-- .env.local의 AUTH_SECRET은 사용자 요청으로 난수 생성·저장했고 AUTH_OWNER_ID 등록을 확인했다. DATABASE_URL은 비어 있고 AUTH_PASSWORD_HASH는 지원하는 scrypt 형식이 아니어서 추가 설정이 필요하다. 비밀값은 출력하거나 Git에 추가하지 않았다.
+- 후속 환경변수 점검에서 필수값 12개·비밀번호 해시 형식·API/DB 프로젝트 일치 확인. AUTH_SECRET을 포함한 앱 설정은 Next.js가 파일 내용대로 읽는 것도 확인했다. 비밀값은 출력하거나 Git에 추가하지 않았다.
+- DATABASE_URL은 직접 접속 주소로 IPv6 DNS만 존재하고 현재 Windows에는 IPv6 기본 경로가 없어 getaddrinfo ENOENT로 접속 실패. DB 비밀번호는 아직 인증하지 못했다. Session pooler의 IPv4 접속 주소로 변경하고 SSL을 설정한 뒤 재검사한다.
 
 ### 두 연결 주소의 역할
 
@@ -159,7 +160,7 @@ Hive 설치만 커밋 `2f3a258`에 보존했다. 이후 CLI로 이 프로젝트�
 
 ### 남은 완료 기준
 
-- `awaiting-external-evidence`: DATABASE_URL 등록과 AUTH_PASSWORD_HASH의 scrypt 형식 수정 뒤 초기 SQL·실제 이전·관리자 변경 반영을 확인한다. 비밀값을 대화에 전달하지 않는다.
+- `awaiting-external-evidence`: DATABASE_URL을 해당 프로젝트의 Session pooler 주소로 변경한 뒤 DB 인증·초기 SQL·실제 이전·관리자 변경 반영을 확인한다. 현재 값의 직접 접속은 이 호스트의 IPv6 경로 부재로 실패했다. 비밀값을 대화에 전달하지 않는다.
 - `awaiting-external-evidence`: 실제 한국어 IME의 조합·선택·붙여넣기·실행 취소와 이미지/YouTube/Markdown의 실제 운영 파일 연결을 확인한다. 도구를 통한 한글 입력은 물리적 IME 검증을 대신하지 않는다.
 - `awaiting-user-authority`: 실제 연결 검증 뒤 Vercel Preview 배포를 승인하면 Preview에서 변경 반영을 확인한다. 운영 배포·보호 브랜치 통합은 별도 승인 대상이다.
 
