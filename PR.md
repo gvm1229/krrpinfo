@@ -5,7 +5,7 @@
 - 1인용 CMS를 Next.js·Supabase·R2·NextAuth Credentials/JWT에 연결하고 Strapi의 Slate/CodeMirror 편집 기술과 선별 소스 적용
 - 콘텐츠·사이트 설정·공개 문구를 관리자에서 편집하고 공개 화면·검색·메타데이터·사이트맵에 반영
 - 완료한 TODO와 설정·문서를 단계별 커밋으로 보존, 최종 0.1.22에서 Windows 테스트 28개·타입·빌드 통과
-- 실제 R2 전송·서명 PUT·공개 조회·임시 파일 삭제 확인. 필수 설정·해시 형식·CORS 사전 요청 통과. 현재 호스트의 IPv6 경로 부재로 DB 주소를 Session pooler로 바꾼 뒤 실제 이전·로그인 검증 재개
+- 실제 R2 전송·서명 PUT·공개 조회·임시 파일 삭제와 CORS 사전 요청 확인. Session pooler와 공식 공개 CA로 실제 DB 인증·암호화·서버 인증서 검증 통과, 초기 SQL·실제 이전·로그인 검증 진행
 - 아래는 기반 UI 브랜치에서 이어받은 누적 기록이며 기존 MongoDB·Google·TinyMCE는 현재 CMS에서 제거
 
 ## 기존 UI 변경 누적 기록

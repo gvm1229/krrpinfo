@@ -46,6 +46,8 @@ NextAuth v5 Credentials + JWT를 사용한다. 환경변수로 등록한 단일 
 4. `pnpm cms:migrate -- --input backup/legacy-cms.json --dry-run`으로 기존 데이터와 이미지 누락을 확인한다. 확인 뒤 `--apply`로 이전한다. 기존 데이터는 덮어쓰지 않는다.
 5. `pnpm dev`를 실행하고 `/admin/login`에 접속한다.
 
+PostgreSQL 연결은 `sslmode=verify-full&sslrootcert=config/certs/supabase-ca.pem` 옵션으로 서버 이름과 인증서를 확인한다. [공식 출처를 보존한 공개 CA](config/certs/README.md)를 사용하며 실제 주소·비밀번호는 `.env.local`에만 저장한다. IPv4 환경에서는 Supabase Connect의 Session pooler 주소를 사용한다.
+
 설계와 검증 범위는 [CMS 계획](docs/plans/PLAN_CMS_MVP.md), [데이터 대응표](docs/plans/CMS_DATA_MAP.md), [디자인 기준](DESIGN.md)을 참고한다. 실제 연결과 운영 전환 절차는 로컬 `USER_TASKS.md`에 기록한다. 새 글은 Draft이며 Published 글을 저장하면 다음 공개 조회에 반영된다.
 
 ## Testing

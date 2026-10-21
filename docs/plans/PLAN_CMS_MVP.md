@@ -150,7 +150,8 @@ Hive 설치만 커밋 `2f3a258`에 보존했다. 이후 CLI로 이 프로젝트�
 - 최초 localhost:3000 출처의 CORS 사전 요청은 HTTP 403이었다. 후속 요청은 HTTP 204와 해당 출처 허용을 확인했다. 이 작업에서 버킷 정책을 변경하지 않았으며 실제 관리자 업로드는 DB·로그인 설정 후 확인한다.
 - Supabase 서비스 키 형식과 API 응답을 확인했으나 CMS 테이블 조회는 PGRST205다. 초기 SQL과 실제 콘텐츠 이전은 아직 적용하지 않았다.
 - 후속 환경변수 점검에서 필수값 12개·비밀번호 해시 형식·API/DB 프로젝트 일치 확인. AUTH_SECRET을 포함한 앱 설정은 Next.js가 파일 내용대로 읽는 것도 확인했다. 비밀값은 출력하거나 Git에 추가하지 않았다.
-- DATABASE_URL은 직접 접속 주소로 IPv6 DNS만 존재하고 현재 Windows에는 IPv6 기본 경로가 없어 getaddrinfo ENOENT로 접속 실패. DB 비밀번호는 아직 인증하지 못했다. Session pooler의 IPv4 접속 주소로 변경하고 SSL을 설정한 뒤 재검사한다.
+- Session pooler 5432로 변경한 뒤 공식 Supabase CLI의 운영 CA를 해당 DB 연결에 적용했다. Codex·Windows에서 실제 DB 비밀번호 인증·클라이언트 TLS 암호화·서버 인증서 검증·읽기 전용 트랜잭션·테이블 생성 권한을 확인했다. 실제 접속값과 다른 환경변수는 보존하고 SSL 옵션만 추가했다.
+- 공개 CA 원본 버전·지문은 config/certs/README.md에 기록했다. 운영체제 신뢰 저장소는 바꾸지 않았으며 실제 CMS 테이블·데이터 생성은 아래 후속 범위다.
 
 ### 두 연결 주소의 역할
 
@@ -160,7 +161,8 @@ Hive 설치만 커밋 `2f3a258`에 보존했다. 이후 CLI로 이 프로젝트�
 
 ### 남은 완료 기준
 
-- `awaiting-external-evidence`: DATABASE_URL을 해당 프로젝트의 Session pooler 주소로 변경한 뒤 DB 인증·초기 SQL·실제 이전·관리자 변경 반영을 확인한다. 현재 값의 직접 접속은 이 호스트의 IPv6 경로 부재로 실패했다. 비밀값을 대화에 전달하지 않는다.
+- `agent-owned`: 연결 검증을 통과한 대상에 초기 SQL·보존 데이터 이전·재실행 검증을 진행하고 실제 공개 화면 반영을 확인한다. 기존 원본과 대상 수정값은 보존한다.
+- `awaiting-external-evidence`: 실제 운영자 비밀번호 입력을 통한 로그인은 사용자가 로컬 화면에서 수행해야 한다. 비밀번호와 해시를 대화에 전달하지 않는다.
 - `awaiting-external-evidence`: 실제 한국어 IME의 조합·선택·붙여넣기·실행 취소와 이미지/YouTube/Markdown의 실제 운영 파일 연결을 확인한다. 도구를 통한 한글 입력은 물리적 IME 검증을 대신하지 않는다.
 - `awaiting-user-authority`: 실제 연결 검증 뒤 Vercel Preview 배포를 승인하면 Preview에서 변경 반영을 확인한다. 운영 배포·보호 브랜치 통합은 별도 승인 대상이다.
 
