@@ -182,7 +182,8 @@ A "where to find what" map. Paths are relative to repo root.
 - `app/(site)/videos/page.tsx` — 추천 영상, 이전 youtubers 주소는 이동 처리
 - `DESIGN.md`, `PRODUCT.md` — 화면 기준과 제품 범위
 
-- `src/components/ui/` — shadcn primitives (`button`, `input`, `form`, `dialog`, `popover`, `tabs`, ...)
+- `src/components/ui/` — shadcn primitives (`button`, `input`, `textarea`, `form`, `dialog`, `alert-dialog`, `popover`, `tabs`, ...)
+- `src/components/Admin/` — 관리자 메뉴·콘텐츠 목록·편집·설정·미디어 선택, `AdminNavigation.tsx` 현재 메뉴 표시
 - `src/components/<Domain>/` — feature-grouped components: `Blog`, `Redeem`, `Nexon`, `Header`, `Footer`, `Card`, `Carousel`, `Calendar`, `Command`, `BentoBox`, `Markdown`, `Image`, `Video`, `Audio`, `Icons`, `Layout`, `Tag`, `Text`, `Tooltip`, `Breadcrumb`, `Button`, `Countdown`, `DarkMode`, `Data`, `Placeholder`
 - `src/lib/` — `queries.ts` (Supabase 공개 글 쿼리), `markdown.tsx`
 - `src/auth.ts` — NextAuth v5 자체 로그인·JWT, `src/cms/owner.ts` 운영자·세션 만료 검사
