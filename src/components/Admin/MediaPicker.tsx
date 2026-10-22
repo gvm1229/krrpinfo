@@ -1,8 +1,18 @@
 'use client';
-import { useRef, useState } from 'react';
-import { ImagePlus, Upload, X } from 'lucide-react';
+import { useId, useRef, useState } from 'react';
+import { ImagePlus, Upload } from 'lucide-react';
 import { prepareUpload, completeUpload } from '@/app/admin/actions';
 import type { Media } from '@/src/cms/schema';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 // R2 이미지 선택과 전송
 export const MediaPicker = ({
@@ -10,17 +20,26 @@ export const MediaPicker = ({
   media,
   onChange,
   compact = false,
+  inputId,
+  label = '이미지',
+  triggerLabel = '이미지 선택',
 }: {
   value: string;
   media: Media[];
   onChange: (url: string, alt?: string) => void;
   compact?: boolean;
+  inputId?: string;
+  label?: string;
+  triggerLabel?: string;
 }) => {
-  const dialog = useRef<HTMLDialogElement>(null);
+  const id = useId();
+  const fileInput = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
   const [items, setItems] = useState(media);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [alt, setAlt] = useState('');
+  // 선택한 파일 전송과 이미지 주소 반영
   const upload = async (file: File) => {
     setBusy(true);
     setError('');
@@ -39,56 +58,72 @@ export const MediaPicker = ({
       const result = await completeUpload(prepared.ticket);
       setItems((current) => [result, ...current]);
       onChange(result.url, alt || result.alt);
-      dialog.current?.close();
+      setOpen(false);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : '파일 전송 실패');
     } finally {
       setBusy(false);
+      if (fileInput.current) fileInput.current.value = '';
     }
   };
   return (
-    <div className="space-y-2">
-      <div className="flex gap-2">
-        {!compact && (
-          <input
-            className="cms-input"
-            aria-label="이미지 주소"
-            value={value}
-            onChange={(event) => onChange(event.target.value)}
-          />
-        )}
-        <button type="button" className="cms-button" onClick={() => dialog.current?.showModal()}>
-          <ImagePlus size={16} />
-          선택
-        </button>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <div className="min-w-0 space-y-3">
+        <div className="flex flex-wrap items-center gap-2">
+          {!compact && (
+            <Input
+              id={inputId ?? id}
+              className="cms-input min-w-0 basis-full tablet:flex-1 tablet:basis-0"
+              aria-label={label + ' 주소'}
+              value={value}
+              onChange={(event) => onChange(event.target.value)}
+            />
+          )}
+          <DialogTrigger asChild>
+            <Button
+              type="button"
+              className="cms-button"
+              aria-label={triggerLabel === '이미지 선택' ? label + ' 선택' : triggerLabel}
+            >
+              <ImagePlus size={16} />
+              {triggerLabel}
+            </Button>
+          </DialogTrigger>
+        </div>
+        {value && <img src={value} alt="" className="max-h-28 max-w-full rounded object-contain" />}
       </div>
-      {value && <img src={value} alt="" className="max-h-28 rounded object-contain" />}
-      <dialog ref={dialog} className="cms-dialog">
-        <header className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">미디어 라이브러리</h2>
-          <button
+      <DialogContent
+        aria-describedby={undefined}
+        className="cms-dialog !w-[calc(100%-2rem)] !max-w-4xl [&>button]:rounded-md [&>button]:bg-[#666687] [&>button]:p-2 [&>button]:text-white [&>button]:opacity-100"
+      >
+        <DialogHeader className="pr-10">
+          <DialogTitle>미디어 라이브러리</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-wrap items-end gap-4">
+          <div className="min-w-0 flex-1 basis-56 space-y-2">
+            <Label htmlFor={id + '-alt'}>이미지 대체 설명</Label>
+            <Input
+              id={id + '-alt'}
+              className="cms-input"
+              value={alt}
+              onChange={(event) => setAlt(event.target.value)}
+            />
+          </div>
+          <Button
             type="button"
             className="cms-button"
-            aria-label="닫기"
-            onClick={() => dialog.current?.close()}
+            disabled={busy}
+            onClick={() => fileInput.current?.click()}
           >
-            <X size={16} />
-          </button>
-        </header>
-        <label className="cms-label mt-5">
-          본문 이미지 대체 설명
-          <input
-            className="cms-input"
-            value={alt}
-            onChange={(event) => setAlt(event.target.value)}
-          />
-        </label>
-        <label className="cms-button my-5 w-fit cursor-pointer">
-          <Upload size={16} />
-          {busy ? '전송 중…' : '이미지 올리기'}
-          <input
+            <Upload size={16} />
+            {busy ? '전송 중…' : '이미지 올리기'}
+          </Button>
+          <Input
+            ref={fileInput}
             type="file"
-            className="sr-only"
+            className="hidden"
+            aria-label="이미지 파일"
+            tabIndex={-1}
             accept="image/png,image/jpeg,image/webp,image/gif,image/avif"
             disabled={busy}
             onChange={(event) => {
@@ -96,32 +131,35 @@ export const MediaPicker = ({
               if (file) void upload(file);
             }}
           />
-        </label>
+        </div>
         {error && (
-          <p role="alert" className="text-red-600">
+          <p role="alert" className="text-red-600 dark:text-red-400">
             {error}
           </p>
         )}
         {!items.length && (
-          <p className="py-8 text-muted-foreground">이미지를 올려 콘텐츠에 사용할 수 있습니다.</p>
+          <p className="py-8 text-center text-muted-foreground">등록된 이미지가 없습니다.</p>
         )}
-        <div className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
+        <div className="grid min-w-0 grid-cols-2 gap-4 tablet:grid-cols-4">
           {items.map((item) => (
-            <button
+            <Button
               type="button"
               key={item.id}
-              className="overflow-hidden rounded border p-2 text-left focus-visible:ring-2"
+              disabled={busy}
+              aria-label={item.name + ' 선택'}
+              aria-pressed={value === item.url}
+              className="cms-button cms-secondary !h-auto min-w-0 !flex-col !items-stretch !gap-2 !p-2 text-left aria-pressed:ring-2 aria-pressed:ring-[#4945ff] aria-pressed:ring-offset-2"
               onClick={() => {
                 onChange(item.url, alt || item.alt);
-                dialog.current?.close();
+                setOpen(false);
               }}
             >
-              <img src={item.url} alt={item.alt} className="aspect-square w-full object-cover" />
-              <span className="mt-2 block truncate text-xs">{item.name}</span>
-            </button>
+              <img src={item.url} alt="" className="aspect-square w-full rounded object-cover" />
+              <span className="block truncate text-xs">{item.name}</span>
+            </Button>
           ))}
         </div>
-      </dialog>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
