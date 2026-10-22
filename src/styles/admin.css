@@ -20,9 +20,13 @@
   font-size: 0.875rem;
 }
 .cms-nav-link:hover,
-.cms-nav-link:focus-visible {
+.cms-nav-link:focus-visible,
+.cms-nav-link[aria-current='page'] {
   background: #f0f0ff;
   color: #4945ff;
+}
+.cms-nav-link[aria-current='page'] {
+  font-weight: 700;
 }
 .cms-topbar {
   display: flex;
@@ -222,6 +226,10 @@
 }
 .dark .CodeMirror {
   background: #212134;
+  color: #eaeaef;
+}
+.dark .cms-nav-link[aria-current='page'] {
+  background: #32324d;
   color: #eaeaef;
 }
 @media (max-width: 1023px) {

@@ -1,40 +1,13 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import {
-  LayoutDashboard,
-  FileText,
-  Film,
-  CalendarDays,
-  Clock,
-  Gift,
-  Menu,
-  Link2,
-  Tags,
-  Layers,
-  Type,
-  Settings,
-  Images,
-  LogOut,
-} from 'lucide-react';
+import { LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { AdminNavigation } from '@/components/Admin/AdminNavigation';
 import { auth, signOut } from '@/src/auth';
 import { isOwner } from '@/src/cms/owner';
-import { kindLabels, type Kind } from '@/src/cms/schema';
 import '@/src/styles/admin.css';
 export const dynamic = 'force-dynamic';
 export const metadata = { title: '콘텐츠 관리', robots: { index: false, follow: false } };
-const icons = {
-  post: FileText,
-  video: Film,
-  season: CalendarDays,
-  timeline: CalendarDays,
-  countdown: Clock,
-  coupon: Gift,
-  navigation: Menu,
-  link: Link2,
-  category: Tags,
-  section: Layers,
-  copy: Type,
-};
 // Strapi 구성에 맞춘 단일 운영자 관리 영역
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -46,31 +19,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
           <span className="grid size-9 place-items-center rounded bg-[#4945ff] text-white">K</span>
           콘텐츠 관리
         </Link>
-        <nav className="space-y-1 px-3 pb-6" aria-label="관리 메뉴">
-          <Link className="cms-nav-link" href="/admin">
-            <LayoutDashboard size={18} />
-            대시보드
-          </Link>
-          <p className="px-3 pb-2 pt-6 text-sm text-muted-foreground">콘텐츠</p>
-          {(Object.keys(kindLabels) as Kind[]).map((kind) => {
-            const Icon = icons[kind];
-            return (
-              <Link key={kind} className="cms-nav-link" href={'/admin/content/' + kind}>
-                <Icon size={18} />
-                {kindLabels[kind]}
-              </Link>
-            );
-          })}
-          <p className="px-3 pb-2 pt-6 text-sm text-muted-foreground">라이브러리와 설정</p>
-          <Link href="/admin/media" className="cms-nav-link">
-            <Images size={18} />
-            미디어
-          </Link>
-          <Link href="/admin/config" className="cms-nav-link">
-            <Settings size={18} />
-            사이트 설정
-          </Link>
-        </nav>
+        <AdminNavigation />
       </aside>
       <div className="min-w-0 flex-1">
         <header className="cms-topbar">
@@ -85,10 +34,10 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
                 await signOut({ redirectTo: '/admin/login' });
               }}
             >
-              <button className="cms-button cms-secondary">
+              <Button type="submit" className="cms-button cms-secondary">
                 <LogOut size={15} />
                 로그아웃
-              </button>
+              </Button>
             </form>
           </div>
         </header>

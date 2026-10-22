@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/command';
 import { usePublicSite, useCopy } from '@/components/Text/PublicSite';
 import { text } from '@/src/cms/schema';
+import { Button } from '@/components/ui/button';
 // CMS 메뉴와 공개 글 검색
 export const CommandMenu = ({
   posts = [],
@@ -45,15 +46,15 @@ export const CommandMenu = ({
   };
   return (
     <>
-      <button
+      <Button
         type="button"
-        className="flex items-center gap-2 rounded-md bg-zinc-700 px-3 py-2 text-sm text-white"
+        className="flex shrink-0 items-center gap-2 rounded-md bg-zinc-700 px-3 py-2 text-sm text-white hover:bg-zinc-600"
         onClick={() => setOpen(true)}
         aria-label={t('search.placeholder')}
       >
         <Search size={17} />
         <span className="hidden laptop:inline">{t('search.placeholder')}</span>
-      </button>
+      </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder={t('search.placeholder')} />
         <CommandList>
