@@ -63,6 +63,8 @@
   font-size: 0.875rem;
   font-weight: 400;
   color: #32324d;
+  height: auto;
+  scroll-margin-top: 12rem;
 }
 .cms-input:focus {
   outline: 2px solid #4945ff;
@@ -110,7 +112,7 @@
 }
 .cms-edit-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 17rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 17rem);
   gap: 2rem;
 }
 .cms-editor {
@@ -225,12 +227,12 @@
   background: #181826;
   border-color: #4a4a6a;
 }
-.dark .CodeMirror {
-  background: #212134;
-  color: #eaeaef;
-}
 .dark .cms-nav-link[aria-current='page'] {
   background: #32324d;
+  color: #eaeaef;
+}
+.dark .CodeMirror {
+  background: #212134;
   color: #eaeaef;
 }
 @media (max-width: 1023px) {
