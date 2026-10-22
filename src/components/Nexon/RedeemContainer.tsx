@@ -132,40 +132,44 @@ const RedeemContainer = () => {
           control={form.control}
           name="npaCode"
           render={({ field }) => (
-            <FormItem className="space-y-4">
-              <FormLabel className="text-3xl font-bold">
+            <FormItem className="min-w-0 space-y-3">
+              <FormLabel className="text-lg font-semibold">
                 <Copy id="copy.3a4f5ecae1ce" />
               </FormLabel>
-              <div className="flex flex-col gap-4 tablet:flex-row tablet:items-center">
-                <FormControl>
-                  <Input
-                    placeholder={t('redeem.placeholder')}
-                    className="h-fit text-lg"
-                    disabled={isInputDisabled}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="text-xl font-bold tablet:hidden" />
-                <div className="flex tablet:hidden">{renderActionButtons()}</div>
-                <Button
-                  type="submit"
-                  className="bg-blue-600 text-lg font-semibold text-white hover:bg-blue-500 tablet:max-w-48 tablet:py-4"
-                >
-                  <Copy id="copy.97699658e759" />
-                </Button>
+              <div className="flex flex-wrap items-start gap-3">
+                <div className="min-w-0 basis-full space-y-2 tablet:flex-1 tablet:basis-auto">
+                  <FormControl>
+                    <Input
+                      placeholder={t('redeem.placeholder')}
+                      className="h-11 min-w-0 text-base"
+                      disabled={isInputDisabled}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </div>
+                <div className="shrink-0">{renderActionButtons()}</div>
               </div>
-              <FormMessage className="hidden text-xl font-bold tablet:block" />
-              <div className="hidden tablet:flex">{renderActionButtons()}</div>
-              <FormDescription className="pt-4 text-xl font-medium text-primary">
-                <Copy id="copy.a0b6373186c6" />
-              </FormDescription>
-              <Link
-                href={settings.redeemGuideUrl}
-                className="text-xl font-medium text-blue-600 underline"
+              <Button
+                type="submit"
+                className="mt-3 h-11 shrink-0 bg-brand-blue font-semibold text-white hover:bg-brand-blue-hover"
               >
-                <Copy id="copy.b4c7f2bf0334" />
-              </Link>
-              <ResponsiveImage src={settings.redeemGuideImage} gridNums={[1, 2, 3]} />
+                <Copy id="copy.97699658e759" />
+              </Button>
+              <div className="mt-8 space-y-3 border-t pt-6">
+                <FormDescription className="text-sm leading-relaxed text-foreground">
+                  <Copy id="copy.a0b6373186c6" />
+                </FormDescription>
+                <Link
+                  href={settings.redeemGuideUrl}
+                  className="inline-block text-sm font-medium text-brand-blue underline underline-offset-4"
+                >
+                  <Copy id="copy.b4c7f2bf0334" />
+                </Link>
+                <div className="max-w-sm">
+                  <ResponsiveImage src={settings.redeemGuideImage} gridNums={[1, 2, 3]} />
+                </div>
+              </div>
             </FormItem>
           )}
         />

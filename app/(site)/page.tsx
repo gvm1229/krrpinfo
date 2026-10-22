@@ -26,7 +26,7 @@ const Home = async () => {
               key={section.id}
               className="bg-season-4/40 py-8 dark:bg-season-4/5 tablet:py-12"
             >
-              <div className="container grid items-center gap-6 tablet:grid-cols-2">
+              <div className="container grid grid-cols-1 items-center gap-6 tablet:grid-cols-2">
                 {settings.homeImage && (
                   <img
                     src={settings.homeImage}
@@ -52,8 +52,8 @@ const Home = async () => {
         if (component === 'countdown')
           return (
             <section key={section.id} className="container space-y-8">
-              <h2 className="text-center text-3xl font-bold">{section.title}</h2>
-              <div className="grid gap-4 tablet:grid-cols-3 laptop:grid-cols-6">
+              <h2 className="text-2xl font-bold tablet:text-3xl">{section.title}</h2>
+              <div className="grid grid-cols-1 gap-4 tablet:grid-cols-3 laptop:grid-cols-6">
                 {groups.map((group) => (
                   <div key={group} className="space-y-2">
                     <h3 className="text-sm font-semibold">{group}</h3>
@@ -87,8 +87,8 @@ const Home = async () => {
           return (
             <section key={section.id} className="bg-muted py-8">
               <div className="container space-y-8">
-                <h2 className="text-center text-3xl font-bold">{section.title}</h2>
-                <div className="grid gap-6 tablet:grid-cols-2 laptop:grid-cols-4">
+                <h2 className="text-2xl font-bold tablet:text-3xl">{section.title}</h2>
+                <div className="grid grid-cols-1 gap-6 tablet:grid-cols-2 laptop:grid-cols-4">
                   {links.map((link) => (
                     <Blog
                       key={link.id}
@@ -105,8 +105,8 @@ const Home = async () => {
         if (component === 'posts')
           return (
             <section key={section.id} className="container space-y-8">
-              <h2 className="text-center text-3xl font-bold">{section.title}</h2>
-              <div className="grid gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
+              <h2 className="text-2xl font-bold tablet:text-3xl">{section.title}</h2>
+              <div className="grid grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3">
                 {posts.slice(0, 6).map((post) => (
                   <Blog
                     key={post.id}
@@ -124,7 +124,7 @@ const Home = async () => {
         if (component === 'timeline')
           return (
             <section key={section.id}>
-              <h2 className="text-center text-3xl font-bold">{section.title}</h2>
+              <h2 className="container text-2xl font-bold tablet:text-3xl">{section.title}</h2>
               <Timeline />
             </section>
           );

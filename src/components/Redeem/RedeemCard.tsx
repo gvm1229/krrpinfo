@@ -9,7 +9,7 @@ const RedeemCard = async ({ className }: { className?: string }) => {
     (coupon) => new Date(text(coupon, 'expiresAt')).getTime() > Date.now(),
   );
   return (
-    <section className={cn('space-y-5 rounded-lg bg-muted p-5', className)}>
+    <section className={cn('min-w-0 space-y-5 rounded-lg bg-muted p-5', className)}>
       <h2 className="text-xl font-bold">
         <Copy id="redeem.codes" />
       </h2>

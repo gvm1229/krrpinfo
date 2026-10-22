@@ -17,8 +17,8 @@ const VideosPage = async () => {
     publishedEntries('category'),
   ]);
   return (
-    <main className="container space-y-10">
-      <h1 className="text-center text-4xl font-bold">
+    <main className="container space-y-6">
+      <h1 className="text-3xl font-bold tablet:text-4xl">
         <Copy id="videos.title" />
       </h1>
       <FeaturedVideos

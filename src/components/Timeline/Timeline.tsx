@@ -6,11 +6,9 @@ const Timeline = async () => {
   const groups = await getTimeline();
 
   return (
-    <section className="relative mx-auto max-w-[1280px] px-4 py-12 mobile_only:pl-14 tablet:pl-[120px]">
-      {/* 수직 spine */}
-      <div className="absolute left-[47px] top-0 bottom-0 w-px bg-zinc-300 dark:bg-zinc-700" />
-      {/* 그룹 목록 */}
-      <div className="flex flex-col gap-12">
+    <section className="container relative py-8">
+      <div className="absolute bottom-8 left-8 top-8 w-px bg-zinc-300 dark:bg-zinc-700" />
+      <div className="flex min-w-0 flex-col gap-12 pl-6 tablet:pl-10">
         {groups.map((group) => (
           <TimelineGroup key={group.id} group={group} />
         ))}

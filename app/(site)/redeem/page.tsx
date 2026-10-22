@@ -13,11 +13,11 @@ export const generateMetadata = async () => {
 const RedeemPage = async () => {
   if ((await pageSettings()).redeemEnabled !== 'true') disabledPage();
   return (
-    <main className="container space-y-12">
-      <h1 className="text-center text-4xl font-bold">
+    <main className="container space-y-8">
+      <h1 className="text-3xl font-bold tablet:text-4xl">
         <Copy id="redeem.title" />
       </h1>
-      <div className="grid gap-8 tablet:grid-cols-2">
+      <div className="grid grid-cols-1 items-start gap-10 laptop:grid-cols-2">
         <RedeemContainer />
         <RedeemCard />
       </div>

@@ -43,7 +43,11 @@ const Countdown = ({ seasons, className }: { seasons: Season[]; className?: stri
         ) : (
           <h3 className="text-xl font-bold">{current.title ?? current.alt}</h3>
         )}
-        {current.description && <p className="mt-2 text-sm">{current.description}</p>}
+        {current.description &&
+          (current.src ||
+            current.description.trim() !== (current.title ?? current.alt ?? '').trim()) && (
+            <p className="mt-2 text-sm">{current.description}</p>
+          )}
       </div>
       <div className="mt-5 space-y-1">
         <p className="text-sm">

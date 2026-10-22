@@ -30,7 +30,7 @@ const SiteLayout = async ({ children }: { children: React.ReactNode }) => {
             userAgent={requestHeaders.get('user-agent') ?? ''}
             posts={settings.postsEnabled === 'true' ? posts : []}
           />
-          <main className="relative flex-1 py-8 tablet:py-12">{children}</main>
+          <div className="relative min-w-0 flex-1 py-8 tablet:py-12">{children}</div>
           <SiteFooter />
         </div>
       </ClientLayout>

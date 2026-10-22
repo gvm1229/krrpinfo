@@ -12,9 +12,9 @@ export const generateMetadata = async () => {
 const SeasonsPage = async () => {
   if ((await pageSettings()).seasonsEnabled !== 'true') disabledPage();
   return (
-    <main className="py-10">
+    <main>
       <header className="container space-y-3">
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold tablet:text-4xl">
           <Copy id="seasons.title" />
         </h1>
         <p className="text-muted-foreground">

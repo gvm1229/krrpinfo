@@ -7,11 +7,9 @@ type TimelineGroupProps = {
 };
 
 const TimelineGroup = ({ group }: TimelineGroupProps) => (
-  <div className="relative flex flex-col gap-4">
-    {/* 그룹 헤더 — dot + 날짜 + 시즌 chip */}
+  <div className="relative flex min-w-0 flex-col gap-4">
     <div className="flex items-center gap-3">
-      {/* dot 위치 — spine 과 정렬되도록 왼쪽 오프셋 맞춤 */}
-      <div className="absolute -left-[76px] flex items-center">
+      <div className="absolute -left-[30px] flex items-center tablet:-left-[46px]">
         <Dot state={group.dotState} />
       </div>
       <time className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{group.date}</time>
@@ -21,7 +19,6 @@ const TimelineGroup = ({ group }: TimelineGroupProps) => (
         </span>
       )}
     </div>
-    {/* 그룹 items */}
     <div className="flex flex-col gap-6">
       {group.items.map((item) => (
         <TimelineItem key={item.id} item={item} />
