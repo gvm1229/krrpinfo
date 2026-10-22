@@ -9,9 +9,6 @@ const Dashboard = async () => {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-semibold">대시보드</h1>
-        <p className="mt-2 text-muted-foreground">
-          사이트 콘텐츠를 작성하고 공개 상태를 관리하세요.
-        </p>
       </header>
       <section className="cms-panel">
         <h2 className="mb-5 text-lg font-semibold">콘텐츠 현황</h2>
