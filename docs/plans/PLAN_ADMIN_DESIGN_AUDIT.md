@@ -5,6 +5,7 @@
 ## 기준과 범위
 
 - 사용자 기준: 직접 작성한 조작 UI는 shadcn 구성요소 사용. shadcn 내부의 의미 있는 HTML과 Slate·CodeMirror 내부 편집 요소는 직접 작성한 대체 UI와 구분
+- 사용자 후속 명확화: Strapi에서 가져온 원본 UI는 shadcn 전환 대상에서 제외. 아래 집계는 일괄 교체 지시가 아니며 변경 전 출처와 이식 기록으로 자체 작성 부분만 선별
 - 디자인의 정본은 사용자가 만든 기존 krrpinfo 화면. DESIGN.md도 기존 구현과 대조하며 새로 추가한 관리자 전용 기준을 원본 디자인으로 오인하지 않음
 - 조작 요소는 app과 src/components의 실제 화면 코드를 제한 조회. shadcn 기본 구현·보존한 외부 소스·공개 본문 안의 콘텐츠는 별도 분류
 - 관리자 점검은 레이아웃·로그인·목록·편집기·미디어·설정과 연결된 스타일에 한정
@@ -97,16 +98,23 @@ TypeScript 구문 트리로 app과 src/components의 TSX를 확인했다. 아래
 
 ## 후속 수정 대응표 — 이번 점검에서 미실행
 
-1. 원본 디자인과 최신 사용자 규칙으로 DESIGN.md 정정. Strapi의 편집 기술·기능과 모양을 분리
-2. 공통 입력·체크·선택·버튼과 버튼형 링크 교체. 없는 Textarea·AlertDialog 등은 기존 shadcn 구현 방식에 맞춰 추가
-3. 미디어 창·삭제/형식 변경 확인창과 도구막대 교체. 날짜·색상 선택도 Popover/Calendar와 색상 선택 메뉴로 검토
+1. 원본 디자인과 최신 사용자 규칙으로 DESIGN.md 정정. 자체 작성 UI와 가져온 Strapi 원본의 출처·적용 범위 구분, Strapi 원본 UI 보존
+2. 자체 작성한 공통 입력·체크·선택·버튼과 버튼형 링크만 교체. 없는 Textarea·AlertDialog 등은 기존 shadcn 구현 방식에 맞춰 추가
+3. 자체 작성한 미디어 창·삭제/형식 변경 확인창과 도구막대만 교체. 날짜·색상 선택도 Popover/Calendar와 색상 선택 메뉴로 검토
 4. Slate의 실제 편집 영역·CodeMirror 내부 입력·파일 선택기의 내부 input은 기술적으로 필요한 HTML과 구분. CodeMirror 연결 textarea까지 단순 일반 입력으로 치환해 편집 기능을 깨뜨리지 않으며 shadcn 경계·ref 보존 방식으로 처리
-5. 관리자 전용 팔레트·styled-components 경로 정리, 초점·조작 영역·공개 화면 후보 반영. 기존 콘텐츠·저장·선택 범위·한글 입력 기능 보존
+5. 자체 작성한 관리자 팔레트·styled-components 경로에 한해 정리, 초점·조작 영역·공개 화면 후보 반영. Strapi 원본 UI와 기존 콘텐츠·저장·선택 범위·한글 입력 기능 보존
 6. 관련 저장/편집 회귀 검사·타입·빌드와 두 테마·모바일 화면 재확인. Impeccable의 harden → adapt → polish 순서로 마감 후 audit 재검사
 
 점검 자료는 Git 제외 backup/admin-design-audit/의 inventory.json·detector.json·화면 PNG에 보존한다. 이번 요청의 점검은 완료됐고 위 후속 수정은 아직 구현하지 않았다.
 
 ## 보존할 문서 커밋
+
+### 사용자 범위 명확화에 따른 지침 보완 계획
+
+- shadcn 의무는 프로젝트에서 직접 작성한 조작 UI에만 적용. Strapi에서 가져온 원본 요소는 일괄 교체 대상에서 제외
+- AGENTS.md의 구현 지침과 DESIGN.md의 구성요소 기준에 같은 범위 명시. 보존한 Strapi 원본 UI와 Slate·CodeMirror 내부 HTML을 자체 UI로 오인하지 않도록 출처 확인 규칙 추가
+- 점검 문서의 후속 수정 대응표·일일 기록·PR.md도 같은 범위로 보완. 기존 Hive 표시 블록·제품 코드·버전은 유지하고 문서 diff로 확인
+- 관심사: 자체 UI의 shadcn 사용과 Strapi 원본 보존 범위 명시. 대상은 위 5개 문서, 제안 메시지는 🔧 chore(directives): 자체 UI와 Strapi 원본의 적용 범위 명시. 제품 변경이 없어 테스트·빌드·배포는 실행하지 않음
 
 - 관심사: 관리자 조작 요소·디자인 점검 결과 보존
 - 대상: 이 점검 문서, docs/logs/20261022-admin-design-audit.md, PR.md의 최신 점검 상태

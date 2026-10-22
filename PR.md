@@ -2,6 +2,8 @@
 
 ## 현재 검토 범위
 
+- 사용자 지침 명확화: 자체 작성 조작 UI에만 shadcn 사용 의무 적용. Strapi에서 가져온 원본 UI·Slate/CodeMirror 내부 편집 요소는 교체 대상에서 제외하도록 AGENTS.md·DESIGN.md·후속 수정 계획에 명시. 실제 UI 교체·버전 변경 없음
+
 - 2026-10-22 디자인 후속 점검: 관리자 직접 작성 조작 요소 48곳·기본 확인창 3곳, shadcn 가져오기 0건 확인. DESIGN.md에는 기존 기준과 Strapi 시각 기준이 섞여 있어 사용자 원본 디자인·shadcn 우선 요구에 부적합. 상세 증거와 미구현 수정 대응표는 PLAN_ADMIN_DESIGN_AUDIT.md에 기록, 제품 코드·버전 유지
 
 - 최종 0.1.25: 기존 MDX 색칠기 지연 로드와 공개 날짜의 Asia/Seoul 표시. 사용자 승인으로 6e036f3 원격 push·Preview Ready, CI 39610952549의 Windows/Linux 테스트 각각 32개·타입·이전 명령 검사 통과

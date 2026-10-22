@@ -39,6 +39,8 @@ This file provides guidance to local LLM agents when working with code in this r
 - **Tailwind CSS**: Use Tailwind CSS for all styling unless there's a specific reason not to.
 - **Button styles**: Every buttons like for example, "add project", "edit", "delete" must have a style of a solid background color, white text, and rounded corners. The text inside those buttons must not shrink or grow, nor be transferred into the next line (nowrap).
 - **Components**: `const` 함수형 컴포넌트만 사용. Server Component 기본, client interactivity 필요 시 `"use client"` 명시.
+- **자체 UI의 shadcn 사용**: 프로젝트에서 직접 작성·추가하는 버튼·입력·선택·체크·대화상자 등 조작 UI는 `src/components/ui/`의 shadcn 구성요소를 사용. 자체 화면에서 HTML 조작 요소나 브라우저 `confirm`·`alert`·`prompt`로 직접 대체하지 않음. shadcn 구성요소 내부의 HTML은 정상 구현으로 유지
+- **Strapi 원본 보존**: Strapi에서 가져온 원본 UI 구성요소는 위 shadcn 전환 대상에서 제외하며, 통일을 목적으로 교체·재작성하지 않음. 변경 전 출처와 이식 기록으로 자체 작성 UI와 구분. Slate·CodeMirror의 내부 편집 요소도 유지하고, 프로젝트에서 직접 추가한 도구 버튼·입력·대화상자에만 자체 UI 규칙 적용
 - **Branch strategy**: 프로덕션 = `release`, 개발 통합 = `develop`. 작업 브랜치는 커밋 타입과 같은 `feat/`, `fix/`, `docs/`, `style/`, `refactor/`, `perf/`, `test/`, `chore/`, `revert/` 중 작업 목적에 맞는 접두사와 짧은 kebab-case 이름 사용 (예: `feat/cms-mvp`, `fix/admin-login`). `codex/`, `claude/`, `agent/` 등 도구·제공자 이름 접두사와 접두사 없는 작업 브랜치 생성 금지. `release`와 `develop`은 고정 통합 브랜치 예외. 작은 작업은 해당 작업 브랜치에서 직접 commit, 큰 작업은 별도 작업 브랜치에서 구현 후 PR.
 
 ## Documentation Requirements

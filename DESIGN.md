@@ -99,6 +99,8 @@ Pretendard Variable을 우선하고 Pretendard와 시스템 sans-serif를 대체
 
 ## Components
 
+- 자체 조작 UI: 프로젝트에서 직접 작성·추가한 버튼·입력·선택·체크·대화상자는 shadcn 구성요소를 사용한다. 버튼형 링크는 Button의 asChild로 구성하며, 자체 HTML 컨트롤이나 브라우저 confirm·alert·prompt로 대체하지 않는다.
+- Strapi 원본: 가져온 원본 UI는 shadcn 전환 대상에서 제외하고 기존 구성요소를 보존한다. 출처·이식 기록으로 자체 작성 UI와 구분한다. shadcn 내부 HTML과 Slate·CodeMirror 내부 편집 요소는 유지하고, 직접 추가한 주변 조작 UI에만 위 규칙을 적용한다.
 - 카드: 실제 이미지·제목·설명·날짜·태그를 표시하며 빈 값을 임의 콘텐츠로 채우지 않는다.
 - 메뉴: 큰 화면·작은 화면·검색이 같은 CMS 항목을 사용한다.
 - 본문: Strapi 형식의 Slate 블록과 CodeMirror Markdown을 구분해 저장한다. 표·YouTube·접기는 이 프로젝트에서 확장한 기능이다.
