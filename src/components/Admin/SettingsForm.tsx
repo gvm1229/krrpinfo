@@ -16,12 +16,12 @@ const groups = [
   { title: '기본 정보', keys: ['name', 'description', 'logo', 'author', 'authorUrl'] },
   { title: '홈', keys: ['homeTitle', 'homeDescription', 'homeImage', 'homeLink', 'homeLinkLabel'] },
   {
-    title: '연락처·푸터',
+    title: '연락처와 푸터',
     keys: ['footerLabel', 'contactLabel', 'contactUrl', 'copyright', 'qrImage', 'qrLabel'],
   },
   { title: '쿠폰 안내', keys: ['redeemGuideUrl', 'redeemGuideImage'] },
   {
-    title: '검색·사이트 확인',
+    title: '검색과 사이트 확인',
     keys: ['ogImage', 'keywords', 'googleVerification', 'naverVerification'],
   },
 ];
@@ -63,7 +63,7 @@ export const SettingsForm = ({ initial, media }: { initial: SiteSettings; media:
         {message && (
           <p
             role={failed ? 'alert' : 'status'}
-            className={failed ? 'text-red-600 dark:text-red-400' : 'text-sm'}
+            className={failed ? 'text-sm text-error-text' : 'text-sm'}
           >
             {message}
           </p>
