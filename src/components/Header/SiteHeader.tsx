@@ -35,9 +35,9 @@ export const SiteHeader = ({
             href={text(entry, 'href')}
             aria-current={current(text(entry, 'href')) ? 'page' : undefined}
             className={cn(
-              'block whitespace-nowrap py-2 text-base font-medium hover:text-brand-blue',
+              'block whitespace-nowrap py-2 text-base font-medium hover:text-brand-link',
               current(text(entry, 'href')) &&
-                'font-bold text-brand-blue underline underline-offset-8',
+                'font-bold text-brand-link underline underline-offset-8',
             )}
             onClick={() => setOpen(false)}
           >
@@ -53,8 +53,8 @@ export const SiteHeader = ({
                     href={text(child, 'href')}
                     aria-current={current(text(child, 'href')) ? 'page' : undefined}
                     className={cn(
-                      'block whitespace-nowrap py-2 hover:text-brand-blue',
-                      current(text(child, 'href')) && 'font-bold text-brand-blue',
+                      'block whitespace-nowrap py-2 hover:text-brand-link',
+                      current(text(child, 'href')) && 'font-bold text-brand-link',
                     )}
                     onClick={() => setOpen(false)}
                   >
@@ -77,7 +77,7 @@ export const SiteHeader = ({
             {settings.logo && (
               <img src={settings.logo} width={40} height={40} alt="" className="rounded-lg" />
             )}
-            <span className="hidden text-xl font-bold tablet:block">{settings.name}</span>
+            <span className="hidden text-base font-bold tablet:block">{settings.name}</span>
           </Link>
           <nav className="hidden flex-1 gap-5 laptop:flex">{links}</nav>
           <div className="ml-auto flex items-center gap-2">

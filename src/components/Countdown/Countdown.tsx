@@ -29,7 +29,7 @@ const Countdown = ({ seasons, className }: { seasons: Season[]; className?: stri
   return (
     <div
       className={cn(
-        'flex min-h-56 flex-col justify-between rounded-xl bg-blue-600 p-4 text-white',
+        'flex min-h-56 flex-col justify-between rounded-lg bg-brand-blue p-4 text-white',
         className,
       )}
     >
@@ -41,7 +41,7 @@ const Countdown = ({ seasons, className }: { seasons: Season[]; className?: stri
             className="max-h-28 w-full object-contain"
           />
         ) : (
-          <h3 className="text-xl font-bold">{current.title ?? current.alt}</h3>
+          <h3 className="text-base font-bold">{current.title ?? current.alt}</h3>
         )}
         {current.description &&
           (current.src ||
@@ -53,7 +53,7 @@ const Countdown = ({ seasons, className }: { seasons: Season[]; className?: stri
         <p className="text-sm">
           {t(current.countdownUntilEnd ? 'countdown.end' : 'countdown.start')}
         </p>
-        <p className="text-4xl font-extrabold">
+        <p className="text-2xl font-bold tabular-nums">
           {days ? t('countdown.days', { days }) : t('countdown.today')}
         </p>
         <p className="text-sm">({current.targetEndDate})</p>

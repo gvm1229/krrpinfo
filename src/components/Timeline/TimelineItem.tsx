@@ -8,11 +8,8 @@ type TimelineItemProps = {
 
 const TimelineItem = ({ item }: TimelineItemProps) => (
   <div className="flex flex-col gap-2">
-    {item.kicker && (
-      // kicker — 소문자 라벨
-      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-        {item.kicker}
-      </p>
+    {item.kicker && item.kicker.trim() !== item.title.trim() && (
+      <p className="text-sm text-muted-foreground">{item.kicker}</p>
     )}
     <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{item.title}</p>
     {item.card && (

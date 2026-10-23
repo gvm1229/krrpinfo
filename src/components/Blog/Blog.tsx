@@ -38,7 +38,7 @@ const Blog = ({
         />
       )}
       <div className="mt-4 space-y-2">
-        <h3 className="break-words text-xl font-bold leading-snug group-hover:underline">
+        <h3 className="break-words text-base font-bold leading-snug group-hover:underline">
           {title}
         </h3>
         {description && (
