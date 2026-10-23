@@ -3,11 +3,11 @@ name: 카러플 정보통
 description: 카트라이더 러쉬플러스의 글·영상·시즌·쿠폰을 찾고 관리하는 정보 사이트
 colors:
   background: 'hsl(0 0% 100%)'
-  foreground: 'hsl(240 10% 3.9%)'
-  muted: 'hsl(240 4.8% 95.9%)'
-  muted-foreground: 'hsl(240 3.8% 46.1%)'
+  foreground: '#202020'
+  muted: '#f0f0f0'
+  muted-foreground: '#646464'
   brand-blue: '#2563eb'
-  brand-blue-hover: '#3b82f6'
+  brand-blue-hover: '#1d4ed8'
   brand-blue-dark: '#60a5fa'
   season-1: '#7c3aed'
   season-2: '#ec4899'
@@ -69,7 +69,13 @@ spacing:
 
 ## Colors
 
-공개 화면은 흰색과 zinc 계열의 중립색, 브랜드 파랑을 사용한다. 밝은 테마의 본문은 hsl(240 10% 3.9%), 어두운 테마의 배경도 같은 색이다. 어두운 테마 본문은 hsl(0 0% 98%)이다.
+공개 화면은 흰색과 Radix Gray 계열의 중립색, 기존 브랜드 파랑을 사용한다. 밝은 테마의 본문은 #202020, 어두운 테마의 배경은 #111111, 본문은 #eeeeee다.
+
+공통 토큰은 Radix의 역할에 맞춰 표면은 3단계, 가리킨 표면은 4단계, 장식 경계는 6단계, 보조 글씨는 11단계, 본문은 12단계에 연결한다. 입력 경계는 3:1 대비를 위해 밝은 테마 Gray 9와 어두운 테마 Gray 10을 사용한다. 오류 글씨는 Red 11의 밝은 값 #ce2c31과 어두운 값 #ff9592다. CSS에 필요한 값만 두고 패키지는 추가하지 않는다.
+
+브랜드 버튼 배경은 #2563eb, 가리킨 배경은 흰 글씨 대비를 유지하는 #1d4ed8이다. 링크는 --brand-link, 중립 조작 버튼은 --control과 --control-hover, 오류 글씨는 --error-text를 사용한다. 관리자 색상은 --cms-\*로 관리하며 기존 보라색과 Strapi 표면을 유지한다. 관리자 입력 경계와 초점 색은 테마별로 구분한다.
+
+참조: [Radix 색상 역할](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale), [브랜드와 Radix 팔레트 병용](https://www.radix-ui.com/colors/docs/palette-composition/composing-a-palette). 2026-10-23에 공식 light.ts와 dark.ts 값을 확인했다.
 
 시즌 색상은 --s-1부터 --s-5까지 다섯 역할을 유지한다. 어두운 테마에서는 surface인 --s-4와 ink인 --s-5를 바꿔 사용한다. 태그는 gold·green·blue·sky·red·yellow·purple·orange 이름 중에서 고른다. 원시 CSS나 임의 클래스 이름을 CMS에서 입력하지 않는다.
 
@@ -80,6 +86,8 @@ spacing:
 Pretendard Variable을 우선하고 Pretendard와 시스템 sans-serif를 대체 글꼴로 사용한다. 본문은 1rem, 글 상세 제목은 큰 화면에서 2.5rem이다. 관리자 화면은 고정 rem 크기와 분명한 필드 이름을 사용한다.
 
 실제 코드·주소 식별자 이외에는 고정폭 글꼴을 장식으로 쓰지 않는다. 긴 제목과 실제 한국어 문장을 작은 화면에서도 확인한다.
+
+일반 화면의 글자 크기는 3~4개로 제한한다. 홈은 14·16·24·30px, 글과 영상 목록은 14·16px와 화면 크기에 따른 제목 30px 또는 36px다. 보조 글씨는 최소 12px를 유지한다. 글 본문 제목과 편집기의 문서 표현은 이 제한의 예외다. 모바일 관리자 입력은 16px로 읽기 쉽게 표시한다.
 
 ## Layout
 
@@ -98,6 +106,8 @@ Pretendard Variable을 우선하고 Pretendard와 시스템 sans-serif를 대체
 ## Shapes
 
 공개 버튼은 단색 배경·흰 글자·둥근 모서리를 사용한다. 동작 이름은 줄바꿈하지 않고 크기가 눌리지 않게 한다. 입력창과 관리자 버튼은 Strapi의 작은 모서리 형태를 따른다.
+
+일정 카드의 모서리는 이미지 카드와 같은 8px를 사용한다. 검색창처럼 안쪽 여백이 없는 중첩 표면은 바깥 모서리만 표시한다. 장식 구분선은 이번 Windows 렌더 검증에서 기존 1px를 유지하며, 입력 경계와 초점 표시는 가늘게 줄이지 않는다. 공통 버튼과 관리자 메뉴의 색 전환은 250ms ease-out이며, 움직임 줄이기 설정에서는 전환을 끈다.
 
 ## Components
 

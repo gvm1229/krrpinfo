@@ -191,3 +191,10 @@
 - Vitest 32개·TypeScript·프로덕션 빌드·변경 파일 형식 검사 통과. 실제 휴대전화·스크린 리더·R2 업로드/삭제·Linux CI는 미실행
 - 쿠폰 실제 사용 연결은 사용자 선택으로 이번 범위에서 제외. 신규 배포·커밋·원격 반영 없음
 - 세부 결과: docs/logs/20261022-ui-clarity.md, 계획: docs/plans/PLAN_UI_CLARITY.md, 전후 캡처: backup/ui-clarity/
+
+## 🎨 UI 후속 정리 (0.1.27)
+
+- 기존 제목 배치와 저장 흐름을 유지하며 글자 크기, 공통 색상, 일정 카드 모서리와 관리자 모바일 상태 배치를 정리
+- 테마 선택과 검색 닫기 초점, 태그 펼침과 크기 변경, 로그인 입력과 오류 표시 개선
+- Codex·Windows·Chrome에서 6개 화면 × 3개 너비 × 두 테마의 배치 확인. 자세한 결과와 예외는 docs/logs/20261023-ship-ui-clarity.md 및 docs/plans/PLAN_UI_REFINEMENT.md 참조
+- 운영 데이터와 Strapi 원본 보존, 새 패키지 없음. 실제 모바일 기기와 외부 운영 서비스 검사는 이번 범위에서 미실행
