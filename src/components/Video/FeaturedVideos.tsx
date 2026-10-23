@@ -45,7 +45,7 @@ export const FeaturedVideos = ({
           <TabsTrigger
             key={category.id}
             value={category.id}
-            className="min-h-11 shrink-0 rounded-md bg-control px-4 py-2 text-white hover:bg-control-hover data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-none"
+            className="min-h-11 shrink-0 rounded-md bg-control px-4 py-2 text-white transition-colors duration-250 ease-out motion-reduce:transition-none hover:bg-control-hover data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-none"
           >
             {category.title}
           </TabsTrigger>

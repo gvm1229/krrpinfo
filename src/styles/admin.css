@@ -45,6 +45,9 @@
   background: var(--cms-surface);
 }
 .cms-nav-link {
+  transition:
+    background-color 250ms ease-out,
+    color 250ms ease-out;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -118,7 +121,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #fff;
-  transition: background 150ms;
+  transition: background-color 250ms ease-out;
 }
 .cms-button:hover {
   background: var(--cms-primary-hover);
@@ -255,6 +258,12 @@
   }
   .cms-topbar {
     padding: 1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cms-button,
+  .cms-nav-link {
+    transition: none;
   }
 }
 @media (max-width: 720px) {
