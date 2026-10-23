@@ -1,18 +1,19 @@
 'use client';
 
 import { Ellipsis, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import TooltipWrapper from '@/components/Tooltip/TooltipWrapper';
+import { useEffect, useId, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/src/util/utils';
 
-interface TagProps {
+type TagProps = {
   tagInput: string[];
   isHoverEnabled?: boolean;
   isExtraSmall?: boolean;
   className?: string;
   innerClassName?: string;
   isEllipsisEnabled?: boolean;
-}
+};
 
 const Tag = ({
   tagInput,
@@ -25,37 +26,35 @@ const Tag = ({
   const [showEllipsis, setShowEllipsis] = useState(false);
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const ulRef = useRef<HTMLUListElement>(null);
+  const listId = useId();
 
   useEffect(() => {
+    const ul = ulRef.current;
+    if (!ul || !isEllipsisEnabled || isTagsOpen) return;
+    // 접힌 태그 영역의 크기 변경 확인
     const checkWidth = () => {
-      const ul = ulRef.current;
-      if (ul) {
-        // Change here: Use clientWidth for checking against max width
-        const hasExceededMaxWidth = ul.scrollWidth > ul.clientWidth;
-        setShowEllipsis(hasExceededMaxWidth);
-      }
+      setShowEllipsis(ul.scrollWidth > ul.clientWidth);
     };
-
     checkWidth();
-
-    // Optional: Re-check on window resize if the layout is responsive
-    window.addEventListener('resize', checkWidth);
-    return () => window.removeEventListener('resize', checkWidth);
-  }, [tagInput]); // Rerun when tagInput changes, you might want to adjust this dependency array based on your needs
+    const observer = new ResizeObserver(checkWidth);
+    observer.observe(ul);
+    return () => observer.disconnect();
+  }, [tagInput, isEllipsisEnabled, isTagsOpen]);
 
   return (
     <div className={cn('relative flex items-center', className)}>
       <ul
+        id={listId}
         ref={ulRef}
-        className={`flex w-full gap-2 ${isEllipsisEnabled && 'max-w-[90%]'} ${isEllipsisEnabled && isTagsOpen ? 'flex-wrap' : 'overflow-x-hidden'}`}
+        className={`flex min-w-0 flex-1 gap-2 ${isEllipsisEnabled && isTagsOpen ? 'flex-wrap' : 'overflow-x-hidden'}`}
       >
         {Object.values(tagInput).map((tag) => (
           <li
             key={tag}
             className={cn(
-              'min-w-fit shrink-0 rounded-lg bg-blue-600 font-medium text-white',
-              `${isExtraSmall ? 'px-1.5 py-1 text-[0.6rem]' : 'px-2 py-1.5 text-sm'}`,
-              `${isHoverEnabled && 'hover:bg-blue-500 hover:underline'}`,
+              'min-w-fit shrink-0 rounded-sm bg-muted font-medium text-foreground',
+              `${isExtraSmall ? 'px-1.5 py-1 text-xs' : 'px-2 py-1.5 text-sm'}`,
+              `${isHoverEnabled && 'hover:bg-accent'}`,
               innerClassName,
             )}
           >
@@ -64,17 +63,24 @@ const Tag = ({
         ))}
       </ul>
       {isEllipsisEnabled && showEllipsis && (
-        <TooltipWrapper
-          text={isTagsOpen ? '태그 최소화하기' : '태그 더 보기'}
-          triggerClassName="flex size-full max-w-[10%] items-center justify-end"
-        >
-          <button
-            onClick={() => setIsTagsOpen(!isTagsOpen)}
-            className="aspect-square rounded-full bg-muted p-1"
-          >
-            {isTagsOpen ? <X /> : <Ellipsis />}
-          </button>
-        </TooltipWrapper>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                size="icon"
+                aria-label={isTagsOpen ? '태그 접기' : '태그 더 보기'}
+                aria-expanded={isTagsOpen}
+                aria-controls={listId}
+                onClick={() => setIsTagsOpen(!isTagsOpen)}
+                className="ml-2 bg-control text-white hover:bg-control-hover"
+              >
+                {isTagsOpen ? <X size={18} /> : <Ellipsis size={18} />}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{isTagsOpen ? '태그 접기' : '태그 더 보기'}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
     </div>
   );
