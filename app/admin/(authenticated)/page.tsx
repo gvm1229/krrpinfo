@@ -17,7 +17,7 @@ const Dashboard = async () => {
             <Link
               key={kind}
               href={'/admin/content/' + kind}
-              className="space-y-2 hover:text-[#4945ff]"
+              className="space-y-2 rounded-sm hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
             >
               <span className="text-sm">{kindLabels[kind]}</span>
               <strong className="block text-3xl">
@@ -37,11 +37,12 @@ const Dashboard = async () => {
               <Link
                 key={entry.id}
                 href={'/admin/content/' + entry.kind + '/' + entry.id}
-                className="flex items-center justify-between gap-4 py-4"
+                className="flex min-w-0 flex-col gap-2 rounded-sm py-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-4"
               >
-                <span>{entry.title}</span>
-                <span className="text-xs text-muted-foreground">
-                  {kindLabels[entry.kind]} · {entry.published ? 'Published' : 'Draft'}
+                <span className="min-w-0 break-words">{entry.title}</span>
+                <span className="flex shrink-0 gap-3 text-sm text-muted-foreground">
+                  <span>{kindLabels[entry.kind]}</span>
+                  <span>{entry.published ? 'Published' : 'Draft'}</span>
                 </span>
               </Link>
             ))}
