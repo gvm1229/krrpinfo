@@ -1,0 +1,20 @@
+# 공유 지침 원문과 생성 답변은 Hive validate로 검사
+/AGENTS.md
+/CLAUDE.md
+/GEMINI.md
+/.hive/setup-answers.yml
+/.hive/config/skill-providers.json
+/.hive/config/project-overrides.json
+/.hive/directives/
+
+# AIGENT-HIVE:FORMAT:START
+.agents/skills/
+.agents/directives/
+.claude/skills/
+.hive/config/active-skills.yml
+.hive/config/approved-skills.yml
+.hive/config/capability-resolution.yml
+.hive/config/project-base.json
+.hive/config/project-overrides.json
+.hive/team/roles/
+# AIGENT-HIVE:FORMAT:END

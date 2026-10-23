@@ -1,127 +1,77 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-
-const nextAuthMock = vi.fn((_config: unknown) => ({
-  handlers: { GET: vi.fn(), POST: vi.fn() },
-  auth: vi.fn(),
-  signIn: vi.fn(),
-  signOut: vi.fn(),
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { hashPassword, verifyPassword } from '@/src/cms/password';
+import { isOwner } from '@/src/cms/owner';
+import type { Session } from 'next-auth';
+const { nextAuthMock, dbMock } = vi.hoisted(() => ({
+  nextAuthMock: vi.fn((_config: unknown) => ({
+    handlers: {},
+    auth: vi.fn(),
+    signIn: vi.fn(),
+    signOut: vi.fn(),
+  })),
+  dbMock: vi.fn(),
 }));
-
-const googleMock = vi.fn((opts: unknown) => ({ id: 'google', name: 'Google', _opts: opts }));
-const adapterMock = vi.fn((promise: unknown) => ({ _adapter: 'mongodb', _promise: promise }));
-const fakeClientPromise = Promise.resolve({});
-
 vi.mock('next-auth', () => ({ default: nextAuthMock }));
-vi.mock('next-auth/providers/google', () => ({ default: googleMock }));
-vi.mock('@auth/mongodb-adapter', () => ({ MongoDBAdapter: adapterMock }));
-vi.mock('@/src/util/db', () => ({ clientPromise: fakeClientPromise }));
-vi.mock('@/env.mjs', () => ({
-  env: {
-    AUTH_GOOGLE_ID: 'gid',
-    AUTH_GOOGLE_SECRET: 'gsecret',
-    AUTH_SECRET: 'asecret',
-    AUTH_OWNER_EMAIL: 'owner@example.com',
-    MONGODB_URL: 'mongodb://test',
-  },
-}));
-
-type CapturedConfig = {
-  providers: unknown[];
+vi.mock('next-auth/providers/credentials', () => ({ default: (config: unknown) => config }));
+vi.mock('@/src/cms/client', () => ({ database: () => dbMock() }));
+type Config = {
+  providers: { authorize: (value: unknown, request: Request) => Promise<{ id: string } | null> }[];
   session: { strategy: string };
-  secret: string;
-  adapter: unknown;
-  pages: { signIn: string; error: string };
-  callbacks: {
-    signIn: (args: {
-      user?: { email?: string | null };
-      profile?: { email?: string | null };
-    }) => boolean | Promise<boolean>;
-  };
+  adapter?: unknown;
+  callbacks: { session: (value: { session: Session; token: Record<string, unknown> }) => Session };
 };
-
-const captureConfig = (): CapturedConfig =>
-  nextAuthMock.mock.calls[0]?.[0] as unknown as CapturedConfig;
-
 beforeEach(() => {
+  process.env.AUTH_OWNER_ID = 'owner';
+  process.env.AUTH_PASSWORD_HASH = hashPassword('long-test-password');
   vi.resetModules();
-  nextAuthMock.mockClear();
-  googleMock.mockClear();
-  adapterMock.mockClear();
+  dbMock.mockReturnValue({ rpc: vi.fn().mockResolvedValue({ data: true, error: null }) });
 });
-
-afterEach(() => {
-  vi.clearAllMocks();
-});
-
-describe('src/auth.ts', () => {
-  it('exports handlers/auth/signIn/signOut', async () => {
-    const mod = await import('@/src/auth');
-    expect(mod).toMatchObject({
-      handlers: expect.any(Object),
-      auth: expect.any(Function),
-      signIn: expect.any(Function),
-      signOut: expect.any(Function),
-    });
+describe('운영자 인증', () => {
+  it('실제 비밀번호 해시 검증과 잘못된 입력 거부', () => {
+    const hash = hashPassword('strong-test-password');
+    expect(verifyPassword('strong-test-password', hash)).toBe(true);
+    expect(verifyPassword('wrong', hash)).toBe(false);
+    expect(verifyPassword('wrong', 'broken')).toBe(false);
+    expect(() => hashPassword('short')).toThrow();
   });
-
-  it('passes Google provider with env credentials', async () => {
-    await import('@/src/auth');
-    expect(googleMock).toHaveBeenCalledWith({ clientId: 'gid', clientSecret: 'gsecret' });
-    expect(captureConfig().providers).toHaveLength(1);
+  it('실제 운영자 식별자와 만료 시각 검사', () => {
+    expect(isOwner({ user: { id: 'owner' }, expires: '2099-01-01T00:00:00Z' })).toBe(true);
+    expect(isOwner(null)).toBe(false);
+    expect(isOwner({ user: { id: 'other' }, expires: '2099-01-01T00:00:00Z' })).toBe(false);
+    expect(isOwner({ user: { id: 'owner' }, expires: '2000-01-01T00:00:00Z' })).toBe(false);
+    expect(isOwner({ user: { id: 'owner' }, expires: 'bad' })).toBe(false);
   });
-
-  it('uses database session strategy', async () => {
+  it('Credentials와 JWT로 로그인하고 Google·DB 어댑터를 사용하지 않음', async () => {
     await import('@/src/auth');
-    const cfg = captureConfig();
-    expect(cfg.session).toEqual({ strategy: 'database' });
-    expect(cfg.secret).toBe('asecret');
+    const cfg = nextAuthMock.mock.calls.at(-1)?.[0] as unknown as Config;
+    expect(cfg.session.strategy).toBe('jwt');
+    expect(cfg.adapter).toBeUndefined();
+    const request = new Request('https://example.com/login');
+    expect(
+      await cfg.providers[0].authorize(
+        { username: 'owner', password: 'long-test-password' },
+        request,
+      ),
+    ).toEqual({ id: 'owner', name: 'owner' });
+    expect(
+      await cfg.providers[0].authorize(
+        { username: 'other', password: 'long-test-password' },
+        request,
+      ),
+    ).toBeNull();
+    expect(
+      await cfg.providers[0].authorize({ username: 'owner', password: 'wrong' }, request),
+    ).toBeNull();
   });
-
-  it('wires MongoDBAdapter with clientPromise', async () => {
+  it('횟수 제한과 DB 오류가 있으면 로그인 거부', async () => {
     await import('@/src/auth');
-    expect(adapterMock).toHaveBeenCalledWith(fakeClientPromise);
-    expect(captureConfig().adapter).toMatchObject({ _adapter: 'mongodb' });
-  });
-
-  it('routes signIn UI to /admin/login and errors to /admin/auth-error', async () => {
-    await import('@/src/auth');
-    expect(captureConfig().pages).toEqual({
-      signIn: '/admin/login',
-      error: '/admin/auth-error',
-    });
-  });
-
-  it('signIn callback allows owner email', async () => {
-    await import('@/src/auth');
-    const result = await captureConfig().callbacks.signIn({
-      user: { email: 'owner@example.com' },
-    });
-    expect(result).toBe(true);
-  });
-
-  it('signIn callback rejects non-owner email', async () => {
-    await import('@/src/auth');
-    const result = await captureConfig().callbacks.signIn({
-      user: { email: 'attacker@example.com' },
-    });
-    expect(result).toBe(false);
-  });
-
-  it('signIn callback rejects when email missing', async () => {
-    await import('@/src/auth');
-    const result = await captureConfig().callbacks.signIn({
-      user: { email: null },
-      profile: { email: null },
-    });
-    expect(result).toBe(false);
-  });
-
-  it('signIn callback falls back to profile.email when user.email absent', async () => {
-    await import('@/src/auth');
-    const result = await captureConfig().callbacks.signIn({
-      user: {},
-      profile: { email: 'owner@example.com' },
-    });
-    expect(result).toBe(true);
+    const cfg = nextAuthMock.mock.calls.at(-1)?.[0] as unknown as Config;
+    dbMock.mockReturnValue({ rpc: vi.fn().mockResolvedValue({ data: false, error: null }) });
+    expect(
+      await cfg.providers[0].authorize(
+        { username: 'owner', password: 'long-test-password' },
+        new Request('https://example.com'),
+      ),
+    ).toBeNull();
   });
 });

@@ -1,0 +1,36 @@
+import { Copy } from '@/components/Text/PublicSite';
+import Image from 'next/image';
+import type { TimelineCard, TagPillColor } from '@/src/types/season';
+import TagPill from './TagPill';
+type MediaCardProps = {
+  card: TimelineCard;
+  tags?: {
+    color: TagPillColor;
+    text: string;
+  }[];
+};
+const MediaCard = ({ card, tags }: MediaCardProps) => {
+  if (card.variant === 'image' && card.imageUrl) {
+    return (
+      <div className="relative aspect-video w-full max-w-80 overflow-hidden rounded-xl">
+        <Image src={card.imageUrl} alt={card.alt ?? ''} fill className="object-cover" />
+      </div>
+    );
+  }
+  // unknown variant — 회색 플레이스홀더 + 태그 pill row
+  return (
+    <div className="flex aspect-video w-full max-w-80 flex-col items-center justify-center gap-3 rounded-xl bg-zinc-200 dark:bg-zinc-800">
+      <span className="text-5xl font-bold text-zinc-400 dark:text-zinc-600 select-none">
+        <Copy id="copy.8a8de823d5ed" />
+      </span>
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-1">
+          {tags.map((tag, i) => (
+            <TagPill key={i} color={tag.color} text={tag.text} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+export default MediaCard;

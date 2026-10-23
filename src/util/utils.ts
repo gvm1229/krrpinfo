@@ -12,8 +12,14 @@ export function absoluteUrl(path: string): string {
 }
 
 export function formatDate(input: string | number | Date): string {
+  // 한국 시간 기준 YYYY-MM-DD 표시
   const date = new Date(input);
-  return date.toLocaleDateString();
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
 }
 
 // utility function that converts the seconds into HH:MM:SS format
@@ -29,7 +35,8 @@ export function convertSecondsToTime(seconds: number, truncate: boolean = true) 
       const minutes = Math.floor(roundedSeconds / 60);
       const remainingSeconds = roundedSeconds % 60;
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-    } if (roundedSeconds < 36000) {
+    }
+    if (roundedSeconds < 36000) {
       const hours = Math.floor(roundedSeconds / 3600);
       const minutes = Math.floor((roundedSeconds % 3600) / 60);
       const remainingSeconds = roundedSeconds % 60;
@@ -108,10 +115,8 @@ export function truncateNumbers(num: number): string {
  * @return {number} The fallback index.
  */
 export function fallBackIndex(arrInput: unknown[], idxInput: number): number {
-  if (idxInput >= arrInput.length)
-    return arrInput.length - 1;
-  if (idxInput < 0)
-    return 0;
+  if (idxInput >= arrInput.length) return arrInput.length - 1;
+  if (idxInput < 0) return 0;
 
   return idxInput;
 }

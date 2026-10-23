@@ -1,22 +1,15 @@
 'use client';
-
+import { Copy } from '@/components/Text/PublicSite';
 import { handleUnified } from '@/app/actions/couponRedeem';
-
 interface RedeemButtonProps {
-  npaCode: string
-  couponCode: string
-  setResponse: (data: {
-    success: boolean
-    message: string
-  }) => void
+  npaCode: string;
+  couponCode: string;
+  setResponse: (data: { success: boolean; message: string }) => void;
 }
-
 const RedeemButton = ({ npaCode, couponCode, setResponse }: RedeemButtonProps) => {
   const handleRedeem = () => {
-    handleUnified(npaCode, couponCode)
-      .then((data) => setResponse(data));
+    handleUnified(npaCode, couponCode).then((data) => setResponse(data));
   };
-
   return (
     <button
       type="button"
@@ -24,9 +17,8 @@ const RedeemButton = ({ npaCode, couponCode, setResponse }: RedeemButtonProps) =
       onClick={handleRedeem}
       data-message="unified"
     >
-      쿠폰 리딤
+      <Copy id="copy.f0a3dcc47ddb" />
     </button>
   );
 };
-
 export default RedeemButton;

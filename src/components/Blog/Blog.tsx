@@ -1,12 +1,7 @@
-import React from 'react';
-import { LinkIcon } from 'lucide-react';
 import Link from 'next/link';
-import ButtonNewTab from '@/components/Button/ButtonNewTab';
-import ResponsiveImage from '@/components/Image/ResponsiveImage';
+import { formatDate, cn } from '@/src/util/utils';
 import Tag from '@/components/Tag/Tag';
-import { cn, formatDate } from '@/src/util/utils';
-
-interface BlogProps {
+type BlogProps = {
   width?: string;
   thumbnail?: string;
   date?: string;
@@ -18,183 +13,68 @@ interface BlogProps {
   gridNums?: number[];
   isImagePriority?: boolean;
   className?: string;
-}
-
-export default function Blog({
-  width,
-  thumbnail = 'https://res.cloudinary.com/djfgq8qk3/image/upload/v1710490251/storybook/nextjs-720p.png',
-  date,
-  title,
-  description,
-  tags,
-  toNavigate,
-  hyperlink,
-  gridNums = [1, 2, 3],
-  isImagePriority = false,
-  className,
-}: BlogProps) {
-  // When redirect link is present
-  if (toNavigate)
-    return (
-      <TextDataWrapper
-        width={width}
-        thumbnail={thumbnail}
-        tags={tags}
-        date={date}
-        title={title}
-        description={description}
-        gridNums={gridNums}
-        isPriority={isImagePriority}
-        NavigateComponent={Link}
-        toNavigate={toNavigate}
-        className={className}
-      />
-    );
-
-  // When external link is present
-  if (hyperlink)
-    return (
-      <TextDataWrapper
-        width={width}
-        thumbnail={thumbnail}
-        tags={tags}
-        date={date}
-        title={title}
-        description={description}
-        gridNums={gridNums}
-        isPriority={isImagePriority}
-        NavigateComponent={ButtonNewTab}
-        hyperlink={hyperlink}
-        className={className}
-      />
-    );
-
-  // Default render without any links
-  return (
-    <TextDataWrapper
-      width={width}
-      thumbnail={thumbnail}
-      tags={tags}
-      date={date}
-      title={title}
-      description={description}
-      gridNums={gridNums}
-      isPriority={isImagePriority}
-      NavigateComponent={ButtonNewTab}
-      className={className}
-    />
-  );
-}
-
-type TextDataWrapperProps = {
-  width?: string;
-  thumbnail?: string;
-  tags: string[];
-  date?: string;
-  title: string;
-  description?: string;
-  gridNums: number[];
-  isPriority: boolean;
-  NavigateComponent?: React.ElementType;
-  toNavigate?: string;
-  hyperlink?: string;
-  className?: string;
 };
-
-function TextDataWrapper({
+// 실제로 등록된 데이터만 표시하는 콘텐츠 카드
+const Blog = ({
   width,
   thumbnail,
-  tags,
   date,
   title,
   description,
-  gridNums,
-  isPriority,
-  NavigateComponent,
+  tags,
   toNavigate,
   hyperlink,
+  isImagePriority = false,
   className,
-}: TextDataWrapperProps) {
-  return (
-    <div className={cn('rounded-lg focus:outline-hidden', width, className)}>
-      {NavigateComponent && (toNavigate || hyperlink) ? (
-        <NavigateComponent href={toNavigate ?? hyperlink ?? ''}>
-          <ImageWrapper
-            src={thumbnail ?? ''}
-            gridNums={gridNums}
-            isPriority={isPriority}
-            isHyperlink={!!hyperlink}
-            className={width}
-          />
-        </NavigateComponent>
-      ) : (
-        <ImageWrapper
-          src={thumbnail ?? ''}
-          gridNums={gridNums}
-          isPriority={isPriority}
-          className={width}
+}: BlogProps) => {
+  const content = (
+    <>
+      {thumbnail && (
+        <img
+          src={thumbnail}
+          alt={toNavigate || hyperlink ? '' : title}
+          loading={isImagePriority ? 'eager' : 'lazy'}
+          className="aspect-video w-full rounded-lg object-cover"
         />
       )}
-      <div className="group mt-4 space-y-2 text-left">
-        <div className="flex items-center justify-between pb-2">
-          <p id="date" className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
-            {formatDate(date ?? new Date())}
-          </p>
-        </div>
-        {NavigateComponent && (toNavigate || hyperlink) ? (
-          <NavigateComponent href={toNavigate ?? hyperlink ?? ''}>
-            <h1 id="title" className="truncate text-2xl font-bold text-primary hover:underline">
-              {title}
-            </h1>
-          </NavigateComponent>
-        ) : (
-          <h1 id="title" className="truncate text-2xl font-bold text-primary hover:underline">
-            {title}
-          </h1>
-        )}
+      <div className="mt-4 space-y-2">
+        <h3 className="break-words text-base font-bold leading-snug group-hover:underline">
+          {title}
+        </h3>
         {description && (
-          <p className="truncate font-medium text-zinc-600 dark:text-zinc-200">{description}</p>
+          <p className="line-clamp-2 break-words text-muted-foreground">{description}</p>
         )}
-        <Tag tagInput={tags} isEllipsisEnabled />
+        {date && <p className="text-sm text-muted-foreground">{formatDate(date)}</p>}
       </div>
-    </div>
+    </>
   );
-}
-
-interface ImageWrapperProps {
-  src: string;
-  alt?: string;
-  gridNums: number[];
-  isPriority: boolean;
-  isHyperlink?: boolean;
-  className?: string;
-}
-
-export function ImageWrapper({
-  src,
-  alt = 'blog-thumbnail',
-  gridNums,
-  isPriority,
-  isHyperlink,
-  className,
-}: ImageWrapperProps) {
   return (
-    <div className={cn('relative aspect-video rounded-md', className)}>
-      <div className="absolute inset-0 z-10 rounded-md bg-black opacity-0 transition hover:opacity-20 dark:bg-white" />
-      {isHyperlink && (
-        <div className="absolute z-20 rounded-br-md rounded-tl-md bg-white/70 p-2">
-          <LinkIcon className="size-8 text-blue-600" />
+    <article className={cn('min-w-0 rounded-lg', width, className)}>
+      {toNavigate ? (
+        <Link
+          href={toNavigate}
+          className="group block rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue"
+        >
+          {content}
+        </Link>
+      ) : hyperlink ? (
+        <a
+          href={hyperlink}
+          target="_blank"
+          rel="noreferrer"
+          className="group block rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue"
+        >
+          {content}
+        </a>
+      ) : (
+        content
+      )}
+      {tags.length > 0 && (
+        <div className="mt-3">
+          <Tag tagInput={tags} isEllipsisEnabled />
         </div>
       )}
-      <ResponsiveImage
-        src={src}
-        alt={alt}
-        wrapperClassName="rounded-md shadow-md dark:shadow-zinc-600"
-        imageClassName="scale-103"
-        aspectRatio="aspect-video"
-        gridNums={gridNums}
-        isPriority={isPriority}
-      />
-    </div>
+    </article>
   );
-}
+};
+export default Blog;

@@ -1,0 +1,37 @@
+schema_version: 1
+include:
+  - AGENTS.md
+  - README.md
+  - DESIGN.md
+  - docs/**
+  - app/**
+  - src/**
+  - config/**
+  - scripts/**
+  - supabase/migrations/**
+exclude:
+  - .env
+  - .env.*
+  - '**/.env'
+  - '**/.env.*'
+  - '**/*.pem'
+  - '**/*.key'
+  - backup/**
+  - node_modules/**
+  - .next/**
+  - coverage/**
+  - .git/**
+  - .omc/**
+  - .omx/**
+  - .hive/runtime/**
+  - .hive/index/**
+  - .hive/backups/**
+  - '**/*.sqlite'
+  - '**/*.sqlite3'
+  - '**/*.db'
+root_promotion_categories:
+  []
+confidential_categories:
+  []
+project_identity: "krrpinfo"
+user_store_binding: "sha256:92b2c99e27d1020262812259f5f13697e9c8ed7eaac5bad6f2e4f53db65e6ecf"

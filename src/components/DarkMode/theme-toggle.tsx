@@ -1,53 +1,42 @@
 'use client';
-
+import { Copy } from '@/components/Text/PublicSite';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import * as React from 'react';
-
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-export function ModeToggle() {
+// 현재 테마 선택과 키보드 초점 표시
+export const ModeToggle = () => {
   const { theme, setTheme } = useTheme();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="ring-transparent focus-visible:ring-transparent"
-        >
-          <Sun className="size-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute size-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+        <Button size="icon" className="relative bg-control text-white hover:bg-control-hover">
+          <Sun className="size-5 dark:hidden" />
+          <Moon className="hidden size-5 dark:block" />
+          <span className="sr-only">
+            <Copy id="copy.6026719f081a" />
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => setTheme('light')}
-          className={`${theme === 'light' && 'bg-zinc-200'}`}
-        >
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('dark')}
-          className={`${theme === 'dark' && 'bg-zinc-700'}`}
-        >
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('system')}
-          className={`${theme === 'system' && 'bg-zinc-200 dark:bg-zinc-700'}`}
-        >
-          System
-        </DropdownMenuItem>
+        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+          <DropdownMenuRadioItem value="light">
+            <Copy id="copy.dbcd5e7bb7a0" />
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">
+            <Copy id="copy.60acc53f13a5" />
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="system">
+            <Copy id="copy.6725e7bbcd28" />
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
