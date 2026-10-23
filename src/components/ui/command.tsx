@@ -23,13 +23,18 @@ const Command = React.forwardRef<
 ));
 Command.displayName = CommandPrimitive.displayName;
 
-interface CommandDialogProps extends DialogProps {}
+type CommandDialogProps = DialogProps &
+  Pick<React.ComponentPropsWithoutRef<typeof DialogContent>, 'onCloseAutoFocus'>;
 
-const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
+const CommandDialog = ({ children, onCloseAutoFocus, ...props }: CommandDialogProps) => (
   <Dialog {...props}>
-    <DialogContent className="max-w-[90vw] overflow-hidden rounded-lg p-0 shadow-lg tablet:max-w-[50vw]">
+    <DialogContent
+      aria-describedby={undefined}
+      onCloseAutoFocus={onCloseAutoFocus}
+      className="max-w-[90vw] overflow-hidden rounded-lg p-0 shadow-lg tablet:max-w-[50vw]"
+    >
       <DialogTitle className="sr-only">검색</DialogTitle>
-      <Command className="**:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 **:[[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5">
+      <Command className="rounded-none **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 **:[[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5">
         {children}
       </Command>
     </DialogContent>

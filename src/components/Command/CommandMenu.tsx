@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, FileText } from 'lucide-react';
 import {
@@ -23,6 +23,7 @@ export const CommandMenu = ({
   const { navigation } = usePublicSite();
   const t = useCopy();
   const [open, setOpen] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
   const router = useRouter();
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
@@ -47,16 +48,24 @@ export const CommandMenu = ({
   return (
     <>
       <Button
+        ref={trigger}
         type="button"
-        className="flex shrink-0 items-center gap-2 rounded-md bg-zinc-700 px-3 py-2 text-sm text-white hover:bg-zinc-600"
+        className="flex shrink-0 items-center gap-2 rounded-md bg-control px-3 py-2 text-sm text-white hover:bg-control-hover"
         onClick={() => setOpen(true)}
         aria-label={t('search.placeholder')}
       >
         <Search size={17} />
         <span className="hidden laptop:inline">{t('search.placeholder')}</span>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder={t('search.placeholder')} />
+      <CommandDialog
+        open={open}
+        onOpenChange={setOpen}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          trigger.current?.focus();
+        }}
+      >
+        <CommandInput aria-label={t('search.placeholder')} placeholder={t('search.placeholder')} />
         <CommandList>
           <CommandEmpty>{t('search.empty')}</CommandEmpty>
           <CommandGroup heading={t('search.navigation')}>
