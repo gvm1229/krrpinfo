@@ -36,4 +36,13 @@
 - 업데이트된 Next.js production 서버에서 로그인 화면·Credentials 제공자·빈 세션 HTTP 200과 관리자 비인증 HTTP 307 확인. 실제 Supabase, 비밀번호 로그인, R2, 배포 환경을 증명하는 결과는 아님
 - 소스 Prettier와 Git 공백 검사 통과. pnpm-lock.yaml은 생성기의 기본 형식이므로 Prettier 재형식 경고를 유지하고 frozen 설치로 package.json 일치 확인
 - 앞선 UI의 36개 배치 검증은 의존성 업데이트 전 증거이며 이번에는 브라우저 검사를 반복하지 않음
-- 원격 Windows/Linux CI와 develop 반영은 진행 중
+- 원격 PR의 Windows/Linux Test 39976033415에서 최종 883abbb의 테스트·타입·이전 명령 시작 확인 통과. Vercel 빌드와 GitGuardian 상태도 성공
+
+## develop 통합 결과
+
+- 기존 PR #116의 제목과 설명을 0.1.27 최종 내용으로 갱신하고 Draft 해제 후 merge 방식으로 병합, 커밋 c3b73ef
+- GitHub 연결 도구의 PR 쓰기는 403 Resource not accessible by integration으로 지원되지 않아, 동일 gvm1229 계정의 기존 GitHub CLI로 실행. 검사 우회나 권한 변경 없음
+- 원격·로컬 develop에서 작업 브랜치 5개의 끝 커밋 포함 확인. owner-ui-overhaul은 cms-mvp의 조상으로 함께 포함
+- develop 전체 파일 트리가 검증한 883abbb와 일치. release와 origin/release는 dd852c5로 보존
+- 최종 결과 문서는 별도 docs commit으로 develop에 push하며 코드나 버전 변경 없음. 자동 push CI는 해당 문서 커밋에 대해 별도로 확인
+- 실제 휴대전화·스크린 리더·운영 Supabase/R2·프로덕션 배포는 이번 통합 단계에서 실행하지 않았으며 CI 통과만으로 증명하지 않음

@@ -41,7 +41,7 @@
 - 원격 갱신과 브랜치 관계 확인 완료
 - 코드 관심사 1~9와 버전 10 커밋 완료: 8a36161, f1ff2e1, 6ef3ab9, 9f1ec04, 96cce13, c51be78, 40c9218, 9c5964b, b4e011a, 38831e1
 - 모든 코드 커밋의 변경 구간과 내용 해시, Windows Prettier·TypeScript 및 Git hook 통과 확인
-- 문서 커밋과 원격 push 뒤 의존성 통합 진행 예정
+- 문서 커밋과 원격 push, 의존성 통합 완료
 
 ## 로컬 통합 결과
 
@@ -52,4 +52,15 @@
 - Codex·Windows에서 최종 Vitest 32개, TypeScript incremental 해제 검사, pnpm build, 이전 명령 --help 통과
 - 실제 로컬 production 서버에서 로그인 HTML, Credentials 제공자와 비인증 세션 HTTP 200, 관리자 비인증 HTTP 307 확인. 실제 DB 로그인과 배포 검증은 제외
 - 소스 파일 Prettier 통과. 생성된 잠금 파일은 pnpm 기본 형식을 유지하므로 Prettier의 재형식 경고를 예외로 처리하고 frozen 설치로 구조 일치 검증
-- 원격 CI 및 develop 병합 진행 중
+- 원격 PR CI와 develop 병합 완료
+
+## 원격 통합 결과
+
+- PR #116의 최종 883abbb에서 Windows/Linux Test 39976033415, Vercel 및 GitGuardian 상태 성공 확인
+- 사용자의 명시 요청에 따라 PR #116을 merge 방식으로 병합. develop 통합 커밋 c3b73ef
+- 로컬 develop를 원격으로 fast-forward하고 883abbb와 c3b73ef의 전체 파일 트리 해시 일치 확인. 검증한 코드와 실제 통합 코드가 같은 범위
+- 원격 작업 브랜치 5개 끝 커밋 e33b534, 883abbb, eb5289f, f1b9b1d, 377a735가 모두 develop의 조상임을 확인
+- release와 origin/release는 기존 dd852c5 유지. 기존 stash와 작업 브랜치 수동 삭제 없음
+- 마지막 별도 문서 관심사: 본 계획과 20261024 일일 기록의 실제 병합 결과를 갱신하고 develop에 일반 push. 문서 형식 및 Git 공백 검사만 적용, 버전 변경과 로컬 코드 검사 반복 없음
+- 원격 develop에서 자동 실행하는 push CI는 마지막 문서 커밋을 기준으로 별도 확인하며, 앞선 PR CI와 구분
+- 범위 내 구현·커밋·작업 브랜치 통합 완료. 실제 기기·운영 DB/R2·프로덕션 배포 검증은 이번 Git 통합으로 증명하지 않음
