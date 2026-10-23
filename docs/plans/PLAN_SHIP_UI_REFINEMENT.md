@@ -42,3 +42,14 @@
 - 코드 관심사 1~9와 버전 10 커밋 완료: 8a36161, f1ff2e1, 6ef3ab9, 9f1ec04, 96cce13, c51be78, 40c9218, 9c5964b, b4e011a, 38831e1
 - 모든 코드 커밋의 변경 구간과 내용 해시, Windows Prettier·TypeScript 및 Git hook 통과 확인
 - 문서 커밋과 원격 push 뒤 의존성 통합 진행 예정
+
+## 로컬 통합 결과
+
+- 문서 커밋 5143cb2와 앞선 10개 커밋을 feat/cms-mvp에 push하고 원격 끝 커밋 일치 확인
+- Next.js는 342acca, NextAuth는 f3faf1b, PostCSS는 575dfeb에서 각 원본 브랜치의 이력을 보존해 병합
+- 각 package.json 충돌은 현재 CMS 항목을 유지하고 해당 의존성만 변경. pnpm-lock.yaml은 현재 잠금 상태를 기준으로 생성하고 frozen 설치 확인
+- 직접 설치 버전 Next.js 16.2.11, NextAuth 5.0.0-beta.32, PostCSS 8.5.23 확인. 기존 범위에 있던 공유 하위 의존성은 pnpm의 중복 정리 반영
+- Codex·Windows에서 최종 Vitest 32개, TypeScript incremental 해제 검사, pnpm build, 이전 명령 --help 통과
+- 실제 로컬 production 서버에서 로그인 HTML, Credentials 제공자와 비인증 세션 HTTP 200, 관리자 비인증 HTTP 307 확인. 실제 DB 로그인과 배포 검증은 제외
+- 소스 파일 Prettier 통과. 생성된 잠금 파일은 pnpm 기본 형식을 유지하므로 Prettier의 재형식 경고를 예외로 처리하고 frozen 설치로 구조 일치 검증
+- 원격 CI 및 develop 병합 진행 중
