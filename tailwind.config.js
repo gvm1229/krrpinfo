@@ -18,6 +18,11 @@ module.exports = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        'error-text': 'var(--error-text)',
+        control: {
+          DEFAULT: 'var(--control)',
+          hover: 'var(--control-hover)',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
@@ -61,6 +66,7 @@ module.exports = {
           blue: 'var(--brand-blue)',
           'blue-hover': 'var(--brand-blue-hover)',
           'blue-dark': 'var(--brand-blue-dark)',
+          link: 'var(--brand-link)',
         },
         // 카카오 노란색
         kakao: {
