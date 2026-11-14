@@ -3,6 +3,8 @@ import Blog from '@/components/Blog/Blog';
 import Countdown from '@/components/Countdown/Countdown';
 import Timeline from '@/components/Timeline/Timeline';
 import RedeemCard from '@/components/Redeem/RedeemCard';
+import CnPreviewHero from '@/components/CnPreview/CnPreviewHero';
+import { toCnUpdates } from '@/components/CnPreview/cn-updates';
 import { Button } from '@/components/ui/button';
 import { Copy } from '@/components/Text/PublicSite';
 import { siteSettings, publishedEntries } from '@/src/cms/repository';
@@ -11,14 +13,17 @@ import { text, list, publicPathEnabled } from '@/src/cms/schema';
 import type { Entry } from '@/src/cms/schema';
 // 상단 미래시·쿠폰·일정 고정, 나머지는 CMS 섹션 순서
 const Home = async () => {
-  const [settings, sections, links, countdowns, seasons, posts] = await Promise.all([
+  const [settings, sections, links, countdowns, seasons, posts, cnEntries] = await Promise.all([
     siteSettings(),
     publishedEntries('section'),
     publishedEntries('link'),
     publishedEntries('countdown'),
     publishedEntries('season'),
     getAllPosts(),
+    publishedEntries('cn_update'),
   ]);
+  // 중국 서버 최신 소식, 없으면 사이트 설정 hero
+  const latest = toCnUpdates(cnEntries)[0];
   const groups = Array.from(new Set(countdowns.map((item) => text(item, 'group'))));
   // 고정 위치 섹션의 CMS 노출 여부
   const sectionOf = (component: string): Entry | undefined =>
@@ -28,9 +33,10 @@ const Home = async () => {
   const showCoupons = publicPathEnabled(settings, '/redeem');
   return (
     <main className="space-y-12 tablet:space-y-16">
-      {(hero || showCoupons) && (
+      {(latest || hero || showCoupons) && (
         <section className="container grid grid-cols-1 gap-6 laptop:grid-cols-5">
-          {hero && (
+          {latest && <CnPreviewHero update={latest} className="laptop:col-span-3" />}
+          {!latest && hero && (
             <div className="grid grid-cols-1 items-center gap-6 rounded-lg bg-season-4/40 p-5 dark:bg-season-4/10 tablet:grid-cols-2 tablet:p-6 laptop:col-span-3">
               {settings.homeImage && (
                 <img

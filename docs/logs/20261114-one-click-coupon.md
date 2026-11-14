@@ -132,3 +132,15 @@
 
 - Vitest 48개: 잘못된 token·token 미설정 401, 형식 오류 400, Draft 강제와 출처 중복 200 확인
 - TypeScript·Prettier 통과. 실제 이미지 R2 복사와 cloud routine 실행은 token·출처 URL 설정 전이라 미실행
+
+## ✨ feat — 목표 2 중국 서버 미래시 화면 (0.1.37)
+
+- 홈 상단 hero: Published 중국 서버 소식이 있으면 최신 소식(이미지·시즌·게시일·요약·한국 서버 예상 시기·자세히 보기)을 표시, 없으면 기존 사이트 설정 hero 유지
+- `/cn-preview` 중국 서버 미래시 페이지: 소식별 시즌·날짜·요약·예상 시기·이미지 갤러리·상세 목록·원문 링크, 소식마다 anchor. 기존 `/seasons` 타임라인 링크
+- migration `202611140004_cn_preview.sql`: 화면 문구 7개와 `중국 서버 미래시` 메뉴 항목(사이트맵 자동 포함). 실제 Supabase 적용
+- 이미지 주소는 https만 사용
+
+### 검증
+
+- 실제 App Store S47 공지 내용으로 임시 Published 소식을 넣어 1280px 밝은·390px 어두운 테마의 홈 hero·`/cn-preview` 확인 후 삭제. 빈 상태와 기존 hero 대체 확인, 가로 넘침 없음
+- Vitest 49개, TypeScript, impeccable detector 통과
