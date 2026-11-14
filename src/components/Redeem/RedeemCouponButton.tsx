@@ -64,7 +64,7 @@ const RedeemCouponButton = ({ coupon }: { coupon: string }) => {
       {result && (
         <p
           role="status"
-          className={cn('text-sm', result.success ? 'text-brand-blue' : 'text-destructive')}
+          className={cn('text-sm', result.success ? 'text-success-text' : 'text-error-text')}
         >
           {result.message}
         </p>

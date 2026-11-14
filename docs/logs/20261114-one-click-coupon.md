@@ -27,3 +27,16 @@
 - 복구된 Supabase로 로컬 화면 정상. `/redeem` 회원번호 저장·삭제 흐름 확인, 새 문구는 migration 미적용으로 빈칸
 - 수정 전 캡처 12장을 `.hive/runtime/design-overhaul/before/`에 보존 (Git 제외)
 - 기존 홈 "향후 시즌 미리보기" hero와 `/seasons` "시즌 미래시"가 목표 D와 겹침. 이미지 lazy load placeholder 부재로 스크롤 전 빈칸
+
+## 🎨 style — 디자인 개편 P1 token·여백 (0.1.29)
+
+- container 좌우 여백을 모바일 16px·tablet 24px·laptop 32px로 변경. Tailwind v4 호환 config의 breakpoint 객체가 적용되지 않아 `@utility container`로 관리. 390px 본문 폭 326px → 358px
+- 성공·주의 글씨 token(`--success-text`·`--warning-text`, Radix Green 11·Amber 11) 추가, 쿠폰 결과 문구에 적용
+- 글 본문 읽기 폭 `max-w-reading`(45rem) token 추가. 적용은 P4
+- 브라우저 기본 UI: `color-scheme`(CSS·viewport meta), `accent-color`, 텍스트 선택 색, 입력 커서 색, 대비 3:1 이상 스크롤바 색
+- DESIGN.md Colors·Layout 갱신
+
+### 검증
+
+- 390·768·1280px에서 container 여백 16·24·32px 측정, 가로 넘침 없음. 밝은·어두운 테마에서 `color-scheme` 전환 확인
+- impeccable detector 지적 0개, TypeScript·Prettier·Vitest 통과

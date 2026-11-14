@@ -15,6 +15,10 @@ colors:
   season-4: '#fdf2f8'
   season-5: '#1f1147'
   kakao-yellow: '#fde047'
+  success-text: '#218358'
+  success-text-dark: '#3dd68c'
+  warning-text: '#ab6400'
+  warning-text-dark: '#ffca16'
   admin-primary: '#4945ff'
   admin-background: '#f6f6f9'
   admin-foreground: '#32324d'
@@ -57,6 +61,10 @@ spacing:
   md: '16px'
   lg: '24px'
   xl: '32px'
+  gutter-mobile: '16px'
+  gutter-tablet: '24px'
+  gutter-laptop: '32px'
+  reading: '45rem'
 ---
 
 # 카러플 정보통 디자인 기준
@@ -72,6 +80,10 @@ spacing:
 공개 화면은 흰색과 Radix Gray 계열의 중립색, 기존 브랜드 파랑을 사용한다. 밝은 테마의 본문은 #202020, 어두운 테마의 배경은 #111111, 본문은 #eeeeee다.
 
 공통 토큰은 Radix의 역할에 맞춰 표면은 3단계, 가리킨 표면은 4단계, 장식 경계는 6단계, 보조 글씨는 11단계, 본문은 12단계에 연결한다. 입력 경계는 3:1 대비를 위해 밝은 테마 Gray 9와 어두운 테마 Gray 10을 사용한다. 오류 글씨는 Red 11의 밝은 값 #ce2c31과 어두운 값 #ff9592다. CSS에 필요한 값만 두고 패키지는 추가하지 않는다.
+
+성공 글씨는 Radix Green 11(#218358, 어두운 테마 #3dd68c), 주의 글씨는 Amber 11(#ab6400, 어두운 테마 #ffca16)이며 --success-text·--warning-text로 사용한다. 쿠폰 사용 결과처럼 성공과 실패를 구분하는 문구에 쓴다.
+
+브라우저 기본 UI도 같은 색을 따른다. html에 color-scheme과 viewport colorScheme을 지정하고, accent-color는 브랜드 파랑, 텍스트 선택은 브랜드 파랑 28% 혼합, 입력 커서는 --brand-link, 스크롤바는 thumb와 track의 대비 3:1 이상인 --scrollbar-thumb·--scrollbar-track을 사용한다.
 
 브랜드 버튼 배경은 #2563eb, 가리킨 배경은 흰 글씨 대비를 유지하는 #1d4ed8이다. 링크는 --brand-link, 중립 조작 버튼은 --control과 --control-hover, 오류 글씨는 --error-text를 사용한다. 관리자 색상은 --cms-\*로 관리하며 기존 보라색과 Strapi 표면을 유지한다. 관리자 입력 경계와 초점 색은 테마별로 구분한다.
 
@@ -91,7 +103,7 @@ Pretendard Variable을 우선하고 Pretendard와 시스템 sans-serif를 대체
 
 ## Layout
 
-공개 화면의 container는 가운데 정렬과 2rem 기본 좌우 여백을 사용한다. 기존 기준은 모바일 720px 이하, tablet 721px 이상, laptop 1241px 이상, desktop 1600px 이상이다.
+공개 화면의 container는 가운데 정렬과 화면 폭별 좌우 여백을 사용한다. 모바일 16px, tablet 24px, laptop 이상 32px이며 globals.css의 @utility container에서 관리한다. 글 본문 줄 길이 제한에는 max-w-reading(45rem)을 사용한다. 기존 기준은 모바일 720px 이하, tablet 721px 이상, laptop 1241px 이상, desktop 1600px 이상이다.
 
 글과 영상 카드는 1열·2열·3열로 늘어난다. 홈은 CMS에 등록한 기존 섹션의 순서와 노출 상태를 따른다. 공개 글은 본문과 큰 화면의 목차 영역으로 나눈다.
 

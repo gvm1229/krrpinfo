@@ -5,6 +5,8 @@ import { siteSettings } from '@/src/cms/repository';
 import { env } from '@/env.mjs';
 import '@/src/styles/globals.css';
 export const dynamic = 'force-dynamic';
+// 첫 화면부터 밝은·어두운 테마 지원 알림
+export const viewport = { colorScheme: 'light dark' };
 // CMS 사이트 메타데이터
 export const generateMetadata = async () => {
   try {

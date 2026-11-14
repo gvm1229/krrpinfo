@@ -8,7 +8,6 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
       screens: {
         '2xl': '1534px',
       },
@@ -19,6 +18,8 @@ module.exports = {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         'error-text': 'var(--error-text)',
+        'success-text': 'var(--success-text)',
+        'warning-text': 'var(--warning-text)',
         control: {
           DEFAULT: 'var(--control)',
           hover: 'var(--control-hover)',
@@ -115,6 +116,8 @@ module.exports = {
         108: '27rem',
       },
       maxWidth: {
+        // 글 본문 읽기 폭
+        reading: '45rem',
         108: '27rem',
         '8xl': '88rem',
         '9xl': '96rem',
