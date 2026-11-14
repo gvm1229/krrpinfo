@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { readNpaCode, writeNpaCode } from '@/components/Redeem/redeemStorage';
 // 공개 문구를 사용하는 회원 번호 검사
 const createFormSchema = (required: string, format: string) =>
   z.object({
@@ -30,8 +31,6 @@ const createFormSchema = (required: string, format: string) =>
         message: format,
       }),
   });
-// npaCode localStorage key
-const NPA_STORAGE_KEY = 'krrpinfo:npaCode';
 const RedeemContainer = () => {
   const t = useCopy();
   const { settings } = usePublicSite();
@@ -50,7 +49,7 @@ const RedeemContainer = () => {
   });
   // mount 시 localStorage 복원
   React.useEffect(() => {
-    const stored = localStorage.getItem(NPA_STORAGE_KEY);
+    const stored = readNpaCode();
     if (stored) {
       form.setValue('npaCode', stored);
       setSavedValue(stored);
@@ -58,17 +57,22 @@ const RedeemContainer = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
   // 저장 처리: validate 후 localStorage 기록 + lock
   async function handleSave() {
     const valid = await form.trigger('npaCode');
     if (!valid) return;
     const value = form.getValues('npaCode');
-    localStorage.setItem(NPA_STORAGE_KEY, value);
+    writeNpaCode(value);
     setSavedValue(value);
     setIsSaved(true);
+    setIsEditing(false);
+  }
+  // 저장된 회원번호 삭제
+  function handleDelete() {
+    writeNpaCode('');
+    form.reset({ npaCode: '' });
+    setSavedValue('');
+    setIsSaved(false);
     setIsEditing(false);
   }
   // 수정 mode 진입
@@ -86,13 +90,22 @@ const RedeemContainer = () => {
   const renderActionButtons = () => {
     if (isSaved && !isEditing) {
       return (
-        <Button
-          type="button"
-          onClick={handleEdit}
-          className="whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-base font-semibold text-white hover:bg-blue-500"
-        >
-          <Copy id="copy.3537f0cc3ec9" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            onClick={handleEdit}
+            className="whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-base font-semibold text-white hover:bg-blue-500"
+          >
+            <Copy id="copy.3537f0cc3ec9" />
+          </Button>
+          <Button
+            type="button"
+            onClick={handleDelete}
+            className="whitespace-nowrap rounded-md bg-red-600 px-4 py-2 text-base font-semibold text-white hover:bg-red-500"
+          >
+            <Copy id="redeem.delete" />
+          </Button>
+        </div>
       );
     }
     if (isSaved && isEditing) {
@@ -127,7 +140,13 @@ const RedeemContainer = () => {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSave();
+        }}
+        className="space-y-8"
+      >
         <FormField
           control={form.control}
           name="npaCode"
@@ -150,12 +169,6 @@ const RedeemContainer = () => {
                 </div>
                 <div className="shrink-0">{renderActionButtons()}</div>
               </div>
-              <Button
-                type="submit"
-                className="mt-3 h-11 shrink-0 bg-brand-blue font-semibold text-white hover:bg-brand-blue-hover"
-              >
-                <Copy id="copy.97699658e759" />
-              </Button>
               <div className="mt-8 space-y-3 border-t pt-6">
                 <FormDescription className="text-sm leading-relaxed text-foreground">
                   <Copy id="copy.a0b6373186c6" />

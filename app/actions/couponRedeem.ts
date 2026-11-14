@@ -51,7 +51,7 @@ interface UserLookUpResponse {
   gc_count: number;
 }
 
-export async function handleUserLookup(payload: UserLookUpPayload) {
+async function handleUserLookup(payload: UserLookUpPayload) {
   try {
     const response = await fetch(
       'https://mcoupon.nexon.com/kartrush/coupon/api/v1/characters-by-npacode',
@@ -113,7 +113,7 @@ interface RedeemResponse {
   message: string;
 }
 
-export async function handleRedeem(payload: RedeemPayload) {
+async function handleRedeem(payload: RedeemPayload) {
   try {
     const response = await fetch(
       'https://mcoupon.nexon.com/kartrush/coupon/api/v1/redeem-coupon-by-npacode',
@@ -132,61 +132,55 @@ export async function handleRedeem(payload: RedeemPayload) {
   }
 }
 
-interface UnifiedResponse {
+type UnifiedResponse = {
   success: boolean;
   message: string;
-}
+  // 해당 회원번호에서 다시 사용할 필요 없는 쿠폰 여부
+  used: boolean;
+};
 
+// Nexon 이미 사용 응답 문구
+const ALREADY_USED = '해당 쿠폰 완료 상태';
+
+// 회원번호 조회 후 첫 캐릭터에 쿠폰 사용
 export async function handleUnified(npaCode: string, coupon: string): Promise<UnifiedResponse> {
-  // const npaCode = '07S0LCI10W02W'; // 본계
-  // const npaCode = '07X0MCW10M027'; // 부계
-  // const coupon = '중요한건잊지않는마음';
   const region = 'KR';
+  const code = coupon.trim();
+  if (!/^[a-zA-Z0-9]{13}$/.test(npaCode))
+    return { success: false, message: '잘못된 회원번호', used: false };
+  if (!code || code.length > 100) return { success: false, message: '쿠폰 미입력', used: false };
 
   try {
-    const payload = { npaCode, coupon, region };
-    const responseData = await handleUserLookup(payload);
-    // console.log('Unified responseData', responseData);
-    if (responseData.result && responseData.info)
-      try {
-        const redeemPayload = {
-          coupon,
-          id: responseData.info[0].id,
-          name: responseData.info[0].name,
-          npaCode,
-          region,
-          world: '',
-        };
-        const redeemResponseData = await handleRedeem(redeemPayload);
-        // console.log('Unified redeemResponseData', redeemResponseData);
-        if (redeemResponseData.result && responseData.info)
-          // 안전을 위해 둘 다
-          return {
-            success: true,
-            message: `[${responseData.info[0].name}] 에게 [${coupon}] 쿠폰 사용 성공`,
-          };
-        return {
-          success: false,
-          message: reformatMessage(redeemResponseData.message) ?? '이미 사용된 쿠폰 / 잘못된 입력',
-        };
-      } catch (error) {
-        // console.error('[Unified] Error fetching coupon:', error);
-        return {
-          success: false,
-          message: `Error: ${error}`,
-        };
-      }
-    else
+    const lookup = await handleUserLookup({ npaCode, coupon: code, region });
+    const character = lookup.info?.[0];
+    if (!lookup.result || !character)
       return {
         success: false,
-        message: reformatMessage(responseData.message) ?? '이미 사용된 쿠폰 / 잘못된 입력',
+        message: reformatMessage(lookup.message),
+        used: lookup.message === ALREADY_USED,
       };
-  } catch (error) {
-    // console.error('[Unified] Error fetching user:', error);
+    const redeemed = await handleRedeem({
+      coupon: code,
+      id: character.id,
+      name: character.name,
+      npaCode,
+      region,
+      world: '',
+    });
+    if (redeemed.result)
+      return {
+        success: true,
+        message: `[${character.name}] 에게 [${code}] 쿠폰 사용 성공`,
+        used: true,
+      };
     return {
       success: false,
-      message: `오류: ${error}`,
+      message: reformatMessage(redeemed.message),
+      used: redeemed.message === ALREADY_USED,
     };
+  } catch (error) {
+    console.error(`[couponRedeem::handleUnified] ${error}`);
+    return { success: false, message: '쿠폰 서버 연결 실패', used: false };
   }
 }
 
@@ -198,5 +192,5 @@ function reformatMessage(messageInput: string) {
   if (messageInput === '해당 게임에서 사용할 수 없는 쿠폰') return '존재하지 않는 쿠폰';
   if (messageInput === '쿠폰사용기간이 아님') return '사용 기간이 지난 쿠폰';
   if (messageInput === '해당 쿠폰 완료 상태') return '이미 사용한 쿠폰';
-  return messageInput;
+  return messageInput || '쿠폰 사용 실패';
 }

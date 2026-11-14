@@ -1,3 +1,14 @@
+# PR: feat/cn-preview-coupon branch
+
+## 현재 검토 범위
+
+- 0.1.28 원클릭 쿠폰: 쿠폰 카드마다 사용 버튼, 저장한 회원번호로 Nexon 조회·사용 한 번에 처리. 회원번호별 사용 완료 쿠폰 localStorage 기록, 회원번호 삭제 버튼 추가, 동작 없던 제출 버튼 제거
+- Nexon 보조 action 비공개화, 입력 검증과 내부 오류 비노출, Vitest 4개 추가(총 36개)
+- `cms:db:apply`가 migrations 폴더 SQL을 버전 순서대로 적용. 새 문구 2개 migration 추가, 실제 DB 미적용
+- 미검증: 로컬 화면(실제 Supabase site 설정 조회 실패로 500), 실제 Nexon 호출, Vercel 지역 IP 차단 여부
+
+---
+
 # PR: feat/cms-mvp branch
 
 ## 현재 검토 범위
