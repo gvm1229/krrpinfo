@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
+  Globe,
   Inbox,
   LayoutDashboard,
   FileText,
@@ -32,12 +33,13 @@ const icons = {
   section: Layers,
   copy: Type,
   coupon_report: Inbox,
+  cn_update: Globe,
 };
 
 // 사용 빈도와 작업 성격별 메뉴 묶음
 const groups: { title: string; kinds: Kind[] }[] = [
   { title: '자주 쓰는 콘텐츠', kinds: ['post', 'coupon', 'video', 'timeline'] },
-  { title: '확인 대기', kinds: ['coupon_report'] },
+  { title: '확인 대기', kinds: ['coupon_report', 'cn_update'] },
   { title: '홈 구성', kinds: ['section', 'countdown', 'link', 'navigation'] },
   { title: '기준 정보', kinds: ['season', 'category', 'copy'] },
 ];

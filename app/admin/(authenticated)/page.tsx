@@ -15,7 +15,8 @@ const Dashboard = async () => {
         reports={entries.filter((entry) => entry.kind === 'coupon_report')}
         drafts={entries.filter(
           (entry) =>
-            !entry.published && ['post', 'video', 'timeline', 'coupon'].includes(entry.kind),
+            !entry.published &&
+            ['cn_update', 'post', 'video', 'timeline', 'coupon'].includes(entry.kind),
         )}
       />
       <section className="cms-panel">

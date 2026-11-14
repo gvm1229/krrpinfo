@@ -17,6 +17,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   // 확인 대기 개수
   const pending = {
     coupon_report: (await adminEntries('coupon_report')).length,
+    cn_update: (await adminEntries('cn_update')).filter((entry) => !entry.published).length,
   };
   return (
     <div className="cms-shell">

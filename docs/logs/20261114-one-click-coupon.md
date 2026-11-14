@@ -119,3 +119,16 @@
 
 - 로그인 화면 390·1280px, 밝은·어두운 테마에서 파랑 버튼·중립 배경 확인
 - 로그인 뒤 관리자 화면(메뉴 묶음·서랍·대기 목록)은 운영자 로그인이 필요해 실제 화면 미확인. TypeScript·Vitest 44개·impeccable detector 통과
+
+## ✨ feat — 목표 1 중국 서버 소식 수신 (0.1.36)
+
+- `POST /api/ingest/cn-update`: `CN_INGEST_TOKEN` Bearer 인증(sha256 digest 상수 시간 비교, 미설정 시 전부 거부), zod 형식 검증, 출처 주소 기준 중복 차단, 항상 Draft 저장
+- 원본 이미지를 R2로 복사하고 미디어 목록에 등록. R2 설정이 없거나 실패하면 원본 주소 유지
+- `cn_update` kind(관리자 메뉴 `중국 서버 소식`): 한국어 요약·상세, 시즌, 한국 예상 시기, 이미지, 게시일, 출처, 중국어 원문. 확인 대기 묶음과 Draft 개수 배지, 대시보드 확인 대기 목록에 포함
+- `docs/plans/PLAN_CN_INGEST.md`: cloud scheduled session 구조, 출처, 전송 형식, routine prompt 초안. `.env.example`에 `CN_INGEST_TOKEN`
+- 앱은 외부 AI API를 호출하지 않음. 번역은 사용자 구독 cloud session 담당
+
+### 검증
+
+- Vitest 48개: 잘못된 token·token 미설정 401, 형식 오류 400, Draft 강제와 출처 중복 200 확인
+- TypeScript·Prettier 통과. 실제 이미지 R2 복사와 cloud routine 실행은 token·출처 URL 설정 전이라 미실행

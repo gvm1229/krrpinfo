@@ -13,6 +13,7 @@ export const kinds = [
   'section',
   'copy',
   'coupon_report',
+  'cn_update',
 ] as const;
 export type Kind = (typeof kinds)[number];
 export type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
@@ -97,6 +98,7 @@ export const kindLabels: Record<Kind, string> = {
   section: '홈 섹션',
   copy: '화면 문구',
   coupon_report: '쿠폰 제보',
+  cn_update: '중국 서버 소식',
 };
 export const settingFields: Field[] = [
   { key: 'postsEnabled', label: '글 페이지 사용', type: 'checkbox' },
@@ -189,6 +191,17 @@ export const fields: Record<Kind, Field[]> = {
     { key: 'code', label: '쿠폰 코드', required: true },
     { key: 'expiresAt', label: '만료일', type: 'date' },
     { key: 'verified', label: 'Nexon 조회 확인', type: 'checkbox' },
+  ],
+  cn_update: [
+    { key: 'summary', label: '한국어 요약', type: 'textarea', required: true },
+    { key: 'body', label: '한국어 상세 내용', type: 'textarea' },
+    { key: 'season', label: '중국 서버 시즌' },
+    { key: 'krEta', label: '한국 서버 예상 시기' },
+    { key: 'images', label: '이미지 주소 · 한 줄에 하나', type: 'textarea' },
+    { key: 'publishedAt', label: '중국 서버 게시일', type: 'date', required: true },
+    { key: 'sourceName', label: '출처 이름' },
+    { key: 'sourceUrl', label: '출처 주소', type: 'url', required: true },
+    { key: 'originalText', label: '중국어 원문', type: 'textarea' },
   ],
 };
 
