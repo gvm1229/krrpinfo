@@ -15,6 +15,7 @@ export const env = createEnv({
     R2_SECRET_ACCESS_KEY: z.string().optional(),
     R2_BUCKET: z.string().optional(),
     R2_PUBLIC_URL: z.string().url().optional(),
+    CN_INGEST_TOKEN: z.string().min(32).optional(),
   },
   client: { NEXT_PUBLIC_APP_URL: z.string().url() },
   runtimeEnv: {
@@ -31,6 +32,7 @@ export const env = createEnv({
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
     R2_BUCKET: process.env.R2_BUCKET,
     R2_PUBLIC_URL: process.env.R2_PUBLIC_URL,
+    CN_INGEST_TOKEN: process.env.CN_INGEST_TOKEN,
   },
   emptyStringAsUndefined: true,
 });

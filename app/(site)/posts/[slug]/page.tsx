@@ -12,6 +12,7 @@ import { getTableOfContentsFromHtml } from '@/src/util/toc';
 import { DashboardTableOfContents } from '@/components/Markdown/TableOfContents';
 import { Copy } from '@/components/Text/PublicSite';
 import Tag from '@/components/Tag/Tag';
+import { Button } from '@/components/ui/button';
 import { formatDate } from '@/src/util/utils';
 import '@/src/styles/mdx.css';
 export const dynamic = 'force-dynamic';
@@ -45,8 +46,8 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const [html, session] = await Promise.all([renderPostContent(post), auth()]);
   const toc = getTableOfContentsFromHtml(html);
   return (
-    <div className="container flex flex-col gap-8 tablet:flex-row">
-      <main className="min-w-0 flex-1 space-y-6">
+    <div className="container flex flex-col gap-8 laptop:flex-row laptop:justify-center">
+      <main className="mx-auto w-full min-w-0 max-w-reading space-y-6 laptop:mx-0">
         <Link href="/posts" className="text-brand-blue hover:underline">
           <Copy id="posts.back" />
         </Link>
@@ -55,24 +56,40 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <div className="flex items-start justify-between gap-4">
             <h1 className="text-2xl font-bold tablet:text-title">{post.title}</h1>
             {isOwner(session) && (
-              <Link
-                href={'/admin/posts/' + slug + '/edit'}
-                className="whitespace-nowrap rounded-md bg-brand-blue px-4 py-2 text-white"
+              <Button
+                asChild
+                className="shrink-0 whitespace-nowrap rounded-md bg-brand-blue text-white hover:bg-brand-blue-hover"
               >
-                Edit
-              </Link>
+                <Link href={'/admin/posts/' + slug + '/edit'}>Edit</Link>
+              </Button>
             )}
           </div>
           {post.description && <p className="text-lg text-muted-foreground">{post.description}</p>}
           <Tag tagInput={post.tags} />
         </header>
         {post.thumbnail && (
-          <img src={post.thumbnail} alt={post.title} className="h-auto w-full rounded-lg" />
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            width={1280}
+            height={720}
+            className="h-auto w-full rounded-lg bg-muted"
+          />
+        )}
+        {toc.items && toc.items.length > 0 && (
+          <details className="rounded-lg border p-4 laptop:hidden">
+            <summary className="cursor-pointer font-semibold">
+              <Copy id="posts.toc" />
+            </summary>
+            <div className="mt-2 text-sm">
+              <DashboardTableOfContents toc={toc} hideTitle />
+            </div>
+          </details>
         )}
         <div className="mdx" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
-      <aside className="hidden w-56 shrink-0 text-sm tablet:block">
-        <div className="sticky top-28">
+      <aside className="hidden w-56 shrink-0 text-sm laptop:block">
+        <div className="sticky top-24">
           <DashboardTableOfContents toc={toc} />
         </div>
       </aside>

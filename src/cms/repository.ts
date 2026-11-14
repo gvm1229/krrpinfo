@@ -23,6 +23,20 @@ export const publishedEntries = cache(async (kind: Kind): Promise<Entry[]> => {
   if (error) throw new Error('[repository::publishedEntries] ' + error.code);
   return (data ?? []) as Entry[];
 });
+// 관리자 확인 대기 개수
+export const adminPendingCounts = async () => {
+  await requireOwner();
+  const db = database();
+  const [reports, drafts] = await Promise.all([
+    db.from('cms_entries').select('id', { count: 'exact', head: true }).eq('kind', 'coupon_report'),
+    db
+      .from('cms_entries')
+      .select('id', { count: 'exact', head: true })
+      .eq('kind', 'cn_update')
+      .eq('published', false),
+  ]);
+  return { coupon_report: reports.count ?? 0, cn_update: drafts.count ?? 0 };
+};
 // 관리자 콘텐츠 목록 조회
 export const adminEntries = async (kind?: Kind): Promise<Entry[]> => {
   await requireOwner();

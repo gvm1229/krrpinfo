@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
 import styled, { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
 const colors = {
-  primary600: '#4945ff',
+  primary600: '#2563eb',
   neutral0: '#ffffff',
-  neutral100: '#f6f6f9',
-  neutral800: '#32324d',
+  neutral100: '#f9f9f9',
+  neutral800: '#202020',
 };
 declare module 'styled-components' {
   export interface DefaultTheme {

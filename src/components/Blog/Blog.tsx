@@ -34,7 +34,9 @@ const Blog = ({
           src={thumbnail}
           alt={toNavigate || hyperlink ? '' : title}
           loading={isImagePriority ? 'eager' : 'lazy'}
-          className="aspect-video w-full rounded-lg object-cover"
+          width={1280}
+          height={720}
+          className="aspect-video w-full rounded-lg bg-muted object-cover"
         />
       )}
       <div className="mt-4 space-y-2">

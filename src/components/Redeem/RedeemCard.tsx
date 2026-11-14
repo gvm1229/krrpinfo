@@ -2,6 +2,7 @@ import { Gift } from 'lucide-react';
 import { publishedEntries } from '@/src/cms/repository';
 import { text } from '@/src/cms/schema';
 import { Copy } from '@/components/Text/PublicSite';
+import RedeemCouponButton from '@/components/Redeem/RedeemCouponButton';
 import { formatDate, cn } from '@/src/util/utils';
 // CMS의 사용 가능한 쿠폰 표시
 const RedeemCard = async ({ className }: { className?: string }) => {
@@ -19,8 +20,15 @@ const RedeemCard = async ({ className }: { className?: string }) => {
             <Gift size={20} />
             {coupon.title}
           </div>
-          <p className="font-semibold">{text(coupon, 'code')}</p>
-          <p className="text-sm text-muted-foreground">{formatDate(text(coupon, 'expiresAt'))}</p>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="min-w-0 space-y-1">
+              <p className="break-all font-semibold">{text(coupon, 'code')}</p>
+              <p className="text-sm text-muted-foreground">
+                {formatDate(text(coupon, 'expiresAt'))}
+              </p>
+            </div>
+            <RedeemCouponButton coupon={text(coupon, 'code')} />
+          </div>
         </div>
       ))}
       {!coupons.length && (

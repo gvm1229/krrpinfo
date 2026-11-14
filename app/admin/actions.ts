@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { database } from '@/src/cms/client';
 import { requireOwner, adminEntry } from '@/src/cms/repository';
-import { entryInput, settingsInput } from '@/src/cms/schema';
+import { entryInput, settingsInput, type Entry } from '@/src/cms/schema';
 import { validateDocument } from '@/src/cms/blocks';
 import { prepareMediaUpload, completeMediaUpload, removeMedia } from '@/src/cms/media';
 
@@ -99,6 +99,49 @@ export const deleteEntry = async (id: string) => {
   }
   const result = await database().from('cms_entries').delete().eq('id', id);
   if (result.error) throw new Error('[actions::deleteEntry] ' + result.error.code);
+  refresh();
+};
+// 쿠폰 제보를 먼저 삭제해 선점한 뒤 Published 쿠폰 생성, 실패 시 제보 복구
+export const approveCouponReport = async (id: string) => {
+  await requireOwner();
+  z.string().uuid().parse(id);
+  const db = database();
+  const claimed = await db
+    .from('cms_entries')
+    .delete()
+    .eq('id', id)
+    .eq('kind', 'coupon_report')
+    .select('*')
+    .maybeSingle();
+  if (claimed.error) throw new Error('[actions::approveCouponReport] ' + claimed.error.code);
+  const report = claimed.data as Entry | null;
+  if (!report) throw new Error('이미 처리했거나 없는 쿠폰 제보');
+  const code = String(report.data.code ?? '').trim();
+  const date = String(report.data.expiresAt ?? '');
+  const parsed = Date.parse(date + 'T23:59:00+09:00');
+  // 만료일이 없거나 잘못되면 14일 뒤
+  const expiresAt = new Date(
+    /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(parsed)
+      ? parsed
+      : Date.now() + 14 * 86400000,
+  ).toISOString();
+  const created = code
+    ? await db.from('cms_entries').insert({
+        kind: 'coupon',
+        slug: 'coupon-' + Date.now().toString(36),
+        title: code,
+        published: true,
+        position: 0,
+        data: { code, expiresAt },
+      })
+    : { error: { code: 'empty-code' } };
+  if (created.error) {
+    const { id: _id, created_at: _created, updated_at: _updated, ...restore } = report;
+    const restored = await db.from('cms_entries').insert(restore);
+    if (restored.error)
+      console.error('[actions::approveCouponReport] 제보 복구 실패 ' + restored.error.code);
+    throw new Error('[actions::approveCouponReport] ' + created.error.code);
+  }
   refresh();
 };
 // 공개 상태 변경

@@ -1,9 +1,10 @@
 import { getTimeline } from '@/src/data/timeline';
 import TimelineGroup from './TimelineGroup';
 
-// 타임라인 루트 서버 컴포넌트
-const Timeline = async () => {
-  const groups = await getTimeline();
+// 타임라인 루트 서버 컴포넌트, limit 지정 시 최근 그룹만 표시
+const Timeline = async ({ limit }: { limit?: number }) => {
+  const all = await getTimeline();
+  const groups = limit ? all.slice(-limit) : all;
 
   return (
     <section className="container relative py-8">

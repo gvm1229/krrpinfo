@@ -1,3 +1,26 @@
+# PR: feat/cn-preview-coupon branch
+
+## 현재 검토 범위
+
+- 0.1.40 P8: Fable 재검토 APPROVE, 잔여 2건 반영, DESIGN.md 배치 기준 갱신
+- 0.1.39 Fable 검토 반영: 승인 선점·복구, 이미지 SSRF·크기 상한, Nexon timeout, migration checksum 정규화, 접근성 수정
+- 0.1.38 P7: 기본 확인창·자체 HTML 조작 요소 0건 확인, 오류 화면 버튼 shadcn, 프로덕션 빌드 통과
+- 0.1.37 중국 서버 미래시: 홈 최신 소식 hero, /cn-preview 페이지, 메뉴·문구 migration
+- 0.1.36 중국 서버 소식 수신 endpoint(token·중복·Draft 강제·이미지 R2 복사)와 cn_update 관리, cloud routine 지침
+- 0.1.35 디자인 개편 P6: 관리자 색 통일, 메뉴 묶음·배지, 모바일 서랍, 대시보드 확인 대기. 로그인 뒤 화면 미확인
+- 0.1.34 쿠폰 제보(익명·Nexon 사전 확인·중복 차단)와 관리자 승인 버튼. Nexon 호출 서버 전용 분리
+- 0.1.33 디자인 개편 P5: 쿠폰 목록 우선, 안내 접기, 쿠폰 사용 IP 호출 제한. 새 migration 2개 실제 DB 적용
+- 0.1.32 디자인 개편 P4: 본문 720px, 모바일 접힘 목차, 이미지 크기·자리 표시
+- 0.1.31 디자인 개편 P3: 홈 상단 미래시 hero·쿠폰 패널 고정, 일정 카드 간결화, 홈 타임라인 3개 제한
+- 0.1.30 디자인 개편 P2: 1024px부터 데스크톱 메뉴, 하위 메뉴 DropdownMenu(클릭·키보드), 모바일 쿠폰 바로가기, 헤더 64px. 하위 메뉴 데이터 없어 dropdown 실화면 미확인
+- 0.1.29 디자인 개편 P1: container 여백 16·24·32px, 성공·주의 글씨 token, 읽기 폭 token, 브라우저 기본 UI 색(color-scheme·accent·선택·스크롤바)
+- 0.1.28 원클릭 쿠폰: 쿠폰 카드마다 사용 버튼, 저장한 회원번호로 Nexon 조회·사용 한 번에 처리. 회원번호별 사용 완료 쿠폰 localStorage 기록, 회원번호 삭제 버튼 추가, 동작 없던 제출 버튼 제거
+- Nexon 보조 action 비공개화, 입력 검증과 내부 오류 비노출, Vitest 4개 추가(총 36개)
+- `cms:db:apply`가 migrations 폴더 SQL을 버전 순서대로 적용. 새 문구 2개 migration 추가, 실제 DB 미적용
+- 미검증: 로컬 화면(실제 Supabase site 설정 조회 실패로 500), 실제 Nexon 호출, Vercel 지역 IP 차단 여부
+
+---
+
 # PR: feat/cms-mvp branch
 
 ## 현재 검토 범위
