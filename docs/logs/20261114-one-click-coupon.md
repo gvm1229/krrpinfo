@@ -144,3 +144,13 @@
 
 - 실제 App Store S47 공지 내용으로 임시 Published 소식을 넣어 1280px 밝은·390px 어두운 테마의 홈 hero·`/cn-preview` 확인 후 삭제. 빈 상태와 기존 hero 대체 확인, 가로 넘침 없음
 - Vitest 49개, TypeScript, impeccable detector 통과
+
+## 🐛 fix — 디자인 개편 P7 조작 요소 점검 (0.1.38)
+
+- 관리자·공개 화면에서 브라우저 `confirm`·`alert`·`prompt` 사용 0건, 관리자 자체 작성 HTML 조작 요소 0건 확인 (Strapi 이식 편집기 제외)
+- `app/error.tsx` 다시 시도 버튼을 shadcn Button과 브랜드 색으로 변경. `global-error.tsx`는 공통 CSS 없이 독립 표시해야 하므로 inline 스타일 유지
+- 쓰지 않는 기존 구성요소(`RedeemButton`·`FileButton`·`ScrollToTopButton`·`InputComponent`)는 규칙에 따라 삭제하지 않고 기록만
+
+### 검증
+
+- `pnpm build` 통과 (`/cn-preview`·`/api/ingest/cn-update` 포함), TypeScript·Prettier 통과
