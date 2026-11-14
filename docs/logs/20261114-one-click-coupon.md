@@ -40,3 +40,17 @@
 
 - 390·768·1280px에서 container 여백 16·24·32px 측정, 가로 넘침 없음. 밝은·어두운 테마에서 `color-scheme` 전환 확인
 - impeccable detector 지적 0개, TypeScript·Prettier·Vitest 통과
+
+## ✨ feat — 디자인 개편 P2 헤더와 메뉴 (0.1.30)
+
+- 데스크톱 메뉴를 1241px → 1024px(`md`)부터 표시. 태블릿 가로·작은 노트북에서 메뉴가 햄버거로 숨던 문제 해결
+- 하위 메뉴를 hover 전용 → shadcn `DropdownMenu` 버튼으로 변경. 클릭·Enter·Space·방향키·Esc·바깥 클릭 지원. 상위 링크는 그대로 이동
+- 모바일 메뉴 하위 항목은 들여쓰기로 구분
+- 1024px 미만 헤더에 쿠폰 바로가기 버튼(모바일 아이콘만, tablet부터 글씨) 추가. 햄버거는 중립색으로 바꿔 쿠폰을 주 동작으로 구분
+- 헤더 높이 80px → 64px, 좌우 여백을 P1 container 여백과 맞춤
+
+### 검증
+
+- 390·768·1024px, 밝은·어두운 테마에서 헤더 64px, 가로 넘침 없음, 메뉴 표시 구간 확인. 모바일 메뉴 열기와 `aria-expanded` 확인
+- 현재 CMS 메뉴에 하위 항목이 없어 dropdown은 실제 데이터로 미확인. 타입 검사만 통과
+- impeccable detector 지적 0개, TypeScript·Prettier·Vitest 36개 통과
