@@ -12,7 +12,7 @@ type MediaCardProps = {
 const MediaCard = ({ card, tags }: MediaCardProps) => {
   if (card.variant === 'image' && card.imageUrl) {
     return (
-      <div className="relative aspect-video w-full max-w-80 overflow-hidden rounded-xl">
+      <div className="relative aspect-video w-full max-w-80 overflow-hidden rounded-xl bg-muted">
         <Image src={card.imageUrl} alt={card.alt ?? ''} fill className="object-cover" />
       </div>
     );

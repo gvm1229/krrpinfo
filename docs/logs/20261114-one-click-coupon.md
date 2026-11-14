@@ -67,3 +67,15 @@
 
 - 390·1280px, 밝은·어두운 테마에서 가로 넘침 없음. 쿠폰 0개 빈 상태 확인
 - impeccable detector 지적 0개, TypeScript·Prettier 통과
+
+## ✨ feat — 디자인 개편 P4 읽기 화면 (0.1.32)
+
+- 글 본문 폭을 `max-w-reading`(720px)으로 제한하고 목차와 함께 가운데 정렬. 1280px에서 한 줄 약 38자
+- 1240px 미만에서 사라지던 목차를 본문 위 `details` 접힘 목차로 제공 (`DashboardTableOfContents` `hideTitle` prop)
+- 글·카드 이미지에 `width`·`height` 지정과 `bg-muted` 자리 표시. 타임라인 이미지 상자에도 자리 표시
+- 운영자 Edit 링크를 shadcn Button으로 변경, 목차 sticky 위치를 64px 헤더에 맞춤
+
+### 검증
+
+- 1280px 본문 720px·목차 표시, 390px 접힘 목차 표시, 두 테마 가로 넘침 없음
+- impeccable detector 지적 0개, TypeScript·Prettier 통과
