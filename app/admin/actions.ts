@@ -101,6 +101,33 @@ export const deleteEntry = async (id: string) => {
   if (result.error) throw new Error('[actions::deleteEntry] ' + result.error.code);
   refresh();
 };
+// 쿠폰 제보 승인 후 Published 쿠폰 생성
+export const approveCouponReport = async (id: string) => {
+  await requireOwner();
+  z.string().uuid().parse(id);
+  const report = await adminEntry(id);
+  if (!report || report.kind !== 'coupon_report') throw new Error('쿠폰 제보를 찾을 수 없음');
+  const code = String(report.data.code ?? '').trim();
+  if (!code) throw new Error('쿠폰 코드 확인 필요');
+  const date = String(report.data.expiresAt ?? '');
+  // 만료일 미입력 시 14일 뒤 23:59 한국 시간
+  const expiresAt = /^\d{4}-\d{2}-\d{2}$/.test(date)
+    ? new Date(date + 'T23:59:00+09:00').toISOString()
+    : new Date(Date.now() + 14 * 86400000).toISOString();
+  const db = database();
+  const created = await db.from('cms_entries').insert({
+    kind: 'coupon',
+    slug: 'coupon-' + Date.now().toString(36),
+    title: code,
+    published: true,
+    position: 0,
+    data: { code, expiresAt },
+  });
+  if (created.error) throw new Error('[actions::approveCouponReport] ' + created.error.code);
+  const removed = await db.from('cms_entries').delete().eq('id', id);
+  if (removed.error) throw new Error('[actions::approveCouponReport] ' + removed.error.code);
+  refresh();
+};
 // 공개 상태 변경
 export const setEntryPublished = async (id: string, published: boolean) => {
   await requireOwner();

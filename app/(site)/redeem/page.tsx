@@ -2,6 +2,7 @@ import { notFound as disabledPage } from 'next/navigation';
 import { siteSettings as pageSettings } from '@/src/cms/repository';
 import RedeemContainer from '@/components/Nexon/RedeemContainer';
 import RedeemCard from '@/components/Redeem/RedeemCard';
+import CouponReportForm from '@/components/Redeem/CouponReportForm';
 import { Copy } from '@/components/Text/PublicSite';
 import { publicCopy } from '@/src/cms/repository';
 // 쿠폰 목록 메타데이터
@@ -18,7 +19,10 @@ const RedeemPage = async () => {
         <Copy id="redeem.title" />
       </h1>
       <div className="grid grid-cols-1 items-start gap-8 laptop:grid-cols-2 laptop:gap-10">
-        <RedeemCard />
+        <div className="min-w-0 space-y-6">
+          <RedeemCard />
+          <CouponReportForm />
+        </div>
         <RedeemContainer />
       </div>
     </main>

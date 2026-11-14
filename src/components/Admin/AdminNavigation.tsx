@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
+  Inbox,
   LayoutDashboard,
   FileText,
   Film,
@@ -29,6 +30,7 @@ const icons = {
   category: Tags,
   section: Layers,
   copy: Type,
+  coupon_report: Inbox,
 };
 
 // 현재 화면을 표시하는 관리자 메뉴

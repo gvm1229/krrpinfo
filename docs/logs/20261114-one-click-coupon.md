@@ -92,3 +92,17 @@
 - 실제 DB에서 `cms_rate_limit` 한도 2 시험: true·true·false, 시험 row 삭제
 - 390px에서 쿠폰 목록 우선·삭제 버튼 문구·접힘 안내 확인, 가로 넘침 없음
 - Vitest 37개(호출 제한 거절 추가), TypeScript·Prettier, impeccable detector 통과
+
+## ✨ feat — 목표 3-2 쿠폰 제보와 승인 (0.1.34)
+
+- `/redeem`에 익명 쿠폰 제보 form 추가 (코드·선택 만료일). 저장된 회원번호가 있으면 Nexon 조회로 존재하지 않거나 기간이 지난 쿠폰을 자동 거절
+- `reportCoupon` Server Action: 입력 검증, IP 기준 1시간 5회 제한, 기존 쿠폰·제보와 대소문자 무관 중복 차단, `coupon_report` Draft로 저장
+- 관리자 `쿠폰 제보` 메뉴와 목록의 `승인` 버튼: Published 쿠폰 생성 후 제보 삭제. 만료일이 없으면 14일 뒤로 지정. 거절은 기존 삭제 버튼
+- Nexon API 호출을 `src/cms/nexon.ts` 서버 전용 module로 분리 (`handleUnified`·`reportCoupon` 공용, 공개 action 노출 없음)
+- migration `202611140003_report_kinds.sql`: `coupon_report`·`cn_update` kind 허용, 제보 문구 5개. 실제 Supabase 적용
+
+### 검증
+
+- 실제 화면에서 시험 제보 저장과 대소문자만 다른 중복 거절 확인, 시험 row·제한 key 삭제
+- Vitest 44개(제보 5개·승인 2개 추가), TypeScript·Prettier, impeccable detector 통과
+- 관리자 승인 버튼은 운영자 로그인이 필요해 실제 화면 미확인, 단위 테스트로 확인

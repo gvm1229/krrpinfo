@@ -26,6 +26,10 @@ export const createDatabaseMock = (tables: Record<string, Row[]> = {}) => {
         filters.push((row) => row[key] === value);
         return query;
       },
+      in: (key: string, values: unknown[]) => {
+        filters.push((row) => values.includes(row[key]));
+        return query;
+      },
       neq: (key: string, value: unknown) => {
         filters.push((row) => row[key] !== value);
         return query;

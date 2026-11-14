@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Plus, Search, Pencil, Trash2 } from 'lucide-react';
-import { deleteEntry, setEntryPublished } from '@/app/admin/actions';
+import { approveCouponReport, deleteEntry, setEntryPublished } from '@/app/admin/actions';
 import { kindLabels, type Entry, type Kind } from '@/src/cms/schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -161,14 +161,25 @@ export const ContentList = ({ kind, entries }: { kind: Kind; entries: Entry[] })
                         편집
                       </Link>
                     </Button>
-                    <Button
-                      type="button"
-                      className="cms-button cms-secondary"
-                      disabled={pending}
-                      onClick={() => run(() => setEntryPublished(entry.id, !entry.published))}
-                    >
-                      {entry.published ? 'Draft로 전환' : 'Published로 전환'}
-                    </Button>
+                    {kind === 'coupon_report' ? (
+                      <Button
+                        type="button"
+                        className="cms-button"
+                        disabled={pending}
+                        onClick={() => run(() => approveCouponReport(entry.id))}
+                      >
+                        승인
+                      </Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        className="cms-button cms-secondary"
+                        disabled={pending}
+                        onClick={() => run(() => setEntryPublished(entry.id, !entry.published))}
+                      >
+                        {entry.published ? 'Draft로 전환' : 'Published로 전환'}
+                      </Button>
+                    )}
                     <Button
                       type="button"
                       className="cms-button cms-danger"

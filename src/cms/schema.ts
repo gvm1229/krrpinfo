@@ -12,6 +12,7 @@ export const kinds = [
   'category',
   'section',
   'copy',
+  'coupon_report',
 ] as const;
 export type Kind = (typeof kinds)[number];
 export type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
@@ -95,6 +96,7 @@ export const kindLabels: Record<Kind, string> = {
   category: '분류',
   section: '홈 섹션',
   copy: '화면 문구',
+  coupon_report: '쿠폰 제보',
 };
 export const settingFields: Field[] = [
   { key: 'postsEnabled', label: '글 페이지 사용', type: 'checkbox' },
@@ -183,6 +185,11 @@ export const fields: Record<Kind, Field[]> = {
   ],
   section: [{ key: 'component', label: '섹션 종류', type: 'component', required: true }],
   copy: [{ key: 'value', label: '문구', type: 'textarea' }],
+  coupon_report: [
+    { key: 'code', label: '쿠폰 코드', required: true },
+    { key: 'expiresAt', label: '만료일', type: 'date' },
+    { key: 'verified', label: 'Nexon 조회 확인', type: 'checkbox' },
+  ],
 };
 
 // 안전한 콘텐츠 주소 확인
