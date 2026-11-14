@@ -170,3 +170,14 @@
 - Vitest 52개(재승인 차단·잘못된 날짜·내부망 차단 추가), TypeScript, `pnpm build` 통과
 - 실제 DB에서 `cms:db:apply` 재실행 시 기존 5개 migration 모두 checksum 통과
 - 남은 위험: 중복 검사는 조회 후 삽입이라 동시 요청 시 중복 가능(부분 unique index 후속 검토), Vercel 외 환경의 `x-real-ip` 신뢰 문제
+
+## 📝 docs — 디자인 개편 P8 최종 점검 (0.1.40)
+
+- Fable 5.2 재검토 APPROVE. 잔여 2건 반영: 범위 밖 월(예: 99월) 만료일을 형식 오류로 안내, 승인 실패 뒤 제보 복구 실패 로그
+- DESIGN.md Layout에 홈 상단 고정 구성, 일정 열 수, 글 읽기 폭·접힘 목차, 쿠폰 페이지 순서, 64px 헤더와 1024px 메뉴 구간 기록
+- 수정 후 캡처 8장 `.hive/runtime/design-overhaul/after/` (Git 제외). 수정 전 12장과 비교 가능
+
+### 검증
+
+- Vitest 52개, TypeScript 통과. 앞선 단계에서 `pnpm build`, 390·768·1024·1280px 두 테마 확인
+- 미확인: 로그인 뒤 관리자 화면, 실제 Nexon 쿠폰 사용, cloud routine 실행, 실제 휴대전화·Safari

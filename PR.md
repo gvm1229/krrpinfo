@@ -2,6 +2,7 @@
 
 ## 현재 검토 범위
 
+- 0.1.40 P8: Fable 재검토 APPROVE, 잔여 2건 반영, DESIGN.md 배치 기준 갱신
 - 0.1.39 Fable 검토 반영: 승인 선점·복구, 이미지 SSRF·크기 상한, Nexon timeout, migration checksum 정규화, 접근성 수정
 - 0.1.38 P7: 기본 확인창·자체 HTML 조작 요소 0건 확인, 오류 화면 버튼 shadcn, 프로덕션 빌드 통과
 - 0.1.37 중국 서버 미래시: 홈 최신 소식 hero, /cn-preview 페이지, 메뉴·문구 migration

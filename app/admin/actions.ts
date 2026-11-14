@@ -137,7 +137,9 @@ export const approveCouponReport = async (id: string) => {
     : { error: { code: 'empty-code' } };
   if (created.error) {
     const { id: _id, created_at: _created, updated_at: _updated, ...restore } = report;
-    await db.from('cms_entries').insert(restore);
+    const restored = await db.from('cms_entries').insert(restore);
+    if (restored.error)
+      console.error('[actions::approveCouponReport] 제보 복구 실패 ' + restored.error.code);
     throw new Error('[actions::approveCouponReport] ' + created.error.code);
   }
   refresh();

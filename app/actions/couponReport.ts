@@ -35,6 +35,7 @@ export async function reportCoupon(input: {
   if (
     expiresAt &&
     (!/^\d{4}-\d{2}-\d{2}$/.test(expiresAt) ||
+      Number.isNaN(Date.parse(expiresAt + 'T00:00:00Z')) ||
       new Date(expiresAt + 'T00:00:00Z').toISOString().slice(0, 10) !== expiresAt)
   )
     return { success: false, message: '만료일 형식 확인 필요' };

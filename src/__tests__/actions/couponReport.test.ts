@@ -61,6 +61,9 @@ describe('쿠폰 제보', () => {
   });
   it('존재하지 않는 만료일 거절', async () => {
     expect((await reportCoupon({ code: 'NEW', expiresAt: '2026-02-30' })).success).toBe(false);
+    expect((await reportCoupon({ code: 'NEW', expiresAt: '2026-99-99' })).message).toBe(
+      '만료일 형식 확인 필요',
+    );
   });
   it('호출 제한 초과 시 저장 안 함', async () => {
     allowMock.mockResolvedValueOnce(false);
