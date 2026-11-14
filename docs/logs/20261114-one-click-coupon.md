@@ -54,3 +54,16 @@
 - 390·768·1024px, 밝은·어두운 테마에서 헤더 64px, 가로 넘침 없음, 메뉴 표시 구간 확인. 모바일 메뉴 열기와 `aria-expanded` 확인
 - 현재 CMS 메뉴에 하위 항목이 없어 dropdown은 실제 데이터로 미확인. 타입 검사만 통과
 - impeccable detector 지적 0개, TypeScript·Prettier·Vitest 36개 통과
+
+## ✨ feat — 디자인 개편 P3 홈 재구성 (0.1.31)
+
+- 홈 상단을 코드 고정: 미래시 hero(사이트 설정 값)와 유효 쿠폰 패널(`RedeemCard` 재사용, 원클릭 사용 가능)을 laptop 3:2 배치. hero·일정은 CMS 섹션이 Published일 때만 표시
+- hero 이미지에 크기 지정·16:9 고정, 링크를 단색 버튼으로 변경
+- 주요 일정 카드: 파란 큰 카드 → 경계선 카드, D-day 숫자만 브랜드 색. 모바일 2열로 바꿔 홈 길이 5887px → 약 5300px
+- 홈 타임라인은 최근 3개 그룹만 표시하고 `시즌 미래시` 전체 보기 링크 추가 (`Timeline` `limit` prop)
+- 링크·글·타임라인 섹션은 기존처럼 CMS 순서
+
+### 검증
+
+- 390·1280px, 밝은·어두운 테마에서 가로 넘침 없음. 쿠폰 0개 빈 상태 확인
+- impeccable detector 지적 0개, TypeScript·Prettier 통과
