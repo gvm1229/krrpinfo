@@ -5,6 +5,7 @@ vi.mock('@/src/cms/client', () => ({ database: () => dbMock() }));
 vi.mock('@/src/auth', () => ({ auth: vi.fn() }));
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 import { POST } from '@/app/api/ingest/cn-update/route';
+import { publicImageHost } from '@/src/cms/cn-ingest';
 const token = 'x'.repeat(40);
 const payload = {
   sourceUrl: 'https://example.com/news/1',
@@ -51,5 +52,12 @@ describe('중국 서버 소식 수신', () => {
     expect(again.status).toBe(200);
     expect(await again.json()).toEqual({ duplicate: true });
     expect(db.tables.cms_entries).toHaveLength(1);
+  });
+  it('내부망 이미지 주소 차단', () => {
+    expect(publicImageHost('https://169.254.169.254/latest')).toBe(false);
+    expect(publicImageHost('https://localhost/a.png')).toBe(false);
+    expect(publicImageHost('https://10.0.0.1/a.png')).toBe(false);
+    expect(publicImageHost('https://[::1]/a.png')).toBe(false);
+    expect(publicImageHost('https://game.gtimg.cn/a.png')).toBe(true);
   });
 });

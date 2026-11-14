@@ -54,6 +54,7 @@ export const ReviewQueue = ({ reports, drafts }: { reports: Entry[]; drafts: Ent
               <Button
                 type="button"
                 className="cms-button"
+                aria-label={String(report.data.code ?? '') + ' 제보 승인'}
                 disabled={pending}
                 onClick={() => run(() => approveCouponReport(report.id))}
               >

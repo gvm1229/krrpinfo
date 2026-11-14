@@ -20,12 +20,17 @@ const CouponReportForm = () => {
     event.preventDefault();
     if (!code.trim()) return;
     setPending(true);
-    const response = await reportCoupon({ code, expiresAt, npaCode: readNpaCode() });
-    setPending(false);
-    setResult(response);
-    if (!response.success) return;
-    setCode('');
-    setExpiresAt('');
+    try {
+      const response = await reportCoupon({ code, expiresAt, npaCode: readNpaCode() });
+      setResult(response);
+      if (!response.success) return;
+      setCode('');
+      setExpiresAt('');
+    } catch {
+      setResult({ success: false, message: '제보 저장 실패' });
+    } finally {
+      setPending(false);
+    }
   };
   return (
     <section className="min-w-0 space-y-4 rounded-lg border p-5">

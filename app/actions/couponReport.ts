@@ -28,10 +28,15 @@ export async function reportCoupon(input: {
   expiresAt?: string;
   npaCode?: string;
 }): Promise<ReportResponse> {
-  const code = String(input.code ?? '').trim();
-  const expiresAt = String(input.expiresAt ?? '');
+  if (typeof input?.code !== 'string') return { success: false, message: '쿠폰 코드 확인 필요' };
+  const code = input.code.trim();
+  const expiresAt = typeof input.expiresAt === 'string' ? input.expiresAt : '';
   if (!code || code.length > 60) return { success: false, message: '쿠폰 코드 확인 필요' };
-  if (expiresAt && !/^\d{4}-\d{2}-\d{2}$/.test(expiresAt))
+  if (
+    expiresAt &&
+    (!/^\d{4}-\d{2}-\d{2}$/.test(expiresAt) ||
+      new Date(expiresAt + 'T00:00:00Z').toISOString().slice(0, 10) !== expiresAt)
+  )
     return { success: false, message: '만료일 형식 확인 필요' };
   if (!(await allowRequest('report', 5, 3600)))
     return { success: false, message: '제보가 많아 잠시 후 다시 시도' };
@@ -56,7 +61,7 @@ export async function reportCoupon(input: {
   )
     return { success: false, message: '이미 등록되었거나 확인 중인 쿠폰' };
 
-  const verified = await verifyCoupon(String(input.npaCode ?? ''), code);
+  const verified = await verifyCoupon(typeof input.npaCode === 'string' ? input.npaCode : '', code);
   if (verified === false) return { success: false, message: '사용할 수 없는 쿠폰' };
 
   const result = await db.from('cms_entries').insert({

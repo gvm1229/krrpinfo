@@ -59,6 +59,9 @@ describe('쿠폰 제보', () => {
       verified: true,
     });
   });
+  it('존재하지 않는 만료일 거절', async () => {
+    expect((await reportCoupon({ code: 'NEW', expiresAt: '2026-02-30' })).success).toBe(false);
+  });
   it('호출 제한 초과 시 저장 안 함', async () => {
     allowMock.mockResolvedValueOnce(false);
     expect((await reportCoupon({ code: 'NEW' })).success).toBe(false);
@@ -85,6 +88,13 @@ describe('쿠폰 제보 승인', () => {
       data: { code: 'NEWCODE', expiresAt: '2026-12-01T14:59:00.000Z' },
     });
     expect(db.tables.cms_entries.some((row) => row.id === id)).toBe(false);
+  });
+  it('이미 처리한 제보는 다시 승인해도 쿠폰을 만들지 않음', async () => {
+    const before = db.tables.cms_entries.length;
+    await expect(approveCouponReport('33333333-3333-4333-a333-333333333333')).rejects.toThrow(
+      '이미 처리',
+    );
+    expect(db.tables.cms_entries).toHaveLength(before);
   });
   it('운영자가 아니면 승인 거부', async () => {
     authMock.mockResolvedValue(null);

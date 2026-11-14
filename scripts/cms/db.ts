@@ -21,19 +21,25 @@ const main = async () => {
     );
     for (const file of files) {
       const version = file.split('_')[0];
-      const source = await readFile(new URL(file, directory), 'utf8');
-      const checksum = createHash('sha256').update(source).digest('hex');
+      // 운영체제별 줄바꿈 차이와 BOM 제거 후 비교
+      const source = (await readFile(new URL(file, directory), 'utf8')).replace(/^\uFEFF/, '');
+      const hash = (value: string) => createHash('sha256').update(value).digest('hex');
+      const normalized = source.replace(/\r\n/g, '\n');
+      const checksum = hash(normalized);
+      const accepted = [checksum, hash(normalized.replace(/\n/g, '\r\n'))];
       const existing = await client.query<{ checksum: string }>(
         'select checksum from public.cms_migrations where version=$1',
         [version],
       );
       if (existing.rows[0]) {
-        if (existing.rows[0].checksum !== checksum)
+        if (!accepted.includes(existing.rows[0].checksum))
           throw new Error(`적용된 마이그레이션의 원문 변경 감지: ${file}`);
         console.log(`이미 적용된 SQL: ${file}`);
         continue;
       }
-      await client.query(source.replace(/^begin;\s*/i, '').replace(/commit;\s*$/i, ''));
+      if (!/^begin;\s*/i.test(normalized) || !/commit;\s*$/i.test(normalized))
+        throw new Error(`begin·commit으로 감싼 SQL 필요: ${file}`);
+      await client.query(normalized.replace(/^begin;\s*/i, '').replace(/commit;\s*$/i, ''));
       await client.query('insert into public.cms_migrations(version,checksum) values($1,$2)', [
         version,
         checksum,

@@ -68,7 +68,7 @@ const CnPreviewPage = async () => {
             {update.images.length > 0 && (
               <div className="grid grid-cols-1 gap-3 tablet:grid-cols-2 laptop:grid-cols-3">
                 {update.images.map((src, index) => (
-                  <a key={src} href={src} target="_blank" rel="noreferrer" className="block">
+                  <a key={index} href={src} target="_blank" rel="noreferrer" className="block">
                     <img
                       src={src}
                       alt={update.title + ' ' + (index + 1)}
@@ -83,8 +83,8 @@ const CnPreviewPage = async () => {
             )}
             {update.body.length > 0 && (
               <ul className="max-w-reading list-disc space-y-1.5 pl-5 leading-relaxed">
-                {update.body.map((line) => (
-                  <li key={line}>{line}</li>
+                {update.body.map((line, index) => (
+                  <li key={index}>{line}</li>
                 ))}
               </ul>
             )}

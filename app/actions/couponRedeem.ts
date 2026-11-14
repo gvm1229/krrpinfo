@@ -18,11 +18,13 @@ const ALREADY_USED = '해당 쿠폰 완료 상태';
 // 회원번호 조회 후 첫 캐릭터에 쿠폰 사용
 export async function handleUnified(npaCode: string, coupon: string): Promise<UnifiedResponse> {
   const region = 'KR';
+  if (typeof npaCode !== 'string' || typeof coupon !== 'string')
+    return { success: false, message: '잘못된 입력', used: false };
   const code = coupon.trim();
   if (!/^[a-zA-Z0-9]{13}$/.test(npaCode))
     return { success: false, message: '잘못된 회원번호', used: false };
   if (!code || code.length > 100) return { success: false, message: '쿠폰 미입력', used: false };
-  if (!(await allowRequest('redeem', 30, 600)))
+  if (!(await allowRequest('redeem', 60, 600)))
     return { success: false, message: '요청이 많아 잠시 후 다시 시도', used: false };
 
   try {

@@ -2,7 +2,13 @@
 import { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { AdminNavigation } from '@/components/Admin/AdminNavigation';
 import type { Kind } from '@/src/cms/schema';
 
@@ -22,6 +28,7 @@ export const AdminMobileMenu = ({ pending }: { pending: Partial<Record<Kind, num
       </SheetTrigger>
       <SheetContent side="left" className="w-72 overflow-y-auto bg-[var(--cms-surface)] p-0 pt-10">
         <SheetTitle className="px-6 pb-2 text-base">콘텐츠 관리</SheetTitle>
+        <SheetDescription className="sr-only">관리 메뉴 이동</SheetDescription>
         <AdminNavigation pending={pending} onNavigate={() => setOpen(false)} />
       </SheetContent>
     </Sheet>

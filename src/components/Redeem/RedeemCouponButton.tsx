@@ -40,12 +40,17 @@ const RedeemCouponButton = ({ coupon }: { coupon: string }) => {
       return;
     }
     setPending(true);
-    const response = await handleUnified(npaCode, coupon);
-    setPending(false);
-    setResult(response);
-    if (!response.used) return;
-    addUsedCoupon(npaCode, coupon);
-    setUsed(true);
+    try {
+      const response = await handleUnified(npaCode, coupon);
+      setResult(response);
+      if (!response.used) return;
+      addUsedCoupon(npaCode, coupon);
+      setUsed(true);
+    } catch {
+      setResult({ success: false, message: '쿠폰 서버 연결 실패' });
+    } finally {
+      setPending(false);
+    }
   };
   return (
     <div className="space-y-2">

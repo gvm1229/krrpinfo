@@ -41,14 +41,53 @@ const imageTypes: Record<string, string> = {
   'image/gif': 'gif',
 };
 
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+
+// 내부망·loopback·link-local host 차단
+export const publicImageHost = (url: string) => {
+  const host = new URL(url).hostname.toLowerCase().replace(/^\[|\]$/g, '');
+  if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.internal'))
+    return false;
+  if (/^(0|10|127)\./.test(host) || /^169\.254\./.test(host) || /^192\.168\./.test(host))
+    return false;
+  if (
+    /^172\.(1[6-9]|2\d|3[01])\./.test(host) ||
+    /^100\.(6[4-9]|[7-9]\d|1[01]\d|12[0-7])\./.test(host)
+  )
+    return false;
+  if (host.includes(':') && (host === '::1' || /^(fc|fd|fe80)/.test(host))) return false;
+  return true;
+};
+
+// 상한까지만 응답 본문 읽기, 초과 시 null
+const readLimited = async (response: Response) => {
+  const declared = Number(response.headers.get('content-length') ?? 0);
+  if (declared > MAX_IMAGE_BYTES || !response.body) return null;
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > MAX_IMAGE_BYTES) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks);
+};
+
 // 원본 이미지를 R2로 복사, 실패 시 원본 주소 유지
 const copyImage = async (url: string): Promise<string> => {
   try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
+    if (!publicImageHost(url)) return url;
+    const response = await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(10000) });
     const type = (response.headers.get('content-type') ?? '').split(';')[0].trim();
-    if (!response.ok || !imageTypes[type]) return url;
-    const bytes = Buffer.from(await response.arrayBuffer());
-    if (!bytes.length || bytes.length > 10 * 1024 * 1024) return url;
+    if (response.status !== 200 || !imageTypes[type]) return url;
+    const bytes = await readLimited(response);
+    if (!bytes?.length) return url;
     const key = 'media/' + randomUUID();
     await storage().send(
       new PutObjectCommand({
@@ -86,8 +125,7 @@ export const ingestCnUpdate = async (input: CnUpdateInput) => {
   if (error) throw new Error('[cn-ingest::ingestCnUpdate] ' + error.code);
   if (existing?.some((row) => row.data?.sourceUrl === input.sourceUrl))
     return { duplicate: true as const };
-  const images: string[] = [];
-  for (const url of input.images) images.push(await copyImage(url));
+  const images = await Promise.all(input.images.map(copyImage));
   const result = await db
     .from('cms_entries')
     .insert({

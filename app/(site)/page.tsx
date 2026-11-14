@@ -33,6 +33,7 @@ const Home = async () => {
   const showCoupons = publicPathEnabled(settings, '/redeem');
   return (
     <main className="space-y-12 tablet:space-y-16">
+      {!latest && !hero && <h1 className="sr-only">{settings.name}</h1>}
       {(latest || hero || showCoupons) && (
         <section className="container grid grid-cols-1 gap-6 laptop:grid-cols-5">
           {latest && <CnPreviewHero update={latest} className="laptop:col-span-3" />}

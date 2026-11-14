@@ -154,3 +154,19 @@
 ### 검증
 
 - `pnpm build` 통과 (`/cn-preview`·`/api/ingest/cn-update` 포함), TypeScript·Prettier 통과
+
+## 🐛 fix — Fable 5.2 최종 검토 반영 (0.1.39)
+
+- 쿠폰 제보 승인: 제보를 먼저 삭제해 선점한 뒤 쿠폰 생성, 실패 시 제보 복구. 두 화면에서 동시에 승인해도 쿠폰 중복 생성 없음. 잘못된 만료일은 14일 뒤로 처리
+- 제보의 존재하지 않는 날짜(예: 2월 30일) 거절, Server Action 인자 타입 검사
+- 이미지 복사: 내부망·loopback·link-local host 차단, redirect 미추적, content-length와 stream 누적 10MB 상한, 병렬 복사, route `maxDuration` 60초
+- Nexon 호출 8초 timeout. 쿠폰 사용 호출 제한 10분 60회로 완화 (통신사 공유 IP 대비)
+- 쿠폰 사용·제보 버튼: 요청 실패 시에도 진행 상태 해제와 실패 문구 표시
+- `cms:db:apply`: BOM 제거·줄바꿈 정규화 후 checksum 비교(기존 CRLF·LF 기록 모두 허용), begin·commit 미포함 SQL 거부. `.gitattributes`에 `*.sql text eol=lf`
+- 관리자 확인 대기 개수를 count 조회로 변경, 승인 버튼 aria-label, 서랍 메뉴 설명, 목록 key 충돌 수정, hero가 없을 때 홈 sr-only h1
+
+### 검증
+
+- Vitest 52개(재승인 차단·잘못된 날짜·내부망 차단 추가), TypeScript, `pnpm build` 통과
+- 실제 DB에서 `cms:db:apply` 재실행 시 기존 5개 migration 모두 checksum 통과
+- 남은 위험: 중복 검사는 조회 후 삽입이라 동시 요청 시 중복 가능(부분 unique index 후속 검토), Vercel 외 환경의 `x-real-ip` 신뢰 문제

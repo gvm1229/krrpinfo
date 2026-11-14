@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { cnUpdateInput, ingestCnUpdate, validToken } from '@/src/cms/cn-ingest';
 
+// 이미지 병렬 복사 상한 시간
+export const maxDuration = 60;
 // 중국 서버 업데이트 수신, 결과는 항상 Draft
 export const POST = async (request: Request) => {
   if (!validToken(request.headers.get('authorization')))

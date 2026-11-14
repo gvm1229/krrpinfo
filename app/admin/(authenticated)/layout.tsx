@@ -4,7 +4,7 @@ import { LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AdminNavigation } from '@/components/Admin/AdminNavigation';
 import { AdminMobileMenu } from '@/components/Admin/AdminMobileMenu';
-import { adminEntries } from '@/src/cms/repository';
+import { adminPendingCounts } from '@/src/cms/repository';
 import { auth, signOut } from '@/src/auth';
 import { isOwner } from '@/src/cms/owner';
 import '@/src/styles/admin.css';
@@ -15,10 +15,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
   if (!isOwner(session)) redirect('/admin/login');
   // 확인 대기 개수
-  const pending = {
-    coupon_report: (await adminEntries('coupon_report')).length,
-    cn_update: (await adminEntries('cn_update')).filter((entry) => !entry.published).length,
-  };
+  const pending = await adminPendingCounts();
   return (
     <div className="cms-shell">
       <aside className="cms-sidebar">

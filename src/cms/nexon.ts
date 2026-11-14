@@ -61,6 +61,7 @@ export async function handleUserLookup(payload: UserLookUpPayload) {
           'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(8000),
       },
     );
     return (await response.json()) as UserLookUpResponse;
@@ -122,6 +123,7 @@ export async function handleRedeem(payload: RedeemPayload) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(8000),
       },
     );
     return (await response.json()) as RedeemResponse;

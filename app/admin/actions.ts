@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { database } from '@/src/cms/client';
 import { requireOwner, adminEntry } from '@/src/cms/repository';
-import { entryInput, settingsInput } from '@/src/cms/schema';
+import { entryInput, settingsInput, type Entry } from '@/src/cms/schema';
 import { validateDocument } from '@/src/cms/blocks';
 import { prepareMediaUpload, completeMediaUpload, removeMedia } from '@/src/cms/media';
 
@@ -101,31 +101,45 @@ export const deleteEntry = async (id: string) => {
   if (result.error) throw new Error('[actions::deleteEntry] ' + result.error.code);
   refresh();
 };
-// 쿠폰 제보 승인 후 Published 쿠폰 생성
+// 쿠폰 제보를 먼저 삭제해 선점한 뒤 Published 쿠폰 생성, 실패 시 제보 복구
 export const approveCouponReport = async (id: string) => {
   await requireOwner();
   z.string().uuid().parse(id);
-  const report = await adminEntry(id);
-  if (!report || report.kind !== 'coupon_report') throw new Error('쿠폰 제보를 찾을 수 없음');
-  const code = String(report.data.code ?? '').trim();
-  if (!code) throw new Error('쿠폰 코드 확인 필요');
-  const date = String(report.data.expiresAt ?? '');
-  // 만료일 미입력 시 14일 뒤 23:59 한국 시간
-  const expiresAt = /^\d{4}-\d{2}-\d{2}$/.test(date)
-    ? new Date(date + 'T23:59:00+09:00').toISOString()
-    : new Date(Date.now() + 14 * 86400000).toISOString();
   const db = database();
-  const created = await db.from('cms_entries').insert({
-    kind: 'coupon',
-    slug: 'coupon-' + Date.now().toString(36),
-    title: code,
-    published: true,
-    position: 0,
-    data: { code, expiresAt },
-  });
-  if (created.error) throw new Error('[actions::approveCouponReport] ' + created.error.code);
-  const removed = await db.from('cms_entries').delete().eq('id', id);
-  if (removed.error) throw new Error('[actions::approveCouponReport] ' + removed.error.code);
+  const claimed = await db
+    .from('cms_entries')
+    .delete()
+    .eq('id', id)
+    .eq('kind', 'coupon_report')
+    .select('*')
+    .maybeSingle();
+  if (claimed.error) throw new Error('[actions::approveCouponReport] ' + claimed.error.code);
+  const report = claimed.data as Entry | null;
+  if (!report) throw new Error('이미 처리했거나 없는 쿠폰 제보');
+  const code = String(report.data.code ?? '').trim();
+  const date = String(report.data.expiresAt ?? '');
+  const parsed = Date.parse(date + 'T23:59:00+09:00');
+  // 만료일이 없거나 잘못되면 14일 뒤
+  const expiresAt = new Date(
+    /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(parsed)
+      ? parsed
+      : Date.now() + 14 * 86400000,
+  ).toISOString();
+  const created = code
+    ? await db.from('cms_entries').insert({
+        kind: 'coupon',
+        slug: 'coupon-' + Date.now().toString(36),
+        title: code,
+        published: true,
+        position: 0,
+        data: { code, expiresAt },
+      })
+    : { error: { code: 'empty-code' } };
+  if (created.error) {
+    const { id: _id, created_at: _created, updated_at: _updated, ...restore } = report;
+    await db.from('cms_entries').insert(restore);
+    throw new Error('[actions::approveCouponReport] ' + created.error.code);
+  }
   refresh();
 };
 // 공개 상태 변경
