@@ -1,10 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+const { allowMock } = vi.hoisted(() => ({ allowMock: vi.fn() }));
+vi.mock('@/src/cms/rate-limit', () => ({ allowRequest: allowMock }));
 import { handleUnified } from '@/app/actions/couponRedeem';
 const npaCode = '07S0LCI10W02W';
 const fetchMock = vi.fn();
 // Nexon JSON 응답 생성
 const reply = (body: unknown) => ({ json: async () => body });
 beforeEach(() => {
+  allowMock.mockResolvedValue(true);
   fetchMock.mockReset();
   vi.stubGlobal('fetch', fetchMock);
 });
@@ -40,6 +43,11 @@ describe('원클릭 쿠폰 사용', () => {
   });
   it('잘못된 회원번호는 요청 없이 거절', async () => {
     expect((await handleUnified('short', '쿠폰')).message).toBe('잘못된 회원번호');
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+  it('호출 제한 초과 시 Nexon 요청 없이 거절', async () => {
+    allowMock.mockResolvedValueOnce(false);
+    expect((await handleUnified(npaCode, '쿠폰')).success).toBe(false);
     expect(fetchMock).not.toHaveBeenCalled();
   });
   it('연결 실패 시 내부 오류 비노출', async () => {

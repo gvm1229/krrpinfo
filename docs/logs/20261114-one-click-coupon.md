@@ -79,3 +79,16 @@
 
 - 1280px 본문 720px·목차 표시, 390px 접힘 목차 표시, 두 테마 가로 넘침 없음
 - impeccable detector 지적 0개, TypeScript·Prettier 통과
+
+## ✨ feat — 디자인 개편 P5 쿠폰 페이지 (0.1.33)
+
+- 쿠폰 목록을 회원번호 입력보다 먼저 배치 (모바일 첫 화면에 쿠폰 표시)
+- 회원번호 안내 문장은 유지하고 안내 이미지·자세한 방법 링크는 `details`로 접음
+- `handleUnified`에 IP 기준 호출 제한(10분 30회) 추가. `cms_rate_limit` DB 함수와 `src/cms/rate-limit.ts` 신설, 기존 로그인 제한 table 재사용
+- 실제 Supabase에 `202611140001_redeem_copy.sql`·`202611140002_rate_limit.sql` 적용. 쿠폰 화면의 삭제·사용 완료 문구 표시
+
+### 검증
+
+- 실제 DB에서 `cms_rate_limit` 한도 2 시험: true·true·false, 시험 row 삭제
+- 390px에서 쿠폰 목록 우선·삭제 버튼 문구·접힘 안내 확인, 가로 넘침 없음
+- Vitest 37개(호출 제한 거절 추가), TypeScript·Prettier, impeccable detector 통과

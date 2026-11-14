@@ -2,6 +2,7 @@
 import { Copy, useCopy, usePublicSite } from '@/components/Text/PublicSite';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -169,20 +170,26 @@ const RedeemContainer = () => {
                 </div>
                 <div className="shrink-0">{renderActionButtons()}</div>
               </div>
-              <div className="mt-8 space-y-3 border-t pt-6">
-                <FormDescription className="text-sm leading-relaxed text-foreground">
-                  <Copy id="copy.a0b6373186c6" />
-                </FormDescription>
-                <Link
-                  href={settings.redeemGuideUrl}
-                  className="inline-block text-sm font-medium text-brand-blue underline underline-offset-4"
-                >
+              <FormDescription className="text-sm leading-relaxed text-muted-foreground">
+                <Copy id="copy.a0b6373186c6" />
+              </FormDescription>
+              <details className="rounded-lg border p-4">
+                <summary className="cursor-pointer text-sm font-semibold">
                   <Copy id="copy.b4c7f2bf0334" />
-                </Link>
-                <div className="max-w-sm">
-                  <ResponsiveImage src={settings.redeemGuideImage} gridNums={[1, 2, 3]} />
+                </summary>
+                <div className="mt-3 space-y-3">
+                  <div className="max-w-sm">
+                    <ResponsiveImage src={settings.redeemGuideImage} gridNums={[1, 2, 3]} />
+                  </div>
+                  <Link
+                    href={settings.redeemGuideUrl}
+                    className="inline-flex items-center gap-1 text-sm font-medium text-brand-link underline underline-offset-4"
+                  >
+                    <Copy id="copy.b4c7f2bf0334" />
+                    <ArrowRight size={14} />
+                  </Link>
                 </div>
-              </div>
+              </details>
             </FormItem>
           )}
         />

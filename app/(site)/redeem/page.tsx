@@ -9,7 +9,7 @@ export const generateMetadata = async () => {
   if ((await pageSettings()).redeemEnabled !== 'true') return {};
   return { title: (await publicCopy())['redeem.title'], alternates: { canonical: '/redeem' } };
 };
-// 기존 쿠폰 사용 기능과 CMS 쿠폰 목록 연결
+// 쿠폰 목록 우선, 회원번호 저장은 옆 또는 아래
 const RedeemPage = async () => {
   if ((await pageSettings()).redeemEnabled !== 'true') disabledPage();
   return (
@@ -17,9 +17,9 @@ const RedeemPage = async () => {
       <h1 className="text-3xl font-bold tablet:text-4xl">
         <Copy id="redeem.title" />
       </h1>
-      <div className="grid grid-cols-1 items-start gap-10 laptop:grid-cols-2">
-        <RedeemContainer />
+      <div className="grid grid-cols-1 items-start gap-8 laptop:grid-cols-2 laptop:gap-10">
         <RedeemCard />
+        <RedeemContainer />
       </div>
     </main>
   );
