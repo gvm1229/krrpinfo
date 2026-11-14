@@ -148,7 +148,7 @@ export const MediaPicker = ({
               disabled={busy}
               aria-label={item.name + ' 선택'}
               aria-pressed={value === item.url}
-              className="cms-button cms-secondary !h-auto min-w-0 !flex-col !items-stretch !gap-2 !p-2 text-left aria-pressed:ring-2 aria-pressed:ring-[#4945ff] aria-pressed:ring-offset-2"
+              className="cms-button cms-secondary !h-auto min-w-0 !flex-col !items-stretch !gap-2 !p-2 text-left aria-pressed:ring-2 aria-pressed:ring-[var(--cms-primary)] aria-pressed:ring-offset-2"
               onClick={() => {
                 onChange(item.url, alt || item.alt);
                 setOpen(false);

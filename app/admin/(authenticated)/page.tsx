@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { adminEntries } from '@/src/cms/repository';
 import { kindLabels, type Kind } from '@/src/cms/schema';
-// 콘텐츠 현황과 최근 작업
+import { ReviewQueue } from '@/components/Admin/ReviewQueue';
+// 확인 대기·콘텐츠 현황·최근 작업
 const Dashboard = async () => {
   const entries = await adminEntries();
   const kinds: Kind[] = ['post', 'video', 'season', 'coupon'];
@@ -10,6 +11,13 @@ const Dashboard = async () => {
       <header>
         <h1 className="text-3xl font-semibold">대시보드</h1>
       </header>
+      <ReviewQueue
+        reports={entries.filter((entry) => entry.kind === 'coupon_report')}
+        drafts={entries.filter(
+          (entry) =>
+            !entry.published && ['post', 'video', 'timeline', 'coupon'].includes(entry.kind),
+        )}
+      />
       <section className="cms-panel">
         <h2 className="mb-5 text-lg font-semibold">콘텐츠 현황</h2>
         <div className="grid grid-cols-2 gap-6 tablet:grid-cols-4">
