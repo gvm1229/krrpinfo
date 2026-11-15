@@ -171,7 +171,7 @@ export const pendingTranslations = async () => {
     .eq('published', false);
   if (error) throw new Error('[cn-ingest::pendingTranslations] ' + error.code);
   return (data ?? [])
-    .filter((row) => row.data?.translated !== true)
+    .filter((row) => row.data?.translated === false)
     .sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)))
     .map((row) => ({
       id: row.id as string,

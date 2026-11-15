@@ -168,6 +168,18 @@ describe('번역 대기 API', () => {
     });
     expect((await (await pending(call('GET'))).json()).pending).toEqual([]);
   });
+  it('운영자가 직접 쓴 Draft는 번역 대기에서 제외', async () => {
+    db.tables.cms_entries.push({
+      id: 'manual',
+      kind: 'cn_update',
+      title: '직접 작성',
+      published: false,
+      created_at: '2026-11-14',
+      data: { summary: '운영자 요약' },
+    });
+    const list = await (await pending(call('GET'))).json();
+    expect(list.pending.map((item: { id: string }) => item.id)).toEqual([id]);
+  });
   it('Published 항목은 번역으로 덮어쓰지 않음', async () => {
     db.tables.cms_entries[0].published = true;
     const response = await translate(call('PATCH', { id, title: '변경', summary: '변경' }));

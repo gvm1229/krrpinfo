@@ -81,7 +81,10 @@ export const ReviewQueue = ({ reports, drafts }: { reports: Entry[]; drafts: Ent
             className="flex min-w-0 flex-col gap-1 py-4 hover:underline tablet:flex-row tablet:items-center tablet:justify-between"
           >
             <span className="min-w-0 break-words">{entry.title}</span>
-            <span className="flex shrink-0 gap-2 text-sm text-muted-foreground">
+            <span className="flex shrink-0 items-center gap-2 text-sm text-muted-foreground">
+              {entry.kind === 'cn_update' && entry.data.translated === false && (
+                <Badge variant="outline">번역 대기</Badge>
+              )}
               <span>{kindLabels[entry.kind]}</span>
               <span>Draft</span>
             </span>
