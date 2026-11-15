@@ -1,3 +1,12 @@
+# PR: feat/taptap-collector branch
+
+## 현재 검토 범위
+
+- 0.1.41 TapTap 공식 공지 매일 수집: Vercel Cron 수집기(공식 작성자·7일 이내·중복 제외, 원문·이미지 Draft), 번역 대기 조회·저장 API, routine 지침. AI API 미사용
+- 실제 TapTap 목록·상세·이미지 요청 확인, Vitest 62개·build 통과. 실제 DB cron 저장과 routine은 배포 후 확인
+
+---
+
 # PR: feat/cn-preview-coupon branch
 
 ## 현재 검토 범위

@@ -11,14 +11,14 @@ const httpsUrl = z
   .max(2000)
   .refine((value) => value.startsWith('https://'), 'https 주소 필요');
 
-// cloud session이 보내는 중국 서버 업데이트 형식
+// 수집기·cloud session이 보내는 중국 서버 소식 형식, summary가 비면 번역 대기
 export const cnUpdateInput = z.object({
   sourceUrl: httpsUrl,
   sourceName: z.string().trim().min(1).max(100),
   publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   title: z.string().trim().min(1).max(200),
   season: z.string().trim().max(100).default(''),
-  summary: z.string().trim().min(1).max(2000),
+  summary: z.string().trim().max(2000).default(''),
   body: z.string().trim().max(20000).default(''),
   originalText: z.string().trim().max(20000).default(''),
   images: z.array(httpsUrl).max(20).default([]),
@@ -134,10 +134,81 @@ export const ingestCnUpdate = async (input: CnUpdateInput) => {
       title: input.title,
       published: false,
       position: 0,
-      data: { ...input, images: images.join('\n') },
+      data: { ...input, images: images.join('\n'), translated: input.summary !== '' },
     })
     .select('id')
     .single();
   if (result.error) throw new Error('[cn-ingest::ingestCnUpdate] ' + result.error.code);
   return { duplicate: false as const, id: result.data.id as string };
+};
+
+// 이미 저장된 출처 주소 목록
+export const knownSourceUrls = async () => {
+  const { data, error } = await database()
+    .from('cms_entries')
+    .select('data')
+    .eq('kind', 'cn_update');
+  if (error) throw new Error('[cn-ingest::knownSourceUrls] ' + error.code);
+  return new Set((data ?? []).map((row) => String(row.data?.sourceUrl ?? '')));
+};
+
+// cloud session 번역 결과 형식
+export const translationInput = z.object({
+  id: z.string().uuid(),
+  title: z.string().trim().min(1).max(200),
+  summary: z.string().trim().min(1).max(2000),
+  body: z.string().trim().max(20000).default(''),
+  season: z.string().trim().max(100).default(''),
+  krEta: z.string().trim().max(100).default(''),
+});
+
+// 번역 대기 Draft 목록, 오래된 순
+export const pendingTranslations = async () => {
+  const { data, error } = await database()
+    .from('cms_entries')
+    .select('id,title,data,created_at')
+    .eq('kind', 'cn_update')
+    .eq('published', false);
+  if (error) throw new Error('[cn-ingest::pendingTranslations] ' + error.code);
+  return (data ?? [])
+    .filter((row) => row.data?.translated === false)
+    .sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)))
+    .map((row) => ({
+      id: row.id as string,
+      title: row.title as string,
+      publishedAt: String(row.data?.publishedAt ?? ''),
+      sourceUrl: String(row.data?.sourceUrl ?? ''),
+      originalText: String(row.data?.originalText ?? ''),
+      imageCount: String(row.data?.images ?? '')
+        .split('\n')
+        .filter(Boolean).length,
+    }));
+};
+
+// 번역 결과 저장, 원문 제목 보존과 Draft 유지
+export const saveTranslation = async (input: z.infer<typeof translationInput>) => {
+  const db = database();
+  const { data: row, error } = await db
+    .from('cms_entries')
+    .select('id,kind,title,published,data')
+    .eq('id', input.id)
+    .maybeSingle();
+  if (error) throw new Error('[cn-ingest::saveTranslation] ' + error.code);
+  if (!row || row.kind !== 'cn_update' || row.published) return false;
+  const { id, title, ...fields } = input;
+  const result = await db
+    .from('cms_entries')
+    .update({
+      title,
+      data: {
+        ...row.data,
+        ...fields,
+        originalTitle: row.data?.originalTitle || row.title,
+        translated: true,
+      },
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', id);
+  if (result.error) throw new Error('[cn-ingest::saveTranslation] ' + result.error.code);
+  return true;
 };
