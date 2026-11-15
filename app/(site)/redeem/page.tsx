@@ -1,0 +1,31 @@
+import { notFound as disabledPage } from 'next/navigation';
+import { siteSettings as pageSettings } from '@/src/cms/repository';
+import RedeemContainer from '@/components/Nexon/RedeemContainer';
+import RedeemCard from '@/components/Redeem/RedeemCard';
+import CouponReportForm from '@/components/Redeem/CouponReportForm';
+import { Copy } from '@/components/Text/PublicSite';
+import { publicCopy } from '@/src/cms/repository';
+// 쿠폰 목록 메타데이터
+export const generateMetadata = async () => {
+  if ((await pageSettings()).redeemEnabled !== 'true') return {};
+  return { title: (await publicCopy())['redeem.title'], alternates: { canonical: '/redeem' } };
+};
+// 쿠폰 목록 우선, 회원번호 저장은 옆 또는 아래
+const RedeemPage = async () => {
+  if ((await pageSettings()).redeemEnabled !== 'true') disabledPage();
+  return (
+    <main className="container space-y-8">
+      <h1 className="text-3xl font-bold tablet:text-4xl">
+        <Copy id="redeem.title" />
+      </h1>
+      <div className="grid grid-cols-1 items-start gap-8 laptop:grid-cols-2 laptop:gap-10">
+        <div className="min-w-0 space-y-6">
+          <RedeemCard />
+          <CouponReportForm />
+        </div>
+        <RedeemContainer />
+      </div>
+    </main>
+  );
+};
+export default RedeemPage;

@@ -3,6 +3,7 @@
 'use client';
 
 import * as React from 'react';
+import { Copy } from '@/components/Text/PublicSite';
 
 import { useMounted } from '@/src/hooks/use-mounted';
 import type { TableOfContents } from '@/src/util/toc';
@@ -10,17 +11,20 @@ import { cn } from '@/src/util/utils';
 
 interface TocProps {
   toc: TableOfContents;
+  // 접힘 목차처럼 바깥에서 제목을 표시할 때 숨김
+  hideTitle?: boolean;
 }
 
-export function DashboardTableOfContents({ toc }: TocProps) {
+export function DashboardTableOfContents({ toc, hideTitle = false }: TocProps) {
   const itemIds = React.useMemo(
-    () => (toc.items
-      ? toc.items
-        .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
-        .flat()
-        .filter(Boolean)
-        .map((id) => id?.split('#')[1])
-      : []),
+    () =>
+      toc.items
+        ? toc.items
+            .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
+            .flat()
+            .filter(Boolean)
+            .map((id) => id?.split('#')[1])
+        : [],
     [toc],
   );
   const activeHeading = useActiveItem(itemIds);
@@ -30,7 +34,11 @@ export function DashboardTableOfContents({ toc }: TocProps) {
 
   return mounted ? (
     <div className="space-y-2">
-      <p className="text-xl font-semibold tablet:text-2xl">목차</p>
+      {!hideTitle && (
+        <p className="text-xl font-semibold tablet:text-2xl">
+          <Copy id="posts.toc" />
+        </p>
+      )}
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   ) : null;

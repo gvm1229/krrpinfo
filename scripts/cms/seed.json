@@ -1,0 +1,1355 @@
+{
+  "schemaVersion": 1,
+  "settings": {
+    "name": "카러플 정보통",
+    "description": "카트라이더 러쉬플러스 관련 정보, 공략 및 팁 등 모음",
+    "logo": "/krrpLogo-192x192.png",
+    "ogImage": "/opengraph-image.webp",
+    "keywords": "Kartrider Rush+,카러플,정보,공략,팁",
+    "author": "Megi",
+    "authorUrl": "https://github.com/gvm1229",
+    "footerLabel": "오류 신고 및 문의 :",
+    "contactLabel": "카카오톡 오픈프로필 (Megiii)",
+    "contactUrl": "https://open.kakao.com/me/Megiii",
+    "copyright": "All rights reserved.",
+    "qrImage": "/assets/images/qrcode/qrc-xl-c.png",
+    "qrLabel": "공유용 QR 코드:",
+    "homeTitle": "향후 시즌 미리보기",
+    "homeDescription": "중국 서버는 한국 서버에 비해 약 10개월 (5시즌)이 앞서 있습니다. 미래에는 어떤 카트, 캐릭터 등이 등장할지 미리 알아보세요.",
+    "homeImage": "/assets/images/S28/시즌배너.webp",
+    "homeLink": "/seasons",
+    "homeLinkLabel": "자세히 알아보기",
+    "googleVerification": "C7yAFuoHGn1yFWeweU6z9pwxdHNzwmYUAajFNjBfGNA",
+    "naverVerification": "b41015a8ba8f731e92476553c4fa3dc48ad9f63c",
+    "redeemGuideUrl": "/posts/redeem-how-to",
+    "redeemGuideImage": "/assets/images/links/npaCodeStepsKr.webp",
+    "postsEnabled": "true",
+    "videosEnabled": "true",
+    "seasonsEnabled": "true",
+    "redeemEnabled": "true"
+  },
+  "entries": [
+    {
+      "id": "4c638b75-ae1b-4009-ac2f-da9915b84f5e",
+      "kind": "countdown",
+      "slug": "countdown-0-0",
+      "title": "중섭 현재: S29",
+      "published": true,
+      "position": 0,
+      "data": {
+        "group": "중섭 현재 시즌",
+        "date": "2024-03-26",
+        "untilEnd": true,
+        "image": "",
+        "description": "아이스2"
+      }
+    },
+    {
+      "id": "624ff5dc-5333-4438-a8d9-901dbe144074",
+      "kind": "countdown",
+      "slug": "countdown-0-1",
+      "title": "중섭 현재: S30",
+      "published": true,
+      "position": 1,
+      "data": {
+        "group": "중섭 현재 시즌",
+        "date": "2024-05-21",
+        "untilEnd": true,
+        "image": "",
+        "description": "이탈리아"
+      }
+    },
+    {
+      "id": "d714fb3c-425e-4cda-a89c-d0519de264d3",
+      "kind": "countdown",
+      "slug": "countdown-0-2",
+      "title": "중섭 현재: S31",
+      "published": true,
+      "position": 2,
+      "data": {
+        "group": "중섭 현재 시즌",
+        "date": "2024-07-28",
+        "untilEnd": true,
+        "image": "",
+        "description": "???"
+      }
+    },
+    {
+      "id": "0d6f7471-b03a-450f-a6ca-f776d05b879f",
+      "kind": "countdown",
+      "slug": "countdown-1-0",
+      "title": "S24타이틀",
+      "published": true,
+      "position": 100,
+      "data": {
+        "group": "한섭 현재 시즌",
+        "date": "2024-04-17",
+        "untilEnd": true,
+        "image": "/assets/images/한섭/S24_타이틀_가공.png",
+        "description": ""
+      }
+    },
+    {
+      "id": "17011895-5dfa-4a2a-a23e-806d1d794ff2",
+      "kind": "countdown",
+      "slug": "countdown-1-1",
+      "title": "S25타이틀",
+      "published": true,
+      "position": 101,
+      "data": {
+        "group": "한섭 현재 시즌",
+        "date": "2024-06-12",
+        "untilEnd": true,
+        "image": "/assets/images/한섭/S25_타이틀.webp",
+        "description": ""
+      }
+    },
+    {
+      "id": "165bc7d0-a34c-4496-aa24-37cdb70f2e6f",
+      "kind": "countdown",
+      "slug": "countdown-1-2",
+      "title": "S26타이틀",
+      "published": true,
+      "position": 102,
+      "data": {
+        "group": "한섭 현재 시즌",
+        "date": "2024-08-14",
+        "untilEnd": true,
+        "image": "",
+        "description": ""
+      }
+    },
+    {
+      "id": "0811cb9f-45ed-4a75-a9cf-f3d4246d1dfb",
+      "kind": "countdown",
+      "slug": "countdown-2-0",
+      "title": "로봇 팬더",
+      "published": true,
+      "position": 200,
+      "data": {
+        "group": "다음 행운의 별자리 카트",
+        "date": "2024-02-22",
+        "untilEnd": false,
+        "image": "",
+        "description": "로봇 팬더"
+      }
+    },
+    {
+      "id": "86d60929-2e75-4fa3-a4cc-4afbe3b5d0cc",
+      "kind": "countdown",
+      "slug": "countdown-2-1",
+      "title": "홍련",
+      "published": true,
+      "position": 201,
+      "data": {
+        "group": "다음 행운의 별자리 카트",
+        "date": "2024-04-18",
+        "untilEnd": false,
+        "image": "/assets/images/S25/행운의별자리아이템카트.webp",
+        "description": "홍련"
+      }
+    },
+    {
+      "id": "4f95afec-b0e1-45fc-abf0-be8ce0a7dee4",
+      "kind": "countdown",
+      "slug": "countdown-2-2",
+      "title": "카멜롯 무언가",
+      "published": true,
+      "position": 202,
+      "data": {
+        "group": "다음 행운의 별자리 카트",
+        "date": "2024-06-13",
+        "untilEnd": false,
+        "image": "",
+        "description": "카멜롯 무언가"
+      }
+    },
+    {
+      "id": "df395bcd-b393-4fa4-a161-76824b1a7aac",
+      "kind": "countdown",
+      "slug": "countdown-3-0",
+      "title": "히드라",
+      "published": true,
+      "position": 300,
+      "data": {
+        "group": "다음 골드 기어 뒤집기 카트",
+        "date": "2024-01-19",
+        "untilEnd": false,
+        "image": "",
+        "description": "히드라"
+      }
+    },
+    {
+      "id": "41041ccf-ff56-4946-a39a-41a0d044919a",
+      "kind": "countdown",
+      "slug": "countdown-3-1",
+      "title": "호루스",
+      "published": true,
+      "position": 301,
+      "data": {
+        "group": "다음 골드 기어 뒤집기 카트",
+        "date": "2024-03-22",
+        "untilEnd": false,
+        "image": "",
+        "description": "호루스"
+      }
+    },
+    {
+      "id": "b8c403ba-6149-48cf-a9db-54bdd92265cf",
+      "kind": "countdown",
+      "slug": "countdown-3-2",
+      "title": "노르테유 탐사선",
+      "published": true,
+      "position": 302,
+      "data": {
+        "group": "다음 골드 기어 뒤집기 카트",
+        "date": "2024-05-24",
+        "untilEnd": false,
+        "image": "/assets/images/S25/골드기어아이템카트.webp",
+        "description": "노르테유 탐사선"
+      }
+    },
+    {
+      "id": "896e3a5e-d68a-4ddf-a574-0c5b68505bd5",
+      "kind": "countdown",
+      "slug": "countdown-3-3",
+      "title": "노르테유 탐사선",
+      "published": true,
+      "position": 303,
+      "data": {
+        "group": "다음 골드 기어 뒤집기 카트",
+        "date": "2024-07-26",
+        "untilEnd": false,
+        "image": "/assets/images/S25/골드기어아이템카트.webp",
+        "description": "노르테유 탐사선"
+      }
+    },
+    {
+      "id": "cbf343fc-6c3c-4beb-a4c1-b4ebd2b07a2c",
+      "kind": "countdown",
+      "slug": "countdown-4-0",
+      "title": "플라잉 선인장",
+      "published": true,
+      "position": 400,
+      "data": {
+        "group": "다음 행운의 별자리 플라잉펫",
+        "date": "2024-03-29",
+        "untilEnd": false,
+        "image": "/assets/images/한섭/플라잉선인장.webp",
+        "description": "플라잉 선인장"
+      }
+    },
+    {
+      "id": "52686283-480d-46b3-ac9d-55c5c14748b7",
+      "kind": "countdown",
+      "slug": "countdown-4-1",
+      "title": "한섭 독자운영.. 미상",
+      "published": true,
+      "position": 401,
+      "data": {
+        "group": "다음 행운의 별자리 플라잉펫",
+        "date": "2024-05-31",
+        "untilEnd": false,
+        "image": "/assets/images/한섭/펑키버드세피아.webp",
+        "description": "한섭 독자운영.. 미상"
+      }
+    },
+    {
+      "id": "8d397c6c-c663-4cf5-a24c-ff48a8ff2e4d",
+      "kind": "countdown",
+      "slug": "countdown-4-2",
+      "title": "한섭 독자운영.. 미상",
+      "published": true,
+      "position": 402,
+      "data": {
+        "group": "다음 행운의 별자리 플라잉펫",
+        "date": "2024-08-02",
+        "untilEnd": false,
+        "image": "/assets/images/한섭/펑키버드세피아.webp",
+        "description": "한섭 독자운영.. 미상"
+      }
+    },
+    {
+      "id": "57f2e82d-2441-4038-a2b2-022921bf23d8",
+      "kind": "countdown",
+      "slug": "countdown-5-0",
+      "title": "데저트 로얄 세트",
+      "published": true,
+      "position": 500,
+      "data": {
+        "group": "다음 행운의 별자리 의상",
+        "date": "2024-04-12",
+        "untilEnd": false,
+        "image": "/assets/images/한섭/데저트로얄세트.webp",
+        "description": "데저트 로얄 세트"
+      }
+    },
+    {
+      "id": "89682886-028c-4437-a5bb-a0f27172b360",
+      "kind": "countdown",
+      "slug": "countdown-5-1",
+      "title": "한섭 독자운영.. 미상",
+      "published": true,
+      "position": 501,
+      "data": {
+        "group": "다음 행운의 별자리 의상",
+        "date": "2024-06-01",
+        "untilEnd": false,
+        "image": "",
+        "description": "한섭 독자운영.. 미상"
+      }
+    },
+    {
+      "id": "ac43bce1-61be-4956-afc1-0dcc9f5af97c",
+      "kind": "link",
+      "slug": "link-0",
+      "title": "진행 중인 & 진행 예정인 이벤트",
+      "published": true,
+      "position": 0,
+      "data": {
+        "href": "https://kartrush.nexon.com/2024/event_240411-launching",
+        "image": "/assets/images/한섭/S25_시즌배너.webp",
+        "tags": "넥슨 공식 매체"
+      }
+    },
+    {
+      "id": "81f0e7f9-2024-4f37-a9e4-4ebc0560dd33",
+      "kind": "link",
+      "slug": "link-1",
+      "title": "일반 공지사항",
+      "published": true,
+      "position": 1,
+      "data": {
+        "href": "https://forum.nexon.com/kartrush/board_list?board=839",
+        "image": "/assets/images/links/썸네일공지사항.jpg",
+        "tags": "넥슨 공식 매체"
+      }
+    },
+    {
+      "id": "b88fda32-1d0b-4672-a9fc-31302a40b07b",
+      "kind": "link",
+      "slug": "link-2",
+      "title": "GM 소식",
+      "published": true,
+      "position": 2,
+      "data": {
+        "href": "https://forum.nexon.com/kartrush/board_list?board=833",
+        "image": "/assets/images/links/콘텐츠.webp",
+        "tags": "넥슨 공식 매체"
+      }
+    },
+    {
+      "id": "e9d5343e-4d14-417a-a402-f79e7ca64d1c",
+      "kind": "link",
+      "slug": "link-3",
+      "title": "이벤트 공지사항",
+      "published": true,
+      "position": 3,
+      "data": {
+        "href": "https://forum.nexon.com/kartrush/board_list?board=741",
+        "image": "/assets/images/links/썸네일이벤트.png",
+        "tags": "넥슨 공식 매체"
+      }
+    },
+    {
+      "id": "505aa3b2-744b-47cd-a9ef-4dca9f913551",
+      "kind": "link",
+      "slug": "link-4",
+      "title": "확률표 1 - 상점 교환 관련",
+      "published": true,
+      "position": 4,
+      "data": {
+        "href": "https://m.nexon.com/probability/2038?language=ko",
+        "image": "/assets/images/links/확짤1.jpg",
+        "tags": "유용한 링크"
+      }
+    },
+    {
+      "id": "248beeb6-670f-421a-a3ae-52d9c4870541",
+      "kind": "link",
+      "slug": "link-5",
+      "title": "확률표 2 - 주 과금 컨텐츠 관련",
+      "published": true,
+      "position": 5,
+      "data": {
+        "href": "https://m.nexon.com/probability/705?language=ko",
+        "image": "/assets/images/links/확짤2.jpg",
+        "tags": "유용한 링크"
+      }
+    },
+    {
+      "id": "a8d9411a-bbdc-472a-aec7-f5a3f8af90e7",
+      "kind": "link",
+      "slug": "link-6",
+      "title": "스피드 카트 성능 비교",
+      "published": true,
+      "position": 6,
+      "data": {
+        "href": "https://krp-kart-compare.netlify.app/",
+        "image": "/assets/images/links/sukimi.jpg",
+        "tags": "유용한 링크"
+      }
+    },
+    {
+      "id": "52e2097d-0e6f-4118-a788-024afb130bc7",
+      "kind": "link",
+      "slug": "link-7",
+      "title": "아이템전용 카트 & 펫 목록 퀵뷰",
+      "published": true,
+      "position": 7,
+      "data": {
+        "href": "https://krrpitem.vercel.app/",
+        "image": "/assets/images/links/아이템전.webp",
+        "tags": "유용한 링크"
+      }
+    },
+    {
+      "id": "e55757b5-5d14-4919-a9df-a05b781ec590",
+      "kind": "coupon",
+      "slug": "coupon-0",
+      "title": "Reward 1",
+      "published": true,
+      "position": 0,
+      "data": {
+        "code": "우리러플이탄생1445일",
+        "expiresAt": "2024-04-28T23:59:59"
+      }
+    },
+    {
+      "id": "8a5252b5-bb67-4cc9-ae17-87011efdafce",
+      "kind": "coupon",
+      "slug": "coupon-1",
+      "title": "Reward 2",
+      "published": true,
+      "position": 1,
+      "data": {
+        "code": "카러플이만난3200만명",
+        "expiresAt": "2024-05-05T23:59:59"
+      }
+    },
+    {
+      "id": "f14abf30-929e-4612-ab8e-65950d425073",
+      "kind": "coupon",
+      "slug": "coupon-2",
+      "title": "Reward 3",
+      "published": true,
+      "position": 2,
+      "data": {
+        "code": "외쳐요카러플4EVER",
+        "expiresAt": "2024-05-12T23:59:59"
+      }
+    },
+    {
+      "id": "bd5ab75d-afb2-4dfa-a94f-d5eec0407333",
+      "kind": "coupon",
+      "slug": "coupon-3",
+      "title": "Reward 4",
+      "published": true,
+      "position": 3,
+      "data": {
+        "code": "중요한건잊지않는마음",
+        "expiresAt": "2024-05-19T23:59:59"
+      }
+    },
+    {
+      "id": "a26af250-cb68-43b6-a244-4268bf5ad23e",
+      "kind": "timeline",
+      "slug": "g-s26-i1",
+      "title": "S26 카멜롯 시즌 시작",
+      "published": true,
+      "position": 0,
+      "data": {
+        "date": "2024-08-14",
+        "group": "S26",
+        "kicker": "SEASON LAUNCH",
+        "image": "/assets/images/S26/시즌배너.webp",
+        "tags": "신규 시즌, 대장카트"
+      }
+    },
+    {
+      "id": "08aeef7b-7bb2-43ed-a79d-b06ecb52a408",
+      "kind": "timeline",
+      "slug": "g-s26-i2",
+      "title": "트윙클스타 가챠 이벤트",
+      "published": true,
+      "position": 1,
+      "data": {
+        "date": "2024-08-14",
+        "group": "S26",
+        "kicker": "EVENT",
+        "image": "/assets/images/S26/대장카_1.webp",
+        "tags": "가챠, 이벤트"
+      }
+    },
+    {
+      "id": "a3f3960f-8a34-4afe-ad59-9fe81c1d8268",
+      "kind": "timeline",
+      "slug": "g-s27-i1",
+      "title": "S27 신규 시즌 예정",
+      "published": true,
+      "position": 100,
+      "data": {
+        "date": "2024-10-09",
+        "group": "S27",
+        "kicker": "UPCOMING",
+        "image": "",
+        "tags": "한섭, 미공개"
+      }
+    },
+    {
+      "id": "85765887-0e19-4218-a461-0d85a69d8fe4",
+      "kind": "timeline",
+      "slug": "g-s27-i2",
+      "title": "월간패스 37호 출시 예정",
+      "published": true,
+      "position": 101,
+      "data": {
+        "date": "2024-10-09",
+        "group": "S27",
+        "kicker": "EVENT",
+        "image": "",
+        "tags": "월간패스"
+      }
+    },
+    {
+      "id": "a42da245-19e1-4043-aca0-dc78a5f5853b",
+      "kind": "timeline",
+      "slug": "g-s25-i1",
+      "title": "S25 아레스 시즌 요약",
+      "published": true,
+      "position": 200,
+      "data": {
+        "date": "2024-06-12",
+        "group": "S25",
+        "kicker": "PAST SEASON",
+        "image": "/assets/images/S25/시즌배너.webp",
+        "tags": "종료, 레전드"
+      }
+    },
+    {
+      "id": "3af8d126-22f1-4bf4-a472-4778d0654456",
+      "kind": "timeline",
+      "slug": "g-s28-i1",
+      "title": "S28 시즌 예고 (중섭 기준)",
+      "published": true,
+      "position": 300,
+      "data": {
+        "date": "2024-12-04",
+        "group": "S28",
+        "kicker": "FUTURE",
+        "image": "/assets/images/S28/시즌배너.webp",
+        "tags": "중섭, 예고"
+      }
+    },
+    {
+      "id": "5f98783e-a92d-475b-a90f-f215f7b43a47",
+      "kind": "timeline",
+      "slug": "g-s28-i2",
+      "title": "행운의 별자리 아이템카트 출시",
+      "published": true,
+      "position": 301,
+      "data": {
+        "date": "2024-12-04",
+        "group": "S28",
+        "kicker": "KART",
+        "image": "",
+        "tags": "아이템전, 별자리"
+      }
+    },
+    {
+      "id": "386d3b1b-19ad-4d33-af3e-5b6f4b724b7b",
+      "kind": "timeline",
+      "slug": "g-s24-i1",
+      "title": "S24 아이오네 시즌 아카이브",
+      "published": true,
+      "position": 400,
+      "data": {
+        "date": "2024-04-17",
+        "group": "S24",
+        "kicker": "ARCHIVE",
+        "image": "/assets/images/S24/시즌배너.webp",
+        "tags": "아카이브, 한섭"
+      }
+    },
+    {
+      "id": "37daee63-93fc-42be-ac07-d76706cb96cd",
+      "kind": "navigation",
+      "slug": "nav-0",
+      "title": "포스트 목록",
+      "published": true,
+      "position": 0,
+      "data": {
+        "href": "/posts"
+      }
+    },
+    {
+      "id": "42e88bc3-74f9-4c0e-a6fe-df01425daedd",
+      "kind": "navigation",
+      "slug": "nav-1",
+      "title": "쿠폰 리딤",
+      "published": true,
+      "position": 1,
+      "data": {
+        "href": "/redeem"
+      }
+    },
+    {
+      "id": "375363b2-9e41-443c-a737-ea17d196fca8",
+      "kind": "navigation",
+      "slug": "nav-2",
+      "title": "시즌 미래시",
+      "published": true,
+      "position": 2,
+      "data": {
+        "href": "/seasons"
+      }
+    },
+    {
+      "id": "271ecb8c-7517-42af-a132-35501f259065",
+      "kind": "navigation",
+      "slug": "nav-3",
+      "title": "추천 영상",
+      "published": true,
+      "position": 3,
+      "data": {
+        "href": "/videos"
+      }
+    },
+    {
+      "id": "73509a7e-fdde-401b-a2ec-a2439cf4afc0",
+      "kind": "section",
+      "slug": "hero",
+      "title": "향후 시즌 미리보기",
+      "published": true,
+      "position": 0,
+      "data": {
+        "component": "hero"
+      }
+    },
+    {
+      "id": "8e28e915-50da-4cb7-a1d8-6db7a6544983",
+      "kind": "section",
+      "slug": "countdown",
+      "title": "주요 일정",
+      "published": true,
+      "position": 1,
+      "data": {
+        "component": "countdown"
+      }
+    },
+    {
+      "id": "f52c2917-37d2-4d2e-adc2-445c371f80f4",
+      "kind": "section",
+      "slug": "links",
+      "title": "유용한 링크",
+      "published": true,
+      "position": 2,
+      "data": {
+        "component": "links"
+      }
+    },
+    {
+      "id": "f4deaa35-df6b-4d10-ae45-cec32bca0979",
+      "kind": "section",
+      "slug": "posts",
+      "title": "최신 포스트 목록",
+      "published": true,
+      "position": 3,
+      "data": {
+        "component": "posts"
+      }
+    },
+    {
+      "id": "d78b8828-ed60-4ed0-a6ec-3ca4a5964afe",
+      "kind": "category",
+      "slug": "video-0",
+      "title": "현재 시즌",
+      "published": true,
+      "position": 0,
+      "data": {
+        "scope": "video",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "5744614e-072f-4163-aad9-7f6a2e3d9e51",
+      "kind": "category",
+      "slug": "video-1",
+      "title": "향후 시즌",
+      "published": true,
+      "position": 1,
+      "data": {
+        "scope": "video",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "8868cb8b-263c-48bf-a715-430213ec1227",
+      "kind": "category",
+      "slug": "video-2",
+      "title": "지난 시즌",
+      "published": true,
+      "position": 2,
+      "data": {
+        "scope": "video",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "b66b6dc6-5726-4ce4-a773-6b630019ca7a",
+      "kind": "category",
+      "slug": "video-3",
+      "title": "팁",
+      "published": true,
+      "position": 3,
+      "data": {
+        "scope": "video",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "d6aadbd4-02f5-43d3-a04c-2f27ee59a83f",
+      "kind": "category",
+      "slug": "server-0",
+      "title": "한국 서버",
+      "published": true,
+      "position": 0,
+      "data": {
+        "scope": "server",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "a9f7511f-3056-4dfa-a4d4-adf672a5ecbf",
+      "kind": "category",
+      "slug": "server-1",
+      "title": "중국 서버",
+      "published": true,
+      "position": 1,
+      "data": {
+        "scope": "server",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "75aadc26-bc24-466a-a0af-9d1e76484476",
+      "kind": "copy",
+      "slug": "posts.title",
+      "title": "posts.title",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "포스트 목록"
+      }
+    },
+    {
+      "id": "c8f4f0b6-f299-4f91-ab1b-835952a6b4d4",
+      "kind": "copy",
+      "slug": "posts.empty",
+      "title": "posts.empty",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "작성된 포스트가 없습니다."
+      }
+    },
+    {
+      "id": "a498c853-d7c6-4d34-a148-98ee4cbff11e",
+      "kind": "copy",
+      "slug": "posts.back",
+      "title": "posts.back",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "포스트 목록으로 돌아가기"
+      }
+    },
+    {
+      "id": "c3b9d641-7174-4f8c-abed-1d4d916e9202",
+      "kind": "copy",
+      "slug": "videos.title",
+      "title": "videos.title",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "추천 영상 종합 목록"
+      }
+    },
+    {
+      "id": "9f582fa0-3d3e-4c70-a564-4494f8f86274",
+      "kind": "copy",
+      "slug": "videos.empty",
+      "title": "videos.empty",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "현재 카테고리에 해당하는 영상이 없습니다."
+      }
+    },
+    {
+      "id": "12eae29e-ea8e-4961-a173-8dab6e4882f9",
+      "kind": "copy",
+      "slug": "seasons.title",
+      "title": "seasons.title",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "시즌 미래시"
+      }
+    },
+    {
+      "id": "1764ae99-dca5-4351-a8bf-b8f9d829a95e",
+      "kind": "copy",
+      "slug": "seasons.description",
+      "title": "seasons.description",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "중국 서버 기준 향후 시즌 콘텐츠 출시 일정"
+      }
+    },
+    {
+      "id": "a716dd29-024a-4bc3-ac53-70c4538b1afe",
+      "kind": "copy",
+      "slug": "redeem.title",
+      "title": "redeem.title",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "쿠폰 리딤"
+      }
+    },
+    {
+      "id": "ccc76398-0707-4150-a248-c84ee4433530",
+      "kind": "copy",
+      "slug": "redeem.codes",
+      "title": "redeem.codes",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "쿠폰 코드"
+      }
+    },
+    {
+      "id": "eb7ae823-f535-46eb-aabc-74db8f57c920",
+      "kind": "copy",
+      "slug": "redeem.use",
+      "title": "redeem.use",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "리딤"
+      }
+    },
+    {
+      "id": "cd1a3f86-0662-4bcc-a8a2-52115c815d9d",
+      "kind": "copy",
+      "slug": "redeem.empty",
+      "title": "redeem.empty",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "사용 가능한 쿠폰이 없습니다."
+      }
+    },
+    {
+      "id": "4b0faf49-0dd0-4aec-aeb9-ecc01c9797c6",
+      "kind": "copy",
+      "slug": "countdown.start",
+      "title": "countdown.start",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "출시까지:"
+      }
+    },
+    {
+      "id": "b7fd83b8-1707-498e-a4eb-75251f2cef25",
+      "kind": "copy",
+      "slug": "countdown.end",
+      "title": "countdown.end",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "종료까지:"
+      }
+    },
+    {
+      "id": "5cedbef5-a8ad-4172-a238-af36717e8354",
+      "kind": "copy",
+      "slug": "countdown.today",
+      "title": "countdown.today",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "D-DAY"
+      }
+    },
+    {
+      "id": "021e1313-57d7-4e38-ac5c-004bcf833015",
+      "kind": "copy",
+      "slug": "search.placeholder",
+      "title": "search.placeholder",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "검색..."
+      }
+    },
+    {
+      "id": "f219a1c9-06d4-4c0d-af0a-02c8e28a6601",
+      "kind": "copy",
+      "slug": "search.empty",
+      "title": "search.empty",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "검색 결과가 없습니다."
+      }
+    },
+    {
+      "id": "5f7654c4-90d8-4a66-abcf-89fef9725c1a",
+      "kind": "copy",
+      "slug": "search.navigation",
+      "title": "search.navigation",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "헤더 링크"
+      }
+    },
+    {
+      "id": "58f9c7cb-82ac-4266-a5ce-e52ac10be716",
+      "kind": "copy",
+      "slug": "search.posts",
+      "title": "search.posts",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "포스트"
+      }
+    },
+    {
+      "id": "1f6a2f29-9cc5-42ba-aba0-be3412b64fd4",
+      "kind": "copy",
+      "slug": "home.updated",
+      "title": "home.updated",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "최근 수정 날짜:"
+      }
+    },
+    {
+      "id": "142a83d4-4d0e-4c47-ae8e-d8e5f9c01299",
+      "kind": "copy",
+      "slug": "common.more",
+      "title": "common.more",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "자세히 알아보기"
+      }
+    },
+    {
+      "id": "7a912185-d350-455e-a8f7-354cb69015c3",
+      "kind": "copy",
+      "slug": "common.close",
+      "title": "common.close",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "닫기"
+      }
+    },
+    {
+      "id": "89899341-b408-4a54-a67b-e9adf320c7b8",
+      "kind": "copy",
+      "slug": "footer.contact",
+      "title": "footer.contact",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "오류 신고 및 문의 :"
+      }
+    },
+    {
+      "id": "ba31f02d-1f98-467f-af55-9f233759473b",
+      "kind": "copy",
+      "slug": "copy.f6c9677a9642",
+      "title": "📢",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "📢"
+      }
+    },
+    {
+      "id": "ec4e0471-bb4d-41e5-a069-f92d8a279dda",
+      "kind": "copy",
+      "slug": "copy.4b9f9ff819a0",
+      "title": "자세히 알아보기 →",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "자세히 알아보기 →"
+      }
+    },
+    {
+      "id": "5372220e-f6e7-43d9-aeb8-a40df01ce870",
+      "kind": "copy",
+      "slug": "copy.f0a3dcc47ddb",
+      "title": "쿠폰 리딤",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "쿠폰 리딤"
+      }
+    },
+    {
+      "id": "7d9f25c7-0a4e-4431-a85b-57dee1b5ca49",
+      "kind": "copy",
+      "slug": "copy.3537f0cc3ec9",
+      "title": "수정",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "수정"
+      }
+    },
+    {
+      "id": "b3f65cf0-e3e2-4b6c-abd4-5f7fe618c17e",
+      "kind": "copy",
+      "slug": "copy.be876433993a",
+      "title": "취소",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "취소"
+      }
+    },
+    {
+      "id": "6004aeed-c8fa-4004-a4c9-e37b65dd29af",
+      "kind": "copy",
+      "slug": "copy.5fb926229090",
+      "title": "저장",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "저장"
+      }
+    },
+    {
+      "id": "31c6eff8-77a9-44d7-a653-269968247a75",
+      "kind": "copy",
+      "slug": "copy.3a4f5ecae1ce",
+      "title": "회원 번호",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "회원 번호"
+      }
+    },
+    {
+      "id": "42638e26-7933-40af-a314-6087ea56140a",
+      "kind": "copy",
+      "slug": "copy.97699658e759",
+      "title": "회원 번호 제출",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "회원 번호 제출"
+      }
+    },
+    {
+      "id": "aec60a6b-16e7-43b0-a94c-560f0c031e6d",
+      "kind": "copy",
+      "slug": "copy.b4c7f2bf0334",
+      "title": "방법 더 자세히 알아보기",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "방법 더 자세히 알아보기"
+      }
+    },
+    {
+      "id": "09caa2b6-3962-48cf-abb7-03e11b1d51ca",
+      "kind": "copy",
+      "slug": "copy.8711d215cc1f",
+      "title": "현재 시각:",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "현재 시각:"
+      }
+    },
+    {
+      "id": "73aae4fb-1c3d-4a62-ae3a-aa73a119a340",
+      "kind": "copy",
+      "slug": "copy.a78a2750a8d7",
+      "title": "검색...",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "검색..."
+      }
+    },
+    {
+      "id": "f2d6b4e9-3a3a-4676-a59e-4e56799eade6",
+      "kind": "copy",
+      "slug": "copy.70b4b62a6095",
+      "title": "⌘",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "⌘"
+      }
+    },
+    {
+      "id": "7cd8eb05-2629-4b4d-ab7c-8fabc66112ec",
+      "kind": "copy",
+      "slug": "copy.86be9a55762d",
+      "title": "K",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "K"
+      }
+    },
+    {
+      "id": "fb718a97-97d3-4fcb-ae23-2dc80068da51",
+      "kind": "copy",
+      "slug": "copy.58726bf27e70",
+      "title": "검색 결과가 없습니다.",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "검색 결과가 없습니다."
+      }
+    },
+    {
+      "id": "3e38d9a2-41cb-46a6-aca9-bff3f216ecef",
+      "kind": "copy",
+      "slug": "copy.f2fca5f98405",
+      "title": "Toggle Menu",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "Toggle Menu"
+      }
+    },
+    {
+      "id": "91969a1e-7096-457b-a505-e7918baad3e0",
+      "kind": "copy",
+      "slug": "copy.3d3b7b415e5b",
+      "title": "오류 신고 및 문의 :",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "오류 신고 및 문의 :"
+      }
+    },
+    {
+      "id": "08e69642-e786-42d4-a606-390debddfba6",
+      "kind": "copy",
+      "slug": "copy.ae32637e0d7e",
+      "title": "카카오톡 오픈프로필 (Megiii)",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "카카오톡 오픈프로필 (Megiii)"
+      }
+    },
+    {
+      "id": "aa48a19e-a37a-4727-a634-e12d8b7a0df3",
+      "kind": "copy",
+      "slug": "copy.732b10904982",
+      "title": "공유용 QR 코드:",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "공유용 QR 코드:"
+      }
+    },
+    {
+      "id": "e291c9b4-37f0-4ae0-a285-8e52f1172e1e",
+      "kind": "copy",
+      "slug": "copy.da976aab353f",
+      "title": "Megi",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "Megi"
+      }
+    },
+    {
+      "id": "e6fc9880-67f6-4346-a27f-c443631ca0dd",
+      "kind": "copy",
+      "slug": "copy.8faa07327c28",
+      "title": ". All rights reserved.",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": ". All rights reserved."
+      }
+    },
+    {
+      "id": "e9c16f7f-b095-4c98-a16c-dc9a0f94e538",
+      "kind": "copy",
+      "slug": "copy.6026719f081a",
+      "title": "Toggle theme",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "Toggle theme"
+      }
+    },
+    {
+      "id": "06bb0e7f-81af-45c5-a0c5-67fe1361bb7e",
+      "kind": "copy",
+      "slug": "copy.dbcd5e7bb7a0",
+      "title": "Light",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "Light"
+      }
+    },
+    {
+      "id": "debde6ed-240e-4f60-a186-24fad7717e77",
+      "kind": "copy",
+      "slug": "copy.60acc53f13a5",
+      "title": "Dark",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "Dark"
+      }
+    },
+    {
+      "id": "a4f73d9e-c5a3-45d0-a766-608a0e9dcb92",
+      "kind": "copy",
+      "slug": "copy.6725e7bbcd28",
+      "title": "System",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "System"
+      }
+    },
+    {
+      "id": "2690dfc1-99e4-4b91-a8db-0ec42ec8eba3",
+      "kind": "copy",
+      "slug": "copy.c02651240c87",
+      "title": "Toggle menu",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "Toggle menu"
+      }
+    },
+    {
+      "id": "e408eb5e-9230-4254-ab0c-701c35545712",
+      "kind": "copy",
+      "slug": "copy.1f9df1c3b8fd",
+      "title": "쿠폰 코드",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "쿠폰 코드"
+      }
+    },
+    {
+      "id": "ab3b299e-2f0b-431f-ac84-425301136ee5",
+      "kind": "copy",
+      "slug": "copy.67bee79dc4c9",
+      "title": "리딤",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "리딤"
+      }
+    },
+    {
+      "id": "e22bf09c-381a-4d2c-abba-7b45e097c46e",
+      "kind": "copy",
+      "slug": "copy.8a8de823d5ed",
+      "title": "?",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "?"
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "copy.a0b6373186c6",
+      "title": "안내: 게임 내 우측 상단의 설정 메뉴 터치 > [계정 관리] 메뉴 선택 후 회원 번호 복사",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "안내: 게임 내 우측 상단의 설정 메뉴 터치 > [계정 관리] 메뉴 선택 후 회원 번호 복사"
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "navigation.menu",
+      "title": "navigation.menu",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "메뉴"
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "redeem.required",
+      "title": "redeem.required",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "회원 번호 입력은 필수입니다."
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "redeem.invalid",
+      "title": "redeem.invalid",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "회원 번호는 13자리의 영문과 숫자로만 이루어져 있습니다."
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "redeem.placeholder",
+      "title": "redeem.placeholder",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "13자리 회원 번호를 입력해주세요."
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "posts.toc",
+      "title": "목차",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "목차"
+      }
+    },
+    {
+      "kind": "copy",
+      "slug": "countdown.days",
+      "title": "카운트다운 일수",
+      "published": true,
+      "position": 0,
+      "data": {
+        "value": "D-{days}"
+      }
+    }
+  ]
+}

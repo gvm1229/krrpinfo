@@ -1,0 +1,33 @@
+schema_version = 1
+harness_version = "0.13.0"
+source_release_version = "0.13.0"
+project_name = "krrpinfo"
+project_kind = "general"
+primary_host = "codex"
+external_capability_detection = "unknown"
+resolved_owner = "host-native"
+resolution_evidence_digest = "sha256:5e6158328dda5c78b9633e7e14b7f5effa2fe00fff9e80fdf515477b49512139"
+usage_stop_remaining_percent = 30
+elevated_judge_quorum = "2/3"
+critical_judge_quorum = "3/3+human"
+
+# Optional Skills are inert until each entry is explicitly approved.
+approved_optional_skills_file = ".hive/config/approved-skills.yml"
+capability_resolution_file = ".hive/config/capability-resolution.yml"
+project_skill_policy_version = 1
+setup_mode = "custom"
+preference_provenance = "project-custom"
+interface_language = "ko"
+wiki_enabled = true
+wiki_backend = "markdown"
+wiki_language = "ko"
+persona_id = "custom"
+usage_guard_enabled = true
+codexbar_fallback_enabled = false
+discord_guard_enabled = true
+discord_message_fields = ["remaining-usage", "project", "request", "progress", "host", "resume"]
+selected_project_skills = ["adversarial-judge", "amend-directive", "code-polish", "humanize-kor", "judge-evidence", "knowledge-capture", "knowledge-maintain", "knowledge-promote", "knowledge-recall", "knowledge-scan", "multi-goal", "product-update", "project-refresh", "prompt-refine", "quick-answer", "research-best-practices", "run-checkpoint", "run-handoff", "run-resume", "ship", "team-execution", "usage-guard", "verified-workflow"]
+discord_webhook_url_env = "AIGENT_HIVE_DISCORD_WEBHOOK_URL"
+persona_custom_description = "웹 개발 전문가로서 단순하고 유지보수 가능한 코드를 우선하고, 쉬운 한국어로 설명하며 작업에 필요한 파일만 확인한다"
+role_seed_file = ".hive/config/role-seeds.yml"
+knowledge_scope_file = ".hive/config/knowledge-scope.yml"

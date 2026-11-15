@@ -1,3 +1,4 @@
+import { Copy } from '@/components/Text/PublicSite';
 import Link from 'next/link';
 import React from 'react';
 import TruncateText from '@/components/Text/TruncateText';
@@ -16,60 +17,48 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/src/util/utils';
-
 type BreadcrumbItemObject = {
   url: string;
   label: string;
 };
-
 type BreadcrumbItemArray = {
   url: string;
   label: string;
 }[];
-
 type BreadcrumbItemType = BreadcrumbItemObject | BreadcrumbItemArray;
-
 interface BreadcrumbContainerProps {
   // itemsInput may contain an object or an array of said objects
   itemsInput: BreadcrumbItemType[];
   className?: string;
 }
-
-const BreadcrumbContainer = ({
-  itemsInput,
-  className,
-}: BreadcrumbContainerProps) => {
+const BreadcrumbContainer = ({ itemsInput, className }: BreadcrumbContainerProps) => {
   const items = [{ url: '/', label: '홈' }, ...itemsInput];
-
   return (
     <div className={cn('relative', className)}>
       <Breadcrumb>
         <BreadcrumbList>
           {items.map((item, index) => {
             if (Array.isArray(item))
-            // if item is BreadcrumbItemArray
+              // if item is BreadcrumbItemArray
               return (
                 <>
                   <BreadcrumbItem>
                     <DropdownMenu>
                       <DropdownMenuTrigger className="flex items-center gap-1">
                         <BreadcrumbEllipsis className="size-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">
+                          <Copy id="copy.c02651240c87" />
+                        </span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="start">
-                        {item.map((item: {
-                          url: string;
-                          label: string;
-                        }) => (
+                        {item.map((item: { url: string; label: string }) => (
                           <DropdownMenuItem key={item.label}>
                             <BreadcrumbLink asChild>
                               <Link
                                 href={item.url}
                                 className="text-base text-primary tablet:text-lg"
                               >
-                                <TruncateText
-                                  text={item.label}
-                                />
+                                <TruncateText text={item.label} />
                               </Link>
                             </BreadcrumbLink>
                           </DropdownMenuItem>
@@ -80,18 +69,12 @@ const BreadcrumbContainer = ({
                   {index < items.length - 1 && <BreadcrumbSeparator />}
                 </>
               );
-
             return (
               <React.Fragment key={item.label}>
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link
-                      href={item.url}
-                      className="text-base text-primary tablet:text-lg"
-                    >
-                      <TruncateText
-                        text={item.label}
-                      />
+                    <Link href={item.url} className="text-base text-primary tablet:text-lg">
+                      <TruncateText text={item.label} />
                     </Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -104,5 +87,4 @@ const BreadcrumbContainer = ({
     </div>
   );
 };
-
 export default BreadcrumbContainer;

@@ -1,19 +1,3 @@
-interface SiteConfig {
-  name: string;
-  description: string;
-  url: string;
-  ogImage: string;
-  links: {
-    github: string;
-  };
-}
-
-export const siteConfig: SiteConfig = {
-  name: '카러플 정보통',
-  description: '카트라이더 러쉬플러스 관련 정보, 공략 및 팁 등 모음',
-  url: 'https://krrpinfo.vercel.app',
-  ogImage: 'https://krrpinfo.vercel.app/opengraph-image.webp',
-  links: {
-    github: 'https://github.com/gvm1229/krrpinfo',
-  },
-};
+import { env } from '@/env.mjs';
+// 배포 환경에서 결정하는 서비스 주소
+export const siteConfig = { url: env.NEXT_PUBLIC_APP_URL };

@@ -1,8 +1,8 @@
+import { ChevronRight } from 'lucide-react';
 // MDX 런타임 렌더링 (PortareFolium 완전 이식, KaTeX 제외)
 import { unstable_cache } from 'next/cache';
 import { evaluate } from '@mdx-js/mdx';
 import * as runtime from 'react/jsx-runtime';
-import rehypeShiki from '@shikijs/rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkGfm from 'remark-gfm';
@@ -92,20 +92,7 @@ function Accordion({ title, children }: { title?: string; children?: React.React
   return (
     <details className="accordion-block">
       <summary className="accordion-summary">
-        <svg
-          className="accordion-arrow"
-          viewBox="0 0 24 24"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M9 6l6 6-6 6" />
-        </svg>
+        <ChevronRight className="accordion-arrow" size={16} aria-hidden="true" />
         <span>{title || 'Accordion'}</span>
       </summary>
       <div className="accordion-body">{children}</div>
@@ -185,6 +172,23 @@ function escapeStrayCurlyBraces(chunk: string): string {
     .join('\n');
 }
 
+// 코드 블록이 있는 MDX만 색칠기 초기화
+const rehypeCodeHighlight: typeof import('@shikijs/rehype').default = function (options) {
+  return async (tree, file) => {
+    let hasCode = false;
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'pre') hasCode = true;
+    });
+    if (!hasCode) return;
+    const { default: rehypeShiki } = await import('@shikijs/rehype');
+    const transform = rehypeShiki.call(this, options);
+    if (typeof transform === 'function')
+      await transform.call(this, tree, file, (error) => {
+        if (error) throw error;
+      });
+  };
+};
+
 const _renderCached = unstable_cache(
   async (_slug: string, content: string) => renderMarkdown(content),
   ['mdx-html'],
@@ -209,7 +213,7 @@ export async function renderMarkdown(content: string): Promise<string> {
       remarkPlugins: [remarkGfm, remarkMermaid],
       rehypePlugins: [
         [
-          rehypeShiki,
+          rehypeCodeHighlight,
           {
             themes: { light: 'github-light', dark: 'github-dark' },
             defaultColor: false,

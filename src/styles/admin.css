@@ -1,0 +1,287 @@
+:root {
+  --cms-primary: #2563eb;
+  --cms-primary-hover: #1d4ed8;
+  --cms-background: #f9f9f9;
+  --cms-surface: #fff;
+  --cms-field: #fff;
+  --cms-text: #202020;
+  --cms-border: #d9d9d9;
+  --cms-input-border: #8d8d8d;
+  --cms-muted-hsl: 0 0% 39.22%;
+  --cms-selected: #eff6ff;
+  --cms-selected-text: #1d4ed8;
+  --cms-focus-hsl: 221.2 83.2% 53.3%;
+  --cms-focus: hsl(var(--cms-focus-hsl));
+  --cms-secondary: #3f3f46;
+  --cms-secondary-hover: #52525b;
+  --cms-danger: #b42318;
+  --cms-danger-hover: #912018;
+}
+.dark {
+  --cms-background: #111111;
+  --cms-surface: #191919;
+  --cms-field: #111111;
+  --cms-text: #eeeeee;
+  --cms-border: #3a3a3a;
+  --cms-input-border: #7b7b7b;
+  --cms-muted-hsl: 0 0% 70.59%;
+  --cms-selected: #172554;
+  --cms-selected-text: #dbeafe;
+  --cms-focus-hsl: 213.1 93.9% 67.8%;
+}
+.cms-shell {
+  --muted-foreground: var(--cms-muted-hsl);
+  --ring: var(--cms-focus-hsl);
+  display: flex;
+  min-height: 100svh;
+  background: var(--cms-background);
+  color: var(--cms-text);
+  font-family: 'Pretendard Variable', sans-serif;
+}
+.cms-sidebar {
+  width: 15rem;
+  flex-shrink: 0;
+  border-right: 1px solid var(--cms-border);
+  background: var(--cms-surface);
+}
+.cms-nav-link {
+  transition:
+    background-color 250ms ease-out,
+    color 250ms ease-out;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 4px;
+  padding: 0.65rem 0.8rem;
+  font-size: 0.875rem;
+}
+.cms-nav-link:hover,
+.cms-nav-link:focus-visible,
+.cms-nav-link[aria-current='page'] {
+  background: var(--cms-selected);
+  color: var(--cms-selected-text);
+}
+.cms-nav-link[aria-current='page'] {
+  font-weight: 700;
+}
+.cms-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--cms-border);
+  background: var(--cms-surface);
+  padding: 1rem 2.5rem;
+}
+.cms-panel {
+  border: 1px solid var(--cms-border);
+  border-radius: 6px;
+  background: var(--cms-surface);
+  padding: 1.5rem;
+}
+.cms-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.cms-label > .cms-input,
+.cms-label > div {
+  margin-top: 0.5rem;
+}
+.cms-input {
+  --ring: var(--cms-focus-hsl);
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--cms-input-border);
+  border-radius: 4px;
+  background: var(--cms-field);
+  padding: 0.65rem 0.8rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--cms-text);
+  height: auto;
+  scroll-margin-top: 12rem;
+}
+.cms-input:focus {
+  outline: 2px solid var(--cms-focus);
+  outline-offset: 1px;
+}
+.cms-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--cms-primary);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  transition: background-color 250ms ease-out;
+}
+.cms-button:hover {
+  background: var(--cms-primary-hover);
+}
+.cms-nav-link:focus-visible,
+.cms-button:focus-visible,
+.cms-tool:focus-visible {
+  outline: 2px solid var(--cms-focus);
+  outline-offset: 3px;
+}
+.cms-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.cms-secondary {
+  background: var(--cms-secondary);
+}
+.cms-secondary:hover {
+  background: var(--cms-secondary-hover);
+}
+.cms-danger {
+  background: var(--cms-danger);
+}
+.cms-danger:hover {
+  background: var(--cms-danger-hover);
+}
+.cms-edit-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 17rem);
+  gap: 2rem;
+}
+.cms-editor {
+  overflow: hidden;
+  border: 1px solid var(--cms-input-border);
+  border-radius: 6px;
+  background: var(--cms-surface);
+}
+.cms-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  border-bottom: 1px solid var(--cms-border);
+  background: var(--cms-background);
+  padding: 0.6rem;
+}
+.cms-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+  background: var(--cms-secondary);
+  color: #fff;
+  padding: 0.3rem;
+}
+.cms-tool:hover {
+  background: var(--cms-primary);
+}
+.cms-document {
+  min-height: 30rem;
+  padding: 1.5rem;
+  outline: none;
+}
+.cms-document table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cms-document td,
+.cms-document th {
+  min-width: 4rem;
+  border: 1px solid var(--cms-input-border);
+  padding: 0.6rem;
+}
+.cms-document h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.cms-document h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.cms-document h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.cms-document p,
+.cms-document ul,
+.cms-document ol,
+.cms-document pre {
+  margin: 0.6rem 0;
+}
+.cms-document ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.cms-document ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.cms-dialog {
+  --muted-foreground: var(--cms-muted-hsl);
+  --ring: var(--cms-focus-hsl);
+  width: min(54rem, 95vw);
+  max-height: 85svh;
+  overflow: auto;
+  border: 1px solid var(--cms-border);
+  border-radius: 8px;
+  background: var(--cms-surface);
+  padding: 1.5rem;
+  color: var(--cms-text);
+  gap: 1.5rem;
+}
+.cms-dialog::backdrop {
+  background: rgb(0 0 0/0.45);
+}
+.CodeMirror {
+  height: auto !important;
+  min-height: 25rem;
+  font-size: 15px;
+}
+.dark .CodeMirror {
+  background: var(--cms-surface);
+  color: var(--cms-text);
+}
+@media (max-width: 1023px) {
+  .cms-edit-layout {
+    grid-template-columns: 1fr;
+  }
+  .cms-sidebar {
+    width: 12rem;
+  }
+  .cms-topbar {
+    padding: 1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cms-button,
+  .cms-nav-link {
+    transition: none;
+  }
+}
+@media (max-width: 720px) {
+  .cms-input {
+    font-size: 1rem;
+  }
+  .cms-shell {
+    flex-direction: column;
+  }
+  .cms-sidebar {
+    display: none;
+  }
+  .cms-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+  }
+  .cms-panel {
+    padding: 1rem;
+  }
+}

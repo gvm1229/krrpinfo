@@ -11,6 +11,9 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
+      ...(process.env.R2_PUBLIC_URL
+        ? [{ protocol: 'https', hostname: new URL(process.env.R2_PUBLIC_URL).hostname }]
+        : []),
       {
         protocol: 'https',
         hostname: 'dummyimage.com',

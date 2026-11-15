@@ -1,0 +1,3 @@
+<!-- AIGENT-HIVE:START -->
+@AGENTS.md
+<!-- AIGENT-HIVE:END -->

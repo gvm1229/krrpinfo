@@ -12,9 +12,6 @@ This file provides guidance to local LLM agents when working with code in this r
 
 ### Response Rules
 
-- 사용자가 **영어로 질문**한 경우: **한국어로 답변** + **원 질문을 교정한 영어 문장**을 함께 제공
-- 원격 환경에서 한글 입력이 불가할 때 영어로 보내는 사용자 보조 (영어 학습 목적도 겸함)
-- 형식: 답변 끝에 한 줄 `> Corrected English: "..."` 추가
 - **Discord 수신 acknowledgement**: 사용자가 Discord 채널을 통해 메시지를 전송한 경우, task 착수 전 먼저 간단한 acknowledgement 응답 (예: "received", "확인", "got it") 을 Discord 채널로 reply. 이후 task 진행.
 
 ### Chat
@@ -42,7 +39,9 @@ This file provides guidance to local LLM agents when working with code in this r
 - **Tailwind CSS**: Use Tailwind CSS for all styling unless there's a specific reason not to.
 - **Button styles**: Every buttons like for example, "add project", "edit", "delete" must have a style of a solid background color, white text, and rounded corners. The text inside those buttons must not shrink or grow, nor be transferred into the next line (nowrap).
 - **Components**: `const` 함수형 컴포넌트만 사용. Server Component 기본, client interactivity 필요 시 `"use client"` 명시.
-- **Branch strategy**: 프로덕션 = `release` 브랜치. 작은 작업은 작업 브랜치(`clean-up` 등)에서 직접 commit, **큰 task는 별도 feature branch** (`feat/<name>`, `fix/<name>` 등) 생성 후 PR.
+- **자체 UI의 shadcn 사용**: 프로젝트에서 직접 작성·추가하는 버튼·입력·선택·체크·대화상자 등 조작 UI는 `src/components/ui/`의 shadcn 구성요소를 사용. 자체 화면에서 HTML 조작 요소나 브라우저 `confirm`·`alert`·`prompt`로 직접 대체하지 않음. shadcn 구성요소 내부의 HTML은 정상 구현으로 유지
+- **Strapi 원본 보존**: Strapi에서 가져온 원본 UI 구성요소는 위 shadcn 전환 대상에서 제외하며, 통일을 목적으로 교체·재작성하지 않음. 변경 전 출처와 이식 기록으로 자체 작성 UI와 구분. Slate·CodeMirror의 내부 편집 요소도 유지하고, 프로젝트에서 직접 추가한 도구 버튼·입력·대화상자에만 자체 UI 규칙 적용
+- **Branch strategy**: 프로덕션 = `release`, 개발 통합 = `develop`. 작업 브랜치는 커밋 타입과 같은 `feat/`, `fix/`, `docs/`, `style/`, `refactor/`, `perf/`, `test/`, `chore/`, `revert/` 중 작업 목적에 맞는 접두사와 짧은 kebab-case 이름 사용 (예: `feat/cms-mvp`, `fix/admin-login`). `codex/`, `claude/`, `agent/` 등 도구·제공자 이름 접두사와 접두사 없는 작업 브랜치 생성 금지. `release`와 `develop`은 고정 통합 브랜치 예외. 작은 작업은 해당 작업 브랜치에서 직접 commit, 큰 작업은 별도 작업 브랜치에서 구현 후 PR.
 
 ## Documentation Requirements
 
@@ -170,28 +169,34 @@ A "where to find what" map. Paths are relative to repo root.
 - `app/layout.tsx`, `app/page.tsx` — root layout & landing page
 - `app/posts/page.tsx`, `app/posts/[slug]/page.tsx` — blog index & per-post page
 - `app/redeem/page.tsx` — Nexon coupon redeem page
-- `app/youtubers/page.tsx`, `app/youtubers/[channelId]/page.tsx`, `app/youtubers/[channelId]/_[videoId]/`, `app/youtubers/videos/page.tsx` — YouTuber listing, channel detail, video detail
+- `app/(site)/videos/page.tsx` — CMS 추천 영상, 이전 youtubers 주소는 이동 처리
 - `app/admin/page.tsx`, `app/admin/login/page.tsx`, `app/admin/auth-error/page.tsx` — owner 전용 비공개 라우트 (sitemap/robots 미노출, `proxy.ts` 게이트)
-- `app/actions/` — server actions: `couponRedeem.ts`, `fetchYouTube.ts`, `handleYTData.ts`, `revalidate.ts`
-- `app/api/auth/[...nextauth]/route.ts` — NextAuth v5 핸들러 (Google + MongoDBAdapter)
+- `app/actions/` — 쿠폰 관련 Server Actions, `app/admin/actions.ts` — CMS 변경
+- `app/api/auth/[...nextauth]/route.ts` — NextAuth v5 핸들러 (Credentials + JWT)
 - `app/sitemap.ts`, `app/robots.ts`, `app/error.tsx`, `app/global-error.tsx`, `app/not-found.tsx` — SEO & error boundaries
 
 ### Source — `src/`
+- `src/cms/` — 콘텐츠 스키마·Supabase 조회·R2·본문 표시·운영자 확인
+- `src/vendor/strapi/` — Community 소스 이식과 라이선스
+- `app/admin/actions.ts` — 운영자 콘텐츠·설정·미디어 Server Actions
+- `app/(site)/videos/page.tsx` — 추천 영상, 이전 youtubers 주소는 이동 처리
+- `DESIGN.md`, `PRODUCT.md` — 화면 기준과 제품 범위
 
-- `src/components/ui/` — shadcn primitives (`button`, `input`, `form`, `dialog`, `popover`, `tabs`, ...)
+- `src/components/ui/` — shadcn primitives (`button`, `input`, `textarea`, `form`, `dialog`, `alert-dialog`, `popover`, `tabs`, ...)
+- `src/components/Admin/` — 관리자 메뉴·콘텐츠 목록·편집·설정·미디어 선택, `AdminNavigation.tsx` 현재 메뉴 표시
 - `src/components/<Domain>/` — feature-grouped components: `Blog`, `Redeem`, `Nexon`, `Header`, `Footer`, `Card`, `Carousel`, `Calendar`, `Command`, `BentoBox`, `Markdown`, `Image`, `Video`, `Audio`, `Icons`, `Layout`, `Tag`, `Text`, `Tooltip`, `Breadcrumb`, `Button`, `Countdown`, `DarkMode`, `Data`, `Placeholder`
-- `src/lib/` — `queries.ts` (MongoDB posts 쿼리), `markdown.tsx`
-- `src/auth.ts` — NextAuth v5 설정 (Google provider, MongoDBAdapter, owner-only `signIn` callback, `pages.signIn` 비공개 경로)
-- `src/__tests__/` — Vitest 단위/통합 테스트. `helpers/mongo-memory.ts`, `util/db.test.ts`, `lib/queries.test.ts`, `auth.test.ts`, `scripts/restore-posts.test.ts`
+- `src/lib/` — `queries.ts` (Supabase 공개 글 쿼리), `markdown.tsx`
+- `src/auth.ts` — NextAuth v5 자체 로그인·JWT, `src/cms/owner.ts` 운영자·세션 만료 검사
+- `src/__tests__/` — Vitest 단위/통합 테스트: 운영자 인증·콘텐츠 변경·공개 조회·본문·미디어 권한·이전 도구
 - `src/api/fetchKRPData.ts` — KartRider Rush+ data fetcher
 - `src/hooks/` — shared hooks (`use-mounted`, `use-lock-body`)
-- `src/util/` — pure utils: `utils.ts` (cn helper), `localStorage.ts`, `db.ts`, `toc.ts`
+- `src/util/` — pure utils: `utils.ts` (cn helper), `localStorage.ts`, `toc.ts`
 - `src/types/` — shared TypeScript types (`index.ts`, `post.ts`)
 - `src/styles/` — `globals.css`, `mdx.css`, `fonts/`
 
 ### Config & build
 
-- `config/site.ts`, `config/navBar.ts` — site metadata & nav definition
+- `config/site.ts` — 배포 주소, 사이트 정보와 메뉴는 CMS에서 조회
 - `env.mjs` — typed env validation (`@t3-oss/env-nextjs`)
 - `next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json`, `components.json`, `proxy.ts`, `vitest.config.ts`
 - Path aliases (tsconfig): `@/*` → repo root, `@/components/*` → `src/components/*`
@@ -209,9 +214,64 @@ A "where to find what" map. Paths are relative to repo root.
 - `docs/logs/YYYYMMDD-{title}.md` — daily change log (CHANGES.md를 대체하는 source of truth)
 - `PR.md` (root, gitignored) — 진행 중 작업 브랜치 누적 메모 (local-only)
 - `.github/PULL_REQUEST_TEMPLATE.md` — `gh pr create` PR template
-- `.github/workflows/test.yml` — Vitest CI (PR to develop/release, push to develop, mongodb-binary 캐싱)
+- `.github/workflows/test.yml` — Windows·Linux의 Vitest·TypeScript·이전 명령 시작 검사
 - `USER_TASKS.md` (root, gitignored) — 사용자 수동 작업 메모 (Vercel env, OAuth 등록 등)
 - `.claude/commands/ship.md` — definitive commit directive
 - `.claude/commands/docs.md` — documentation update directive (daily log / PR.md / AGENTS structure)
 - `.claude/commands/release.md` — minor 버전 release directive
-- `scripts/restore-posts.ts` — Supabase JSON dump → MongoDB upsert (일회성, `pnpm restore:posts`)
+- `scripts/cms/` — 초기 SQL 적용·비밀번호 해시·원문/미디어 이전 도구, `supabase/migrations/` — 초기 SQL
+
+<!-- AIGENT-HIVE:START -->
+# Aigent Hive
+
+Project: `krrpinfo`
+Profile: `general`
+Setup mode: `custom`
+Preference provenance: `project-custom`
+Interface language: `ko`
+Wiki: `enabled` (backend=`markdown`, language=`ko`)
+Persona: `custom`
+Primary host: `codex`
+Resolved orchestration owner: `host-native`
+Resolution evidence: `sha256:5e6158328dda5c78b9633e7e14b7f5effa2fe00fff9e80fdf515477b49512139`
+
+## Entry rules
+
+- Hive installation is optional for collaborators. Before any Hive command or command-backed
+  Skill, apply the availability gate in `.agents/directives/00-project-harness.md`.
+  Checked-in Hive files describe the project; they do not activate Hive on another computer.
+- Read canonical configuration from `.hive/config/harness.toml`.
+- Use the selected interface language for questions and responses unless the user explicitly
+  requests another language for the current response. Prompt language is a separate current-request
+  choice. A message written in another language does not by itself change this preference.
+- Unless the user explicitly requests another language for the current prompt, write that prompt in English.
+- Preserve user and third-party bytes outside the exact Hive marker and ownership manifest.
+- Never call a model-provider API, request provider credentials, or launch a model/subagent process
+  on Hive's behalf. The active host owns execution.
+- Simple questions use no project edit, plan, or unrelated Skill.
+
+## Conditional routes
+
+Load only the matching contract. In ordinary collaboration mode, keep common project rules,
+planning, editing discipline, and tests; skip Hive command-backed routes below:
+
+| Work | Contract |
+| --- | --- |
+| Material work, planning, continuation, closure, host ownership | `.agents/directives/00-project-harness.md` |
+| Knowledge lookup, capture, promotion, final memory gate | `.agents/directives/01-project-knowledge.md` |
+| Setup, projection refresh, update, migration, rollback | `.agents/directives/02-project-upgrade.md` |
+| Automated project edit or concurrent host session | `.agents/directives/03-session-coordination.md` |
+| Korean response, Korean document, or Korean rewriting | `.agents/directives/04-korean-language.md` |
+
+- For code edits or documentation restructuring, consult `.hive/directives/00-editing-discipline.md`.
+  Reuse unchanged guidance within the task. Its `# CLAUDE.md` heading is original text, not host scope.
+- In Hive-enabled mode, require exact path reservations before automated edits through the session
+  coordination directive. Ordinary collaboration does not claim a Hive reservation.
+- In Hive-enabled mode, require the installed session-bound `hive usage enforce` contract
+  immediately before automatic dispatch. Exit `0` is only preflight; dispatch still requires one authorized `hive run resume`
+  brief. A current-session disable bypasses sensing but never authorizes dispatch.
+- In Hive-enabled mode, require one bounded lookup on a Wiki-enabled turn before knowledge-dependent work and the
+  agent-reviewed memory gate before final response. Wiki disabled means no knowledge mutation.
+- Optional Skills and hooks require exact capability and digest approval. Unsupported capability
+  remains unsupported; no silent runtime switch or fallback orchestration.
+<!-- AIGENT-HIVE:END -->

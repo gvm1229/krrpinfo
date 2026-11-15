@@ -3,16 +3,11 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
-  content: [
-    './app/**/*.{js,jsx,ts,tsx}',
-    './src/**/*.{js,jsx,ts,tsx}',
-    './content/**/*.{md,mdx}',
-  ],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}', './content/**/*.{md,mdx}'],
   prefix: '',
   theme: {
     container: {
       center: true,
-      padding: '2rem',
       screens: {
         '2xl': '1534px',
       },
@@ -22,6 +17,13 @@ module.exports = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        'error-text': 'var(--error-text)',
+        'success-text': 'var(--success-text)',
+        'warning-text': 'var(--warning-text)',
+        control: {
+          DEFAULT: 'var(--control)',
+          hover: 'var(--control-hover)',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
@@ -51,6 +53,36 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        // 시즌 토큰
+        season: {
+          1: 'var(--s-1)',
+          2: 'var(--s-2)',
+          3: 'var(--s-3)',
+          4: 'var(--s-4)',
+          5: 'var(--s-5)',
+        },
+        // 브랜드 블루
+        brand: {
+          blue: 'var(--brand-blue)',
+          'blue-hover': 'var(--brand-blue-hover)',
+          'blue-dark': 'var(--brand-blue-dark)',
+          link: 'var(--brand-link)',
+        },
+        // 카카오 노란색
+        kakao: {
+          yellow: 'var(--kakao-yellow)',
+        },
+        // 타임라인 태그 필 8색
+        tag: {
+          gold: 'var(--tag-gold)',
+          green: 'var(--tag-green)',
+          blue: 'var(--tag-blue)',
+          sky: 'var(--tag-sky)',
+          red: 'var(--tag-red)',
+          yellow: 'var(--tag-yellow)',
+          purple: 'var(--tag-purple)',
+          orange: 'var(--tag-orange)',
         },
       },
       borderRadius: {
@@ -84,6 +116,8 @@ module.exports = {
         108: '27rem',
       },
       maxWidth: {
+        // 글 본문 읽기 폭
+        reading: '45rem',
         108: '27rem',
         '8xl': '88rem',
         '9xl': '96rem',

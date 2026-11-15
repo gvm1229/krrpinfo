@@ -42,7 +42,7 @@ export type YouTubeVideoItem = {
   id: string;
   snippet: Snippet;
   timestamps?: Timestamp[];
-  category?: typeof categories[number];
+  category?: string;
 };
 
 export type Snippet = {
@@ -98,10 +98,3 @@ export type Timestamp = {
   title: string;
   seconds: number;
 };
-
-export const categories = [
-  '현재 시즌',
-  '향후 시즌',
-  '지난 시즌',
-  '팁',
-] as const;

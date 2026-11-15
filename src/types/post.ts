@@ -8,6 +8,7 @@ export interface Post {
   tags: string[];
   keywords: string[] | null;
   content: string;
+  content_format?: string;
   published: boolean;
   created_at: string;
   updated_at: string;

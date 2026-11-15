@@ -2,7 +2,7 @@
 
 import { env } from '@/env.mjs';
 
-const API_KEY = env.NEXON_API_KEY;
+const API_KEY = env.NEXON_API_KEY ?? '';
 
 const fetchData = async (urlString: string) => {
   try {
@@ -37,11 +37,11 @@ const fetchOuidData = async (characterName: string): Promise<OuidData> => {
 };
 
 interface BasicData {
-  racer_name: string,
-  racer_date_create: string,
-  racer_date_last_login: string,
-  racer_date_last_logout: string,
-  racer_level: number,
+  racer_name: string;
+  racer_date_create: string;
+  racer_date_last_login: string;
+  racer_date_last_logout: string;
+  racer_level: number;
 }
 
 const fetchBasicData = async (ouid: string): Promise<BasicData> => {
